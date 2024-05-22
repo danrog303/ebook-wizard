@@ -1,0 +1,51 @@
+<mat-sidenav-container class="main-nav-container" [ngClass]="{'main-nav-container__fullscreen': sidenav.opened}">
+    <mat-sidenav #sidenav class="main-navbar-side-menu">
+        <div class="main-navbar-side-menu-logo">ebook-wizard</div>
+
+        <mat-list (click)="sidenav.close()">
+            @for (navItem of navItems; track navItem.name) {
+                <a mat-list-item (click)="sidenav.close(); onTabChange(navItem.anchorId)">
+                    <div matListItemTitle>{{ navItem.name }}</div>
+                </a>
+            }
+        </mat-list>
+
+        <div class="main-navbar-side-menu-actions">
+            <div>
+                <button mat-button color="primary">Sign in</button>
+            </div>
+
+            <div>
+                <button mat-button color="primary">Register now</button>
+            </div>
+
+            <div>
+                <button mat-raised-button color="primary">Open disk</button>
+            </div>
+        </div>
+    </mat-sidenav>
+
+    <mat-toolbar class="main-navbar">
+        <button mat-icon-button (click)="sidenav.open()" class="main-navbar-menu-icon">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <span>ebook-wizard</span>
+
+        <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="main-navbar-nav">
+            @for (navItem of navItems; track navItem.name) {
+                <a mat-tab-link (click)="onTabChange(navItem.anchorId)" [active]="activeTab == navItem.anchorId">
+                    {{ navItem.name }}
+                </a>
+            }
+        </nav>
+
+        <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+
+        <div class="main-navbar-actions">
+            <button mat-button color="primary">Sign in</button>
+            <button mat-button color="primary">Register now</button>
+            <button mat-raised-button color="primary" >Open disk</button>
+        </div>
+    </mat-toolbar>
+</mat-sidenav-container>
