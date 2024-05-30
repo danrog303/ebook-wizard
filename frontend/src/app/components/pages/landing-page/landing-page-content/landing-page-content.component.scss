@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 8.5em;
+    margin-top: 6em;
     padding: 0 8em;
 }
 
@@ -16,15 +16,11 @@
 }
 
 .landing-section-figure {
-    background-color: gray;
-    margin: 3em;
+    margin: 3em 0;
     height: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px dashed black;
-    opacity: 30%;
-    border-radius: 4px;
 }
 
 .landing-section-description {
@@ -48,7 +44,7 @@
     line-height: 1.4;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1200px) {
     .landing-section {
         flex-direction: column;
         padding: 0 1em;
