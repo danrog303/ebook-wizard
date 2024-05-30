@@ -1,19 +1,14 @@
 import {Component} from '@angular/core';
-import {MatIconModule} from "@angular/material/icon";
-import {MatButtonModule} from "@angular/material/button";
-import {MatListModule} from "@angular/material/list";
-import {MatSidenavModule} from "@angular/material/sidenav";
-import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatTabsModule} from "@angular/material/tabs";
 import {RouterModule} from "@angular/router";
 import {CommonModule, ViewportScroller} from "@angular/common";
+import {MaterialModule} from "../../../../modules/material.module";
 
 @Component({
     selector: 'app-landing-page-navbar',
     standalone: true,
     templateUrl: './landing-page-navbar.component.html',
     styleUrl: './landing-page-navbar.component.scss',
-    imports: [MatListModule, RouterModule, MatButtonModule, MatToolbarModule, MatIconModule, MatSidenavModule, MatTabsModule, CommonModule]
+    imports: [MaterialModule, RouterModule, CommonModule]
 })
 export class LandingPageNavbarComponent {
     activeTab: string = 'landing-page-content-header';

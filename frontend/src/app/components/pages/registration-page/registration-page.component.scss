@@ -1,0 +1,38 @@
+.register-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.register-form-card {
+    padding: 3em;
+    width: 50em;
+    min-width: 20em;
+}
+
+.button-flex-container {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.button-flex-container button:first-of-type {
+    margin-right: auto;
+}
+
+.register-form-title {
+    margin-bottom: 0.1em;
+
+    button {
+        font-size: 65%;
+    }
+}
+
+.register-form-input {
+    width: 100%;
+}
+
+.register-form-content {
+    padding: 0;
+}
