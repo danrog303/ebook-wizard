@@ -1,0 +1,19 @@
+<button mat-button mat-raised-button
+        [color]="color"
+        [type]="this.type"
+        [disabled]="this.pending || this.disabled"
+        (click)="this.click.emit()">
+
+    <div class="button-with-indicator">
+        @if (pending) {
+            <ng-container>
+                <mat-icon><mat-spinner diameter="20"></mat-spinner>
+                </mat-icon>
+            </ng-container>
+        }
+
+        <span>
+            <ng-content />
+        </span>
+    </div>
+</button>

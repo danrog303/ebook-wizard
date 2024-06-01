@@ -1,0 +1,54 @@
+@if (accountActivated) {
+    <h2 mat-dialog-title>Your email is confirmed!</h2>
+
+    <mat-dialog-content>
+        <p>
+            Your email has been confirmed.
+        </p>
+        <p>
+            You can now log in to <strong>ebook-wizard</strong>.
+        </p>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button mat-button mat-raised-button
+                color="primary"
+                [mat-dialog-close]="true"
+                (click)="navigateToLogin()">
+            Login now!
+        </button>
+    </mat-dialog-actions>
+} @else {
+    <h2 mat-dialog-title>Confirm your email</h2>
+    <form [formGroup]="registrationConfirmForm" (ngSubmit)="onRegistrationConfirmSubmit()">
+        <mat-dialog-content>
+            <p>
+                Thank you for registering to <strong>ebook-wizard</strong>!
+            </p>
+            <p>
+                Please check your email. There you will find a code to confirm your registration.
+            </p>
+            <mat-form-field>
+                <mat-label>Verification code</mat-label>
+                <input matInput formControlName="code" />
+            </mat-form-field>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button
+                    class="registration-confirm-resend-button"
+                    type="button"
+                    (click)="onCodeResend()"
+                    [disabled]="codeResendPending">
+                <mat-icon>refresh</mat-icon>
+                Resend verification code
+            </button>
+
+            <app-action-pending-button
+                [pending]="registrationPending"
+                [disabled]="registrationConfirmForm.invalid"
+                type="submit">
+                Confirm
+            </app-action-pending-button>
+        </mat-dialog-actions>
+    </form>
+}

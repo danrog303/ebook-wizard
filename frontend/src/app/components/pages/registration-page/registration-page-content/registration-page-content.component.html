@@ -58,32 +58,23 @@
                 </mat-form-field>
 
                 <re-captcha (resolved)="onRecaptchaResolved($event)"
-                            [siteKey]="recaptchaSiteKey" />
+                            [siteKey]="recaptchaSiteKey"/>
             </mat-card-content>
+
+            <mat-card-actions>
+                <div class="button-flex-container">
+                    <button mat-button routerLink="/auth/login" type="button">
+                        Login instead &rarr;
+                    </button>
+
+                    <app-action-pending-button
+                        [pending]="pending"
+                        [disabled]="registerForm.invalid"
+                        type="submit">
+                        Register
+                    </app-action-pending-button>
+                </div>
+            </mat-card-actions>
         </form>
-
-        <mat-card-actions>
-            <div class="button-flex-container">
-                <button mat-button routerLink="/auth/login">
-                    Login instead &rarr;
-                </button>
-
-                <button mat-button mat-raised-button color="primary"
-                        [disabled]="pending || registerForm.invalid"
-                        (click)="onRegisterSubmit()">
-
-                    <div class="button-with-indicator">
-                        @if (pending) {
-                            <ng-container>
-                                <mat-icon><mat-spinner diameter="20"></mat-spinner>
-                                </mat-icon>
-                            </ng-container>
-                        }
-
-                        <span>Register</span>
-                    </div>
-                </button>
-            </div>
-        </mat-card-actions>
     </mat-card>
 </div>

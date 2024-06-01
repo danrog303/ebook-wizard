@@ -1,0 +1,18 @@
+<button mat-button
+        type="button"
+        [disabled]="this.logoutPending"
+        (click)="onLogout()">
+
+    <div class="button-with-indicator">
+        @if (logoutPending) {
+            <ng-container>
+                <mat-icon><mat-spinner diameter="20"></mat-spinner>
+                </mat-icon>
+            </ng-container>
+        }
+
+        <span>
+            Logout
+        </span>
+    </div>
+</button>

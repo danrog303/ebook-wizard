@@ -2,13 +2,15 @@ import {Component} from '@angular/core';
 import {RouterModule} from "@angular/router";
 import {CommonModule, ViewportScroller} from "@angular/common";
 import {MaterialModule} from "../../../../modules/material.module";
+import {AuthenticationService} from "../../../../services/authentication.service";
+import {LogoutButtonComponent} from "../../../common/logout-button/logout-button.component";
 
 @Component({
     selector: 'app-landing-page-navbar',
     standalone: true,
     templateUrl: './landing-page-navbar.component.html',
     styleUrl: './landing-page-navbar.component.scss',
-    imports: [MaterialModule, RouterModule, CommonModule]
+    imports: [MaterialModule, RouterModule, CommonModule, LogoutButtonComponent]
 })
 export class LandingPageNavbarComponent {
     activeTab: string = 'landing-page-content-header';
@@ -19,10 +21,11 @@ export class LandingPageNavbarComponent {
         {anchorId: 'landing-page-content-cta', name: 'Get started'}
     ]
 
-    constructor(private viewportScroller: ViewportScroller) {}
+    constructor(public viewportScrollerService: ViewportScroller,
+                public authenticationService: AuthenticationService) {}
 
     scrollToElement(elementId: string): void {
-        this.viewportScroller.scrollToAnchor(elementId);
+        this.viewportScrollerService.scrollToAnchor(elementId);
     }
 
     onTabChange(anchorId: string): void {

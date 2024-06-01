@@ -18,13 +18,18 @@
 
         <div class="landing-section-buttons">
             <button mat-flat-button color="primary">Open your disk</button>
-            <button mat-stroked-button routerLink="/auth/login">Sign in</button>
+
+            @if (!isUserAuthenticated) {
+                <button mat-stroked-button routerLink="/auth/login">Sign in</button>
+            }
         </div>
 
-        <div class="landing-section-registration">
-            You don't have an account yet?
-            <a routerLink="/auth/register">Register now!</a>
-        </div>
+        @if (!isUserAuthenticated) {
+            <div class="landing-section-registration">
+                You don't have an account yet?
+                <a routerLink="/auth/register">Register now!</a>
+            </div>
+        }
     </div>
 </section>
 
@@ -73,9 +78,15 @@
             It doesn't cost you anything, and you will gain access to many features that will help you manage your e-books.
         </p>
 
-        <div class="landing-section-registration">
-            <a routerLink="/auth/login">Sign in</a> or <a routerLink="/auth/register">register now</a> to gain free access to ebook-wizard.
-        </div>
+        @if (!isUserAuthenticated) {
+            <div class="landing-section-registration">
+                <a routerLink="/auth/login">Sign in</a> or <a routerLink="/auth/register">register now</a> to gain free access to ebook-wizard.
+            </div>
+        } @else {
+            <div class="landing-section-registration">
+                <a routerLink="/dashboard">Go to your dashboard</a> to start using ebook-wizard.
+            </div>
+        }
     </div>
 
     <div class="landing-section-figure">
