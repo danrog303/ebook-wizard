@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {RouterModule} from "@angular/router";
 import {CommonModule, ViewportScroller} from "@angular/common";
 import {MaterialModule} from "../../../../modules/material.module";
@@ -15,16 +15,17 @@ import {LogoutButtonComponent} from "../../../common/logout-button/logout-button
 export class LandingPageNavbarComponent {
     activeTab: string = 'landing-page-content-header';
     navItems = [
-        {anchorId: 'landing-page-content-header', name: 'Home'},
-        {anchorId: 'landing-page-content-functionalities', name: 'Functionalities'},
-        {anchorId: 'landing-page-content-supported-formats', name: 'Supported formats'},
-        {anchorId: 'landing-page-content-cta', name: 'Get started'}
+        {anchorId: 'landing-page-header', name: 'Home'},
+        {anchorId: 'landing-page-functionalities', name: 'Functionalities'},
+        {anchorId: 'landing-page-supported-formats', name: 'Supported formats'},
+        {anchorId: 'landing-page-cta', name: 'Get started'}
     ]
 
     constructor(public viewportScrollerService: ViewportScroller,
                 public authenticationService: AuthenticationService) {}
 
     scrollToElement(elementId: string): void {
+        console.log("Scrolling to: ", elementId);
         this.viewportScrollerService.scrollToAnchor(elementId);
     }
 
@@ -32,4 +33,26 @@ export class LandingPageNavbarComponent {
         this.activeTab = anchorId;
         this.scrollToElement(anchorId);
     }
+
+    @HostListener('window:scroll', ['$event']) // for window scroll events
+    onScroll(event: Event) {
+        for (let navItem of this.navItems.slice().reverse()) {
+            const element = document.getElementById(navItem.anchorId);
+            if (element && this.isElementInViewport(element)) {
+                this.activeTab = navItem.anchorId;
+            }
+        }
+    }
+
+    isElementInViewport (element: HTMLElement) {
+        const rect = element.getBoundingClientRect();
+
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+        );
+    }
+
 }

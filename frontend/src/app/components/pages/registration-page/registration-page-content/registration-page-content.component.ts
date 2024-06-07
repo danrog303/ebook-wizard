@@ -60,7 +60,7 @@ export class RegistrationPageContentComponent {
     }
 
     openConfirmRegistrationDialog(): void {
-        const dialogRef = this.dialogService.open(RegistrationConfirmModalComponent, {
+        this.dialogService.open(RegistrationConfirmModalComponent, {
             data: {
                 userEmail: this.registerForm.controls['email'].value
             },

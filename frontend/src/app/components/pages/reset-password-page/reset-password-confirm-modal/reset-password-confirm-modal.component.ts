@@ -3,11 +3,7 @@ import {ActionPendingButtonComponent} from "../../../common/action-pending-butto
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {AuthenticationService} from "../../../../services/authentication.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
-import {
-    RegistrationConfirmModalInput
-} from "../../registration-page/registration-confirm-modal/registration-confirm-modal.component";
 import {MaterialModule} from "../../../../modules/material.module";
 import passwordStrengthValidator from "../../../../validators/password-strength.validator";
 import passwordMatchValidator from "../../../../validators/password-match.validate";
@@ -30,7 +26,7 @@ export class ResetPasswordConfirmModalComponent {
     resetPasswordConfirmForm: FormGroup;
 
     constructor(public dialogRef: MatDialogRef<ResetPasswordConfirmModalComponent>,
-                @Inject(MAT_DIALOG_DATA) public userData: RegistrationConfirmModalInput,
+                @Inject(MAT_DIALOG_DATA) public userData: ResetPasswordConfirmModalInput,
                 private notificationService: NotificationService,
                 private authService: AuthenticationService,
                 private routerService: Router) {
