@@ -1,0 +1,22 @@
+version: 1
+applications:
+  - frontend:
+      phases:
+        preBuild:
+          commands:
+            - "nvm install v20.10.0"
+            - "nvm use v20.10.0"
+            - "npm ci --cache .npm --prefer-offline"
+        build:
+          commands:
+            - "nvm install v20.10.0"
+            - "nvm use v20.10.0"
+            - "npm run build"
+      artifacts:
+        baseDirectory: dist/frontend/browser
+        files:
+          - "**/*"
+      cache:
+        paths:
+          - ".npm/**/*"
+    appRoot: frontend
