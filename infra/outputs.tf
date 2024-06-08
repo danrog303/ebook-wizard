@@ -12,3 +12,8 @@ output "database_db_name" {
     description = "MongoDB: Database name"
     value = module.database.mongodb_db_name
 }
+
+output "file_storage_s3_bucket_name" {
+    description = "File storage: S3 bucket name"
+    value = module.file_storage.s3_bucket_name
+}

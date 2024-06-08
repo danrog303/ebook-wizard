@@ -11,3 +11,7 @@ module "database" {
     atlas_db_username = var.atlas_db_username
     atlas_db_password = var.atlas_db_password
 }
+
+module "file_storage" {
+    source = "./file_storage"
+}
