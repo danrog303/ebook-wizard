@@ -1,6 +1,14 @@
 module "frontend" {
+    count = terraform.workspace == "local" ? 0 : 1
+    depends_on = [module.backend]
     source = "./frontend"
     github_token = var.github_token
+}
+
+module "backend" {
+    count = terraform.workspace == "local" ? 0 : 1
+    depends_on = [module.database, module.file_storage]
+    source = "./backend"
 }
 
 module "database" {
