@@ -1,27 +1,3 @@
-variable "aws_region" {
-    description = "AWS: Region to deploy resources"
-    type        = string
-    default     = "eu-central-1"
-}
-
-variable "aws_access_key" {
-	  description = "AWS: Access key"
-	  type        = string
-	  sensitive   = true
-}
-
-variable "aws_secret_key" {
-      description = "AWS: Secret key"
-      type        = string
-      sensitive   = true
-}
-
-variable "github_token" {
-    description = "GitHub: Oauth2 token required to access the repository"
-    type        = string
-    sensitive   = true
-}
-
 variable "atlas_public_key" {
     description = "MongoDB Atlas: Public key"
     type        = string
@@ -40,6 +16,13 @@ variable "atlas_organization_id" {
     sensitive   = false
 }
 
+variable "atlas_region" {
+    description = "MongoDB Atlas: Region to deploy resources"
+    type        = string
+    default     = "EU_WEST_1"
+    sensitive = false
+}
+
 variable "atlas_db_username" {
     description = "MongoDB Atlas: Database username"
     type        = string
@@ -50,4 +33,11 @@ variable "atlas_db_password" {
     description = "MongoDB Atlas: Database password"
     type        = string
     sensitive   = true
+}
+
+variable "atlas_db_name" {
+    description = "MongoDB Atlas: Database name"
+    type        = string
+    default     = "ebookwizard"
+    sensitive = false
 }
