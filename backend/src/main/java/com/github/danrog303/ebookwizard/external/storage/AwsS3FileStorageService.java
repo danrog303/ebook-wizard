@@ -1,4 +1,4 @@
-package com.github.danrog303.ebookwizard.external.storage.s3;
+package com.github.danrog303.ebookwizard.external.storage;
 
 import com.github.danrog303.ebookwizard.external.storage.FileStorageService;
 import lombok.RequiredArgsConstructor;

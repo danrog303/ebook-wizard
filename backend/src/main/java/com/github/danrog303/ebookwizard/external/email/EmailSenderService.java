@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Interface for email sending services.
  */
-public interface EmailSender {
+public interface EmailSenderService {
     void send(String to, String subject, String messageHtml);
     void send(String to, String subject, String messageHtml, List<EmailAttachment> attachments);
 }

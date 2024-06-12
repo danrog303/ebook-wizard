@@ -1,6 +1,7 @@
 package com.github.danrog303.ebookwizard.external.auth.cognito;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import software.amazon.awssdk.regions.Region;
@@ -12,7 +13,8 @@ import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityPr
 @Configuration
 @RequiredArgsConstructor
 public class AwsCognitoConfig {
-    private final Region awsRegion;
+    @Value("${spring.cloud.aws.region.static}")
+    private String awsRegion;
 
     /**
      * Instance of Amazon Cognito client.
@@ -20,7 +22,7 @@ public class AwsCognitoConfig {
     @Bean
     public CognitoIdentityProviderClient cognitoIdentityProviderClient() {
         return CognitoIdentityProviderClient.builder()
-                .region(awsRegion)
+                .region(Region.of(awsRegion))
                 .build();
     }
 }
