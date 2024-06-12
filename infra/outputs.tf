@@ -22,3 +22,8 @@ output "backend_url" {
     description = "Backend: URL to access the application"
     value = length(module.backend) > 0 ? module.backend[0].backend_url : "not deployed"
 }
+
+output "queue_url" {
+    description = "Queue: URL to access the AWS SQS queue"
+    value = module.queue.queue_url
+}

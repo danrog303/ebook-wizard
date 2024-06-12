@@ -23,3 +23,7 @@ module "database" {
 module "file_storage" {
     source = "./file_storage"
 }
+
+module "queue" {
+    source = "./queue"
+}
