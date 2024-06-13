@@ -23,7 +23,12 @@ output "backend_url" {
     value = length(module.backend) > 0 ? module.backend[0].backend_url : "not deployed"
 }
 
-output "queue_url" {
-    description = "Queue: URL to access the AWS SQS queue"
-    value = module.queue.queue_url
+output "conversion_queue_url" {
+    description = "Queue: URL to access the AWS SQS conversion queue"
+    value = module.queue.conversion_queue_url
+}
+
+output "email_queue_url" {
+    description = "Queue: URL to access the AWS SQS email queue"
+    value = module.queue.email_queue_url
 }

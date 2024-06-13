@@ -4,6 +4,11 @@ import com.github.danrog303.ebookwizard.domain.ebookfile.EbookFileRepository;
 import com.github.danrog303.ebookwizard.domain.ebookproject.EbookProject;
 import com.github.danrog303.ebookwizard.domain.ebookproject.EbookProjectChapter;
 import com.github.danrog303.ebookwizard.domain.ebookproject.EbookProjectRepository;
+import com.github.danrog303.ebookwizard.domain.taskqueue.common.QueueTask;
+import com.github.danrog303.ebookwizard.domain.taskqueue.common.QueueTaskPayload;
+import com.github.danrog303.ebookwizard.domain.taskqueue.common.QueueTaskService;
+import com.github.danrog303.ebookwizard.domain.taskqueue.email.EmailQueueService;
+import com.github.danrog303.ebookwizard.domain.taskqueue.email.EmailQueueTaskPayload;
 import com.github.danrog303.ebookwizard.external.auth.AuthorizationProvider;
 import com.github.danrog303.ebookwizard.external.email.EmailAttachment;
 import com.github.danrog303.ebookwizard.external.email.EmailSenderService;
@@ -25,6 +30,8 @@ public class TestController {
     private final EbookFileRepository ebookFileRepository;
     private final EbookProjectRepository ebookProjectRepository;
     private final EmailSenderService emailSender;
+    private final QueueTaskService queueTaskService;
+    private final EmailQueueService emailQueueService;
 
     @GetMapping("/ping")
     public Map<String, String> ping() {return Map.of("message", "pong");
@@ -70,5 +77,19 @@ public class TestController {
         );
         emailSender.send("shirock98@gmail.com", email, message, attachments);
         return Map.of("message", "sent email");
+    }
+
+    @GetMapping("/enqueue")
+    @SneakyThrows
+    public List<QueueTask<QueueTaskPayload>> enqueue() {
+        var payload1 = new EmailQueueTaskPayload("daniel.rogowski@onet.pl", "to jest test 1", "testujemy wysyłanie emaili 1", List.of());
+        var payload2 = new EmailQueueTaskPayload("daniel.rogowski@onet.pl", "to jest test 2", "testujemy wysyłanie emaili 2", List.of());
+        var payload3 = new EmailQueueTaskPayload("daniel.rogowski@onet.pl", "to jest test 3", "testujemy wysyłanie emaili 3", List.of());
+
+        var task1 = emailQueueService.enqueueEmail(payload1);
+        var task2 = emailQueueService.enqueueEmail(payload2);
+        var task3 = emailQueueService.enqueueEmail(payload3);
+
+        return List.of(task1, task2, task3);
     }
 }
