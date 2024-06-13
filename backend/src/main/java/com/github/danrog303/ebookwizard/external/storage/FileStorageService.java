@@ -8,4 +8,5 @@ public interface FileStorageService {
     void uploadFile(String key, File file);
     InputStream downloadFile(String key);
     void deleteFile(String key);
+    String getDownloadUrl(String key);
 }

@@ -1,18 +1,22 @@
 package com.github.danrog303.ebookwizard.external.storage;
 
-import com.github.danrog303.ebookwizard.external.storage.FileStorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
+import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.stream.Stream;
+import java.time.Duration;
 
+@Service
 @RequiredArgsConstructor
 public class AwsS3FileStorageService implements FileStorageService {
     private final S3Client s3Client;
@@ -48,5 +52,24 @@ public class AwsS3FileStorageService implements FileStorageService {
                 .build();
 
         s3Client.deleteObject(deleteObjectRequest);
+    }
+
+    @Override
+    public String getDownloadUrl(String key) {
+        try (S3Presigner presigner = S3Presigner.create()) {
+
+            GetObjectRequest objectRequest = GetObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(key)
+                    .build();
+
+            GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
+                    .signatureDuration(Duration.ofMinutes(60))
+                    .getObjectRequest(objectRequest)
+                    .build();
+
+            PresignedGetObjectRequest presignedRequest = presigner.presignGetObject(presignRequest);
+            return presignedRequest.url().toExternalForm();
+        }
     }
 }

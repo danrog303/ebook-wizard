@@ -12,6 +12,7 @@ import com.github.danrog303.ebookwizard.domain.taskqueue.email.EmailQueueTaskPay
 import com.github.danrog303.ebookwizard.external.auth.AuthorizationProvider;
 import com.github.danrog303.ebookwizard.external.email.EmailAttachment;
 import com.github.danrog303.ebookwizard.external.email.EmailSenderService;
+import com.github.danrog303.ebookwizard.external.storage.FileStorageService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +33,15 @@ public class TestController {
     private final EmailSenderService emailSender;
     private final QueueTaskService queueTaskService;
     private final EmailQueueService emailQueueService;
+    private final FileStorageService fileStorageService;
 
     @GetMapping("/ping")
     public Map<String, String> ping() {return Map.of("message", "pong");
+    }
+
+    @GetMapping("/s3")
+    public String s3Test() {
+        return fileStorageService.getDownloadUrl("13210.jpg");
     }
 
     @GetMapping("/me")
