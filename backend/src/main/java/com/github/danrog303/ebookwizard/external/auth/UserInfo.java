@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * Represents additional user information retrieved from the authentication server.
+ * Represents additional user information retrieved from the authentication server (AWS Cognito).
  */
 @Data @AllArgsConstructor
 public class UserInfo {

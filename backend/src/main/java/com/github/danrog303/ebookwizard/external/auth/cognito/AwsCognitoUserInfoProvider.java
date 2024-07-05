@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * AWS Cognito implementation of {@link com.github.danrog303.ebookwizard.external.auth.UserInfoProvider}.
+ * Connects to AWS Cognito service and retrieves metadata information about the specified user.
  */
 @Service
 @RequiredArgsConstructor

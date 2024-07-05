@@ -13,6 +13,13 @@ public class EbookFileLock {
     @NotNull
     private Boolean isLocked;
 
-    @NotNull
     private Date lockExpirationDate;
+
+    public boolean isLockExpired() {
+        return lockExpirationDate != null && lockExpirationDate.before(new Date());
+    }
+
+    public boolean getIsLocked() {
+        return isLocked && !isLockExpired();
+    }
 }

@@ -11,6 +11,9 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Controller for tracking task status using Server-Sent Events.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/queue/task/tracking")
@@ -18,6 +21,11 @@ import java.util.concurrent.Executors;
 public class QueueTaskTrackingController {
     private final QueueTaskTrackingService queueTaskTrackingService;
 
+    /**
+     * Returns Server-Sent Events emitter for tracking task status.
+     * When task with given ID is completed, emitter is closed.
+     * When task with given ID is not found, returns task object with status "NOT_FOUND".
+     */
     @GetMapping("/{taskId}")
     public SseEmitter getTaskStatus(@PathVariable String taskId) {
         log.debug("Incoming request to track task with ID: {}", taskId);

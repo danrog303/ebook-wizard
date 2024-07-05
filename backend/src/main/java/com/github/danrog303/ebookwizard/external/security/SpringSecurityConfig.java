@@ -14,9 +14,15 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
+/**
+ * Spring Security configuration for the application.
+ */
 @Configuration
 @EnableMethodSecurity
 public class SpringSecurityConfig {
+    /**
+     * Configures the security filter chain (session management, oauth2 authentication, cors management).
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
@@ -39,7 +45,10 @@ public class SpringSecurityConfig {
         return http.build();
     }
 
-    CorsConfigurationSource corsConfigurationSource() {
+    /**
+     * Configures the CORS policy for the application.
+     */
+    private CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:4200"));
         configuration.setAllowedMethods(List.of("GET","POST","PUT","DELETE"));

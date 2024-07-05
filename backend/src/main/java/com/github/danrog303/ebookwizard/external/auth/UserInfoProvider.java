@@ -1,7 +1,7 @@
 package com.github.danrog303.ebookwizard.external.auth;
 
 /**
- * Retrieves additional information about the user from the authentication server.
+ * Retrieves additional information about the user from the authentication server (AWS Cognito).
  */
 public interface UserInfoProvider {
     /**

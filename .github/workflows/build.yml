@@ -17,6 +17,12 @@ jobs:
             java-version: '17'
             distribution: 'temurin'
             cache: maven
+      
+      # Installs and caches "calibre" libraries
+      # Calibre is required to run unit tests
+      - uses: tecolicom/actions-use-apt-tools@v1
+        with:
+          tools: calibre
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml

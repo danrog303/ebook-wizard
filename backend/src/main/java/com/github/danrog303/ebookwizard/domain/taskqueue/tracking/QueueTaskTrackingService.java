@@ -1,8 +1,8 @@
 package com.github.danrog303.ebookwizard.domain.taskqueue.tracking;
 
-import com.github.danrog303.ebookwizard.domain.taskqueue.common.QueueTask;
-import com.github.danrog303.ebookwizard.domain.taskqueue.common.QueueTaskRepository;
-import com.github.danrog303.ebookwizard.domain.taskqueue.common.QueueTaskStatus;
+import com.github.danrog303.ebookwizard.domain.taskqueue.database.QueueTask;
+import com.github.danrog303.ebookwizard.domain.taskqueue.database.QueueTaskRepository;
+import com.github.danrog303.ebookwizard.domain.taskqueue.QueueTaskStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -11,6 +11,11 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import java.io.IOException;
 import java.util.Date;
 
+/**
+ * Service for tracking task status using Server-Sent Events.
+ * When task with given ID is completed, emitter is closed.
+ * When task with given ID is not found, returns task object with status "NOT_FOUND".
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor

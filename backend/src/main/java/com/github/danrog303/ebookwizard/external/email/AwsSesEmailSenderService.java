@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.util.List;
 
+/**
+ * Implementation of {@link EmailSenderService} that sends emails using AWS SES.
+ * Can be used to send emails with or without attachments.
+ */
 @Service
 @RequiredArgsConstructor
 public class AwsSesEmailSenderService implements EmailSenderService {

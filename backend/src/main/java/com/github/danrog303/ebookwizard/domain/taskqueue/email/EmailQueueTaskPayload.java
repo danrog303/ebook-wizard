@@ -1,11 +1,12 @@
 package com.github.danrog303.ebookwizard.domain.taskqueue.email;
 
-import com.github.danrog303.ebookwizard.domain.taskqueue.common.QueueTaskPayload;
+import com.github.danrog303.ebookwizard.domain.taskqueue.database.QueueTaskPayload;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
@@ -18,7 +19,8 @@ public class EmailQueueTaskPayload extends QueueTaskPayload {
     List<EmailQueueTaskPayloadAttachment> attachments;
 
     @Data
-    public static class EmailQueueTaskPayloadAttachment {
+    @NoArgsConstructor @AllArgsConstructor
+    public static class EmailQueueTaskPayloadAttachment implements Serializable {
         String filename;
         String s3ObjectKey;
     }

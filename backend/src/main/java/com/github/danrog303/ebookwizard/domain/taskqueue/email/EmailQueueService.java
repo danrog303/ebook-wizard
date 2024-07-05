@@ -1,12 +1,26 @@
 package com.github.danrog303.ebookwizard.domain.taskqueue.email;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.danrog303.ebookwizard.domain.taskqueue.common.*;
+import com.github.danrog303.ebookwizard.domain.taskqueue.QueueTaskConfig;
+import com.github.danrog303.ebookwizard.domain.taskqueue.QueueTaskService;
+import com.github.danrog303.ebookwizard.domain.taskqueue.QueueTaskStatus;
+import com.github.danrog303.ebookwizard.domain.taskqueue.database.QueueTask;
+import com.github.danrog303.ebookwizard.domain.taskqueue.database.QueueTaskPayload;
+import com.github.danrog303.ebookwizard.external.email.EmailAttachment;
 import com.github.danrog303.ebookwizard.external.email.EmailSenderService;
+import com.github.danrog303.ebookwizard.external.storage.FileStorageService;
+import com.github.danrog303.ebookwizard.util.temp.TemporaryDirectory;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
 @Slf4j
 @Service
@@ -16,6 +30,7 @@ public class EmailQueueService {
     private final QueueTaskService queueTaskService;
     private final EmailSenderService emailService;
     private final ObjectMapper objectMapper;
+    private final FileStorageService fileStorageService;
 
     public QueueTask<QueueTaskPayload> enqueueEmail(EmailQueueTaskPayload emailQueueTaskPayload) {
         String emailQueueUrl = this.queueTaskConfig.getEmailQueueUrl();
@@ -30,9 +45,14 @@ public class EmailQueueService {
             queueTaskPayload = this.objectMapper.readValue(payloadJson, EmailQueueTaskPayload.class);
             log.debug("Processing email task: {}", queueTaskPayload.getTaskId());
 
-            Thread.sleep(5000);
             this.queueTaskService.updateTaskStatus(queueTaskPayload.getTaskId(), QueueTaskStatus.IN_PROGRESS);
-            this.emailService.send(queueTaskPayload.getTo(), queueTaskPayload.getSubject(), queueTaskPayload.getContentHtml());
+
+            if (queueTaskPayload.getAttachments() != null && !queueTaskPayload.getAttachments().isEmpty()) {
+                sendEmailWithAttachments(queueTaskPayload);
+            } else {
+                sendEmailWithoutAttachments(queueTaskPayload);
+            }
+
             this.queueTaskService.updateTaskStatus(queueTaskPayload.getTaskId(), QueueTaskStatus.COMPLETED);
             log.debug("Processing email task completed: {}", queueTaskPayload.getTaskId());
         } catch (Exception e) {
@@ -43,5 +63,29 @@ public class EmailQueueService {
                 this.queueTaskService.updateTaskStatus(queueTaskPayload.getTaskId(), QueueTaskStatus.FAILED);
             }
         }
+    }
+
+    @SneakyThrows(IOException.class)
+    private void sendEmailWithAttachments(EmailQueueTaskPayload payload) {
+        try (TemporaryDirectory tempDir = new TemporaryDirectory()) {
+            var emailAttachments = new ArrayList<EmailAttachment>();
+
+            for (var attachment : payload.getAttachments()) {
+                Path tempFile = Paths.get(tempDir.getDirectory().resolve(attachment.getFilename()).toString());
+                Files.copy(this.fileStorageService.downloadFile(attachment.getS3ObjectKey()), tempFile);
+                emailAttachments.add(new EmailAttachment(attachment.getFilename(), tempFile));
+            }
+
+            this.emailService.send(
+                    payload.getTo(),
+                    payload.getSubject(),
+                    payload.getContentHtml(),
+                    emailAttachments
+            );
+        }
+    }
+
+    private void sendEmailWithoutAttachments(EmailQueueTaskPayload payload) {
+        this.emailService.send(payload.getTo(), payload.getSubject(), payload.getContentHtml());
     }
 }

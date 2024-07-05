@@ -16,6 +16,10 @@ import java.io.File;
 import java.io.InputStream;
 import java.time.Duration;
 
+/**
+ * Service for storing and retrieving files from AWS S3.
+ * Implements the FileStorageService interface.
+ */
 @Service
 @RequiredArgsConstructor
 public class AwsS3FileStorageService implements FileStorageService {
@@ -32,6 +36,16 @@ public class AwsS3FileStorageService implements FileStorageService {
                 .build();
 
         s3Client.putObject(putObjectRequest, RequestBody.fromFile(file));
+    }
+
+    @Override
+    public void uploadFile(String key, InputStream dataStream, long contentLength) {
+        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                .bucket(bucketName)
+                .key(key)
+                .build();
+
+        s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(dataStream, contentLength));
     }
 
     @Override
