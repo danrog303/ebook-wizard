@@ -11,6 +11,9 @@ import java.util.Date;
 @AllArgsConstructor @NoArgsConstructor
 public class EbookDownloadableResource {
     @NotNull
+    private String stub;
+
+    @NotNull
     private EbookFormat format;
 
     @NotNull

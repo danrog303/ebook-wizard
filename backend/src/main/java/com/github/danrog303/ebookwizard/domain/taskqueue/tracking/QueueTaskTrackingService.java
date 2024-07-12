@@ -1,7 +1,7 @@
 package com.github.danrog303.ebookwizard.domain.taskqueue.tracking;
 
-import com.github.danrog303.ebookwizard.domain.taskqueue.database.QueueTask;
-import com.github.danrog303.ebookwizard.domain.taskqueue.database.QueueTaskRepository;
+import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTask;
+import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTaskRepository;
 import com.github.danrog303.ebookwizard.domain.taskqueue.QueueTaskStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

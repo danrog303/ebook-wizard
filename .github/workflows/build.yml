@@ -11,10 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-            java-version: '17'
+            java-version: '21'
             distribution: 'temurin'
             cache: maven
       
@@ -22,6 +22,11 @@ jobs:
       # Calibre is required to run unit tests
       - name: Install Calibre
         run: sudo apt-get update && sudo apt-get install -y calibre
+      
+      - name: Configure Github Packages access
+        uses: s4u/maven-settings-action@v3.0.0
+        with:
+          servers: '[{"id": "github","configuration": {"httpHeaders": {"property": {"name": "Authorization","value": "Bearer ${{ secrets.GITHUB_TOKEN }}"}}}}]'
 
       - name: Build with Maven
         run: mvn clean verify

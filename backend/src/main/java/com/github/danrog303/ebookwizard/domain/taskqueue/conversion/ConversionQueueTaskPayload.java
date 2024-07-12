@@ -1,6 +1,6 @@
 package com.github.danrog303.ebookwizard.domain.taskqueue.conversion;
 
-import com.github.danrog303.ebookwizard.domain.taskqueue.database.QueueTaskPayload;
+import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTaskPayload;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

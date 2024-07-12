@@ -2,9 +2,9 @@ package com.github.danrog303.ebookwizard.domain.taskqueue;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.danrog303.ebookwizard.domain.taskqueue.database.QueueTask;
-import com.github.danrog303.ebookwizard.domain.taskqueue.database.QueueTaskPayload;
-import com.github.danrog303.ebookwizard.domain.taskqueue.database.QueueTaskRepository;
+import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTask;
+import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTaskPayload;
+import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTaskRepository;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;

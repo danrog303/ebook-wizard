@@ -1,11 +1,11 @@
 package com.github.danrog303.ebookwizard.domain.test;
 
-import com.github.danrog303.ebookwizard.domain.ebookfile.database.EbookFileRepository;
-import com.github.danrog303.ebookwizard.domain.ebookproject.database.EbookProject;
-import com.github.danrog303.ebookwizard.domain.ebookproject.database.EbookProjectChapter;
-import com.github.danrog303.ebookwizard.domain.ebookproject.database.EbookProjectRepository;
-import com.github.danrog303.ebookwizard.domain.taskqueue.database.QueueTask;
-import com.github.danrog303.ebookwizard.domain.taskqueue.database.QueueTaskPayload;
+import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFileRepository;
+import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
+import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectChapter;
+import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectRepository;
+import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTask;
+import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTaskPayload;
 import com.github.danrog303.ebookwizard.domain.taskqueue.QueueTaskService;
 import com.github.danrog303.ebookwizard.domain.taskqueue.email.EmailQueueService;
 import com.github.danrog303.ebookwizard.domain.taskqueue.email.EmailQueueTaskPayload;

@@ -1,6 +1,7 @@
 package com.github.danrog303.ebookwizard.external.auth;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -62,5 +63,14 @@ public class AuthorizationProvider {
     public UserInfo getUserInfo( ) {
         String userId = getAuthenticatedUserId();
         return userInfoProvider.getUserInfo(userId);
+    }
+
+    /**
+     * Checks if the user is authenticated and throws an exception if not.
+     */
+    public void requireAuthentication() {
+        if (!isUserAuthenticated()) {
+            throw new AuthorizationServiceException("User is not authenticated.");
+        }
     }
 }

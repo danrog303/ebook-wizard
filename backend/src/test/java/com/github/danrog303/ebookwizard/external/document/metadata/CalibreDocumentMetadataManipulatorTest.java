@@ -1,7 +1,7 @@
 package com.github.danrog303.ebookwizard.external.document.metadata;
 
 import com.github.danrog303.ebookwizard.domain.ebook.EbookFormat;
-import com.github.danrog303.ebookwizard.external.document.thumbnail.CalibreDocumentThumbnailExtractorTest;
+import com.github.danrog303.ebookwizard.external.document.thumbnail.CalibreDocumentThumbnailManipulatorTest;
 import com.github.danrog303.ebookwizard.util.temp.TemporaryDirectory;
 import lombok.SneakyThrows;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -22,7 +22,7 @@ public class CalibreDocumentMetadataManipulatorTest {
     @ParameterizedTest
     @EnumSource(EbookFormat.class)
     public void testIfDocumentMetadataAreCorrectlyWritten(EbookFormat format) {
-        var loader = CalibreDocumentThumbnailExtractorTest.class.getClassLoader();
+        var loader = CalibreDocumentThumbnailManipulatorTest.class.getClassLoader();
 
         try (TemporaryDirectory tempDir = new TemporaryDirectory()) {
             String resourceName = "samples/sample-%s.%s".formatted(format.getExtensionName(), format.getExtensionName());

@@ -1,12 +1,12 @@
 package com.github.danrog303.ebookwizard.domain.taskqueue.conversion;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.danrog303.ebookwizard.domain.ebookfile.conversion.EbookFileConversionService;
+import com.github.danrog303.ebookwizard.domain.ebookfile.services.EbookFileConversionService;
 import com.github.danrog303.ebookwizard.domain.taskqueue.QueueTaskConfig;
 import com.github.danrog303.ebookwizard.domain.taskqueue.QueueTaskService;
 import com.github.danrog303.ebookwizard.domain.taskqueue.QueueTaskStatus;
-import com.github.danrog303.ebookwizard.domain.taskqueue.database.QueueTask;
-import com.github.danrog303.ebookwizard.domain.taskqueue.database.QueueTaskPayload;
+import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTask;
+import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTaskPayload;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

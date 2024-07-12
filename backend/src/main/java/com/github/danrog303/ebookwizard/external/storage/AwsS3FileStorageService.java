@@ -1,6 +1,7 @@
 package com.github.danrog303.ebookwizard.external.storage;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -20,6 +21,7 @@ import java.time.Duration;
  * Service for storing and retrieving files from AWS S3.
  * Implements the FileStorageService interface.
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AwsS3FileStorageService implements FileStorageService {
@@ -30,6 +32,8 @@ public class AwsS3FileStorageService implements FileStorageService {
 
     @Override
     public void uploadFile(String key, File file) {
+        log.debug("Uploading file to S3: {}", key);
+
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
                 .key(key)
@@ -40,6 +44,8 @@ public class AwsS3FileStorageService implements FileStorageService {
 
     @Override
     public void uploadFile(String key, InputStream dataStream, long contentLength) {
+        log.debug("Uploading file to S3: {}", key);
+
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
                 .key(key)
@@ -50,6 +56,8 @@ public class AwsS3FileStorageService implements FileStorageService {
 
     @Override
     public InputStream downloadFile(String key) {
+        log.debug("Downloading file from S3: {}", key);
+
         GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                 .bucket(bucketName)
                 .key(key)
@@ -60,6 +68,8 @@ public class AwsS3FileStorageService implements FileStorageService {
 
     @Override
     public void deleteFile(String key) {
+        log.debug("Deleting file from S3: {}", key);
+
         DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
                 .bucket(bucketName)
                 .key(key)
@@ -70,6 +80,8 @@ public class AwsS3FileStorageService implements FileStorageService {
 
     @Override
     public String getDownloadUrl(String key) {
+        log.debug("Generating download URL for file: {}", key);
+
         try (S3Presigner presigner = S3Presigner.create()) {
 
             GetObjectRequest objectRequest = GetObjectRequest.builder()
