@@ -17,7 +17,7 @@
         </p>
 
         <div class="landing-section-buttons">
-            <button mat-flat-button color="primary">Open your disk</button>
+            <button mat-flat-button color="primary" routerLink="/ebook">Open your disk</button>
 
             @if (!isUserAuthenticated) {
                 <button mat-stroked-button routerLink="/auth/login">Sign in</button>
@@ -84,7 +84,7 @@
             </div>
         } @else {
             <div class="landing-section-registration">
-                <a routerLink="/dashboard">Go to your dashboard</a> to start using ebook-wizard.
+                <a routerLink="/ebook">Go to your dashboard</a> to start using ebook-wizard.
             </div>
         }
     </div>

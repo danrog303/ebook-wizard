@@ -47,6 +47,15 @@ export class AuthenticationService {
         });
     }
 
+    public async isUserAuthenticated(): Promise<boolean> {
+        try {
+            await getCurrentUser();
+            return true;
+        } catch {
+            return false;
+        }
+    }
+
     public async getAccessJwtToken(): Promise<string | undefined> {
         try {
             const authSession = await fetchAuthSession();

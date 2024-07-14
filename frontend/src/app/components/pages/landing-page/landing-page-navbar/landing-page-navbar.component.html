@@ -1,6 +1,8 @@
 <mat-sidenav-container class="main-nav-container" [ngClass]="{'main-nav-container__fullscreen': sidenav.opened}">
     <mat-sidenav #sidenav class="main-navbar-side-menu">
-        <div class="main-navbar-side-menu-logo">ebook-wizard</div>
+        <div class="main-navbar-side-menu-logo">
+            <img ngSrc="/assets/logo.svg" alt="logo" height="323" width="2000" class="logo-image" />
+        </div>
 
         <mat-list (click)="sidenav.close()">
             @for (navItem of navItems; track navItem.name) {
@@ -26,7 +28,7 @@
             }
 
             <div>
-                <button mat-raised-button color="primary">Open disk</button>
+                <button mat-raised-button color="primary" routerLink="/ebook">Open disk</button>
             </div>
         </div>
     </mat-sidenav>
@@ -36,7 +38,9 @@
             <mat-icon>menu</mat-icon>
         </button>
 
-        <span>ebook-wizard</span>
+        <span>
+            <img ngSrc="/assets/logo.svg" alt="logo" height="323" width="2000" class="logo-image" />
+        </span>
 
         <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="main-navbar-nav">
             @for (navItem of navItems; track navItem.name) {
@@ -55,7 +59,7 @@
                 <button mat-button color="primary" routerLink="/auth/login">Sign in</button>
                 <button mat-button color="primary" routerLink="/auth/register">Register now</button>
             }
-            <button mat-raised-button color="primary">Open disk</button>
+            <button mat-raised-button color="primary" routerLink="/ebook">Open disk</button>
         </div>
     </mat-toolbar>
 </mat-sidenav-container>

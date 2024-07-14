@@ -1,6 +1,6 @@
 import {Component, HostListener} from '@angular/core';
 import {RouterModule} from "@angular/router";
-import {CommonModule, ViewportScroller} from "@angular/common";
+import {CommonModule, NgOptimizedImage, ViewportScroller} from "@angular/common";
 import {MaterialModule} from "../../../../modules/material.module";
 import {AuthenticationService} from "../../../../services/authentication.service";
 import {LogoutButtonComponent} from "../../../common/logout-button/logout-button.component";
@@ -10,7 +10,7 @@ import {LogoutButtonComponent} from "../../../common/logout-button/logout-button
     standalone: true,
     templateUrl: './landing-page-navbar.component.html',
     styleUrl: './landing-page-navbar.component.scss',
-    imports: [MaterialModule, RouterModule, CommonModule, LogoutButtonComponent]
+    imports: [MaterialModule, RouterModule, CommonModule, LogoutButtonComponent, NgOptimizedImage]
 })
 export class LandingPageNavbarComponent {
     activeTab: string = 'landing-page-content-header';

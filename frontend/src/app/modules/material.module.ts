@@ -11,6 +11,9 @@ import {MatInputModule} from "@angular/material/input";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatDialogModule} from "@angular/material/dialog";
 import {CdkTrapFocus} from "@angular/cdk/a11y";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatStepperModule} from "@angular/material/stepper";
 
 @NgModule({
     imports: [
@@ -28,6 +31,9 @@ import {CdkTrapFocus} from "@angular/cdk/a11y";
         MatCardModule,
         MatProgressSpinnerModule,
         MatDialogModule,
+        MatProgressBarModule,
+        MatMenuModule,
+        MatStepperModule,
         CdkTrapFocus
     ]
 })

@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {MaterialModule} from "../../../modules/material.module";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {NotificationService} from "../../../services/notification.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-logout-button',
@@ -14,7 +15,8 @@ export class LogoutButtonComponent {
     logoutPending = false;
 
     constructor(private authService: AuthenticationService,
-                private notificationService: NotificationService) {
+                private notificationService: NotificationService,
+                private router: Router) {
     }
 
     async onLogout() {
@@ -29,5 +31,6 @@ export class LogoutButtonComponent {
         }
 
         this.logoutPending = false;
+        await this.router.navigate(['/']);
     }
 }

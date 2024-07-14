@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, RouterModule} from "@angular/router";
+import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {MaterialModule} from "../../../modules/material.module";
@@ -26,7 +26,8 @@ export class LoginPageComponent {
     constructor(private cognitoService: AuthenticationService,
                 private dialogService: MatDialog,
                 private notificationService: NotificationService,
-                private routerService: Router) {
+                private routerService: Router,
+                private activatedRoute: ActivatedRoute) {
         this.loginForm = new FormGroup({
             'email': new FormControl(null, [Validators.required, Validators.email]),
             'password': new FormControl(null, [Validators.required])
@@ -39,7 +40,11 @@ export class LoginPageComponent {
         try {
             await this.cognitoService.signIn(this.loginForm.value.email, this.loginForm.value.password);
             this.loginPending = false;
-            this.routerService.navigate(["/"]).then();
+
+            this.routerService
+                .navigateByUrl(this.activatedRoute.snapshot.queryParamMap.get("redirect") ?? "/")
+                .then();
+
             this.notificationService.show('You have successfuly logged in.');
         } catch(e: any) {
             if (e.toString().includes("NotAuthorizedException")) {
