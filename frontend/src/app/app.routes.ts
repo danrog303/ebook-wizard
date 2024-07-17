@@ -1,14 +1,8 @@
 import { Routes } from '@angular/router';
 import { LandingPageContentComponent } from "./components/pages/landing-page/landing-page-content/landing-page-content.component";
-import { LoginPageComponent } from "./components/pages/login-page/login-page.component";
-import { RegistrationPageContentComponent } from "./components/pages/registration-page/registration-page-content/registration-page-content.component";
-import {NotFoundPageComponent} from "./components/pages/not-found-page/not-found-page.component";
 import unauthenticatedGuard from "./guards/unauthenticated.guard";
 import logoutGuard from "./guards/logout.guard";
-import {ResetPasswordPageContentComponent} from "./components/pages/reset-password-page/reset-password-page-content/reset-password-page-content.component";
-import {EbookPageContent} from "./components/pages/ebook-page/ebook-page-content/ebook-page-content.component";
 import authenticatedGuard from "./guards/authenticated.guard";
-import {AboutPageComponent} from "./components/pages/about-page/about-page.component";
 
 export const routes: Routes = [
     {
@@ -17,54 +11,54 @@ export const routes: Routes = [
     },
     {
         path: 'auth/login',
-        component: LoginPageComponent,
-        canActivate: [unauthenticatedGuard]
+        canActivate: [unauthenticatedGuard],
+        loadComponent: () => import('./components/pages/login-page/login-page.component').then(m => m.LoginPageComponent),
     },
     {
         path: 'auth/register',
-        component: RegistrationPageContentComponent,
-        canActivate: [unauthenticatedGuard]
+        canActivate: [unauthenticatedGuard],
+        loadComponent: () => import('./components/pages/registration-page/registration-page-content/registration-page-content.component').then(m => m.RegistrationPageContentComponent),
     },
     {
         path: 'auth/logout',
-        component: NotFoundPageComponent,
-        canActivate: [logoutGuard]
+        canActivate: [logoutGuard],
+        loadComponent: () => import('./components/pages/not-found-page/not-found-page.component').then(m => m.NotFoundPageComponent),
     },
     {
         path: 'auth/reset-password',
-        component: ResetPasswordPageContentComponent,
-        canActivate: [unauthenticatedGuard]
+        canActivate: [unauthenticatedGuard],
+        loadComponent: () => import('./components/pages/reset-password-page/reset-password-page-content/reset-password-page-content.component').then(m => m.ResetPasswordPageContentComponent),
     },
     {
         path: 'ebook',
-        component: EbookPageContent,
-        canActivate: [authenticatedGuard]
+        canActivate: [authenticatedGuard],
+        loadComponent: () => import('./components/pages/ebook-page/ebook-page-content/ebook-page-content.component').then(m => m.EbookPageContent),
     },
     {
         path: 'ebook/last-modified',
-        component: EbookPageContent,
-        canActivate: [authenticatedGuard]
+        canActivate: [authenticatedGuard],
+        loadComponent: () => import('./components/pages/ebook-page/ebook-page-content/ebook-page-content.component').then(m => m.EbookPageContent),
     },
     {
         path: 'ebook-project',
-        component: EbookPageContent,
-        canActivate: [authenticatedGuard]
+        canActivate: [authenticatedGuard],
+        loadComponent: () => import('./components/pages/ebook-page/ebook-page-content/ebook-page-content.component').then(m => m.EbookPageContent),
     },
     {
         path: 'ebook-file',
-        component: EbookPageContent,
-        canActivate: [authenticatedGuard]
+        canActivate: [authenticatedGuard],
+        loadComponent: () => import('./components/pages/ebook-page/ebook-page-content/ebook-page-content.component').then(m => m.EbookPageContent),
     },
     {
         path: 'about',
-        component: AboutPageComponent
+        loadComponent: () => import('./components/pages/about-page/about-page.component').then(m => m.AboutPageComponent),
     },
     {
         path: 'error/not-found',
-        component: NotFoundPageComponent
+        loadComponent: () => import('./components/pages/not-found-page/not-found-page.component').then(m => m.NotFoundPageComponent),
     },
     {
         path: '**',
-        redirectTo: 'error/not-found'
+        redirectTo: 'error/not-found',
     }
 ];
