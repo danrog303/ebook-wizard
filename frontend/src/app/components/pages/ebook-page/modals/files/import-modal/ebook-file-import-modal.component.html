@@ -1,0 +1,62 @@
+<h2 mat-dialog-title>Import ebook file</h2>
+<mat-dialog-content>
+    <mat-stepper linear #stepper>
+        <mat-step [editable]="false" [stepControl]="fileUploadForm">
+            <ng-template matStepLabel>Upload file</ng-template>
+
+            <form [formGroup]="fileUploadForm">
+                <p>
+                    Please input an ebook you bought or downloaded online.<br/>
+                </p>
+
+                <p>Accepted formats: MOBI, EPUB, AZW3, PDF, DOCX, HTML, TXT</p>
+
+                <div class="ebook-upload">
+                    @if (ebookFileUploadStatus === LoadingStatus.LOADING) {
+                        <mat-progress-bar [mode]="ebookFileUploadProgress === 100 ? 'indeterminate' : 'determinate'"
+                                          [value]="ebookFileUploadProgress" />
+                    } @else {
+                        <ngx-file-drag-drop (valueChanged)="onFileChosen($event)"
+                                            emptyPlaceholder="Drop ebook file or click to select"
+                                            accept=".docx,.mobi,.pdf,.azw3,.txt,.html,.epub"
+                                            formControlName="file" />
+                    }
+                </div>
+            </form>
+
+            <p>
+                <small>
+                    Do you want to create an ebook from scratch?<br/>
+                    <a mat-dialog-close routerLink="/ebook-project" [queryParams]="{modal: 'creator'}">
+                        Create ebook project instead
+                    </a>
+                </small>
+            </p>
+        </mat-step>
+
+        <mat-step [editable]="false" [stepControl]="metaEditForm.metadataForm">
+            <ng-template matStepLabel>Modify the metadata</ng-template>
+
+            <p>
+                Some of the fields are pre-filled based on the file you uploaded.
+            </p>
+
+            <app-ebook-file-meta-edit-form (updateEbookFile)="onEbookFileMetaUpdated($event)"
+                                           [ebookFile]="ebookFile!"
+                                           #metaEditForm />
+        </mat-step>
+
+        <mat-step [editable]="false">
+            <ng-template matStepLabel>Done</ng-template>
+
+            <p>This is the ebook you've created!</p>
+
+            <app-ebook-file-details [ebookFile]="ebookFile" />
+
+            <div mat-dialog-actions align="end">
+                <button mat-flat-button color="primary" mat-dialog-close>Close</button>
+            </div>
+        </mat-step>
+    </mat-stepper>
+</mat-dialog-content>
+

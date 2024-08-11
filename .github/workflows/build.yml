@@ -18,10 +18,15 @@ jobs:
             distribution: 'temurin'
             cache: maven
       
-      # Installs "calibre" libraries
-      # Calibre is required to run unit tests
+      # Installs "calibre" and "pandoc" libraries
+      # They are required to run unit tests
+      - name: Install Calibre requirements
+        run: sudo apt-get update && sudo apt-get install -y libopengl0 libxcb-cursor0 libegl1
       - name: Install Calibre
-        run: sudo apt-get update && sudo apt-get install -y calibre
+        run: sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin          
+      - name: Install Pandoc
+        run: wget https://github.com/jgm/pandoc/releases/download/3.3/pandoc-3.3-1-amd64.deb && sudo dpkg -i pandoc-3.3-1-amd64.deb
+        working-directory: /tmp
       
       - name: Configure Github Packages access
         uses: s4u/maven-settings-action@v3.0.0
@@ -62,7 +67,7 @@ jobs:
           node-version: "20.x"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --force
         working-directory: ./frontend
           
       # - name: Run Unit Tests

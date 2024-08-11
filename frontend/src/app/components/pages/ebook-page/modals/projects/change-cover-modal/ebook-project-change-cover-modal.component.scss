@@ -1,0 +1,17 @@
+.cover-upload {
+    min-width: 30em;
+}
+
+.delete-cover {
+    margin-top: 1.5em;
+}
+
+.delete-cover-link {
+    color: #4a90e2;
+    cursor: pointer;
+
+    &.disabled {
+        color: gray;
+        cursor: not-allowed;
+    }
+}

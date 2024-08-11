@@ -1,10 +1,13 @@
 import {Injectable} from "@angular/core";
-import environment from "../../environments/environment";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
-import EbookFile from "../models/ebook-file/ebook-file.model";
-import QueueTask from "../models/task-queue/queue-task.model";
-import QueueTaskPayload from "../models/task-queue/queue-task-payload.model";
+import { HttpClient, HttpEvent, HttpEventType, HttpHeaders, HttpRequest } from "@angular/common/http";
+import {filter, map, Observable} from "rxjs";
+
+import environment from "@env/environment";
+import EbookFile from "@app/models/ebook-file/ebook-file.model";
+import QueueTask from "@app/models/task-queue/queue-task.model";
+import QueueTaskPayload from "@app/models/task-queue/queue-task-payload.model";
+import UploadProgressEvent from "@app/models/misc/upload-progress-event.model";
+import EbookProject from "@app/models/ebook-project/ebook-project.model";
 
 @Injectable({providedIn: 'root'})
 export default class EbookFileService {
@@ -37,8 +40,13 @@ export default class EbookFileService {
         return this.http.get<EbookFile[]>(url);
     }
 
-    getUrlToDownloadFile(ebookFileId: string, ebookFileFormat: string): Observable<string> {
-        const url = `${environment.API_BASE_URI}/ebook-file/${ebookFileId}/${ebookFileFormat}`;
+    getUrlToDisplayCoverImage(ebookFileId: string): Observable<string> {
+        const url = `${environment.API_BASE_URI}/ebook-file/${ebookFileId}/cover-image`;
+        return this.http.get(url, { responseType: 'text' });
+    }
+
+    getUrlToDownloadFile(ebookFileId: string, ebookFileFormat: string, contentDispositionType: string = "ATTACHMENT"): Observable<string> {
+        const url = `${environment.API_BASE_URI}/ebook-file/${ebookFileId}/${ebookFileFormat}?dispositionType=${contentDispositionType}`;
         return this.http.get(url, { responseType: 'text' });
     }
 
@@ -47,18 +55,37 @@ export default class EbookFileService {
         return this.http.delete<void>(url);
     }
 
-    importEbookFromFile(file: File): Observable<EbookFile> {
+    importEbookFromFile(file: File): Observable<UploadProgressEvent<EbookFile>> {
         const url = `${environment.API_BASE_URI}/ebook-file`;
         const formData = new FormData();
         formData.append('file', file);
-        return this.http.post<EbookFile>(url, formData);
+
+        const req = new HttpRequest('POST', url, formData, {
+            reportProgress: true,
+            responseType: 'json'
+        });
+
+        return <Observable<UploadProgressEvent<EbookFile>>> this.http.request(req).pipe(
+            map((event: HttpEvent<any>) => this.getEventMessage(event)),
+            filter(msg => msg !== null),
+        );
     }
 
-    updateEbookFileCoverImage(file: File, ebookFileId: string): Observable<EbookFile> {
+    updateEbookFileCoverImage(file: File, ebookFileId: string): Observable<UploadProgressEvent<EbookFile>> {
         const url = `${environment.API_BASE_URI}/ebook-file/${ebookFileId}/cover-image`;
         const formData = new FormData();
         formData.append('file', file);
-        return this.http.put<EbookFile>(url, formData);
+
+        const req = new HttpRequest('PUT', url, formData, {
+            reportProgress: true,
+            responseType: 'json'
+        });
+
+        return <Observable<UploadProgressEvent<EbookFile>>> this.http.request(req).pipe(
+            map((event: HttpEvent<any>) => this.getEventMessage(event)),
+            filter(msg => msg !== null),
+        );
+
     }
 
     deleteEbookFile(ebookFileId: string): Observable<void> {
@@ -69,5 +96,23 @@ export default class EbookFileService {
     updateEbookFile(ebookFileId: string, ebook: EbookFile): Observable<EbookFile> {
         const url = `${environment.API_BASE_URI}/ebook-file/${ebookFileId}`;
         return this.http.put<EbookFile>(url, ebook);
+    }
+
+    deleteCoverImage(ebookFileId: string): Observable<void> {
+        const url = `${environment.API_BASE_URI}/ebook-file/${ebookFileId}/cover-image`;
+        return this.http.delete<void>(url);
+    }
+
+    private getEventMessage<T>(event: HttpEvent<any>): UploadProgressEvent<T> | null {
+        switch (event.type) {
+            case HttpEventType.UploadProgress:
+                return { progress: Math.round(100 * (event.loaded / (event.total || 1))), result: null };
+
+            case HttpEventType.Response:
+                return { progress: 100, result: event.body };
+
+            default:
+                return null;
+        }
     }
 }

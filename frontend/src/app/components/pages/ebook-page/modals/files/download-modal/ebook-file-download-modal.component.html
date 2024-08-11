@@ -1,0 +1,98 @@
+<h2 mat-dialog-title>Download ebook file</h2>
+
+<mat-dialog-content class="download-modal">
+    <p>
+        <small>
+            <strong>{{ebookFile.conversionSourceFormat}}</strong>
+            will be used as a source for the conversion.
+        </small>
+    </p>
+
+    <mat-divider />
+
+    <section class="sec-currently-available">
+        <p>
+            Currently available formats:
+        </p>
+
+        <mat-list>
+            @for (availableFormat of availableFormats; track availableFormat) {
+                <mat-list-item>
+                    <mat-icon matListItemIcon>description</mat-icon>
+
+                    <div matListItemTitle>
+                        {{availableFormat | uppercase}}
+
+                        @if (ebookFile.conversionSourceFormat === availableFormat) {
+                            <em>(source)</em>
+                        }
+                    </div>
+
+                    <div matListItemLine>
+                        <button mat-button
+                                color="primary"
+                                [disabled]="ongoingActionItem !== null"
+                                (click)="onDownloadFormat(availableFormat)">
+                            Download
+                            <mat-icon>download</mat-icon>
+                        </button>
+
+                        @if (ebookFile.conversionSourceFormat !== availableFormat) {
+                            <button mat-button
+                                    color="primary"
+                                    [disabled]="ongoingActionItem !== null"
+                                    (click)="onDeleteFormat(availableFormat)">
+                                Delete
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
+
+                            <button mat-button
+                                    color="primary"
+                                    [disabled]="ongoingActionItem !== null"
+                                    (click)="onChangeFormatToSource(availableFormat)">
+                                Change to source
+                                <mat-icon>restart_alt</mat-icon>
+                            </button>
+                        }
+                    </div>
+                </mat-list-item>
+            }
+        </mat-list>
+    </section>
+
+    <mat-divider />
+
+    <section class="sec-other-formats">
+        <p>
+            Other formats:
+        </p>
+
+        <mat-list>
+            @for (otherFormat of otherFormats; track otherFormat) {
+                <mat-list-item>
+                    <mat-icon matListItemIcon>description</mat-icon>
+
+                    <div matListItemTitle>
+                        {{otherFormat | uppercase}}
+                    </div>
+
+                    <button mat-button
+                            matListItemLine color="primary"
+                            (click)="onConvertToFormat(otherFormat)"
+                            [disabled]="ongoingActionItem !== null">
+                        Convert to
+                        <mat-icon>sync</mat-icon>
+                    </button>
+                </mat-list-item>
+            }
+        </mat-list>
+    </section>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    @if (ongoingActionItem !== null) {
+        <mat-progress-bar mode="indeterminate" />
+    }
+
+    <button mat-button mat-dialog-close class="cancel-btn">Cancel</button>
+</mat-dialog-actions>

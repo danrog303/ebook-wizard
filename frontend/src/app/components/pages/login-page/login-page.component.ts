@@ -1,16 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {CommonModule} from "@angular/common";
-import {MaterialModule} from "../../../modules/material.module";
-import {ActionPendingButtonComponent} from "../../common/action-pending-button/action-pending-button.component";
-import {AuthenticationService} from "../../../services/authentication.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
-import {
-    RegistrationConfirmModalComponent
-} from "../registration-page/registration-confirm-modal/registration-confirm-modal.component";
-import {NotificationService} from "../../../services/notification.service";
+import MaterialModule from "@app/modules/material.module";
+import ActionPendingButtonComponent from "@app/components/common/action-pending-button/action-pending-button.component";
+import AuthenticationService from "@app/services/authentication.service";
+import RegistrationConfirmModalComponent from "@app/components/pages/registration-page/confirm-modal/registration-confirm-modal.component";
+import NotificationService from "@app/services/notification.service";
 
 @Component({
     selector: 'app-login-page',

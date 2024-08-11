@@ -22,4 +22,9 @@ export default class EbookProjectChapterService {
         const url = `${environment.API_BASE_URI}/ebook-project/${ebookProjectId}/chapter/${chapterId}`;
         return this.http.put<EbookProjectChapter>(url, chapter);
     }
+
+    reorderChapters(ebookProjectId: string, oldIndex: number, newIndex: number): Observable<void> {
+        const url = `${environment.API_BASE_URI}/ebook-project/${ebookProjectId}/chapter/reorder/${oldIndex}/${newIndex}`;
+        return this.http.put<void>(url, {});
+    }
 }

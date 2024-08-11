@@ -52,6 +52,19 @@ public class EbookFileConversionService {
         ebookProject.setLock(new EbookFileLock(false, null));
 
         try (TemporaryDirectory tempDir = new TemporaryDirectory()) {
+            if (ebookFile.getCoverImageKey() != null) {
+                String randomKey = RandomStringUtils.randomAlphanumeric(64);
+                String coverKey = "ebook-projects/covers/%s/%s.jpg"
+                        .formatted(ebookFile.getOwnerUserId(), randomKey);
+
+                Path coverPath = tempDir.getDirectory().resolve("cover.jpg");
+                try (InputStream downloadStream = fileStorageService.downloadFile(ebookFile.getCoverImageKey())) {
+                    Files.copy(downloadStream, coverPath);
+                }
+                fileStorageService.uploadFile(coverKey, Files.newInputStream(coverPath), Files.size(coverPath));
+                ebookProject.setCoverImageKey(coverKey);
+            }
+
             EbookFormat sourceFormat = ebookFile.getConversionSourceFormat();
             EbookDownloadableResource downloadableResource = ebookFile.getDownloadableFiles().stream()
                     .filter(resource -> resource.getFormat().equals(sourceFormat))
@@ -61,18 +74,18 @@ public class EbookFileConversionService {
             Path sourceFilePath = tempDir.getDirectory().resolve("source." + sourceFormat.getExtensionName());
             Files.copy(fileStorageService.downloadFile(downloadableResource.getFileKey()), sourceFilePath);
 
-            Path txtFilePath;
-            if (sourceFormat == EbookFormat.TXT) {
-                txtFilePath = sourceFilePath;
+            Path htmlFilePath;
+            if (sourceFormat == EbookFormat.HTML) {
+                htmlFilePath = sourceFilePath;
             } else {
-                txtFilePath = tempDir.getDirectory().resolve("source.txt");
-                documentConverter.convertDocument(sourceFilePath, txtFilePath);
+                htmlFilePath = tempDir.getDirectory().resolve("source.html");
+                documentConverter.convertDocument(sourceFilePath, htmlFilePath);
             }
 
             EbookProjectChapter chapter = new EbookProjectChapter();
             chapter.setId(RandomStringUtils.randomAlphanumeric(64));
             chapter.setName("Chapter 1");
-            chapter.setContentHtml(Files.readString(txtFilePath));
+            chapter.setContentHtml(Files.readString(htmlFilePath));
             chapter.setCreationDate(new Date());
             chapter.setLastModifiedDate(new Date());
             ebookProject.getChapters().add(chapter);
@@ -96,6 +109,7 @@ public class EbookFileConversionService {
 
         // No need to convert if the exact format is already present
         if (hasExactFormat) {
+            ebookFileLockService.unlockEbookFileForEditing(fileId);
             return;
         }
 

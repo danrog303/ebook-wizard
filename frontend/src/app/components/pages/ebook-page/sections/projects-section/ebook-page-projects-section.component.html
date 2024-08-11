@@ -1,0 +1,109 @@
+<div class="ebook-page-section">
+    <div class="ebook-page-content">
+        @if (ebookProjectsLoading === LoadingStatus.LOADING) {
+            <div>
+                <mat-spinner class="ebook-page-content-spinner" />
+            </div>
+        } @else if (ebookProjectsLoading === LoadingStatus.ERROR) {
+            <div class="ebook-page-content-centered">
+                <p>
+                    <strong class="error-indicator">An error occurred while loading ebook projects.</strong>
+                </p>
+
+                <button mat-flat-button color="primary" (click)="document.location.reload()">
+                    <mat-icon>refresh</mat-icon>
+                    Retry
+                </button>
+            </div>
+        } @else if (ebookProjectsLoading === LoadingStatus.LOADED && ebookProjects.length === 0) {
+            <div class="ebook-page-content-centered">
+                <p>
+                    <strong class="empty-indicator">It's a little bit empty here...</strong>
+                </p>
+
+                <a mat-flat-button color="primary" (click)="openCreateProjectModal()">
+                    <mat-icon>upload_file</mat-icon>
+                    Create ebook project
+                </a>
+            </div>
+        } @else {
+            <mat-list>
+                <div mat-subheader>
+                    <h2>Ebook projects</h2>
+                    <p>Here you'll find ebooks that you've created and written.</p>
+                </div>
+
+                <button mat-button color="primary" (click)="openCreateProjectModal()">
+                    <mat-icon>upload_file</mat-icon>
+                    Create ebook project
+                </button>
+
+                @for (ebookProject of ebookProjects; track ebookProject.id; let index = $index) {
+                    <mat-list-item (contextmenu)="openEbookProjectDropdownMenu($event, index)"
+                                   (click)="markEbookProjectAsSelected(index)"
+                                   [ngClass]="{'active': selectedEbookProject?.id == ebookProject.id}"
+                                   class="ebook-project-pane">
+                        <mat-icon matListItemIcon>border_color</mat-icon>
+
+                        <div matListItemTitle>
+                            {{ebookProject.name || 'Unknown name'}}
+                        </div>
+
+                        <div matListItemLine>
+                            Author:
+                            {{ebookProject.author || 'Unknown'}}
+                        </div>
+
+                        <button mat-button
+                                #ebookProjectDropdownTrigger="matMenuTrigger"
+                                [matMenuTriggerFor]="ebookProjectDropdownMenu">
+                            <span>Actions</span>
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                    </mat-list-item>
+
+                    <mat-menu #ebookProjectDropdownMenu="matMenu">
+                        <button mat-menu-item (click)="openEditPage(ebookProject)">
+                            <mat-icon>edit_document</mat-icon>
+                            <span>Edit</span>
+                        </button>
+
+                        <button mat-menu-item (click)="openEditMetaModal(ebookProject)">
+                            <mat-icon>edit</mat-icon>
+                            <span>Modify metadata</span>
+                        </button>
+
+                        <button mat-menu-item (click)="openChangeCoverModal(ebookProject)">
+                            <mat-icon>image</mat-icon>
+                            <span>Change cover image</span>
+                        </button>
+
+                        <mat-divider />
+
+                        <button mat-menu-item (click)="openDownloadModal(ebookProject)">
+                            <mat-icon>download</mat-icon>
+                            <span>Download</span>
+                        </button>
+
+                        <button mat-menu-item (click)="openConvertToEbookFileModal(ebookProject)">
+                            <mat-icon>autorenew</mat-icon>
+                            <span>Convert to file</span>
+                        </button>
+
+                        <button mat-menu-item (click)="openDeleteModal(ebookProject)">
+                            <mat-icon>delete</mat-icon>
+                            <span>Delete</span>
+                        </button>
+                    </mat-menu>
+                }
+            </mat-list>
+        }
+    </div>
+
+    <div class="ebook-page-details">
+        @if (selectedEbookProject !== null) {
+            <app-ebook-project-details [ebookProject]="selectedEbookProject"
+                                       (ebookProjectChange)="this.refreshEbookProjects()" />
+        }
+    </div>
+</div>

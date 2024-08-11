@@ -1,0 +1,64 @@
+<div>
+    @if (!ebookProject?.coverImageKey) {
+        <p><strong>No cover image</strong></p>
+    }
+    @else if (coverUrlLoadingStatus == LoadingStatus.LOADED) {
+        <img [ngSrc]="coverUrl!!"
+             alt="cover image"
+             class="cover-image"
+             width="200" height="300" />
+    } @else if (coverUrlLoadingStatus == LoadingStatus.LOADING) {
+        <mat-spinner />
+    } @else if (coverUrlLoadingStatus == LoadingStatus.ERROR) {
+        <p><strong>Could not load the cover...</strong></p>
+    }
+</div>
+
+<div class="details-line">
+    <strong>Title</strong>
+    <span (click)="openEditModal()">
+        <mat-icon>edit</mat-icon>
+    </span>
+
+    <p>{{ebookProject?.name || 'Unknown title'}}</p>
+</div>
+
+<div class="details-line">
+    <strong>Author</strong>
+    <span (click)="openEditModal()">
+        <mat-icon>edit</mat-icon>
+    </span>
+
+    <p>{{ebookProject?.author || 'Unknown author'}}</p>
+</div>
+
+<div class="details-line">
+    <strong>Description</strong>
+    <span (click)="openEditModal()">
+        <mat-icon>edit</mat-icon>
+    </span>
+
+    <p>{{ebookProject?.description || '-'}}</p>
+</div>
+
+<div class="details-line">
+    <strong>Tags</strong>
+    <span (click)="openEditModal()">
+        <mat-icon>edit</mat-icon>
+    </span>
+
+    <p>{{ebookProject?.tags!.join(", ") || "-" }}</p>
+</div>
+
+<div class="details-line">
+    <strong>Created at</strong>
+
+    <p>{{(ebookProject?.creationDate | date) || '-'}}</p>
+</div>
+
+<div class="details-line">
+    <strong>Chapters count</strong>
+
+    <p>{{(ebookProject?.chapters?.length) || '0'}}</p>
+</div>
+

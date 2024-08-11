@@ -1,8 +1,8 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
-import {AuthenticationService} from "../services/authentication.service";
-import environment from "../../environments/environment";
+import {inject} from '@angular/core';
 import {from, switchMap} from "rxjs";
+import AuthenticationService from "@app/services/authentication.service";
+import environment from "@env/environment";
 
 export const authenticationInterceptor: HttpInterceptorFn = (req, next) => {
     const authService = inject(AuthenticationService);

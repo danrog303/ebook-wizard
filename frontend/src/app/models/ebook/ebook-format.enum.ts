@@ -1,11 +1,11 @@
 enum EbookFormat {
-    EPUB = "epub",
-    MOBI = "mobi",
-    AZW3 = "azw3",
-    PDF = "pdf",
-    TXT = "txt",
-    HTML = "html",
-    DOCX = "docx"
+    EPUB = "EPUB",
+    MOBI = "MOBI",
+    AZW3 = "AZW3",
+    PDF = "PDF",
+    TXT = "TXT",
+    HTML = "HTML",
+    DOCX = "DOCX"
 }
 
 export default EbookFormat;

@@ -36,7 +36,21 @@ public interface FileStorageService {
 
     /**
      * Get the download URL for a file.
-     * @param key The name of the file to delete (e.g. S3 file key).
+     * @param key The name of the file to download (e.g. S3 file key).
      */
     String getDownloadUrl(String key);
+
+    /**
+     * Get the download URL for a file.
+     * @param key The name of the file to download (e.g. S3 file key).
+     * @param fileName The name of the file that will be presented to user when they requests download.
+     */
+    String getDownloadUrl(String key, String fileName);
+
+    /**
+     * Get the download URL for a file.
+     * The URL will have Content-Disposition header set to "inline".
+     * @param key The name of the file to download (e.g. S3 file key).
+     */
+    String getInlineDownloadUrl(String key);
 }

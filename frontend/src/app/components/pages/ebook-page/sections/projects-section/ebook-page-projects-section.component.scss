@@ -1,0 +1,60 @@
+.ebook-page-section {
+    display: grid;
+    grid-template-columns: 3fr 1.2fr;
+    grid-template-areas: "content details";
+    height: 100%;
+}
+
+.ebook-page-content {
+    padding: 2em;
+    grid-area: content;
+    background-color: white;
+    border-radius: 8px;
+    margin-right: 1em;
+    overflow-y: scroll;
+    height: calc(100vh - 11em);
+}
+
+.ebook-page-details {
+    padding: 2em;
+    grid-area: details;
+    background-color: white;
+    border-radius: 8px;
+    margin-right: 1em;
+    overflow-y: scroll;
+    height: calc(100vh - 11em);
+}
+
+.ebook-page-content-centered {
+    position: absolute;
+    top: 40%;
+    left: calc(50% - 15em); right: calc(50% + 15em);
+    min-width: 30em;
+    text-align: center;
+}
+
+.ebook-page-content-spinner {
+    position: absolute;
+    top: 40%;
+    left: calc(50% - 5em); right: calc(50% + 5em);
+    min-width: 10em;
+    max-width: 10em;
+    text-align: center;
+}
+
+.empty-indicator {
+    font-weight: 500;
+    letter-spacing: 0.05em;
+}
+
+.ebook-project-pane {
+    cursor: pointer;
+    background: #535c9511;
+    border-radius: 10px;
+    margin-top: 1em;
+}
+
+.ebook-project-pane:hover,
+.ebook-project-pane.active {
+    background: #535c9522;
+}

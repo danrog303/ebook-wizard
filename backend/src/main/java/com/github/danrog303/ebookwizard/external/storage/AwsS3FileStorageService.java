@@ -15,6 +15,7 @@ import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequ
 
 import java.io.File;
 import java.io.InputStream;
+import java.net.URLConnection;
 import java.time.Duration;
 
 /**
@@ -87,6 +88,54 @@ public class AwsS3FileStorageService implements FileStorageService {
             GetObjectRequest objectRequest = GetObjectRequest.builder()
                     .bucket(bucketName)
                     .key(key)
+                    .build();
+
+            GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
+                    .signatureDuration(Duration.ofMinutes(60))
+                    .getObjectRequest(objectRequest)
+                    .build();
+
+            PresignedGetObjectRequest presignedRequest = presigner.presignGetObject(presignRequest);
+            return presignedRequest.url().toExternalForm();
+        }
+    }
+
+    @Override
+    public String getDownloadUrl(String key, String targetFileName) {
+        log.debug("Generating download URL for file: {}", key);
+
+        try (S3Presigner presigner = S3Presigner.create()) {
+
+            GetObjectRequest objectRequest = GetObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(key)
+                    .responseContentDisposition("attachment; filename=\"" + targetFileName + "\"")
+                    .build();
+
+            GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
+                    .signatureDuration(Duration.ofMinutes(60))
+                    .getObjectRequest(objectRequest)
+                    .build();
+
+            PresignedGetObjectRequest presignedRequest = presigner.presignGetObject(presignRequest);
+            return presignedRequest.url().toExternalForm();
+        }
+    }
+
+    @Override
+    public String getInlineDownloadUrl(String key) {
+        log.debug("Generating inline download URL for file: {}", key);
+
+        String extension = key.substring(key.lastIndexOf('.') + 1);
+        String mime = URLConnection.getFileNameMap().getContentTypeFor("out." + extension);
+
+        try (S3Presigner presigner = S3Presigner.create()) {
+
+            GetObjectRequest objectRequest = GetObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(key)
+                    .responseContentDisposition("inline")
+                    .responseContentType(mime)
                     .build();
 
             GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()

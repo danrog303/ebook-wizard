@@ -1,4 +1,5 @@
 export const environment = {
+    "FRONTEND_BASE_URI": "http://localhost:4200",
     "API_BASE_URI": "http://localhost:8080",
     "RECAPTCHA_SITE_KEY": "6LdX6ewpAAAAADI2jjWT-mzbTAt5gDzdMlztWjPv",
     "COGNITO_USER_POOL_ID": "eu-central-1_wDhQfssGC",

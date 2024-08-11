@@ -1,0 +1,88 @@
+@if (ebookProjectLoading === LoadingStatus.LOADED) {
+    <div class="editor-container" *ngIf="ebookProjectLoading === LoadingStatus.LOADED">
+        <div class="nav-pane">
+            <div class="home-link">
+                <a routerLink="/">
+                    <img ngSrc="/assets/logo.svg" alt="logo" height="323" width="2000" class="logo-image" />
+                </a>
+            </div>
+
+            <div class="ebook-link">
+                <a routerLink="/ebook-project" mat-button color="primary">
+                    <mat-icon>arrow_back</mat-icon>
+                    <span>Back to ebook projects</span>
+                </a>
+            </div>
+
+            <div class="chapter-picker">
+                <p class="chapter-picker-info">
+                    <strong>Currently editing:</strong><br/>
+                    {{ebookProject.name || 'Unknown name'}}
+                </p>
+
+                <mat-list cdkDropList (cdkDropListDropped)="onChapterDragged($event)">
+                    @for (chapter of ebookProject.chapters; track chapter.id) {
+                        <mat-list-item class="chapter-item"
+                                       (click)="markChapterAsActive(chapter)"
+                                       [ngClass]="{'active': chapter === chosenChapter}"
+                                       cdkDrag>
+
+                            <span matListItemTitle>{{chapter.name}}</span>
+
+                            <div matListItemIcon class="chapter-action-btn"
+                                 style="margin-right: 0; padding-right: 0;"
+                                 (click)="openDeleteChapterModal(chapter)">
+                                <mat-icon>delete</mat-icon>
+                            </div>
+
+                            <div matListItemIcon class="chapter-action-btn" (click)="openEditChapterNameModal(chapter)">
+                                <mat-icon>edit</mat-icon>
+                            </div>
+
+                            <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
+                        </mat-list-item>
+                    }
+                </mat-list>
+
+                <div class="add-chapter">
+                    <button mat-button color="primary" (click)="openAddChapterModal()">
+                        <mat-icon>add</mat-icon>
+                        <span>Add chapter</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="update-indicator" (click)="saveEbookProject().subscribe()">
+                <p>
+                    <mat-icon>save_as</mat-icon>
+                    Last saved:
+                    @if (chosenChapterSaveStatus === LoadingStatus.LOADING) {
+                        saving...
+                    } @else if (chosenChapterLastSaved === null) {
+                        not saved yet
+                    } @else {
+                        {{chosenChapterLastSaved | date: 'medium'}}
+                    }
+                </p>
+            </div>
+        </div>
+
+        <div class="edit-pane">
+            <quill-editor #quillEditor
+                          (onContentChanged)="onTextInput($event)"
+                          (onEditorCreated)="onQuillEditorCreated()" />
+        </div>
+    </div>
+} @else if (ebookProjectLoading === LoadingStatus.LOADING) {
+    <mat-spinner class="main-loading-spinner"></mat-spinner>
+} @else {
+    <div class="loading-error">
+        <p>
+            <strong>Error:</strong> Failed to load ebook project.
+        </p>
+
+        <button mat-flat-button color="primary" (click)="document.location.reload()">
+            Try again
+        </button>
+    </div>
+}

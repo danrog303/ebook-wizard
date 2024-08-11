@@ -1,0 +1,24 @@
+.cover-image {
+    border: 1px solid #999;
+    margin-bottom: 0.2em;
+}
+
+.ebook-meta-display {
+    margin-top: 2em;
+}
+
+.details-line {
+    vertical-align: middle;
+
+    * {
+        vertical-align: middle;
+    }
+
+    mat-icon {
+        color: #3647a7;
+        margin-left: 0.5em;
+        margin-top: 0.6em;
+        cursor: pointer;
+        font-size: 1em;
+    }
+}

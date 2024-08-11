@@ -1,0 +1,70 @@
+<form [formGroup]="metadataForm">
+    <div>
+        <mat-form-field class="ebook-meta-input">
+            <mat-label>Ebook name</mat-label>
+            <input matInput type="text" formControlName="name" />
+            <mat-error *ngIf="metadataForm.get('name')?.invalid">
+                Name is required
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field class="ebook-meta-input">
+            <mat-label>Author</mat-label>
+            <input matInput type="text" formControlName="author" />
+            <mat-error *ngIf="metadataForm.get('author')?.invalid">
+                Author is required
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field class="ebook-meta-input">
+            <mat-label>Description</mat-label>
+            <input matInput type="text" formControlName="description" />
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field class="ebook-meta-input">
+            <mat-label>Tags</mat-label>
+            <mat-chip-grid #ebookFileTagsInput>
+                @for (tag of ebookProject.tags; track tag) {
+                    <mat-chip-row
+                        (removed)="deleteEbookProjectTag(tag)"
+                        [editable]="true">
+
+                        {{tag}}
+
+                        <button matChipRemove>
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-chip-row>
+                }
+
+                <input placeholder="E.g. 'romance' or 'action'"
+                       [matChipInputFor]="ebookFileTagsInput"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="true"
+                       (matChipInputTokenEnd)="addEbookProjectTag($event)"
+                       formControlName="tags">
+                />
+            </mat-chip-grid>
+        </mat-form-field>
+    </div>
+
+    <div class="action-buttons">
+        <app-action-pending-button [color]="'primary'"
+                                   [type]="'submit'"
+                                   [disabled]="metadataForm.invalid"
+                                   [pending]="ebookProjectUpdateProgress === LoadingStatus.LOADING"
+                                   (click)="updateEbookProjectMeta()">
+            @if (mode === 'create') {
+                Create project
+            } @else {
+                Update project
+            }
+        </app-action-pending-button>
+    </div>
+</form>

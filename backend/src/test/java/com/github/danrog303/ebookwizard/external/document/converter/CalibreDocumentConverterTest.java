@@ -50,4 +50,37 @@ public class CalibreDocumentConverterTest {
             assertThat(mimeType).isEqualTo("text/plain");
         }
     }
+
+    @Test
+    public void convertEbookFile_mobiToHtml_shouldNotThrowExceptions() throws URISyntaxException, IOException {
+        try (TemporaryDirectory tempDir = new TemporaryDirectory()) {
+            String inputResourceName = "samples/sample-mobi.mobi";
+            URL inputResourceUrl = Thread.currentThread().getContextClassLoader().getResource(inputResourceName);
+            assert inputResourceUrl != null;
+
+            Path ebookFilePath = Paths.get(inputResourceUrl.toURI());
+            Path outputFilePath = Paths.get(tempDir.getDirectory().toString(), "output.html");
+
+            this.documentConverter.convertDocument(ebookFilePath, outputFilePath);
+            String mimeType = mimeTypeDetector.detectMimeType(outputFilePath.toFile());
+            assertThat(mimeType).isEqualTo("text/html");
+        }
+
+    }
+
+    @Test
+    public void convertEbookFile_htmlToMobi_shouldNotThrowExceptions() throws URISyntaxException, IOException {
+        try (TemporaryDirectory tempDir = new TemporaryDirectory()) {
+            String inputResourceName = "samples/sample-html.html";
+            URL inputResourceUrl = Thread.currentThread().getContextClassLoader().getResource(inputResourceName);
+            assert inputResourceUrl != null;
+
+            Path ebookFilePath = Paths.get(inputResourceUrl.toURI());
+            Path outputFilePath = Paths.get(tempDir.getDirectory().toString(), "output.mobi");
+
+            this.documentConverter.convertDocument(ebookFilePath, outputFilePath);
+            String mimeType = mimeTypeDetector.detectMimeType(outputFilePath.toFile());
+            assertThat(mimeType).isEqualTo("application/x-mobipocket-ebook");
+        }
+    }
 }

@@ -1,9 +1,6 @@
 package com.github.danrog303.ebookwizard.domain.ebookfile.services;
 
-import com.github.danrog303.ebookwizard.domain.ebook.EbookAccessType;
-import com.github.danrog303.ebookwizard.domain.ebook.EbookDownloadableResource;
-import com.github.danrog303.ebookwizard.domain.ebook.EbookFileLock;
-import com.github.danrog303.ebookwizard.domain.ebook.EbookFormat;
+import com.github.danrog303.ebookwizard.domain.ebook.*;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFileRepository;
 import com.github.danrog303.ebookwizard.domain.taskqueue.conversion.ConversionQueueService;
@@ -16,6 +13,7 @@ import com.github.danrog303.ebookwizard.domain.taskqueue.email.EmailQueueTaskPay
 import com.github.danrog303.ebookwizard.external.auth.AuthorizationProvider;
 import com.github.danrog303.ebookwizard.external.mime.MimeTypeDetector;
 import com.github.danrog303.ebookwizard.external.storage.FileStorageService;
+import com.github.danrog303.ebookwizard.util.string.StringNormalizer;
 import com.github.danrog303.ebookwizard.util.temp.TemporaryDirectory;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -156,7 +154,7 @@ public class EbookFileManipulationService {
         }
     }
 
-    public String getDownloadUrlForEbookFile(String ebookFileId, String ebookFileFormat) {
+    public String getDownloadUrlForEbookFile(String ebookFileId, String ebookFileFormat, ContentDispositionType dispositionType) {
         EbookFile ebookFile = requireEbookFilePermission(ebookFileId, EbookAccessType.READ_ONLY);
 
         EbookFormat format = EbookFormat.fromExtension(ebookFileFormat);
@@ -165,7 +163,16 @@ public class EbookFileManipulationService {
                 .stream().filter(file -> file.getFormat().equals(format))
                 .findFirst().orElseThrow();
 
-        return this.fileStorageService.getDownloadUrl(downloadableFile.getFileKey());
+        String targetName = "%s.%s".formatted(StringNormalizer.normalize(ebookFile.getName()), format.getExtensionName().toLowerCase());
+        if (targetName.startsWith(".")) {
+            targetName = "ebook" + targetName;
+        }
+
+        if (dispositionType == ContentDispositionType.INLINE) {
+            return this.fileStorageService.getInlineDownloadUrl(downloadableFile.getFileKey());
+        } else {
+            return this.fileStorageService.getDownloadUrl(downloadableFile.getFileKey(), targetName);
+        }
     }
 
     public void deleteEbookFile(String ebookFileId) {
@@ -252,6 +259,21 @@ public class EbookFileManipulationService {
         return ebookFile;
     }
 
+    public void deleteEbookFileCoverImage(String ebookFileId) {
+        EbookFile ebookFile = requireEbookFilePermission(ebookFileId, EbookAccessType.READ_WRITE);
+
+        if (ebookFile.getCoverImageKey() != null) {
+            this.fileStorageService.deleteFile(ebookFile.getCoverImageKey());
+            ebookFile.setCoverImageKey(null);
+            ebookFileRepository.save(ebookFile);
+        }
+    }
+
+    public String getCoverImageUrl(String ebookFileId) {
+        EbookFile ebookFile = requireEbookFilePermission(ebookFileId, EbookAccessType.READ_ONLY);
+        return this.fileStorageService.getDownloadUrl(ebookFile.getCoverImageKey());
+    }
+
     private EbookFile requireEbookFilePermission(String ebookFileId, EbookAccessType accessType) {
         EbookFile ef = ebookFileRepository.findById(ebookFileId).orElseThrow();
 
@@ -269,5 +291,4 @@ public class EbookFileManipulationService {
 
         return ef;
     }
-
 }

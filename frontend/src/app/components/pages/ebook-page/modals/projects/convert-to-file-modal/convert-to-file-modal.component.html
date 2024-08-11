@@ -1,0 +1,38 @@
+<h2 matDialogTitle>Convert to ebook file</h2>
+
+<mat-dialog-content>
+    <p>
+        You are about to convert the project to an ebook file.
+    </p>
+
+    <p>
+        Please select the format you want to convert the project to:
+    </p>
+
+    <mat-radio-group [(ngModel)]="selectedFormat">
+        <div *ngFor="let format of EbookFormat | keyvalue">
+            <mat-radio-button [value]="format.key">
+                {{format.value}}
+            </mat-radio-button>
+        </div>
+    </mat-radio-group>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    @if (conversionStatus === LoadingStatus.LOADING) {
+        <mat-progress-bar mode="indeterminate" class="progress-bar" />
+    }
+
+    <button mat-button
+            mat-dialog-close
+            [disabled]="conversionStatus === LoadingStatus.LOADING">
+        Cancel
+    </button>
+
+    <button mat-flat-button
+            color="primary"
+            (click)="convertToEbookFile()"
+            [disabled]="conversionStatus === LoadingStatus.LOADING">
+        Convert
+    </button>
+</mat-dialog-actions>

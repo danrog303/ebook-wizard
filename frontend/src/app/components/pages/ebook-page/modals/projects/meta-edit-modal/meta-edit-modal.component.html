@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Edit ebook project</h2>
+
+<mat-dialog-content class="meta-edit-content">
+    <app-ebook-project-meta-edit-form (updateEbookProject)="onEbookProjectUpdated($event)"
+                                      [ebookProject]="ebookProject"
+                                      mode="edit" />
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="cancel-btn">Cancel</button>
+</mat-dialog-actions>

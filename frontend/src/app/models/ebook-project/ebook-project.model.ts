@@ -3,7 +3,7 @@ import EbookFileLock from "../ebook/ebook-file-lock.model";
 import EbookProjectIllustration from "./ebook-project-illustration.model";
 import EbookProjectChapter from "./ebook-project-chapter.model";
 
-interface EbookProject {
+export default interface EbookProject {
     id: string;
     ownerUserId: string;
     name: string;
@@ -20,4 +20,24 @@ interface EbookProject {
     chapters: EbookProjectChapter[];
 }
 
-export default EbookProject;
+export function createEmptyEbookProject(): EbookProject {
+    return {
+        id: "",
+        ownerUserId: "",
+        name: "",
+        author: "",
+        description: "",
+        containerName: "",
+        coverImageKey: "",
+        tags: [],
+        creationDate: new Date(),
+        isPublic: false,
+        lock: {
+            isLocked: false,
+            lockExpirationDate: new Date(),
+        },
+        illustrations: [],
+        downloadableFiles: [],
+        chapters: []
+    };
+}

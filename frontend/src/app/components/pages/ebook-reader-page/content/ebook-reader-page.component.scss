@@ -1,0 +1,52 @@
+.reader-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 100vh;
+    grid-template-areas: "nav reader";
+    overflow-y: hidden;
+}
+
+.home-link,
+.ebook-link,
+.ownership-info {
+    text-align: center;
+}
+
+.nav-pane {
+    grid-area: nav;
+    padding: 1em;
+    background-color: #f8f9fa;
+}
+
+.nav-pane-controls {
+    height: calc(100% - 5em);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ebook-pane {
+    grid-area: reader;
+    padding: 1em;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reader {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.format-picker {
+    text-align: center;
+}
+
+.ebook-meta-display {
+    padding-top: 2em;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}

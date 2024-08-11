@@ -1,0 +1,11 @@
+@if (fileUrlLoadingStatus === LoadingStatus.LOADING) {
+    <div class="loading-msg">
+        <mat-spinner mode="indeterminate"></mat-spinner>
+    </div>
+} @else if (fileUrlLoadingStatus === LoadingStatus.ERROR) {
+    <div class="error-msg">
+        <div><strong>Error loading URL.</strong></div>
+    </div>
+} @else if (fileUrlLoadingStatus === LoadingStatus.LOADED) {
+    <iframe [src]="fileUrl | safe:'resourceUrl'" class="ebook-iframe"></iframe>
+}

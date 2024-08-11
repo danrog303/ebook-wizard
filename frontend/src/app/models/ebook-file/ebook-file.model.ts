@@ -2,7 +2,7 @@ import EbookDownloadableResource from "../ebook/ebook-downloadable-resource.mode
 import EbookFormat from "../ebook/ebook-format.enum";
 import EbookFileLock from "../ebook/ebook-file-lock.model";
 
-interface EbookFile {
+export default interface EbookFile {
     id?: string;
     ownerUserId?: string;
     name: string;
@@ -13,10 +13,21 @@ interface EbookFile {
     tags: string[];
     creationDate?: Date;
     favorite: boolean;
-    isPublic: boolean;
+    public: boolean;
     conversionSourceFormat?: EbookFormat;
     editLock?: EbookFileLock;
     downloadableFiles?: EbookDownloadableResource[];
 }
 
-export default EbookFile;
+export function createEmptyEbookFile(): EbookFile {
+    return {
+        id: "",
+        name: "",
+        author: "",
+        description: "",
+        tags: [],
+        containerName: "",
+        favorite: false,
+        public: false
+    };
+}

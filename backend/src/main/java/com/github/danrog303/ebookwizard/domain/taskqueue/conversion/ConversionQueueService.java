@@ -2,6 +2,8 @@ package com.github.danrog303.ebookwizard.domain.taskqueue.conversion;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.danrog303.ebookwizard.domain.ebookfile.services.EbookFileConversionService;
+import com.github.danrog303.ebookwizard.domain.ebookfile.services.EbookFileLockService;
+import com.github.danrog303.ebookwizard.domain.ebookproject.services.EbookProjectConversionService;
 import com.github.danrog303.ebookwizard.domain.taskqueue.QueueTaskConfig;
 import com.github.danrog303.ebookwizard.domain.taskqueue.QueueTaskService;
 import com.github.danrog303.ebookwizard.domain.taskqueue.QueueTaskStatus;
@@ -20,6 +22,8 @@ public class ConversionQueueService {
     private final QueueTaskConfig queueTaskConfig;
     private final ObjectMapper objectMapper;
     private final EbookFileConversionService ebookFileConversionService;
+    private final EbookFileLockService ebookFileLockService;
+    private final EbookProjectConversionService ebookProjectConversionService;
 
     public QueueTask<QueueTaskPayload> enqueueConversionTask(ConversionQueueTaskPayload conversionQueueTaskPayload) {
         String conversionQueueUrl = this.queueTaskConfig.getConversionQueueUrl();
@@ -37,7 +41,7 @@ public class ConversionQueueService {
             this.queueTaskService.updateTaskStatus(queueTaskPayload.getTaskId(), QueueTaskStatus.IN_PROGRESS);
 
             if (queueTaskPayload.conversionType == ConversionQueueTaskType.PROJECT_TO_FILE) {
-                // Convert project to file
+                this.ebookProjectConversionService.convertEbookProjectToEbookFile(queueTaskPayload.getInstanceId(), queueTaskPayload.getAdditionalInfo());
             } else if (queueTaskPayload.conversionType == ConversionQueueTaskType.FILE_TO_PROJECT) {
                 this.ebookFileConversionService.convertEbookFileToEbookProject(queueTaskPayload.getInstanceId());
             } else if (queueTaskPayload.conversionType == ConversionQueueTaskType.FILE_TO_FILE) {
@@ -55,6 +59,10 @@ public class ConversionQueueService {
                 log.error("Failed to obtain conversion queue task payload: {}", payloadJson);
             } else {
                 log.error("Processing conversion task failed: {}", queueTaskPayload.getTaskId(), e);
+                if (queueTaskPayload.conversionType.equals(ConversionQueueTaskType.FILE_TO_FILE)) {
+                    this.ebookFileLockService.unlockEbookFileForEditing(queueTaskPayload.getInstanceId());
+                }
+
                 this.queueTaskService.updateTaskStatus(queueTaskPayload.getTaskId(), QueueTaskStatus.FAILED);
             }
         }

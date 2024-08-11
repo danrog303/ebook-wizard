@@ -1,6 +1,12 @@
 package com.github.danrog303.ebookwizard.domain.ebookproject.services;
 
+import com.github.danrog303.ebookwizard.domain.ebook.EbookDownloadableResource;
+import com.github.danrog303.ebookwizard.domain.ebook.EbookFileLock;
+import com.github.danrog303.ebookwizard.domain.ebook.EbookFormat;
+import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
+import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFileRepository;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
+import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectRepository;
 import com.github.danrog303.ebookwizard.external.document.converter.DocumentConverter;
 import com.github.danrog303.ebookwizard.external.document.metadata.DocumentMetadata;
 import com.github.danrog303.ebookwizard.external.document.metadata.DocumentMetadataManipulator;
@@ -12,16 +18,25 @@ import com.github.danrog303.epubify.models.Ebook;
 import com.github.danrog303.epubify.models.EbookOptions;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EbookProjectConversionService {
+    private final EbookProjectRepository ebookProjectRepository;
+    private final EbookFileRepository ebookFileRepository;
     private final FileStorageService fileStorageService;
     private final DocumentMetadataManipulator metadataManipulator;
     private final DocumentConverter documentConverter;
@@ -62,16 +77,21 @@ public class EbookProjectConversionService {
             var chapterName = chapter.getName();
             var chapterContent = chapter.getContentHtml();
 
-            // Find occurrences of !!!ILLUSTRATION:<STUB>!!! regex and replace with <img> tag
-            for (var illustration : sourceProject.getIllustrations()) {
-                var illustrationStub = illustration.getStub();
+            String regex = "<img\\s+[^>]*src=\"([^\"]*)\"\\s+[^>]*alt=\"([^\"]*)\"";
+            Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(chapterContent);
+
+            while (matcher.find()) {
+                String src = matcher.group(1);
+                String alt = matcher.group(2);
+                log.debug("Found image with src: {} and alt: {}", src, alt);
+
                 var illustrationPath = illustrationList.stream()
-                        .filter(path -> path.getFileName().toString().startsWith(illustrationStub))
+                        .filter(path -> path.getFileName().toString().contains(alt))
                         .findFirst()
                         .orElseThrow();
 
-                chapterContent = chapterContent.replaceAll("!!!ILLUSTRATION:" + illustrationStub + "!!!",
-                        "<img src=\"" + illustrationPath.toAbsolutePath() + "\" alt=\"illustration\" />");
+                chapterContent = chapterContent.replace(src, illustrationPath.toAbsolutePath().toString());
             }
 
             ebook.addChapter(chapterName, chapterContent);
@@ -98,5 +118,55 @@ public class EbookProjectConversionService {
             Files.copy(fileStorageService.downloadFile(coverImageKey), coverFilePath);
             documentThumbnailManipulator.setThumbnail(workFile, coverFilePath);
         }
+    }
+
+    @SneakyThrows(IOException.class)
+    public void convertEbookProjectToEbookFile(String ebookProjectId, String targetFormat) {
+        EbookProject sourceProject = ebookProjectRepository.findById(ebookProjectId).orElseThrow();
+        targetFormat = targetFormat.toLowerCase();
+
+        EbookFile newFile = new EbookFile();
+        newFile.setAuthor(sourceProject.getAuthor());
+        newFile.setName(sourceProject.getName());
+        newFile.setDescription(sourceProject.getDescription());
+        newFile.setTags(sourceProject.getTags());
+        newFile.setPublic(false);
+        newFile.setId(null);
+        newFile.setEditLock(new EbookFileLock(false, null));
+        newFile.setOwnerUserId(sourceProject.getOwnerUserId());
+        newFile.setFavorite(false);
+        newFile.setCreationDate(new Date());
+        newFile.setContainerName("");
+
+        try (TemporaryDirectory tempDir = new TemporaryDirectory()) {
+            if (sourceProject.getCoverImageKey() != null) {
+                String randomKey = RandomStringUtils.randomAlphanumeric(64);
+                String newFileCoverImageKey = "ebook-files/covers/%s/%s.jpg"
+                        .formatted(sourceProject.getOwnerUserId(), randomKey);
+
+                Path coverImagePath = tempDir.getDirectory().resolve("cover.jpg");
+                Files.copy(fileStorageService.downloadFile(sourceProject.getCoverImageKey()), coverImagePath);
+                fileStorageService.uploadFile(newFileCoverImageKey, coverImagePath.toFile());
+
+                newFile.setCoverImageKey(newFileCoverImageKey);
+            }
+
+            Path targetPath = tempDir.getDirectory().resolve("out." + targetFormat);
+            convertEbookProjectToPhysicalFile(sourceProject, targetPath);
+
+            String randomKey = RandomStringUtils.randomAlphanumeric(64);
+            String newFileKey = "ebook-files/%s/%s.%s"
+                    .formatted(sourceProject.getOwnerUserId(), randomKey, targetFormat);
+            fileStorageService.uploadFile(newFileKey, targetPath.toFile());
+
+            newFile.setDownloadableFiles(List.of(new EbookDownloadableResource(
+                    RandomStringUtils.randomAlphanumeric(64),
+                    EbookFormat.fromExtension(targetFormat),
+                    new Date(),
+                    newFileKey
+            )));
+        }
+
+        ebookFileRepository.save(newFile);
     }
 }

@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>Share e-book</h2>
+
+<mat-dialog-content>
+    @if (updatingStatus === LoadingStatus.LOADING) {
+        <div>
+            <mat-progress-bar mode="indeterminate" />
+        </div>
+    }
+
+    <div style="padding-bottom: 1.5em; padding-top: 1.5em;">
+        <div>
+            Public?
+        </div>
+
+        <div>
+            <mat-checkbox (change)="onPublicToggle($event)"
+                          [disabled]="updatingStatus === LoadingStatus.LOADING"
+                          [checked]="ebookFile.public">
+                Make e-book public
+            </mat-checkbox>
+        </div>
+
+        <div>
+            Public ebooks can be viewed by other users.
+        </div>
+    </div>
+
+    <mat-divider />
+
+    <div style="padding-top: 1.5em;">
+        <div>
+            Share link to your e-book:
+        </div>
+
+        <div class="ebook-url-viewer">
+            <mat-form-field >
+                <mat-label>URL</mat-label>
+                <input matInput [value]="ebookUrl" readonly>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <button mat-button color="primary"
+                    (click)="copyUrlToClipboard()"
+                    [disabled]="updatingStatus === LoadingStatus.LOADING">
+                Copy to clipboard
+            </button>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close [disabled]="updatingStatus === LoadingStatus.LOADING">
+        Close
+    </button>
+</mat-dialog-actions>

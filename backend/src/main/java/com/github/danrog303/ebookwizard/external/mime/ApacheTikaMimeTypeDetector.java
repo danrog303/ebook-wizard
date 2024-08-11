@@ -13,16 +13,26 @@ public class ApacheTikaMimeTypeDetector implements MimeTypeDetector {
 
     @Override
     public String detectMimeType(byte[] data) {
-        return this.tika.detect(data);
+        String mime = this.tika.detect(data);
+        return applyOverrides(mime);
     }
 
     @Override
     public String detectMimeType(File filePath) throws IOException {
-        return this.tika.detect(filePath);
+        String mime = this.tika.detect(filePath);
+        return applyOverrides(mime);
     }
 
     @Override
     public String detectMimeType(InputStream inputStream) throws IOException {
-        return this.tika.detect(inputStream);
+        String mime = this.tika.detect(inputStream);
+        return applyOverrides(mime);
+    }
+
+    private String applyOverrides(String mime) {
+        return switch (mime) {
+            case "application/xhtml+xml" -> "text/html";
+            default -> mime;
+        };
     }
 }

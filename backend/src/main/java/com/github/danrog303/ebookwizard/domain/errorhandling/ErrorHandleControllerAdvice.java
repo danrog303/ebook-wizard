@@ -32,6 +32,23 @@ public class ErrorHandleControllerAdvice {
         return ResponseEntity.status(status).body(response);
     }
 
+    @ExceptionHandler(ClassCastException.class)
+    public ResponseEntity<ErrorResponse> handleClassCastException(ClassCastException e) {
+        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+
+        if (e.getMessage() != null && e.getMessage().contains("AnonymousAuthenticationToken")) {
+            var status = HttpStatus.UNAUTHORIZED;
+            var key = "UNAUTHORIZED";
+            var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
+            return ResponseEntity.status(status).body(response);
+        } else {
+            var status = HttpStatus.INTERNAL_SERVER_ERROR;
+            var key = "CLASS_CAST_EXCEPTION";
+            var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
+            return ResponseEntity.status(status).body(response);
+        }
+    }
+
     @ExceptionHandler(MultipartException.class)
     public ResponseEntity<ErrorResponse> handleMultipartException(MultipartException e) {
         log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);

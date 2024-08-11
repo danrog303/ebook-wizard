@@ -4,6 +4,7 @@ import com.github.danrog303.ebookwizard.domain.ebook.EbookAccessType;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectChapter;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectRepository;
+import com.github.danrog303.ebookwizard.external.storage.FileStorageService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.Date;
 public class EbookProjectChapterService {
     private final EbookProjectRepository ebookProjectRepository;
     private final EbookProjectPermissionService permissionService;
+    private final FileStorageService fileStorageService;
 
     public EbookProjectChapter createChapter(String ebookProjectId, EbookProjectChapter chapter) {
         validateChapter(chapter);
@@ -55,8 +57,41 @@ public class EbookProjectChapterService {
         existingChapter.setContentHtml(chapter.getContentHtml());
         existingChapter.setLastModifiedDate(new Date());
 
+        // Detect illustrations that are no longer used
+        this.removeStaleIllustrations(ebookProject);
+
         ebookProjectRepository.save(ebookProject);
         return existingChapter;
+    }
+
+    public void reorderChapters(String ebookProjectId, int oldIndex, int newIndex) {
+        EbookProject ebookProject = permissionService.getEbookProject(ebookProjectId, EbookAccessType.READ_WRITE);
+        EbookProjectChapter chapter = ebookProject.getChapters().remove(oldIndex);
+        ebookProject.getChapters().add(newIndex, chapter);
+
+        ebookProjectRepository.save(ebookProject);
+    }
+
+    private void removeStaleIllustrations(EbookProject ebookProject) {
+        boolean[] illustrationIsUsed = new boolean[ebookProject.getIllustrations().size()];
+
+        for (EbookProjectChapter chapter : ebookProject.getChapters()) {
+            for (int i = 0; i < illustrationIsUsed.length; i++) {
+                if (chapter.getContentHtml().contains(ebookProject.getIllustrations().get(i).getStub())) {
+                    illustrationIsUsed[i] = true;
+                }
+            }
+        }
+
+        for (int i = illustrationIsUsed.length - 1; i >= 0; i--) {
+            if (!illustrationIsUsed[i]) {
+                var illustration = ebookProject.getIllustrations().get(i);
+                fileStorageService.deleteFile(illustration.getFileKey());
+                ebookProject.getIllustrations().remove(i);
+            }
+        }
+
+        ebookProjectRepository.save(ebookProject);
     }
 
     private void validateChapter(EbookProjectChapter chapter) {

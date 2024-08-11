@@ -1,0 +1,105 @@
+<div class="reader-container">
+    <div class="nav-pane">
+        <div class="home-link">
+            <a routerLink="/">
+                <img ngSrc="/assets/logo.svg" alt="logo" height="323" width="2000" class="logo-image" />
+            </a>
+        </div>
+
+        @if (isUserAuthenticated) {
+            <div class="ebook-link">
+                <a routerLink="/ebook-file" mat-button color="primary">
+                    <mat-icon>arrow_back</mat-icon>
+                    <span>Back to ebook list</span>
+                </a>
+            </div>
+        }
+
+        <div class="nav-pane-controls">
+            @if (ebookFile) {
+                <div class="ebook-meta-display">
+                    <div>
+                        <strong>E-book name:</strong> {{ ebookFile.name }}
+                    </div>
+
+                    <div>
+                        <strong>Author:</strong> {{ ebookFile.author }}
+                    </div>
+
+                    <div>
+                        <strong>Description:</strong> {{ ebookFile.description }}
+                    </div>
+
+                    <div>
+                        <strong>Tags:</strong> {{ ebookFile.tags.join(', ') || "-" }}
+                    </div>
+                </div>
+            }
+
+            @if (ebookFile) {
+                <div class="ownership-info">
+                    @if (!isUserAuthenticated) {
+                        <p>
+                            This file is shared to you by ebook-wizard user.
+                        </p>
+
+                        <p>
+                            <a routerLink="/" mat-button color="primary">Try ebook-wizard</a>
+                        </p>
+                    } @else if (isUserOwner) {
+                        <p>
+                            You are the owner of this file.
+                        </p>
+
+                        <p>
+                            <a routerLink="/ebook-file" mat-button color="primary">Edit it in files editor</a>
+                        </p>
+                    } @else if (!isUserOwner) {
+                        This file is shared to you by another user.
+                    }
+                </div>
+            }
+
+            @if (ebookFile) {
+                <div class="format-picker">
+                    <mat-form-field>
+                        <mat-label>Choose format</mat-label>
+                        <mat-select [(value)]="chosenFormat">
+                            @if (isUserOwner || ebookHasFormat(EbookFormat.HTML)) {
+                                <mat-option [value]="EbookFormat.HTML">HTML</mat-option>
+                            }
+                            @if (isUserOwner || ebookHasFormat(EbookFormat.PDF)) {
+                                <mat-option [value]="EbookFormat.PDF">PDF</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="ebook-pane">
+        @if (ebookFileLoadingStatus === LoadingStatus.LOADING) {
+            <div class="loading-msg">
+                <mat-spinner mode="indeterminate"></mat-spinner>
+            </div>
+        } @else if (ebookFileLoadingStatus === LoadingStatus.ERROR) {
+            <div class="error-msg">
+                <div><strong>
+                    @if (ebookFileLoadingError === "unauthorized") {
+                        You are not authorized to view this ebook file...
+                    } @else if (ebookFileLoadingError === "not-found") {
+                        Ebook file not found.
+                    } @else {
+                        Error loading ebook file.
+                    }
+                </strong></div>
+            </div>
+        } @else if (ebookFileLoadingStatus === LoadingStatus.LOADED) {
+            <div class="reader">
+                <app-ebook-reader-display [ebookFile]="ebookFile"
+                                          [ebookFormat]="chosenFormat" />
+            </div>
+        }
+    </div>
+</div>

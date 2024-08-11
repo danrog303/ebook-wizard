@@ -4,21 +4,32 @@ import com.github.danrog303.ebookwizard.domain.ebook.EbookAccessType;
 import com.github.danrog303.ebookwizard.domain.ebook.EbookDownloadableResource;
 import com.github.danrog303.ebookwizard.domain.ebook.EbookFileLock;
 import com.github.danrog303.ebookwizard.domain.ebook.EbookFormat;
+import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
+import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectChapter;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectIllustration;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectRepository;
+import com.github.danrog303.ebookwizard.domain.taskqueue.conversion.ConversionQueueService;
+import com.github.danrog303.ebookwizard.domain.taskqueue.conversion.ConversionQueueTaskPayload;
+import com.github.danrog303.ebookwizard.domain.taskqueue.conversion.ConversionQueueTaskType;
+import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTask;
+import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTaskPayload;
 import com.github.danrog303.ebookwizard.external.auth.AuthorizationProvider;
 import com.github.danrog303.ebookwizard.external.image.ImageConverter;
 import com.github.danrog303.ebookwizard.external.mime.MimeTypeDetector;
 import com.github.danrog303.ebookwizard.external.storage.FileStorageService;
+import com.github.danrog303.ebookwizard.util.string.StringNormalizer;
 import com.github.danrog303.ebookwizard.util.temp.TemporaryDirectory;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -33,13 +44,21 @@ public class EbookProjectManipulationService {
     private final FileStorageService fileStorageService;
     private final MimeTypeDetector mimeTypeDetector;
     private final ImageConverter imageConverter;
+    private final ConversionQueueService conversionQueueService;
 
     public EbookProject createEmptyEbookProject(EbookProject ebookProject) {
         authorizationProvider.requireAuthentication();
 
+        EbookProjectChapter chapter = new EbookProjectChapter();
+        chapter.setId(RandomStringUtils.randomAlphanumeric(64));
+        chapter.setName("Chapter 1");
+        chapter.setContentHtml("<p>Chapter content</p>");
+        chapter.setCreationDate(new Date());
+        chapter.setLastModifiedDate(new Date());
+
         ebookProject.setId(null);
         ebookProject.setCreationDate(new Date());
-        ebookProject.setChapters(new ArrayList<>());
+        ebookProject.setChapters(List.of(chapter));
         ebookProject.setCoverImageKey(null);
         ebookProject.setLock(new EbookFileLock(false, null));
         ebookProject.setIllustrations(new ArrayList<>());
@@ -54,7 +73,7 @@ public class EbookProjectManipulationService {
     }
 
     @SneakyThrows(IOException.class)
-    public EbookProject uploadIllustrationImage(String ebookProjectId, MultipartFile illustrationImageFile) {
+    public EbookProjectIllustration uploadIllustrationImage(String ebookProjectId, MultipartFile illustrationImageFile) {
         EbookProject ebookProject = permissionService.getEbookProject(ebookProjectId, EbookAccessType.READ_WRITE);
         String currentUserId = authorizationProvider.getAuthenticatedUserId();
 
@@ -70,7 +89,9 @@ public class EbookProjectManipulationService {
 
         EbookProjectIllustration illustration = new EbookProjectIllustration(randomKey, uploadFileKey);
         ebookProject.getIllustrations().add(illustration);
-        return ebookProjectRepository.save(ebookProject);
+        ebookProjectRepository.save(ebookProject);
+
+        return illustration;
     }
 
     @SneakyThrows(IOException.class)
@@ -123,6 +144,20 @@ public class EbookProjectManipulationService {
         ebookProjectRepository.save(ebookProject);
     }
 
+    @SneakyThrows(IOException.class)
+    public ResponseEntity<byte[]> getIllustrationImageBytes(String ebookProjectId, String illustrationHash) {
+        EbookProject ebookProject = permissionService.getEbookProject(ebookProjectId, EbookAccessType.READ_ONLY);
+        var illustration = ebookProject.getIllustrations()
+                .stream()
+                .filter(ill -> ill.getStub().equals(illustrationHash))
+                .findFirst()
+                .orElseThrow();
+
+        try (InputStream file = fileStorageService.downloadFile(illustration.getFileKey())) {
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(file.readAllBytes());
+        }
+    }
+
     public EbookProject updateEbookProject(String ebookProjectId, EbookProject newEbookProject) {
         EbookProject ebookProject = permissionService.getEbookProject(ebookProjectId, EbookAccessType.READ_WRITE);
 
@@ -137,6 +172,7 @@ public class EbookProjectManipulationService {
             ebookProject.setIsPublic(false);
         }
 
+        ebookProjectRepository.save(ebookProject);
         return ebookProject;
     }
 
@@ -181,7 +217,8 @@ public class EbookProjectManipulationService {
                 .findFirst()
                 .orElseThrow();
 
-        return fileStorageService.getDownloadUrl(downloadableResource.getFileKey());
+        String fileName = StringNormalizer.normalize(ebookProject.getName()) + "." + downloadableResource.getFormat().getExtensionName();
+        return fileStorageService.getDownloadUrl(downloadableResource.getFileKey(), fileName);
     }
 
     @SneakyThrows(IOException.class)
@@ -203,10 +240,12 @@ public class EbookProjectManipulationService {
             fileStorageService.uploadFile(uploadFileKey, targetPath.toFile());
 
             var downloadableResource = new EbookDownloadableResource(randomKey, ebookFormat, new Date(), uploadFileKey);
-            ebookProject.getDownloadableFiles().add(downloadableResource);
+            ebookProject.getDownloadableFiles().add(0, downloadableResource);
+
             ebookProjectRepository.save(ebookProject);
 
-            return fileStorageService.getDownloadUrl(uploadFileKey);
+            String fileName = StringNormalizer.normalize(ebookProject.getName()) + "." + ebookFormat.getExtensionName();
+            return fileStorageService.getDownloadUrl(uploadFileKey, fileName);
         }
     }
 
@@ -221,5 +260,44 @@ public class EbookProjectManipulationService {
         fileStorageService.deleteFile(ebookFormatRes.getFileKey());
         ebookProject.getDownloadableFiles().remove(ebookFormatRes);
         ebookProjectRepository.save(ebookProject);
+    }
+
+    public String getCoverImageUrl(String ebookProjectId) {
+        EbookProject ebookProject = permissionService.getEbookProject(ebookProjectId, EbookAccessType.READ_ONLY);
+        return this.fileStorageService.getDownloadUrl(ebookProject.getCoverImageKey());
+    }
+
+    public EbookProject deleteCoverImage(String ebookProjectId) {
+        EbookProject ebookProject = permissionService.getEbookProject(ebookProjectId, EbookAccessType.READ_WRITE);
+
+        if (ebookProject.getCoverImageKey() != null) {
+            fileStorageService.deleteFile(ebookProject.getCoverImageKey());
+            ebookProject.setCoverImageKey(null);
+        }
+
+        return ebookProjectRepository.save(ebookProject);
+    }
+
+    public String getIllustrationImageUrl(String ebookProjectId, String illustrationHash) {
+        EbookProject ebookProject = permissionService.getEbookProject(ebookProjectId, EbookAccessType.READ_ONLY);
+        var illustration = ebookProject.getIllustrations()
+                .stream()
+                .filter(ill -> ill.getStub().equals(illustrationHash))
+                .findFirst()
+                .orElseThrow();
+
+        return fileStorageService.getDownloadUrl(illustration.getFileKey());
+    }
+
+    public QueueTask<QueueTaskPayload> enqueueConvertEbookProjectToEbookFile(String ebookProjectId, String targetFormat) {
+        EbookProject ebookProject = permissionService.getEbookProject(ebookProjectId, EbookAccessType.READ_WRITE);
+        assert ebookProject != null;
+
+        ConversionQueueTaskPayload conversionQueueTaskPayload = new ConversionQueueTaskPayload(
+                ebookProjectId,
+                ConversionQueueTaskType.PROJECT_TO_FILE,
+                targetFormat);
+
+        return conversionQueueService.enqueueConversionTask(conversionQueueTaskPayload);
     }
 }

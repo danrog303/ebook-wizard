@@ -30,4 +30,11 @@ public class EbookProjectChapterController {
                               @RequestBody EbookProjectChapter chapter) {
         return this.ebookProjectChapterService.updateChapter(ebookProjectId, chapterId, chapter);
     }
+
+    @PutMapping("/{ebookProjectId}/chapter/reorder/{oldIndex}/{newIndex}")
+    public void reorderChapters(@PathVariable String ebookProjectId,
+                                @PathVariable int oldIndex,
+                                @PathVariable int newIndex) {
+        this.ebookProjectChapterService.reorderChapters(ebookProjectId, oldIndex, newIndex);
+    }
 }

@@ -1,9 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {MatButton} from "@angular/material/button";
-import {MatIcon} from "@angular/material/icon";
-import {MatProgressSpinner} from "@angular/material/progress-spinner";
-import {MaterialModule} from "../../../modules/material.module";
 import {CommonModule} from "@angular/common";
+import MaterialModule from "../../../modules/material.module";
 
 @Component({
     selector: 'app-action-pending-button',
@@ -12,7 +9,7 @@ import {CommonModule} from "@angular/common";
     templateUrl: './action-pending-button.component.html',
     styleUrl: './action-pending-button.component.scss'
 })
-export class ActionPendingButtonComponent {
+export default class ActionPendingButtonComponent {
     @Input() pending: boolean = false;
     @Input() disabled: boolean = false;
     @Input() type: ("button" | "submit") = "button";

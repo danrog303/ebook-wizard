@@ -2,9 +2,13 @@ package com.github.danrog303.ebookwizard.domain.ebookproject.controllers;
 
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectChapter;
+import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectIllustration;
 import com.github.danrog303.ebookwizard.domain.ebookproject.services.EbookProjectManipulationService;
+import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTask;
+import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTaskPayload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,15 +28,32 @@ public class EbookProjectController {
 
     @PostMapping("/{ebookProjectId}/illustration")
     @ResponseStatus(HttpStatus.CREATED)
-    public EbookProject uploadIllustrationImage(@PathVariable String ebookProjectId,
-                                                @RequestPart MultipartFile file) {
+    public EbookProjectIllustration uploadIllustrationImage(@PathVariable String ebookProjectId,
+                                                            @RequestPart MultipartFile file) {
         return this.ebookProjectManipulationService.uploadIllustrationImage(ebookProjectId, file);
+    }
+
+    @GetMapping("/{ebookProjectId}/illustration/{illustrationHash}")
+    public String getIllustrationImageDisplayUrl(@PathVariable String ebookProjectId,
+                                                 @PathVariable String illustrationHash) {
+        return this.ebookProjectManipulationService.getIllustrationImageUrl(ebookProjectId, illustrationHash);
     }
 
     @PutMapping("/{ebookProjectId}/cover-image")
     public EbookProject updateCoverImage(@PathVariable String ebookProjectId,
                                          @RequestPart MultipartFile file) {
         return this.ebookProjectManipulationService.updateCoverImage(ebookProjectId, file);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{ebookProjectId}/cover-image")
+    public EbookProject deleteCoverImage(@PathVariable String ebookProjectId) {
+        return this.ebookProjectManipulationService.deleteCoverImage(ebookProjectId);
+    }
+
+    @GetMapping("/{ebookProjectId}/cover-image")
+    public String getCoverImageUrl(@PathVariable String ebookProjectId) {
+        return this.ebookProjectManipulationService.getCoverImageUrl(ebookProjectId);
     }
 
     @DeleteMapping("/{ebookProjectId}/illustration/{illustrationHash}")
@@ -81,4 +102,12 @@ public class EbookProjectController {
                                   @PathVariable String ebookDownloadableFileStub) {
         this.ebookProjectManipulationService.deleteEbookFormat(ebookProjectId, ebookDownloadableFileStub);
     }
+
+    @PostMapping("/convert/{ebookProjectId}/to-file/{ebookFileFormat}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public QueueTask<QueueTaskPayload> convertEbookProjectToEbookFile(@PathVariable String ebookProjectId,
+                                                                      @PathVariable String ebookFileFormat) {
+        return this.ebookProjectManipulationService.enqueueConvertEbookProjectToEbookFile(ebookProjectId, ebookFileFormat);
+    }
+
 }

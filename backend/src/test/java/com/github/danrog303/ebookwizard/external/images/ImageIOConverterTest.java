@@ -50,4 +50,20 @@ public class ImageIOConverterTest {
         }
     }
 
+    @Test
+    public void test_convertTo_pngToJpg() throws IOException {
+        try (var pngImage = this.getClass().getClassLoader().getResourceAsStream("images/image-png.png")) {
+            try (TemporaryDirectory tempDir = new TemporaryDirectory()) {
+                var inputPath = tempDir.getDirectory().resolve("image-png.png");
+                var outputPath = tempDir.getDirectory().resolve("image-jpg.jpg");
+
+                assertThat(pngImage).isNotNull();
+                Files.copy(pngImage, inputPath);
+                assertThat(mimeTypeDetector.detectMimeType(inputPath.toFile())).isEqualTo("image/png");
+
+                imageConverter.convertTo(inputPath, outputPath, "JPEG");
+                assertThat(mimeTypeDetector.detectMimeType(outputPath.toFile())).isEqualTo("image/jpeg");
+            }
+        }
+    }
 }

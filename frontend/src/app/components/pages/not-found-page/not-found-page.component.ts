@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {RouterModule} from "@angular/router";
-import {MaterialModule} from "../../../modules/material.module";
 import {NgOptimizedImage} from "@angular/common";
+import MaterialModule from "@app/modules/material.module";
 
 @Component({
     selector: 'app-not-found-page',

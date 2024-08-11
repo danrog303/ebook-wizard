@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>Create ebook project</h2>
+
+<mat-dialog-content>
+    <mat-stepper linear #stepper>
+        <mat-step [editable]="false" [stepControl]="metaEditForm.metadataForm">
+            <ng-template matStepLabel>Initial metadata</ng-template>
+
+            <app-ebook-project-meta-edit-form (updateEbookProject)="onEbookProjectCreated($event)"
+                                              [ebookProject]="ebookProject!"
+                                              type="create"
+                                              #metaEditForm />
+        </mat-step>
+
+        <mat-step [editable]="false" [stepControl]="coverUploadForm">
+            <ng-template matStepLabel>Upload cover image</ng-template>
+
+            <form [formGroup]="coverUploadForm">
+                <p>
+                    You can upload a cover image for your ebook.<br/>
+                </p>
+
+                <p>Accepted formats: JPG, PNG</p>
+
+                <div class="cover-upload">
+                    @if (coverImageUploadStatus === LoadingStatus.LOADING) {
+                        <mat-progress-bar [mode]="coverImageUploadProgress === 100 ? 'indeterminate' : 'determinate'"
+                                          [value]="coverImageUploadProgress" />
+                    } @else {
+                        <ngx-file-drag-drop (valueChanged)="onFileChosen($event)"
+                                            emptyPlaceholder="Drop cover image"
+                                            accept=".jpg,.jpeg,.png"
+                                            formControlName="file" />
+                    }
+                </div>
+            </form>
+
+            <div mat-dialog-actions align="end">
+                <button mat-button matStepperNext color="primary" [disabled]="coverImageUploadStatus === LoadingStatus.LOADING">
+                    Skip cover image
+                </button>
+            </div>
+        </mat-step>
+
+        <mat-step [editable]="false">
+            <ng-template matStepLabel>Done</ng-template>
+
+            <p>You've successfully created a new project!</p>
+
+            <app-ebook-project-details [ebookProject]="ebookProject" />
+
+            <div mat-dialog-actions align="end">
+                <button mat-flat-button color="primary" mat-dialog-close>Close</button>
+            </div>
+        </mat-step>
+    </mat-stepper>
+</mat-dialog-content>
+

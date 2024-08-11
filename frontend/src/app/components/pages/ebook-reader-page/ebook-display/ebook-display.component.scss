@@ -1,0 +1,36 @@
+.loading-msg,
+.error-msg {
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ebook-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.ebook-iframe::-webkit-scrollbar-track
+{
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+.ebook-iframe::-webkit-scrollbar
+{
+    width: 10px;
+    background-color: #ffffff;
+}
+
+.ebook-iframe::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    background-color: #4658d855;
+}
+
+.ebook-meta-display {
+    margin-top: 2em;
+}

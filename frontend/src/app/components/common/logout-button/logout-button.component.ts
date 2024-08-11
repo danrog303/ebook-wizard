@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
-import {MaterialModule} from "../../../modules/material.module";
-import {AuthenticationService} from "../../../services/authentication.service";
-import {NotificationService} from "../../../services/notification.service";
 import {Router} from "@angular/router";
+
+import MaterialModule from "@app/modules/material.module";
+import AuthenticationService from "@app/services/authentication.service";
+import NotificationService from "@app/services/notification.service";
 
 @Component({
     selector: 'app-logout-button',
@@ -11,7 +12,7 @@ import {Router} from "@angular/router";
     templateUrl: './logout-button.component.html',
     styleUrl: './logout-button.component.scss'
 })
-export class LogoutButtonComponent {
+export default class LogoutButtonComponent {
     logoutPending = false;
 
     constructor(private authService: AuthenticationService,

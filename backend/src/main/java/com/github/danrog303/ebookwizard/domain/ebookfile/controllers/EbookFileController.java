@@ -1,5 +1,6 @@
 package com.github.danrog303.ebookwizard.domain.ebookfile.controllers;
 
+import com.github.danrog303.ebookwizard.domain.ebook.ContentDispositionType;
 import com.github.danrog303.ebookwizard.domain.ebookfile.services.EbookFileManipulationService;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTask;
@@ -53,8 +54,13 @@ public class EbookFileController {
 
     @GetMapping("/{ebookFileId}/{ebookFileFormat}")
     public String getUrlToDownloadFile(@PathVariable String ebookFileId,
-                                          @PathVariable String ebookFileFormat) {
-        return this.ebookFileManipulationService.getDownloadUrlForEbookFile(ebookFileId, ebookFileFormat);
+                                       @PathVariable String ebookFileFormat,
+                                       @RequestParam(required = false) ContentDispositionType dispositionType) {
+        if (dispositionType == null) {
+            dispositionType = ContentDispositionType.ATTACHMENT;
+        }
+
+        return this.ebookFileManipulationService.getDownloadUrlForEbookFile(ebookFileId, ebookFileFormat, dispositionType);
     }
 
     @DeleteMapping("/{ebookFileId}/{ebookFileFormat}")
@@ -70,9 +76,20 @@ public class EbookFileController {
         return this.ebookFileManipulationService.importEbookFile(file);
     }
 
+    @GetMapping("/{ebookFileId}/cover-image")
+    public String getCoverImageUrl(@PathVariable String ebookFileId) {
+        return this.ebookFileManipulationService.getCoverImageUrl(ebookFileId);
+    }
+
     @PutMapping("/{ebookFileId}/cover-image")
     public EbookFile updateEbookFileCoverImage(@RequestPart MultipartFile file, @PathVariable String ebookFileId) {
         return this.ebookFileManipulationService.updateEbookFileCoverImage(ebookFileId, file);
+    }
+
+    @DeleteMapping("/{ebookFileId}/cover-image")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteEbookFileCoverImage(@PathVariable String ebookFileId) {
+        this.ebookFileManipulationService.deleteEbookFileCoverImage(ebookFileId);
     }
 
     @DeleteMapping("/{ebookFileId}")

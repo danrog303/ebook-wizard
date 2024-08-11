@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { LandingPageContentComponent } from "./components/pages/landing-page/landing-page-content/landing-page-content.component";
+import { LandingPageContentComponent } from "./components/pages/landing-page/content/landing-page-content.component";
 import unauthenticatedGuard from "./guards/unauthenticated.guard";
 import logoutGuard from "./guards/logout.guard";
 import authenticatedGuard from "./guards/authenticated.guard";
@@ -17,7 +17,7 @@ export const routes: Routes = [
     {
         path: 'auth/register',
         canActivate: [unauthenticatedGuard],
-        loadComponent: () => import('./components/pages/registration-page/registration-page-content/registration-page-content.component').then(m => m.RegistrationPageContentComponent),
+        loadComponent: () => import('./components/pages/registration-page/content/registration-page-content.component').then(m => m.RegistrationPageContentComponent),
     },
     {
         path: 'auth/logout',
@@ -27,27 +27,36 @@ export const routes: Routes = [
     {
         path: 'auth/reset-password',
         canActivate: [unauthenticatedGuard],
-        loadComponent: () => import('./components/pages/reset-password-page/reset-password-page-content/reset-password-page-content.component').then(m => m.ResetPasswordPageContentComponent),
+        loadComponent: () => import('./components/pages/reset-password-page/content/reset-password-page-content.component').then(m => m.ResetPasswordPageContentComponent),
     },
     {
         path: 'ebook',
         canActivate: [authenticatedGuard],
-        loadComponent: () => import('./components/pages/ebook-page/ebook-page-content/ebook-page-content.component').then(m => m.EbookPageContent),
+        loadComponent: () => import('./components/pages/ebook-page/content/ebook-page-content.component').then(m => m.EbookPageContent),
     },
     {
         path: 'ebook/last-modified',
         canActivate: [authenticatedGuard],
-        loadComponent: () => import('./components/pages/ebook-page/ebook-page-content/ebook-page-content.component').then(m => m.EbookPageContent),
+        loadComponent: () => import('./components/pages/ebook-page/content/ebook-page-content.component').then(m => m.EbookPageContent),
     },
     {
         path: 'ebook-project',
         canActivate: [authenticatedGuard],
-        loadComponent: () => import('./components/pages/ebook-page/ebook-page-content/ebook-page-content.component').then(m => m.EbookPageContent),
+        loadComponent: () => import('./components/pages/ebook-page/content/ebook-page-content.component').then(m => m.EbookPageContent),
     },
     {
         path: 'ebook-file',
         canActivate: [authenticatedGuard],
-        loadComponent: () => import('./components/pages/ebook-page/ebook-page-content/ebook-page-content.component').then(m => m.EbookPageContent),
+        loadComponent: () => import('./components/pages/ebook-page/content/ebook-page-content.component').then(m => m.EbookPageContent),
+    },
+    {
+        path: 'reader/ebook-file/:id',
+        loadComponent: () => import('./components/pages/ebook-reader-page/content/ebook-reader-page.component').then(m => m.EbookReaderPageComponent),
+    },
+    {
+        path: 'editor/ebook-project/:id',
+        canActivate: [authenticatedGuard],
+        loadComponent: () => import('./components/pages/ebook-project-editor-page/content/ebook-project-editor-page.component').then(m => m.EbookProjectEditorPageComponent),
     },
     {
         path: 'about',

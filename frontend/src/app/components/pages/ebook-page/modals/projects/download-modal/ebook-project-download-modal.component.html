@@ -1,0 +1,79 @@
+<h2 mat-dialog-title>Export ebook project</h2>
+
+<mat-dialog-content class="download-modal">
+    <section class="sec-other-formats">
+        <p>
+            Previously generated links:
+        </p>
+
+        <mat-list>
+            @for (file of ebookProject.downloadableFiles; track file.stub) {
+                <mat-list-item>
+                    <mat-icon matListItemIcon>description</mat-icon>
+
+                    <div matListItemTitle>{{file.format | uppercase}}</div>
+
+                    <div matListItemLine>Snapshot: {{file.creationDate | date: 'dd.MM.yyyy, HH:mm'}}</div>
+
+                    <div matListItemLine>
+                        <button mat-button
+                                color="primary"
+                                (click)="onDownloadExistingLink(file)"
+                                [disabled]="ongoingTaskStatus === LoadingStatus.LOADING">
+                            Download
+                            <mat-icon>sync</mat-icon>
+                        </button>
+
+                        <button mat-button
+                                color="primary"
+                                (click)="onDeleteExistingLink(file)"
+                                [disabled]="ongoingTaskStatus === LoadingStatus.LOADING">
+                            Delete
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </div>
+                </mat-list-item>
+            } @empty {
+                <strong>No previously generated links.</strong>
+            }
+        </mat-list>
+    </section>
+
+    <mat-divider />
+
+    <section class="sec-currently-available">
+        <p>
+            Generate new export:
+        </p>
+
+        <mat-list>
+            @for (format of EbookFormat | keyvalue; track format.key) {
+                <mat-list-item>
+                    <mat-icon matListItemIcon>description</mat-icon>
+
+                    <div matListItemTitle>
+                        {{format.key}}
+                    </div>
+
+                    <div matListItemLine>
+                        <button mat-button
+                                color="primary"
+                                (click)="onCreateDownloadLink(format.value)"
+                                [disabled]="ongoingTaskStatus === LoadingStatus.LOADING">
+                            Export
+                            <mat-icon>download</mat-icon>
+                        </button>
+                    </div>
+                </mat-list-item>
+            }
+        </mat-list>
+    </section>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    @if (ongoingTaskStatus === LoadingStatus.LOADING) {
+        <mat-progress-bar mode="indeterminate" />
+    }
+
+    <button mat-button mat-dialog-close class="cancel-btn">Cancel</button>
+</mat-dialog-actions>

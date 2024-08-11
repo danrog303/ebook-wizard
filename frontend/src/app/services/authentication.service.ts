@@ -2,16 +2,17 @@ import {Injectable} from "@angular/core";
 import {BehaviorSubject} from "rxjs";
 import {Amplify} from 'aws-amplify';
 import {
-    signUp,
+    AuthUser,
+    confirmResetPassword,
+    confirmSignUp,
+    fetchAuthSession,
+    fetchUserAttributes,
+    getCurrentUser,
+    resendSignUpCode,
+    resetPassword,
     signIn,
     signOut,
-    confirmSignUp,
-    getCurrentUser,
-    confirmResetPassword,
-    resetPassword,
-    resendSignUpCode,
-    fetchUserAttributes,
-    fetchAuthSession
+    signUp
 } from "@aws-amplify/auth";
 import env from "../../environments/environment";
 
@@ -21,7 +22,7 @@ export interface AuthenticatedUser {
 }
 
 @Injectable({providedIn: 'root'})
-export class AuthenticationService {
+export default class AuthenticationService {
     public $isUserAuthenticated: BehaviorSubject<boolean>;
     public $authenticatedUser: BehaviorSubject<AuthenticatedUser | null>;
 
@@ -37,7 +38,7 @@ export class AuthenticationService {
             }
         });
 
-        getCurrentUser().then((user) => {
+        getCurrentUser().then((user: AuthUser) => {
             if (user) {
                 this.$isUserAuthenticated.next(true);
             }
@@ -60,6 +61,15 @@ export class AuthenticationService {
         try {
             const authSession = await fetchAuthSession();
             return authSession.tokens?.accessToken.toString();
+        } catch {
+            return Promise.resolve(undefined);
+        }
+    }
+
+    public async getUserId(): Promise<string | undefined> {
+        try {
+            const user = await getCurrentUser();
+            return user.username;
         } catch {
             return Promise.resolve(undefined);
         }
@@ -99,6 +109,18 @@ export class AuthenticationService {
             return true;
         } else {
             throw new Error(`Did not sign in. Next step required: ${signInResponse.nextStep.signInStep}`);
+        }
+    }
+
+    public async fetchAuthenticatedUser(): Promise<AuthenticatedUser | null> {
+        const userAttributes = await fetchUserAttributes();
+        if (userAttributes) {
+            return {
+                email: userAttributes.email!,
+                nickname: userAttributes.nickname!
+            };
+        } else {
+            return null;
         }
     }
 

@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,8 +19,12 @@ public class ImageIOConverter implements ImageConverter {
     @Override
     @SneakyThrows({IOException.class})
     public void convertTo(File inputFile, File outputFile, String targetFormat) {
-        BufferedImage image = ImageIO.read(inputFile);
-        ImageIO.write(image, targetFormat, outputFile);
+        BufferedImage originalImage = ImageIO.read(inputFile);
+        BufferedImage newImage = new BufferedImage(originalImage.getWidth(), originalImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+
+        newImage.createGraphics().drawImage(originalImage, 0, 0, Color.WHITE, null);
+
+        ImageIO.write(newImage, targetFormat, outputFile);
     }
 
     @Override

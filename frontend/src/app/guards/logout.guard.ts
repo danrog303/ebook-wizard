@@ -1,7 +1,7 @@
 import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot} from '@angular/router';
-import {AuthenticationService} from "../services/authentication.service";
 import {inject} from "@angular/core";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import AuthenticationService from "@app/services/authentication.service";
 
 const logoutGuard: CanActivateFn = async (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
     const authService: AuthenticationService = inject(AuthenticationService);

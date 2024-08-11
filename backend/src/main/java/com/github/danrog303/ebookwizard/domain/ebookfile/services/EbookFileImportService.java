@@ -10,6 +10,7 @@ import com.github.danrog303.ebookwizard.external.storage.FileStorageService;
 import com.github.danrog303.ebookwizard.util.temp.TemporaryDirectory;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Objects;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EbookFileImportService {
@@ -73,6 +75,7 @@ public class EbookFileImportService {
             fileToModify.setCoverImageKey(uploadFileKey);
 
             for (EbookDownloadableResource resource : fileToModify.getDownloadableFiles()) {
+                log.debug("Applying cover image for format {} to resource {}", resource.getFormat().getExtensionName(), resource.getFileKey());
                 Path resFilePath = tempDir.getDirectory().resolve("ebook." + resource.getFormat().getExtensionName());
                 Files.copy(fileStorageService.downloadFile(resource.getFileKey()), resFilePath);
                 thumbnailManipulator.setThumbnail(resFilePath, convertedImagePath);

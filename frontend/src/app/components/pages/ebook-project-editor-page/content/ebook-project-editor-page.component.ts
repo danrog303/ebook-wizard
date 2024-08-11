@@ -1,0 +1,228 @@
+import {AfterContentInit, AfterViewInit, Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {ContentChange, QuillEditorComponent, QuillModule} from "ngx-quill";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
+import {ActivatedRoute, RouterLink} from "@angular/router";
+import MaterialModule from "@app/modules/material.module";
+import {map, Observable, Subscription} from "rxjs";
+import EbookProject, {createEmptyEbookProject} from "@app/models/ebook-project/ebook-project.model";
+import EbookProjectService from "@app/services/ebook-project.service";
+import NotificationService from "@app/services/notification.service";
+import LoadingStatus from "@app/models/misc/loading-status.enum";
+import EbookProjectChapter from "@app/models/ebook-project/ebook-project-chapter.model";
+import {MatDialog} from "@angular/material/dialog";
+import {
+    ChapterNameModalComponent
+} from "@app/components/pages/ebook-project-editor-page/modals/chapter-name-modal/chapter-name-modal.component";
+import ChapterDeleteModalComponent
+    from "@app/components/pages/ebook-project-editor-page/modals/chapter-delete-modal/chapter-delete-modal.component";
+import {CdkDragDrop, DragDropModule, moveItemInArray} from "@angular/cdk/drag-drop";
+import EbookProjectChapterService from "@app/services/ebook-project-chapter.service";
+import QuillIllustrationService, {ebookProjectIdForQuill, quillInstance} from "@app/services/quill-illustration.service";
+
+@Component({
+    selector: 'app-ebook-project-editor-page',
+    standalone: true,
+    imports: [
+        CommonModule,
+        QuillEditorComponent,
+        NgOptimizedImage,
+        MaterialModule,
+        RouterLink,
+        DragDropModule
+    ],
+    templateUrl: './ebook-project-editor-page.component.html',
+    styleUrl: './ebook-project-editor-page.component.scss'
+})
+export class EbookProjectEditorPageComponent implements AfterContentInit {
+    @ViewChild(QuillEditorComponent) quillEditor: QuillEditorComponent | null = null;
+    routeSubscription: Subscription | null = null;
+    saveTimeoutHandler: NodeJS.Timeout | null = null;
+
+    ebookProject: EbookProject = createEmptyEbookProject();
+    ebookProjectId: string = "";
+    ebookProjectLoading: LoadingStatus = LoadingStatus.NOT_STARTED;
+
+    chosenChapterSaveStatus: LoadingStatus = LoadingStatus.NOT_STARTED;
+    chosenChapterLastSaved: Date | null = null;
+    chosenChapter: EbookProjectChapter | null = null;
+
+    constructor(private activatedRoute: ActivatedRoute,
+                private ebookProjectService: EbookProjectService,
+                private ebookProjectChapterService: EbookProjectChapterService,
+                private notificationService: NotificationService,
+                private matDialog: MatDialog) {
+    }
+
+    async ngAfterContentInit() {
+        this.routeSubscription = this.activatedRoute.params.subscribe(params => {
+            this.ebookProjectId = params['id'];
+            this.fetchEbookProject();
+        });
+    }
+
+    fetchEbookProject() {
+        this.ebookProjectLoading = LoadingStatus.LOADING;
+
+        this.ebookProjectService.getEbookProject(this.ebookProjectId).subscribe({
+            next: (ebookProject) => {
+                this.ebookProject = ebookProject;
+                this.ebookProjectLoading = LoadingStatus.LOADED;
+                this.chosenChapter = this.ebookProject.chapters[0] || null;
+            },
+            error: () => {
+                this.ebookProjectLoading = LoadingStatus.ERROR;
+            }
+        });
+    }
+
+    markChapterAsActive(chapter: EbookProjectChapter) {
+        this.saveEbookProject().subscribe({
+            next: () => {
+                this.chosenChapter = chapter;
+
+                if (this.quillEditor) {
+                    const delta = this.quillEditor.quillEditor.clipboard.convert({html: chapter.contentHtml});
+                    this.quillEditor.quillEditor.setContents(delta);
+                    this.refreshImageElements();
+                }
+            },
+            error: () => {
+                this.notificationService.show("Failed to save the chapter.");
+            }
+        });
+    }
+
+    openAddChapterModal() {
+        const modalRef = this.matDialog.open(ChapterNameModalComponent, {
+            data: {
+                ebookProject: this.ebookProject,
+                chapter: null,
+                mode: "create"
+            }
+        });
+
+        modalRef.afterClosed().subscribe((chapter: EbookProjectChapter) => {
+            if (chapter) {
+                this.ebookProject.chapters.push(chapter);
+                this.chosenChapter = chapter;
+            }
+        });
+    }
+
+    openEditChapterNameModal(chapter: EbookProjectChapter) {
+        const modalRef = this.matDialog.open(ChapterNameModalComponent, {
+            data: {
+                ebookProject: this.ebookProject,
+                chapter: chapter,
+                mode: "update"
+            }
+        });
+
+        modalRef.afterClosed().subscribe((chapter: EbookProjectChapter) => {
+            if (chapter) {
+                const index = this.ebookProject.chapters.findIndex(c => c.id === chapter.id);
+
+                if (index !== -1) {
+                    this.ebookProject.chapters[index] = chapter;
+                    this.chosenChapter = chapter;
+                }
+            }
+        });
+    }
+
+    openDeleteChapterModal(chapter: EbookProjectChapter) {
+        const modalRef = this.matDialog.open(ChapterDeleteModalComponent, {
+            autoFocus: false,
+            data: {
+                ebookProject: this.ebookProject,
+                ebookProjectChapter: chapter
+            }
+        });
+
+        modalRef.afterClosed().subscribe((result: boolean | undefined) => {
+            const index = this.ebookProject.chapters.findIndex(c => c.id === chapter.id);
+
+            if (index !== -1 && result === true) {
+                this.ebookProject.chapters.splice(index, 1);
+                this.chosenChapter = this.ebookProject.chapters[0] || null;
+            }
+        });
+    }
+
+
+    onChapterDragged(event: CdkDragDrop<EbookProjectChapter[]>) {
+        moveItemInArray(this.ebookProject.chapters, event.previousIndex, event.currentIndex);
+        this.ebookProjectChapterService.reorderChapters(this.ebookProjectId, event.previousIndex, event.currentIndex)
+            .subscribe({
+                error: () => {
+                    this.notificationService.show("Failed to reorder the chapters.");
+                },
+                next: () => {
+                    this.notificationService.show("Chapters reordered successfully.");
+                }
+            });
+    }
+
+    onTextInput($event: ContentChange) {
+        if (this.chosenChapter) {
+            this.chosenChapter.contentHtml = $event.html!;
+        }
+    }
+
+    saveEbookProject(): Observable<void> {
+        this.chosenChapterSaveStatus = LoadingStatus.LOADING;
+        return this.ebookProjectChapterService
+            .updateChapter(this.ebookProjectId, this.chosenChapter?.id || "", this.chosenChapter!)
+            .pipe(map(() => {
+                this.chosenChapterSaveStatus = LoadingStatus.LOADED;
+                this.chosenChapterLastSaved = new Date();
+            }));
+    }
+
+    onQuillEditorCreated() {
+        if (this.quillEditor && this.chosenChapter) {
+            quillInstance.value = this.quillEditor.quillEditor;
+
+            const delta = this.quillEditor.quillEditor.clipboard.convert({html: this.chosenChapter.contentHtml});
+            this.quillEditor.quillEditor.setContents(delta);
+            ebookProjectIdForQuill.value = this.ebookProjectId;
+
+            this.refreshImageElements();
+        }
+    }
+
+    refreshImageElements() {
+        const imageElements = this.quillEditor!.quillEditor.root.querySelectorAll('img');
+        imageElements.forEach((imageElement) => {
+
+            const illustrationService = new QuillIllustrationService();
+            const illustrationStub = imageElement.getAttribute('alt');
+            console.log(illustrationStub);
+
+            if (illustrationStub) {
+                illustrationService.getIllustrationImageUrl(this.ebookProjectId, illustrationStub)
+                    .then((imageUrl) => {
+                        imageElement.setAttribute('src', imageUrl);
+                    });
+            }
+        });
+    }
+
+    @HostListener('window:keydown', ['$event'])
+    handleKeyDown(event: KeyboardEvent): void {
+        if (event.ctrlKey && event.key === 's') {
+            event.preventDefault();
+            this.saveEbookProject().subscribe();
+        } else {
+            if (this.saveTimeoutHandler) {
+                clearTimeout(this.saveTimeoutHandler);
+                this.saveTimeoutHandler = null;
+            }
+
+            this.saveTimeoutHandler = setTimeout(() => this.saveEbookProject().subscribe(), 500);
+        }
+    }
+
+    protected readonly LoadingStatus = LoadingStatus;
+    protected readonly document = document;
+}

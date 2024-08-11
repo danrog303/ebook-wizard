@@ -1,0 +1,42 @@
+<h2 matDialogTitle>Convert file to project</h2>
+
+@if (ongoingActionStatus === LoadingStatus.NOT_STARTED) {
+    <div matDialogContent>
+        <p>
+            Do you want to convert this file to a project?<br/>
+            Ebook project is an editable version of the file<br/>
+            that you can edit and save changes.
+        </p>
+
+        <p>
+            Conversion from file to project is not ideal.<br/>
+            Depending on the file format, some data may be lost.
+        </p>
+
+        <mat-checkbox [checked]="deleteEbookFile"
+                      (change)="deleteEbookFile = !deleteEbookFile">
+            <span [ngClass]="{'danger': deleteEbookFile}">
+                Delete ebook file after conversion
+            </span>
+        </mat-checkbox>
+    </div>
+} @else if (ongoingActionStatus === LoadingStatus.LOADING) {
+    <div matDialogContent class="loading-spinner">
+        <mat-spinner mode="indeterminate" />
+    </div>
+}
+
+<div matDialogActions align="end">
+    <button mat-button
+            matDialogClose
+            [disabled]="ongoingActionStatus === LoadingStatus.LOADING">
+        Cancel
+    </button>
+
+    <button mat-flat-button
+            color="primary"
+            (click)="convertToProject()"
+            [disabled]="ongoingActionStatus === LoadingStatus.LOADING">
+        Convert
+    </button>
+</div>
