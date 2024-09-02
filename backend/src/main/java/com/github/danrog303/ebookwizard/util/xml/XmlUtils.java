@@ -18,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Iterator;
+import java.util.Objects;
 
 @UtilityClass
 public class XmlUtils {
@@ -66,6 +67,7 @@ public class XmlUtils {
 
     @SneakyThrows(XPathException.class)
     public static NodeList executeXpathQuery(Document document, String xpathQuery) {
+        Objects.requireNonNull(document, xpathQuery);
         XPath xpath = xPathfactory.newXPath();
         xpath.setNamespaceContext(nsContext);
         XPathExpression expr = xpath.compile(xpathQuery);
