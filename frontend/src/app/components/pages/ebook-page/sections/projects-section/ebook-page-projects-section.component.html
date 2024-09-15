@@ -7,38 +7,64 @@
         } @else if (ebookProjectsLoading === LoadingStatus.ERROR) {
             <div class="ebook-page-content-centered">
                 <p>
-                    <strong class="error-indicator">An error occurred while loading ebook projects.</strong>
+                    <strong class="error-indicator" i18n>An error occurred while loading ebook projects.</strong>
                 </p>
 
                 <button mat-flat-button color="primary" (click)="document.location.reload()">
                     <mat-icon>refresh</mat-icon>
-                    Retry
+                    <span i18n>Retry</span>
                 </button>
             </div>
         } @else if (ebookProjectsLoading === LoadingStatus.LOADED && ebookProjects.length === 0) {
             <div class="ebook-page-content-centered">
                 <p>
-                    <strong class="empty-indicator">It's a little bit empty here...</strong>
+                    <strong class="empty-indicator" i18n>It's a little bit empty here...</strong>
                 </p>
 
                 <a mat-flat-button color="primary" (click)="openCreateProjectModal()">
                     <mat-icon>upload_file</mat-icon>
-                    Create ebook project
+                    <span i18n>Create ebook project</span>
                 </a>
             </div>
         } @else {
             <mat-list>
                 <div mat-subheader>
-                    <h2>Ebook projects</h2>
-                    <p>Here you'll find ebooks that you've created and written.</p>
+                    <h2 i18n>Ebook projects</h2>
+                    <p i18n>Here you'll find ebooks that you've created and written.</p>
                 </div>
 
-                <button mat-button color="primary" (click)="openCreateProjectModal()">
-                    <mat-icon>upload_file</mat-icon>
-                    Create ebook project
-                </button>
+                <div class="top-bar-actions">
+                    <button mat-button color="primary" (click)="openCreateProjectModal()">
+                        <mat-icon>upload_file</mat-icon>
+                        <span i18n>Create ebook project</span>
+                    </button>
 
-                @for (ebookProject of ebookProjects; track ebookProject.id; let index = $index) {
+                    <mat-form-field appearance="outline">
+                        <mat-label i18n>Search</mat-label>
+                        <input [(ngModel)]="filterKeyword"
+                               (ngModelChange)="applySortAndFilter()"
+                               type="text"
+                               matInput
+                               placeholder="tag, title, author..."
+                               i18n-placeholder
+                               name="search_input"/>
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Sort by</mat-label>
+                        <mat-select value="sort_title"
+                                    [(ngModel)]="sortBy"
+                                    (selectionChange)="applySortAndFilter()">
+                            <mat-option value="sort_title" i18n>Title</mat-option>
+                            <mat-option value="sort_author" i18n>Author</mat-option>
+                            <mat-option value="sort_creation_date" i18n>Creation date</mat-option>
+                            <mat-option value="sort_chapters_count" i18n>Chapters count</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                @for (ebookProject of ebookProjectsSorted; track ebookProject.id; let index = $index) {
                     <mat-list-item (contextmenu)="openEbookProjectDropdownMenu($event, index)"
                                    (click)="markEbookProjectAsSelected(index)"
                                    [ngClass]="{'active': selectedEbookProject?.id == ebookProject.id}"
@@ -46,18 +72,26 @@
                         <mat-icon matListItemIcon>border_color</mat-icon>
 
                         <div matListItemTitle>
-                            {{ebookProject.name || 'Unknown name'}}
+                            @if (ebookProject.name) {
+                                <span>{{ ebookProject.name }}</span>
+                            } @else {
+                                <span i18n>Unknown name</span>
+                            }
                         </div>
 
                         <div matListItemLine>
-                            Author:
-                            {{ebookProject.author || 'Unknown'}}
+                            <span i18n>Author:</span>
+                            @if (ebookProject.author) {
+                                <span>{{ ebookProject.author }}</span>
+                            } @else {
+                                <span i18n>Unknown author</span>
+                            }
                         </div>
 
                         <button mat-button
                                 #ebookProjectDropdownTrigger="matMenuTrigger"
                                 [matMenuTriggerFor]="ebookProjectDropdownMenu">
-                            <span>Actions</span>
+                            <span i18n>Actions</span>
                             <mat-icon>more_vert</mat-icon>
                         </button>
                     </mat-list-item>
@@ -65,39 +99,63 @@
                     <mat-menu #ebookProjectDropdownMenu="matMenu">
                         <button mat-menu-item (click)="openEditPage(ebookProject)">
                             <mat-icon>edit_document</mat-icon>
-                            <span>Edit</span>
+                            <span i18n>Edit</span>
                         </button>
 
                         <button mat-menu-item (click)="openEditMetaModal(ebookProject)">
                             <mat-icon>edit</mat-icon>
-                            <span>Modify metadata</span>
+                            <span i18n>Modify metadata</span>
                         </button>
 
                         <button mat-menu-item (click)="openChangeCoverModal(ebookProject)">
                             <mat-icon>image</mat-icon>
-                            <span>Change cover image</span>
+                            <span i18n>Change cover image</span>
                         </button>
 
                         <mat-divider />
 
                         <button mat-menu-item (click)="openDownloadModal(ebookProject)">
                             <mat-icon>download</mat-icon>
-                            <span>Download</span>
+                            <span i18n>Download</span>
                         </button>
 
                         <button mat-menu-item (click)="openConvertToEbookFileModal(ebookProject)">
                             <mat-icon>autorenew</mat-icon>
-                            <span>Convert to file</span>
+                            <span i18n>Convert to file</span>
                         </button>
 
                         <button mat-menu-item (click)="openDeleteModal(ebookProject)">
                             <mat-icon>delete</mat-icon>
-                            <span>Delete</span>
+                            <span i18n>Delete</span>
+                        </button>
+
+                        <mat-divider />
+
+                        <button mat-menu-item (click)="openSendToReaderModal(ebookProject)">
+                            <mat-icon>send</mat-icon>
+                            <span i18n>Send to e-reader</span>
+                        </button>
+
+                        <button mat-menu-item (click)="openShareModal(ebookProject)">
+                            <mat-icon>share</mat-icon>
+                            <span i18n>Share</span>
                         </button>
                     </mat-menu>
+                } @empty {
+                    <mat-list-item class="all-items-filtered-indicator">
+                        <p i18n>All items filtered...</p>
+                        <p i18n>Remove some filters and try again...</p>
+                    </mat-list-item>
                 }
             </mat-list>
         }
+
+        <mat-paginator [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 25, 100]"
+                       (page)="handlePageChange($event)"
+                       [ngStyle]="{'display': ebookProjects.length > 0 ? 'block' : 'none'}"
+                       aria-label="Select page">
+        </mat-paginator>
     </div>
 
     <div class="ebook-page-details">

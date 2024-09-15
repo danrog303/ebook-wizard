@@ -1,11 +1,11 @@
-<h2 matDialogTitle>Convert to ebook file</h2>
+<h2 matDialogTitle i18n>Convert to ebook file</h2>
 
 <mat-dialog-content>
-    <p>
+    <p i18n>
         You are about to convert the project to an ebook file.
     </p>
 
-    <p>
+    <p i18n>
         Please select the format you want to convert the project to:
     </p>
 
@@ -25,14 +25,16 @@
 
     <button mat-button
             mat-dialog-close
-            [disabled]="conversionStatus === LoadingStatus.LOADING">
+            [disabled]="conversionStatus === LoadingStatus.LOADING"
+            i18n>
         Cancel
     </button>
 
     <button mat-flat-button
             color="primary"
             (click)="convertToEbookFile()"
-            [disabled]="conversionStatus === LoadingStatus.LOADING">
+            [disabled]="conversionStatus === LoadingStatus.LOADING"
+            i18n>
         Convert
     </button>
 </mat-dialog-actions>

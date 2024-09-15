@@ -1,8 +1,9 @@
 package com.github.danrog303.ebookwizard.domain.ebookproject.services;
 
-import com.github.danrog303.ebookwizard.domain.ebook.EbookDownloadableResource;
-import com.github.danrog303.ebookwizard.domain.ebook.EbookFileLock;
-import com.github.danrog303.ebookwizard.domain.ebook.EbookFormat;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookDownloadableResource;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFileLock;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFormat;
+import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageCalculator;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFileRepository;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
@@ -41,6 +42,7 @@ public class EbookProjectConversionService {
     private final DocumentMetadataManipulator metadataManipulator;
     private final DocumentConverter documentConverter;
     private final DocumentThumbnailManipulator documentThumbnailManipulator;
+    private final EbookDiskUsageCalculator diskUsageCalculator;
 
     @SneakyThrows(IOException.class)
     public void convertEbookProjectToPhysicalFile(EbookProject sourceProject, Path targetPath) {
@@ -167,6 +169,7 @@ public class EbookProjectConversionService {
             )));
         }
 
+        newFile.setTotalSizeBytes(diskUsageCalculator.calculateEbookFileSize(newFile));
         ebookFileRepository.save(newFile);
     }
 }

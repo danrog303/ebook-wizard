@@ -1,6 +1,6 @@
 package com.github.danrog303.ebookwizard.external.document.thumbnail;
 
-import com.github.danrog303.ebookwizard.domain.ebook.EbookFormat;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFormat;
 import com.github.danrog303.ebookwizard.external.mime.ApacheTikaMimeTypeDetector;
 import com.github.danrog303.ebookwizard.external.mime.MimeTypeDetector;
 import com.github.danrog303.ebookwizard.util.temp.TemporaryDirectory;

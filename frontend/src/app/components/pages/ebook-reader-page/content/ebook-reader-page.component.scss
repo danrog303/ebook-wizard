@@ -6,6 +6,17 @@
     overflow-y: hidden;
 }
 
+@media (max-width: 768px) {
+    .reader-container {
+        width: 100vw;
+        height: 100vh;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        grid-template-areas: "nav"
+                             "reader";
+    }
+}
+
 .home-link,
 .ebook-link,
 .ownership-info {
@@ -25,6 +36,13 @@
     justify-content: space-between;
 }
 
+@media (max-width: 768px) {
+    .nav-pane-controls {
+        height: auto;
+        display: block;
+    }
+}
+
 .ebook-pane {
     grid-area: reader;
     padding: 1em;
@@ -32,6 +50,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media (max-width: 768px) {
+    .ebook-pane {
+        padding: 0;
+    }
 }
 
 .reader {
@@ -49,4 +73,26 @@
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
+}
+
+.loading-msg {
+    position: absolute;
+    top: calc(50% - 1em);
+    left: calc(50% + 10em);
+    transform: translate(-50%, -50%);
+}
+
+.loading-msg,
+.loading-msg * {
+    vertical-align: middle;
+    font-size: 120%;
+    text-align: center;
+}
+
+.loading-msg * {
+    display: inline-block;
+}
+
+.loading-msg mat-spinner {
+    margin-right: 1em;
 }

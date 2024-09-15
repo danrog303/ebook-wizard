@@ -12,6 +12,7 @@ import EbookFile from "@app/models/ebook-file/ebook-file.model";
 import EbookFormat from "@app/models/ebook/ebook-format.enum";
 import QueueTaskSseReport from "@app/models/task-queue/queue-task-sse-report.model";
 import QueueTask from "@app/models/task-queue/queue-task.model";
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import QueueTaskPayload from "@app/models/task-queue/queue-task-payload.model";
 
 @Component({
@@ -48,12 +49,18 @@ export class EbookFileDownloadModalComponent implements OnInit {
      */
     modalDirty: boolean = false;
 
+    /**
+     * Whether the screen is small or not.
+     */
+    smallScreen: boolean = false;
+
     constructor(@Inject(MAT_DIALOG_DATA) public ebookFile: EbookFile,
                 @Inject(MatDialogRef) private dialogRef: MatDialogRef<EbookFileDownloadModalComponent>,
                 private ebookFileService: EbookFileService,
                 private notificationService: NotificationService,
                 private fileDownloadService: FileDownloadService,
-                private queueTaskTrackingService: QueueTaskTrackingService) {
+                private queueTaskTrackingService: QueueTaskTrackingService,
+                private breakpointObserver: BreakpointObserver) {
     }
 
     ngOnInit() {
@@ -64,6 +71,11 @@ export class EbookFileDownloadModalComponent implements OnInit {
         // Get the formats that are not available for download
         this.otherFormats = Object.values(EbookFormat)
               .filter(format => !this.availableFormats.includes(format));
+
+        // Setup breakpoint observer
+        this.breakpointObserver.observe(['(max-width: 600px)']).subscribe((state: BreakpointState) => {
+            this.smallScreen = state.matches;
+        });
     }
 
     onDownloadFormat(format: EbookFormat) {
@@ -143,7 +155,7 @@ export class EbookFileDownloadModalComponent implements OnInit {
             return;
         }
 
-        this.notificationService.show('Failed to perform the requested action. Refresh the page and try again.');
+        this.notificationService.show($localize`Failed to perform the requested action. Refresh the page and try again.`);
         console.error(err);
         this.ongoingActionItem = null;
     }

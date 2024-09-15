@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.*;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
@@ -146,5 +144,18 @@ public class AwsS3FileStorageService implements FileStorageService {
             PresignedGetObjectRequest presignedRequest = presigner.presignGetObject(presignRequest);
             return presignedRequest.url().toExternalForm();
         }
+    }
+
+    @Override
+    public long getFileSize(String key) {
+        log.debug("Getting file size for file: {}", key);
+
+        HeadObjectRequest headObjectRequest = HeadObjectRequest.builder()
+                .bucket(bucketName)
+                .key(key)
+                .build();
+
+        HeadObjectResponse headObjectResponse = s3Client.headObject(headObjectRequest);
+        return headObjectResponse.contentLength();
     }
 }

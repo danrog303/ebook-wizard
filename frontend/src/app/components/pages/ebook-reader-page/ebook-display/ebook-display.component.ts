@@ -25,6 +25,8 @@ export default class EbookDisplayComponent implements OnChanges {
     @Input() ebookFile: EbookFile | null = null;
     @Input() ebookFormat: EbookFormat | null = null;
 
+    conversionOngoing: boolean = false;
+
     constructor(private ebookFileService: EbookFileService,
                 private queueTaskTrackingService: QueueTaskTrackingService) {
     }
@@ -47,10 +49,12 @@ export default class EbookDisplayComponent implements OnChanges {
         this.fileUrlLoadingStatus = LoadingStatus.LOADING;
 
         if (!this.hasRequestedFormat()) {
+            this.conversionOngoing = true;
             this.ebookFileService.convertEbookToEbookFile(this.ebookFile?.id!, this.ebookFormat!).subscribe({
                 next: (queueTask: QueueTask<QueueTaskPayload>) => {
                     this.queueTaskTrackingService.getTaskStatus(queueTask.id).subscribe({
                         next: (report: QueueTaskSseReport) => {
+                            this.conversionOngoing = false;
                             if (report.status === QueueTaskStatus.COMPLETED) {
                                 this.retrieveRequestedFormat();
                             } else if (report.status === QueueTaskStatus.FAILED) {
@@ -58,6 +62,7 @@ export default class EbookDisplayComponent implements OnChanges {
                             }
                         },
                         error: () => {
+                            this.conversionOngoing = false;
                             this.fileUrlLoadingStatus = LoadingStatus.ERROR;
                         }
                     });

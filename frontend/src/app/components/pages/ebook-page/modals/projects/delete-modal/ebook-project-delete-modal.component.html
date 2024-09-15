@@ -1,27 +1,28 @@
-<h2 mat-dialog-title>Delete ebook project</h2>
+<h2 mat-dialog-title i18n>Delete ebook project</h2>
 
 <mat-dialog-content>
     <p>
-        Are you sure you want to delete this project?
+        <span i18n>Are you sure you want to delete this project?</span>
         <br/>
         <strong>
             {{ebookProject.name || 'Unknown name'}}
         </strong>
-        by
+        <span i18n>by</span>
         <strong>
             {{ebookProject.author || 'Unknown author'}}
         </strong>
     </p>
 
-    <p>You want be able to restore it.</p>
+    <p i18n>You want be able to restore it.</p>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close class="cancel-btn">Cancel</button>
+    <button mat-button mat-dialog-close class="cancel-btn" i18n>Cancel</button>
 
     <app-action-pending-button [type]="'button'"
                                [pending]="deleteStatus === LoadingStatus.LOADING"
-                               (click)="onDeleteProject()">
+                               (click)="onDeleteProject()"
+                               i18n>
         Delete
     </app-action-pending-button>
 </mat-dialog-actions>

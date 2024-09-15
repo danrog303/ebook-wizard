@@ -1,6 +1,6 @@
 package com.github.danrog303.ebookwizard.external.document.converter;
 
-import com.github.danrog303.ebookwizard.domain.ebook.EbookFormat;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFormat;
 import com.github.danrog303.ebookwizard.util.temp.TemporaryDirectory;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.Arrays;
 
 /**
  * Uses the ebook-convert binary from Calibre project

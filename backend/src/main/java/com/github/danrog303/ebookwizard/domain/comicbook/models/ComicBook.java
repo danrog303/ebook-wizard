@@ -1,7 +1,7 @@
 package com.github.danrog303.ebookwizard.domain.comicbook.models;
 
-import com.github.danrog303.ebookwizard.domain.ebook.EbookDownloadableResource;
-import com.github.danrog303.ebookwizard.domain.ebook.EbookFileLock;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookDownloadableResource;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFileLock;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;

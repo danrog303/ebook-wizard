@@ -1,6 +1,6 @@
 package com.github.danrog303.ebookwizard.domain.ebookproject.services;
 
-import com.github.danrog303.ebookwizard.domain.ebook.EbookAccessType;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookAccessType;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectRepository;
 import com.github.danrog303.ebookwizard.external.auth.AuthorizationProvider;

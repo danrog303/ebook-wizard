@@ -1,6 +1,6 @@
 package com.github.danrog303.ebookwizard.domain.ebookfile.services;
 
-import com.github.danrog303.ebookwizard.domain.ebook.EbookFileLock;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFileLock;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFileRepository;
 import lombok.RequiredArgsConstructor;

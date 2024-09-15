@@ -1,0 +1,64 @@
+<h2 matDialogTitle i18n>Project chapters</h2>
+
+<div matDialogContent>
+    <div class="chapter-picker">
+        <p class="chapter-picker-info">
+            <strong i18n>Currently reading:</strong><br/>
+            @if (props.chosenChapter) {
+                {{props.chosenChapter.name}}
+            } @else {
+                <span i18n>No chapter selected</span>
+            }
+        </p>
+
+        <mat-divider />
+
+        <mat-list>
+            @for (chapter of props.ebookProject.chapters; track chapter.id) {
+                <mat-list-item class="chapter-item"
+                               (click)="props.markChapterAsActive(chapter)"
+                               [ngClass]="{'active': chapter === props.chosenChapter}"
+                               cdkDrag>
+
+                    <span matListItemTitle>{{chapter.name}}</span>
+
+                    <div matListItemIcon class="chapter-action-btn"
+                         style="margin-right: 0; padding-right: 0;"
+                         (click)="props.markChapterAsActive(chapter)">
+                    </div>
+
+                    <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
+                </mat-list-item>
+            }
+        </mat-list>
+
+        <mat-divider />
+    </div>
+
+    <div class="ownership-indicator">
+        @if (!props.isUserAuthenticated) {
+            <p i18n>
+                This project is shared to you by another user.
+            </p>
+
+            <p>
+                <button routerLink="/" mat-button color="primary" i18n matDialogClose>Try ebook-wizard</button>
+            </p>
+        } @else if (props.isUserOwner) {
+            <p i18n>
+                You are the owner of this project.
+            </p>
+
+            <p>
+                <button [routerLink]="'/editor/ebook-project/' + props.ebookProject.id"
+                        mat-button
+                        color="primary"
+                        i18n matDialogClose>
+                    Edit it in projects editor
+                </button>
+            </p>
+        } @else if (!props.isUserOwner) {
+            <ng-container i18n>This project is shared to you by another user.</ng-container>
+        }
+    </div>
+</div>

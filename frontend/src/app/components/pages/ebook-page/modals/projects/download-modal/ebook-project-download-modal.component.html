@@ -1,8 +1,8 @@
-<h2 mat-dialog-title>Export ebook project</h2>
+<h2 mat-dialog-title i18n>Export ebook project</h2>
 
 <mat-dialog-content class="download-modal">
     <section class="sec-other-formats">
-        <p>
+        <p i18n>
             Previously generated links:
         </p>
 
@@ -19,7 +19,8 @@
                         <button mat-button
                                 color="primary"
                                 (click)="onDownloadExistingLink(file)"
-                                [disabled]="ongoingTaskStatus === LoadingStatus.LOADING">
+                                [disabled]="ongoingTaskStatus === LoadingStatus.LOADING"
+                                i18n>
                             Download
                             <mat-icon>sync</mat-icon>
                         </button>
@@ -27,14 +28,15 @@
                         <button mat-button
                                 color="primary"
                                 (click)="onDeleteExistingLink(file)"
-                                [disabled]="ongoingTaskStatus === LoadingStatus.LOADING">
+                                [disabled]="ongoingTaskStatus === LoadingStatus.LOADING"
+                                i18n>
                             Delete
                             <mat-icon>delete_forever</mat-icon>
                         </button>
                     </div>
                 </mat-list-item>
             } @empty {
-                <strong>No previously generated links.</strong>
+                <strong i18n>No previously generated links.</strong>
             }
         </mat-list>
     </section>
@@ -42,7 +44,7 @@
     <mat-divider />
 
     <section class="sec-currently-available">
-        <p>
+        <p i18n>
             Generate new export:
         </p>
 
@@ -59,7 +61,8 @@
                         <button mat-button
                                 color="primary"
                                 (click)="onCreateDownloadLink(format.value)"
-                                [disabled]="ongoingTaskStatus === LoadingStatus.LOADING">
+                                [disabled]="ongoingTaskStatus === LoadingStatus.LOADING"
+                                i18n>
                             Export
                             <mat-icon>download</mat-icon>
                         </button>
@@ -75,5 +78,5 @@
         <mat-progress-bar mode="indeterminate" />
     }
 
-    <button mat-button mat-dialog-close class="cancel-btn">Cancel</button>
+    <button mat-button mat-dialog-close class="cancel-btn" i18n>Cancel</button>
 </mat-dialog-actions>

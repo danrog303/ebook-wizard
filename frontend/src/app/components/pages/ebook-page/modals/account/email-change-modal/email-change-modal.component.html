@@ -1,0 +1,77 @@
+<h1 matDialogTitle i18n>Email change</h1>
+
+<div matDialogContent>
+    <mat-stepper linear #stepper>
+        <mat-step label="New email" i18n-label [editable]="false" [stepControl]="emailForm">
+            <form [formGroup]="emailForm" (ngSubmit)="onEmailFormSubmitted()">
+                <mat-form-field>
+                    <mat-label i18n>New email</mat-label>
+                    <input matInput
+                           type="email"
+                           formControlName="email"
+                           #emailInput
+                           required />
+                    <mat-error *ngIf="emailForm.controls['email'].hasError('required')" i18n>This field is required.</mat-error>
+                    <mat-error *ngIf="emailForm.controls['email'].hasError('email')" i18n>Must be a valid email.</mat-error>
+                </mat-form-field>
+
+                <mat-dialog-actions align="end">
+                    <button type="button"
+                            mat-button
+                            matDialogClose
+                            i18n>
+                        Cancel
+                    </button>
+
+                    <button type="submit"
+                            mat-flat-button
+                            color="primary"
+                            i18n
+                            [disabled]="emailForm.invalid">
+                        Next
+                    </button>
+                </mat-dialog-actions>
+            </form>
+        </mat-step>
+
+        <mat-step label="Confirm new email" i18n-label [editable]="false" [stepControl]="verificationCodeForm">
+            <form [formGroup]="verificationCodeForm" (ngSubmit)="onVerificationCodeFormSubmitted()">
+                <p i18n>
+                    We've sent a verification code to your new email address.<br/>
+                    Please enter it below.
+                </p>
+
+                <mat-form-field>
+                    <mat-label i18n>Verification code</mat-label>
+                    <input matInput
+                           #verificationCodeInput
+                           type="email"
+                           formControlName="verificationCode"
+                           required />
+                    @if (verificationCodeForm.controls["verificationCode"].hasError('required')) {
+                        <mat-error i18n>This field is required.</mat-error>
+                    } @else {
+                        <mat-error i18n>Must be 6 digits.</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-dialog-actions align="end">
+                    <button type="button"
+                            mat-button
+                            matDialogClose
+                            i18n>
+                        Cancel
+                    </button>
+
+                    <button type="submit"
+                            mat-flat-button
+                            color="primary"
+                            i18n
+                            [disabled]="emailForm.invalid">
+                        Change email
+                    </button>
+                </mat-dialog-actions>
+            </form>
+        </mat-step>
+    </mat-stepper>
+</div>

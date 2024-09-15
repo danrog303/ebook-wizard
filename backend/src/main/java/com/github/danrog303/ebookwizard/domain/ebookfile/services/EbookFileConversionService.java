@@ -1,14 +1,18 @@
 package com.github.danrog303.ebookwizard.domain.ebookfile.services;
 
-import com.github.danrog303.ebookwizard.domain.ebook.EbookDownloadableResource;
-import com.github.danrog303.ebookwizard.domain.ebook.EbookFileLock;
-import com.github.danrog303.ebookwizard.domain.ebook.EbookFormat;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookDownloadableResource;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFileLock;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFormat;
+import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageCalculator;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFileRepository;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectChapter;
+import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectIllustration;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectRepository;
+import com.github.danrog303.ebookwizard.external.document.b64.Base64ImagesExtractor;
 import com.github.danrog303.ebookwizard.external.document.converter.DocumentConverter;
+import com.github.danrog303.ebookwizard.external.image.ImageConverter;
 import com.github.danrog303.ebookwizard.external.storage.FileStorageService;
 import com.github.danrog303.ebookwizard.util.temp.TemporaryDirectory;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +25,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Uses ebook-convert binary to convert ebook files between supported formats.
@@ -35,6 +41,8 @@ public class EbookFileConversionService {
     private final EbookFileLockService ebookFileLockService;
     private final FileStorageService fileStorageService;
     private final DocumentConverter documentConverter;
+    private final Base64ImagesExtractor base64ImagesExtractor;
+    private final EbookDiskUsageCalculator diskUsageCalculator;
 
     @SneakyThrows(IOException.class)
     public void convertEbookFileToEbookProject(String fileId) {
@@ -82,6 +90,8 @@ public class EbookFileConversionService {
                 documentConverter.convertDocument(sourceFilePath, htmlFilePath);
             }
 
+            ebookProject.setIllustrations(extractEbookProjectImages(htmlFilePath));
+
             EbookProjectChapter chapter = new EbookProjectChapter();
             chapter.setId(RandomStringUtils.randomAlphanumeric(64));
             chapter.setName("Chapter 1");
@@ -91,6 +101,7 @@ public class EbookFileConversionService {
             ebookProject.getChapters().add(chapter);
         }
 
+        ebookProject.setTotalSizeBytes(diskUsageCalculator.calculateEbookProjectSize(ebookProject));
         ebookProjectRepository.save(ebookProject);
         ebookFileLockService.unlockEbookFileForEditing(fileId);
     }
@@ -135,7 +146,40 @@ public class EbookFileConversionService {
         }
 
         ebookFile.getDownloadableFiles().add(newResource);
+        ebookFile.setTotalSizeBytes(diskUsageCalculator.calculateEbookFileSize(ebookFile));
         ebookFileRepository.save(ebookFile);
         ebookFileLockService.unlockEbookFileForEditing(fileId);
+    }
+
+    @SneakyThrows(IOException.class)
+    private List<EbookProjectIllustration> extractEbookProjectImages(Path htmlInputPath) {
+        List<EbookProjectIllustration> images = new ArrayList<>();
+
+        try (TemporaryDirectory tempDir = new TemporaryDirectory()) {
+            var extractedImages = base64ImagesExtractor.extractBase64Images(htmlInputPath, tempDir.getDirectory());
+            log.debug("Extracted {} images from the HTML file", extractedImages.size());
+
+            extractedImages.forEach(extractedImage -> {
+                String imageKey = "ebook-projects/illustrations/%s/%s.jpg"
+                        .formatted(extractedImage.getRandomTag(), extractedImage.getRandomTag());
+
+                try {
+                    fileStorageService.uploadFile(
+                            imageKey,
+                            Files.newInputStream(extractedImage.getPath()),
+                            Files.size(extractedImage.getPath())
+                    );
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                EbookProjectIllustration image = new EbookProjectIllustration();
+                image.setFileKey(imageKey);
+                image.setStub(extractedImage.getRandomTag());
+                images.add(image);
+            });
+        }
+
+        return images;
     }
 }

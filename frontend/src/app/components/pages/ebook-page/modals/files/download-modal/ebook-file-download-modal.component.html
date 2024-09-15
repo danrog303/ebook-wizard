@@ -1,17 +1,17 @@
-<h2 mat-dialog-title>Download ebook file</h2>
+<h2 mat-dialog-title i18n>Download ebook file</h2>
 
 <mat-dialog-content class="download-modal">
     <p>
         <small>
             <strong>{{ebookFile.conversionSourceFormat}}</strong>
-            will be used as a source for the conversion.
+            <span i18n>will be used as a source for the conversion.</span>
         </small>
     </p>
 
     <mat-divider />
 
     <section class="sec-currently-available">
-        <p>
+        <p i18n>
             Currently available formats:
         </p>
 
@@ -28,33 +28,79 @@
                         }
                     </div>
 
-                    <div matListItemLine>
-                        <button mat-button
-                                color="primary"
-                                [disabled]="ongoingActionItem !== null"
-                                (click)="onDownloadFormat(availableFormat)">
-                            Download
-                            <mat-icon>download</mat-icon>
-                        </button>
+                    <!-- If screen is large enough, show buttons in a single line -->
+                    <!-- If screen is small, show buttons in a column -->
+                    @if (!smallScreen) {
+                        <div matListItemLine class="action-btn-picker">
+                            <button mat-button
+                                    color="primary"
+                                    [disabled]="ongoingActionItem !== null"
+                                    (click)="onDownloadFormat(availableFormat)"
+                                    class="action-btn">
+                                <span i18n>Download</span>
+                                <mat-icon>download</mat-icon>
+                            </button>
+
+                            @if (ebookFile.conversionSourceFormat !== availableFormat) {
+                                <button mat-button
+                                        color="primary"
+                                        [disabled]="ongoingActionItem !== null"
+                                        (click)="onDeleteFormat(availableFormat)"
+                                        class="action-btn">
+                                    <span i18n>Delete</span>
+                                    <mat-icon>delete_forever</mat-icon>
+                                </button>
+
+                                <button mat-button
+                                        color="primary"
+                                        [disabled]="ongoingActionItem !== null"
+                                        (click)="onChangeFormatToSource(availableFormat)"
+                                        class="action-btn">
+                                    @if (smallScreen) {
+                                        <span i18n>Set as src</span>
+                                    } @else {
+                                        <span i18n>Change to source</span>
+                                    }
+                                    <mat-icon>restart_alt</mat-icon>
+                                </button>
+                            }
+                        </div>
+                    } @else {
+                        <div matListItemLine class="action-btn-picker">
+                            <button mat-button
+                                    color="primary"
+                                    [disabled]="ongoingActionItem !== null"
+                                    (click)="onDownloadFormat(availableFormat)"
+                                    class="action-btn">
+                                <span i18n>Download</span>
+                                <mat-icon>download</mat-icon>
+                            </button>
+                        </div>
 
                         @if (ebookFile.conversionSourceFormat !== availableFormat) {
-                            <button mat-button
-                                    color="primary"
-                                    [disabled]="ongoingActionItem !== null"
-                                    (click)="onDeleteFormat(availableFormat)">
-                                Delete
-                                <mat-icon>delete_forever</mat-icon>
-                            </button>
+                            <div matListItemLine class="action-btn-picker">
+                                <button mat-button
+                                        color="primary"
+                                        [disabled]="ongoingActionItem !== null"
+                                        (click)="onDeleteFormat(availableFormat)"
+                                        class="action-btn">
+                                    <span i18n>Delete</span>
+                                    <mat-icon>delete_forever</mat-icon>
+                                </button>
+                            </div>
 
-                            <button mat-button
-                                    color="primary"
-                                    [disabled]="ongoingActionItem !== null"
-                                    (click)="onChangeFormatToSource(availableFormat)">
-                                Change to source
-                                <mat-icon>restart_alt</mat-icon>
-                            </button>
+                            <div>
+                                <button mat-button
+                                        color="primary"
+                                        [disabled]="ongoingActionItem !== null"
+                                        (click)="onChangeFormatToSource(availableFormat)"
+                                        class="action-btn">
+                                    <span i18n>Change to source</span>
+                                    <mat-icon>restart_alt</mat-icon>
+                                </button>
+                            </div>
                         }
-                    </div>
+                    }
                 </mat-list-item>
             }
         </mat-list>
@@ -63,7 +109,7 @@
     <mat-divider />
 
     <section class="sec-other-formats">
-        <p>
+        <p i18n>
             Other formats:
         </p>
 
@@ -76,13 +122,15 @@
                         {{otherFormat | uppercase}}
                     </div>
 
-                    <button mat-button
-                            matListItemLine color="primary"
-                            (click)="onConvertToFormat(otherFormat)"
-                            [disabled]="ongoingActionItem !== null">
-                        Convert to
-                        <mat-icon>sync</mat-icon>
-                    </button>
+                    <div matListItemLine>
+                        <button mat-button
+                                color="primary"
+                                (click)="onConvertToFormat(otherFormat)"
+                                [disabled]="ongoingActionItem !== null">
+                            <span i18n>Convert</span>
+                            <mat-icon>sync</mat-icon>
+                        </button>
+                    </div>
                 </mat-list-item>
             }
         </mat-list>
@@ -94,5 +142,5 @@
         <mat-progress-bar mode="indeterminate" />
     }
 
-    <button mat-button mat-dialog-close class="cancel-btn">Cancel</button>
+    <button mat-button mat-dialog-close class="cancel-btn" i18n>Cancel</button>
 </mat-dialog-actions>

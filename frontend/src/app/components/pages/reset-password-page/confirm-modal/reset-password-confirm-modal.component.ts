@@ -64,10 +64,10 @@ export default class ResetPasswordConfirmModalComponent {
             this.resetPasswordConfirmed = true;
         } catch(e: any) {
             if (e.toString().includes("CodeMismatchException")) {
-                this.notificationService.show("The confirmation code you entered is incorrect. Please try again.");
+                this.notificationService.show($localize`The confirmation code you entered is incorrect. Please try again.`);
             } else {
                 console.error(e);
-                this.notificationService.show("An error occurred while confirming your password reset.");
+                this.notificationService.show($localize`An error occurred while confirming your password reset.`);
             }
             this.resetPasswordConfirmPending = false;
             return;

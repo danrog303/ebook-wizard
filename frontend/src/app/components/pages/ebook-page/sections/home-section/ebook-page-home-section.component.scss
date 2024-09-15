@@ -2,7 +2,22 @@
     display: grid;
     grid-template-columns: 3fr 1.2fr;
     grid-template-areas: "content details";
-    height: 100%;
+    height: calc(100vh - 7em);
+}
+
+.md-only {
+    display: none;
+}
+
+@media (max-width: 1200px) {
+    .ebook-page-section {
+        grid-template-columns: 1fr;
+        grid-template-areas: "content";
+    }
+
+    .md-only {
+        display: flex;
+    }
 }
 
 .ebook-page-content {
@@ -21,6 +36,13 @@
     background-color: white;
     border-radius: 8px;
     margin-right: 1em;
+}
+
+@media (max-width: 1200px) {
+    .ebook-page-details {
+        display: none;
+        margin-right: 0;
+    }
 }
 
 .ebook-page-details-placeholder {

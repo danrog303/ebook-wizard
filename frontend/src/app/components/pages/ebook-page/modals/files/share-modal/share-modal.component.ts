@@ -11,11 +11,11 @@ import LoadingStatus from "@app/models/misc/loading-status.enum";
 import environment from "@env/environment";
 
 @Component({
-  selector: 'app-ebook-file-share-modal',
-  standalone: true,
+    selector: 'app-ebook-file-share-modal',
+    standalone: true,
     imports: [MaterialModule, KeyValuePipe, ReactiveFormsModule],
-  templateUrl: './share-modal.component.html',
-  styleUrl: './share-modal.component.scss'
+    templateUrl: './share-modal.component.html',
+    styleUrl: './share-modal.component.scss'
 })
 export class EbookFileShareModalComponent implements OnInit {
     ebookUrl: string = "";
@@ -34,16 +34,19 @@ export class EbookFileShareModalComponent implements OnInit {
     onPublicToggle(event: MatCheckboxChange) {
         this.updatingStatus = LoadingStatus.LOADING;
         this.ebookFile.public = !this.ebookFile.public;
+        this.dialogRef.disableClose = true;
 
         this.ebookFileService.updateEbookFile(this.ebookFile.id!, this.ebookFile).subscribe({
             next: () => {
                 this.updatingStatus = LoadingStatus.LOADED;
-                this.notificationService.show("Ebook file updated");
+                this.notificationService.show($localize`Ebook file updated`);
+                this.dialogRef.disableClose = false;
             },
             error: () => {
                 this.updatingStatus = LoadingStatus.ERROR;
                 this.ebookFile.public = !this.ebookFile.public;
-                this.notificationService.show("Failed to update the ebook file");
+                this.notificationService.show($localize`Failed to update the ebook file`);
+                this.dialogRef.disableClose = false;
             }
         });
     }
@@ -51,9 +54,9 @@ export class EbookFileShareModalComponent implements OnInit {
     async copyUrlToClipboard() {
         try {
             await navigator.clipboard.writeText(this.ebookUrl);
-            this.notificationService.show("URL copied to clipboard");
+            this.notificationService.show($localize`URL copied to clipboard`);
         } catch {
-            this.notificationService.show("Failed to copy URL to clipboard");
+            this.notificationService.show($localize`Failed to copy URL to clipboard`);
         }
     }
 

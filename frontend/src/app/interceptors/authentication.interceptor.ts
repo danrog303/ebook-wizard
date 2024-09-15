@@ -9,10 +9,14 @@ export const authenticationInterceptor: HttpInterceptorFn = (req, next) => {
 
     return from(authService.getAccessJwtToken()).pipe(
         switchMap(token => {
-            if (req.url.startsWith(environment.API_BASE_URI) && token) {
+            const stringToken = String(token).trim();
+            const hasToken = stringToken && stringToken !== 'null' && stringToken !== 'undefined';
+
+            if (req.url.startsWith(environment.API_BASE_URI) && hasToken) {
                 const authReq = req.clone({
                     setHeaders: {
-                        Authorization: `Bearer ${token}`
+
+                        Authorization: `Bearer ${stringToken}`
                     }
                 });
                 return next(authReq);
@@ -21,4 +25,4 @@ export const authenticationInterceptor: HttpInterceptorFn = (req, next) => {
             return next(req);
         })
     );
-};
+}

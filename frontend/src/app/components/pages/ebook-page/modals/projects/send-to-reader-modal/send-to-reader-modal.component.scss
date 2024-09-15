@@ -1,0 +1,15 @@
+.reader-email-input {
+    width: 100%;
+}
+
+.progress-view {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+
+    .spinner {
+        margin-top: 1em;
+    }
+}

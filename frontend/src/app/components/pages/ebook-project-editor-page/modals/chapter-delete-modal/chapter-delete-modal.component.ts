@@ -43,12 +43,12 @@ export default class ChapterDeleteModalComponent {
         this.deleteStatus = LoadingStatus.LOADING;
         this.ebookProjectChapterService.deleteChapter(this.ebookProject.id, this.ebookProjectChapter.id).subscribe({
             next: () => {
-                this.notificationService.show("Chapter deleted.");
+                this.notificationService.show($localize`Chapter deleted.`);
                 this.dialogRef.close(true);
                 this.deleteStatus = LoadingStatus.LOADED;
             },
             error: () => {
-                this.notificationService.show("Failed to delete the chapter.");
+                this.notificationService.show($localize`Failed to delete the chapter.`);
                 this.deleteStatus = LoadingStatus.ERROR;
             }
         });

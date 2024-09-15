@@ -51,7 +51,7 @@ export class ConvertEbookProjectToFileModalComponent {
             error: () => {
                 this.conversionStatus = LoadingStatus.ERROR;
                 this.dialogRef.disableClose = false;
-                this.notificationService.show('Failed to convert project to file...');
+                this.notificationService.show($localize`Failed to convert project to file...`);
             }
         });
     }
@@ -62,12 +62,12 @@ export class ConvertEbookProjectToFileModalComponent {
                 if (task.status === 'COMPLETED') {
                     this.conversionStatus = LoadingStatus.LOADED;
                     this.dialogRef.disableClose = false;
-                    this.notificationService.show('Project converted to file successfully! Go into the files tab to find it.');
+                    this.notificationService.show($localize`Project converted to file successfully! Go into the files tab to find it.`);
                     this.dialogRef.close();
                 } else if (task.status === 'FAILED') {
                     this.conversionStatus = LoadingStatus.ERROR;
                     this.dialogRef.disableClose = false;
-                    this.notificationService.show('Failed to convert project to file...');
+                    this.notificationService.show($localize`Failed to convert project to file...`);
                 }
             }
         }

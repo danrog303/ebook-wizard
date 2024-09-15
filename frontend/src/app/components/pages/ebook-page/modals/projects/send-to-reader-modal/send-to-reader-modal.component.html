@@ -1,0 +1,106 @@
+<h2 mat-dialog-title i18n>Send to e-reader</h2>
+
+@if (ongoingAction === null) {
+    <mat-dialog-content>
+        <p>
+            @if (ebookProject.name) {
+                <strong>{{ebookProject.name}}</strong>
+            } @else {
+                <span i18n>Unknown name</span>
+            }
+            <span i18n>by</span>
+            @if (ebookProject.author) {
+                <strong>{{ebookProject.author}}</strong>
+            } @else {
+                <span i18n>Unknown author</span>
+            }
+        </p>
+
+        <form [formGroup]="sendToReaderForm">
+            <p i18n>
+                You need to provide email address associated with your e-reader.
+            </p>
+
+            <mat-form-field class="reader-email-input">
+                <mat-label i18n>Email</mat-label>
+                <input type="email"
+                       matInput
+                       placeholder="your-kindle-id@kindle.com"
+                       i18n-placeholder
+                       formControlName="email">
+            </mat-form-field>
+
+            <p>
+                <span i18n>
+                    Choose which format you want to send.
+                </span>
+                <br />
+                <span i18n>
+                    Not all devices accept all formats.
+                </span>
+                <br />
+                <small i18n>
+                    (e.g. Amazon Kindle only accepts MOBI and AZW3).
+                </small>
+            </p>
+
+            <mat-form-field>
+                <mat-label i18n>Target format</mat-label>
+                <mat-select formControlName="format">
+                    @for (format of EbookFormat | keyvalue; track format; let index = $index) {
+                        <mat-option value="{{format.key}}">
+                            {{format.key}}
+
+                            <mat-icon>border_color</mat-icon>
+                        </mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            @if (!isFormatSupportedByReader()) {
+                <p>
+                    <strong i18n>Warning:</strong>
+                    <span i18n>Chosen format may not be supported by your e-reader.</span>
+                </p>
+            }
+        </form>
+
+        <div mat-dialog-actions align="end">
+            <button type="button" mat-button mat-dialog-close class="cancel-btn" i18n>Cancel</button>
+
+            <button type="submit"
+                    mat-flat-button
+                    color="primary"
+                    [disabled]="sendToReaderForm.invalid"
+                    (click)="onSendEbookFile()"
+                    i18n>
+                Send to e-reader
+            </button>
+        </div>
+    </mat-dialog-content>
+}
+
+@if (ongoingAction === "conversion") {
+    <mat-dialog-content class="progress-view">
+        <p>
+            <span i18n>Converting ebook file to</span>
+            <strong>{{sendToReaderForm.value.format}}</strong>
+        </p>
+
+        <div>
+            <mat-spinner />
+        </div>
+    </mat-dialog-content>
+}
+
+@if (ongoingAction === "sending") {
+    <mat-dialog-content class="progress-view">
+        <p class="spinner" i18n>
+            Sending ebook file to e-reader...
+        </p>
+
+        <div class="spinner">
+            <mat-spinner />
+        </div>
+    </mat-dialog-content>
+}

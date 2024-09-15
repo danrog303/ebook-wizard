@@ -1,6 +1,7 @@
 package com.github.danrog303.ebookwizard.domain.ebookfile.services;
 
-import com.github.danrog303.ebookwizard.domain.ebook.EbookDownloadableResource;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookDownloadableResource;
+import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageCalculator;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.external.document.metadata.DocumentMetadata;
 import com.github.danrog303.ebookwizard.external.document.metadata.DocumentMetadataManipulator;
@@ -28,6 +29,7 @@ public class EbookFileImportService {
     private final DocumentThumbnailManipulator thumbnailManipulator;
     private final FileStorageService fileStorageService;
     private final ImageConverter imageConverter;
+    private final EbookDiskUsageCalculator diskUsageCalculator;
 
     public void applyMetadataFromDocumentToEbookFle(EbookFile ebookFile, Path documentPath) {
         DocumentMetadata metadata = metadataManipulator.getDocumentMetadata(documentPath);
@@ -53,6 +55,8 @@ public class EbookFileImportService {
         } else {
             ebookFile.setTags(new ArrayList<>());
         }
+
+        ebookFile.setTotalSizeBytes(diskUsageCalculator.calculateEbookFileSize(ebookFile));
     }
 
     @SneakyThrows(IOException.class)
@@ -82,6 +86,8 @@ public class EbookFileImportService {
                 fileStorageService.uploadFile(resource.getFileKey(), resFilePath.toFile());
             }
         }
+
+        fileToModify.setTotalSizeBytes(diskUsageCalculator.calculateEbookFileSize(fileToModify));
     }
 
     @SneakyThrows(IOException.class)
@@ -94,5 +100,7 @@ public class EbookFileImportService {
 
             applyCoverImageFromImageFileToEbookFile(fileToModify, thumbnailImagePath);
         }
+
+        fileToModify.setTotalSizeBytes(diskUsageCalculator.calculateEbookFileSize(fileToModify));
     }
 }

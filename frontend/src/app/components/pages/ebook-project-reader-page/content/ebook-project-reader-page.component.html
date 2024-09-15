@@ -1,0 +1,108 @@
+@if (ebookProjectLoadStatus === LoadingStatus.LOADED) {
+    <div class="editor-container" *ngIf="ebookProjectLoadStatus === LoadingStatus.LOADED">
+        <div class="nav-pane">
+            <div class="home-link">
+                <a routerLink="/">
+                    <img ngSrc="/assets/logo.svg" alt="logo" height="323" width="2000" class="logo-image" />
+                </a>
+            </div>
+
+            <div class="ebook-link">
+                @if (isUserAuthenticated) {
+                        <a routerLink="/ebook-project" mat-button color="primary">
+                            <mat-icon>arrow_back</mat-icon>
+
+                            @if (smallScreenMode) {
+                                <span i18n>Back</span>
+                            } @else {
+                                <span i18n>Back to ebook projects</span>
+                            }
+                        </a>
+                }
+
+                @if (smallScreenMode) {
+                    <button mat-button (click)="showSmallScreenModal()" color="primary">
+                        <mat-icon>menu</mat-icon>
+                        <span i18n>Chapters</span>
+                    </button>
+                }
+            </div>
+
+            @if (!smallScreenMode) {
+                <div class="chapter-picker">
+                    <p class="chapter-picker-info">
+                        <strong i18n>Currently reading:</strong><br/>
+                        @if (chosenChapter) {
+                            {{chosenChapter.name}}
+                        } @else {
+                            <span i18n>No chapter selected</span>
+                        }
+                    </p>
+
+                    <mat-list>
+                        @for (chapter of ebookProject.chapters; track chapter.id) {
+                            <mat-list-item class="chapter-item"
+                                           (click)="markChapterAsActive(chapter)"
+                                           [ngClass]="{'active': chapter === chosenChapter}"
+                                           cdkDrag>
+
+                                <span matListItemTitle>{{chapter.name}}</span>
+
+                                <div matListItemIcon class="chapter-action-btn"
+                                     style="margin-right: 0; padding-right: 0;"
+                                     (click)="markChapterAsActive(chapter)">
+                                </div>
+
+                                <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
+                            </mat-list-item>
+                        }
+                    </mat-list>
+                </div>
+
+                <div class="ownership-indicator">
+                    @if (!isUserAuthenticated) {
+                        <p i18n>
+                            This project is shared to you by another user.
+                        </p>
+
+                        <p>
+                            <button routerLink="/" mat-button color="primary" i18n>Try ebook-wizard</button>
+                        </p>
+                    } @else if (isUserOwner) {
+                        <p i18n>
+                            You are the owner of this project.
+                        </p>
+
+                        <p>
+                            <button [routerLink]="'/editor/ebook-project/' + ebookProject.id"
+                                    mat-button
+                                    color="primary"
+                                    i18n>
+                                Edit it in projects editor
+                            </button>
+                        </p>
+                    } @else if (!isUserOwner) {
+                        <ng-container i18n>This project is shared to you by another user.</ng-container>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="view-pane">
+            <iframe #viewPaneIframe [srcdoc]="chosenChapter?.contentHtml"></iframe>
+        </div>
+    </div>
+} @else if (ebookProjectLoadStatus === LoadingStatus.LOADING) {
+    <mat-spinner class="main-loading-spinner"></mat-spinner>
+} @else {
+    <div class="loading-error">
+        <p>
+            <strong i18n>Error:</strong>
+            <span i18n>Failed to load ebook project.</span>
+        </p>
+
+        <button mat-flat-button color="primary" (click)="refreshPage()" i18n>
+            Try again
+        </button>
+    </div>
+}

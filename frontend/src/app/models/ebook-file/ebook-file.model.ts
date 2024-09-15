@@ -17,6 +17,7 @@ export default interface EbookFile {
     conversionSourceFormat?: EbookFormat;
     editLock?: EbookFileLock;
     downloadableFiles?: EbookDownloadableResource[];
+    totalSizeBytes?: number;
 }
 
 export function createEmptyEbookFile(): EbookFile {

@@ -63,7 +63,7 @@ export class ChapterNameModalComponent {
                 this.dialogRef.close(chapter);
             },
             error: () => {
-                this.notificationService.show("Failed to update a chapter.");
+                this.notificationService.show($localize`Failed to update a chapter.`);
             }
         });
     }
@@ -82,7 +82,7 @@ export class ChapterNameModalComponent {
                 this.dialogRef.close(chapter);
             },
             error: () => {
-                this.notificationService.show("Failed to create a chapter.");
+                this.notificationService.show($localize`Failed to create a chapter.`);
             }
         });
     }

@@ -84,6 +84,11 @@ export default class EbookProjectService {
         return this.http.get(url, { responseType: 'text' });
     }
 
+    sendToReader(ebookProjectId: string, ebookFormat: string, email: string): Observable<QueueTask<QueueTaskPayload>> {
+        const url = `${environment.API_BASE_URI}/ebook-project/${ebookProjectId}/send/${ebookFormat}`;
+        return this.http.post<QueueTask<QueueTaskPayload>>(url, email);
+    }
+
     private getEventMessage<T>(event: HttpEvent<any>): UploadProgressEvent<T> | null {
         switch (event.type) {
             case HttpEventType.UploadProgress:

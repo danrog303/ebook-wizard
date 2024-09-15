@@ -3,7 +3,7 @@
         <mat-form-field class="ebook-meta-input">
             <mat-label>Ebook name</mat-label>
             <input matInput type="text" formControlName="name" />
-            <mat-error *ngIf="metadataForm.get('name')?.invalid">
+            <mat-error *ngIf="metadataForm.get('name')?.invalid" i18n>
                 Name is required
             </mat-error>
         </mat-form-field>
@@ -13,7 +13,7 @@
         <mat-form-field class="ebook-meta-input">
             <mat-label>Author</mat-label>
             <input matInput type="text" formControlName="author" />
-            <mat-error *ngIf="metadataForm.get('author')?.invalid">
+            <mat-error *ngIf="metadataForm.get('author')?.invalid" i18n>
                 Author is required
             </mat-error>
         </mat-form-field>
@@ -21,14 +21,14 @@
 
     <div>
         <mat-form-field class="ebook-meta-input">
-            <mat-label>Description</mat-label>
+            <mat-label i18n>Description</mat-label>
             <input matInput type="text" formControlName="description" />
         </mat-form-field>
     </div>
 
     <div>
         <mat-form-field class="ebook-meta-input">
-            <mat-label>Tags</mat-label>
+            <mat-label i18n>Tags</mat-label>
             <mat-chip-grid #ebookFileTagsInput>
                 @for (tag of ebookFile.tags; track tag) {
                     <mat-chip-row
@@ -44,12 +44,12 @@
                 }
 
                 <input placeholder="E.g. 'romance' or 'action'"
+                       i18n-placeholder
                        [matChipInputFor]="ebookFileTagsInput"
                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                        [matChipInputAddOnBlur]="true"
                        (matChipInputTokenEnd)="addEbookFileTag($event)"
-                       formControlName="tags">
-                />
+                       formControlName="tags" />
             </mat-chip-grid>
         </mat-form-field>
     </div>
@@ -59,7 +59,8 @@
                                    [type]="'submit'"
                                    [disabled]="metadataForm.invalid"
                                    [pending]="ebookFileUpdateMetaStatus === LoadingStatus.LOADING"
-                                   (click)="updateEbookFileMeta()">
+                                   (click)="updateEbookFileMeta()"
+                                   i18n>
             Update metadata
         </app-action-pending-button>
     </div>

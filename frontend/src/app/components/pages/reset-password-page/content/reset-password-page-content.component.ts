@@ -36,10 +36,10 @@ export class ResetPasswordPageContentComponent {
             this.openConfirmResetDialog();
         } catch(e: any) {
             if (e.toString().includes("LimitExceededException")) {
-                this.notificationService.show("You have exceeded the limit for password reset attempts. Please try again later.");
+                this.notificationService.show($localize`You have exceeded the limit for password reset attempts. Please try again later.`);
             } else {
                 console.error(e);
-                this.notificationService.show("An error occurred while resetting your password.");
+                this.notificationService.show($localize`An error occurred while resetting your password.`);
             }
             this.resetPasswordPending = false;
         }

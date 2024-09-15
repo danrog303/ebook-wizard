@@ -1,10 +1,17 @@
 @if (fileUrlLoadingStatus === LoadingStatus.LOADING) {
     <div class="loading-msg">
-        <mat-spinner mode="indeterminate"></mat-spinner>
+        <mat-spinner mode="indeterminate" [diameter]="24"></mat-spinner>
+        @if (conversionOngoing) {
+            <strong i18n>
+                Please wait, the file is being converted...
+            </strong>
+        } @else {
+            <strong i18n>The file is being loaded...</strong>
+        }
     </div>
 } @else if (fileUrlLoadingStatus === LoadingStatus.ERROR) {
     <div class="error-msg">
-        <div><strong>Error loading URL.</strong></div>
+        <div><strong i18n>Error loading URL.</strong></div>
     </div>
 } @else if (fileUrlLoadingStatus === LoadingStatus.LOADED) {
     <iframe [src]="fileUrl | safe:'resourceUrl'" class="ebook-iframe"></iframe>

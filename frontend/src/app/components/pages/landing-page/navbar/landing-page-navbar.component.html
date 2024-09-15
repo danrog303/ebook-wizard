@@ -19,17 +19,19 @@
                 </div>
             } @else {
                 <div>
-                    <button mat-button color="primary" routerLink="/auth/login">Sign in</button>
+                    <button mat-button color="primary" routerLink="/auth/login" i18n>Sign in</button>
                 </div>
 
                 <div>
-                    <button mat-button color="primary" routerLink="/auth/register">Register now</button>
+                    <button mat-button color="primary" routerLink="/auth/register" i18n>Register now</button>
                 </div>
             }
 
-            <div>
-                <button mat-raised-button color="primary" routerLink="/ebook">Open disk</button>
-            </div>
+            @if ((authenticationService.$isUserAuthenticated | async) == true) {
+                <div>
+                    <button mat-raised-button color="primary" routerLink="/ebook" i18n>Open disk</button>
+                </div>
+            }
         </div>
     </mat-sidenav>
 
@@ -42,24 +44,26 @@
             <img ngSrc="/assets/logo.svg" alt="logo" height="323" width="2000" class="logo-image" />
         </span>
 
-        <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="main-navbar-nav">
-            @for (navItem of navItems; track navItem.name) {
-                <a mat-tab-link (click)="onTabChange(navItem.anchorId)" [active]="activeTab == navItem.anchorId">
-                    {{ navItem.name }}
-                </a>
-            }
-        </nav>
+        <mat-list>
+            <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="main-navbar-nav">
+                @for (navItem of navItems; track navItem.name) {
+                    <a mat-tab-link (click)="onTabChange(navItem.anchorId)" [active]="activeTab == navItem.anchorId">
+                        {{ navItem.name }}
+                    </a>
+                }
+            </nav>
+        </mat-list>
 
         <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 
         <div class="main-navbar-actions">
             @if ((authenticationService.$isUserAuthenticated | async) == true) {
                 <app-logout-button />
+                <button mat-raised-button color="primary" routerLink="/ebook" i18n>Open disk</button>
             } @else {
-                <button mat-button color="primary" routerLink="/auth/login">Sign in</button>
-                <button mat-button color="primary" routerLink="/auth/register">Register now</button>
+                <button mat-button color="primary" routerLink="/auth/login" i18n>Sign in</button>
+                <button mat-button color="primary" routerLink="/auth/register" i18n>Register now</button>
             }
-            <button mat-raised-button color="primary" routerLink="/ebook">Open disk</button>
         </div>
     </mat-toolbar>
 </mat-sidenav-container>

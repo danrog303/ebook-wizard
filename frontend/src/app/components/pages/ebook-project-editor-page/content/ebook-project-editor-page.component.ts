@@ -1,5 +1,5 @@
-import {AfterContentInit, AfterViewInit, Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {ContentChange, QuillEditorComponent, QuillModule} from "ngx-quill";
+import {AfterContentInit, Component, HostListener, ViewChild} from '@angular/core';
+import {ContentChange, QuillEditorComponent} from "ngx-quill";
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import MaterialModule from "@app/modules/material.module";
@@ -10,11 +10,8 @@ import NotificationService from "@app/services/notification.service";
 import LoadingStatus from "@app/models/misc/loading-status.enum";
 import EbookProjectChapter from "@app/models/ebook-project/ebook-project-chapter.model";
 import {MatDialog} from "@angular/material/dialog";
-import {
-    ChapterNameModalComponent
-} from "@app/components/pages/ebook-project-editor-page/modals/chapter-name-modal/chapter-name-modal.component";
-import ChapterDeleteModalComponent
-    from "@app/components/pages/ebook-project-editor-page/modals/chapter-delete-modal/chapter-delete-modal.component";
+import {ChapterNameModalComponent} from "@app/components/pages/ebook-project-editor-page/modals/chapter-name-modal/chapter-name-modal.component";
+import ChapterDeleteModalComponent from "@app/components/pages/ebook-project-editor-page/modals/chapter-delete-modal/chapter-delete-modal.component";
 import {CdkDragDrop, DragDropModule, moveItemInArray} from "@angular/cdk/drag-drop";
 import EbookProjectChapterService from "@app/services/ebook-project-chapter.service";
 import QuillIllustrationService, {ebookProjectIdForQuill, quillInstance} from "@app/services/quill-illustration.service";
@@ -87,7 +84,7 @@ export class EbookProjectEditorPageComponent implements AfterContentInit {
                 }
             },
             error: () => {
-                this.notificationService.show("Failed to save the chapter.");
+                this.notificationService.show($localize`Failed to save the chapter.`);
             }
         });
     }
@@ -155,10 +152,10 @@ export class EbookProjectEditorPageComponent implements AfterContentInit {
         this.ebookProjectChapterService.reorderChapters(this.ebookProjectId, event.previousIndex, event.currentIndex)
             .subscribe({
                 error: () => {
-                    this.notificationService.show("Failed to reorder the chapters.");
+                    this.notificationService.show($localize`Failed to reorder the chapters.`);
                 },
                 next: () => {
-                    this.notificationService.show("Chapters reordered successfully.");
+                    this.notificationService.show($localize`Chapters reordered successfully.`);
                 }
             });
     }
@@ -197,7 +194,6 @@ export class EbookProjectEditorPageComponent implements AfterContentInit {
 
             const illustrationService = new QuillIllustrationService();
             const illustrationStub = imageElement.getAttribute('alt');
-            console.log(illustrationStub);
 
             if (illustrationStub) {
                 illustrationService.getIllustrationImageUrl(this.ebookProjectId, illustrationStub)

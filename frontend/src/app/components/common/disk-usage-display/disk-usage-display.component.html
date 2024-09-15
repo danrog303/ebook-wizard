@@ -1,0 +1,18 @@
+<div class="ebook-space-meter">
+    <mat-progress-bar mode="determinate" [value]="usagePercentage"></mat-progress-bar>
+
+    <div class="text-indicator">
+        <span i18n>Uses</span>
+        @if (usageBytes != null) {
+            <strong>{{ stringUtils.formatBytes(usageBytes) }}</strong>
+        } @else {
+            <mat-spinner mode="indeterminate" [diameter]="16" style="display: inline-block;" />
+        }
+        <span i18n>of</span>
+        @if (limitBytes !== null) {
+            <strong>{{ stringUtils.formatBytes(limitBytes) }}</strong>
+        } @else {
+            <mat-spinner mode="indeterminate" [diameter]="16" style="display: inline-block;" />
+        }
+    </div>
+</div>

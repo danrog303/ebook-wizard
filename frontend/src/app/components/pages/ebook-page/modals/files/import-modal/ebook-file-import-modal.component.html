@@ -1,15 +1,15 @@
-<h2 mat-dialog-title>Import ebook file</h2>
+<h2 mat-dialog-title i18n>Import ebook file</h2>
 <mat-dialog-content>
     <mat-stepper linear #stepper>
         <mat-step [editable]="false" [stepControl]="fileUploadForm">
-            <ng-template matStepLabel>Upload file</ng-template>
+            <ng-template matStepLabel i18n>Upload file</ng-template>
 
             <form [formGroup]="fileUploadForm">
-                <p>
+                <p i18n>
                     Please input an ebook you bought or downloaded online.<br/>
                 </p>
 
-                <p>Accepted formats: MOBI, EPUB, AZW3, PDF, DOCX, HTML, TXT</p>
+                <p i18n>Accepted formats: MOBI, EPUB, AZW3, PDF, DOCX, HTML, TXT</p>
 
                 <div class="ebook-upload">
                     @if (ebookFileUploadStatus === LoadingStatus.LOADING) {
@@ -18,6 +18,7 @@
                     } @else {
                         <ngx-file-drag-drop (valueChanged)="onFileChosen($event)"
                                             emptyPlaceholder="Drop ebook file or click to select"
+                                            i18n-emptyPlaceholder
                                             accept=".docx,.mobi,.pdf,.azw3,.txt,.html,.epub"
                                             formControlName="file" />
                     }
@@ -26,8 +27,11 @@
 
             <p>
                 <small>
-                    Do you want to create an ebook from scratch?<br/>
-                    <a mat-dialog-close routerLink="/ebook-project" [queryParams]="{modal: 'creator'}">
+                    <span i18n>
+                        Do you want to create an ebook from scratch?
+                    </span>
+                    <br/>
+                    <a mat-dialog-close routerLink="/ebook-project" [queryParams]="{modal: 'creator'}" i18n>
                         Create ebook project instead
                     </a>
                 </small>
@@ -35,9 +39,11 @@
         </mat-step>
 
         <mat-step [editable]="false" [stepControl]="metaEditForm.metadataForm">
-            <ng-template matStepLabel>Modify the metadata</ng-template>
+            <ng-template matStepLabel>
+                <span i18n>Modify the metadata</span>
+            </ng-template>
 
-            <p>
+            <p i18n>
                 Some of the fields are pre-filled based on the file you uploaded.
             </p>
 
@@ -47,14 +53,18 @@
         </mat-step>
 
         <mat-step [editable]="false">
-            <ng-template matStepLabel>Done</ng-template>
+            <ng-template matStepLabel>
+                <span i18n>
+                    Done
+                </span>
+            </ng-template>
 
-            <p>This is the ebook you've created!</p>
+            <p i18n>This is the ebook you've created!</p>
 
             <app-ebook-file-details [ebookFile]="ebookFile" />
 
             <div mat-dialog-actions align="end">
-                <button mat-flat-button color="primary" mat-dialog-close>Close</button>
+                <button mat-flat-button color="primary" mat-dialog-close i18n>Close</button>
             </div>
         </mat-step>
     </mat-stepper>

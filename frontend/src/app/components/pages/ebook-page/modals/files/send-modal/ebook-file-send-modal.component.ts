@@ -80,11 +80,11 @@ export class EbookFileSendModalComponent implements AfterViewInit {
             next: () => {
                 this.ongoingAction = null;
                 this.dialogRef.close(true);
-                this.notificationService.show("Ebook file sent successfully!.");
+                this.notificationService.show($localize`Ebook file sent successfully!.`);
             },
             error: () => {
                 this.ongoingAction = null;
-                this.notificationService.show("Failed to send the ebook file. Refresh the page and try again.");
+                this.notificationService.show($localize`Failed to send the ebook file. Refresh the page and try again.`);
             }
         });
     }
@@ -101,13 +101,13 @@ export class EbookFileSendModalComponent implements AfterViewInit {
                             return;
                         }
 
-                        this.notificationService.show("Failed to convert the ebook file. Refresh the page and try again");
+                        this.notificationService.show($localize`Failed to convert the ebook file. Refresh the page and try again`);
                         this.ongoingAction = null;
                     }
                 });
             },
             error: () => {
-                this.notificationService.show("Failed to convert the ebook file. Refresh the page and try again");
+                this.notificationService.show($localize`Failed to convert the ebook file. Refresh the page and try again`);
                 this.ongoingAction = null;
             }
         });
@@ -121,7 +121,7 @@ export class EbookFileSendModalComponent implements AfterViewInit {
             this.conversionPerformed = true;
             this.sendEbook(targetEmail, targetFormat, ebookFileId);
         } else if (taskReport.status === QueueTaskStatus.FAILED) {
-            this.notificationService.show("Failed to convert the ebook file. Refresh the page and try again");
+            this.notificationService.show($localize`Failed to convert the ebook file. Refresh the page and try again`);
             this.ongoingAction = null;
         }
     }

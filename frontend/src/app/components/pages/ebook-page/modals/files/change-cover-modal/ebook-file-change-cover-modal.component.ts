@@ -41,22 +41,25 @@ export class EbookFileChangeCoverModalComponent {
 
         this.ongoingActionStatus = LoadingStatus.LOADING;
 
+        this.dialogRef.disableClose = true;
         this.coverImageUploadSubscription = this.ebookFileService.updateEbookFileCoverImage(files[0], this.ebookFile.id!).subscribe({
             next: this.onUploadProgress.bind(this),
             error: () => {
+                this.dialogRef.disableClose = false;
                 this.ongoingActionStatus = LoadingStatus.ERROR;
-                this.notificationService.show('Failed to upload the file. Refresh the page and try again.');
+                this.notificationService.show($localize`Failed to upload the file. Refresh the page and try again.`);
             }
         });
     }
 
     onUploadProgress(event: UploadProgressEvent<EbookFile>) {
         if (event.progress === 100 && event.result) {
+            this.dialogRef.disableClose = false;
             this.coverImageUploadSubscription?.unsubscribe();
             this.ongoingActionStatus = LoadingStatus.LOADED;
             this.ebookFile.coverImageKey = (event.result as EbookFile).coverImageKey;
-            this.notificationService.show('Cover image updated successfully.');
-            this.dialogRef.close();
+            this.notificationService.show($localize`Cover image updated successfully.`);
+            this.dialogRef.close(true);
         } else {
             this.ongoingActionStatus = LoadingStatus.LOADING;
             this.coverImageUploadProgress = event.progress;
@@ -66,17 +69,20 @@ export class EbookFileChangeCoverModalComponent {
     onDeleteCoverImage() {
         this.ongoingActionStatus = LoadingStatus.LOADING;
         this.coverImageUploadProgress = 100;
+        this.dialogRef.disableClose = true;
 
         this.ebookFileService.deleteCoverImage(this.ebookFile.id!).subscribe({
             next: () => {
+                this.dialogRef.disableClose = false;
                 this.ongoingActionStatus = LoadingStatus.LOADED;
                 this.ebookFile.coverImageKey = undefined;
-                this.notificationService.show('Cover image deleted successfully.');
-                this.dialogRef.close();
+                this.notificationService.show($localize`Cover image deleted successfully.`);
+                this.dialogRef.close(true);
             },
             error: () => {
+                this.dialogRef.disableClose = false;
                 this.ongoingActionStatus = LoadingStatus.ERROR;
-                this.notificationService.show('Failed to delete cover image. Refresh the page and try again.');
+                this.notificationService.show($localize`Failed to delete cover image. Refresh the page and try again.`);
             }
         });
     }

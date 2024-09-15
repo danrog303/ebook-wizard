@@ -1,13 +1,15 @@
 package com.github.danrog303.ebookwizard;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@Slf4j
 @SpringBootApplication
 public class EbookWizardApplication {
 
 	public static void main(String[] args) {
-		System.out.println(System.getProperty("java.version"));
+		log.info("Using Java version: {}", System.getProperty("java.version"));
 		SpringApplication.run(EbookWizardApplication.class, args);
 	}
 

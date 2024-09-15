@@ -1,0 +1,17 @@
+.chapter-item {
+    border-radius: 10px;
+}
+
+.chapter-item.active {
+    background-color: #c6cbde;
+}
+
+.chapter-item:hover {
+    background-color: #e7eaf2;
+    cursor: pointer;
+}
+
+mat-divider {
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
+}

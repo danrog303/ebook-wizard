@@ -1,0 +1,59 @@
+<h2 mat-dialog-title i18n>Share project</h2>
+
+<mat-dialog-content>
+    @if (updatingStatus === LoadingStatus.LOADING) {
+        <div>
+            <mat-progress-bar mode="indeterminate" />
+        </div>
+    }
+
+    <div style="padding-bottom: 1.5em; padding-top: 1.5em;">
+        <div i18n>
+            Public?
+        </div>
+
+        <div>
+            <mat-checkbox (change)="onPublicToggle($event)"
+                          [disabled]="updatingStatus === LoadingStatus.LOADING"
+                          [checked]="ebookProject.isPublic"
+                          i18n>
+                Make project public
+            </mat-checkbox>
+        </div>
+
+        <div i18n>
+            Public projects can be viewed by other users.<br/>
+            Everybody will have read-only access to your e-book.
+        </div>
+    </div>
+
+    <mat-divider />
+
+    <div style="padding-top: 1.5em;">
+        <div i18n>
+            Share link to your project:
+        </div>
+
+        <div class="ebook-url-viewer">
+            <mat-form-field >
+                <mat-label>URL</mat-label>
+                <input matInput [value]="projectUrl" readonly>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <button mat-button color="primary"
+                    (click)="copyUrlToClipboard()"
+                    [disabled]="updatingStatus === LoadingStatus.LOADING"
+                    i18n>
+                Copy to clipboard
+            </button>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close [disabled]="updatingStatus === LoadingStatus.LOADING" i18n>
+        Close
+    </button>
+</mat-dialog-actions>

@@ -46,7 +46,7 @@ export class EbookProjectChangeCoverModalComponent {
             next: this.onUploadProgress.bind(this),
             error: () => {
                 this.ongoingActionStatus = LoadingStatus.ERROR;
-                this.notificationService.show('Failed to upload the file. Refresh the page and try again.');
+                this.notificationService.show($localize`Failed to upload the file. Refresh the page and try again.`);
                 this.dialogRef.disableClose = false;
             }
         });
@@ -57,7 +57,7 @@ export class EbookProjectChangeCoverModalComponent {
             this.coverImageUploadSubscription?.unsubscribe();
             this.ongoingActionStatus = LoadingStatus.LOADED;
             this.ebookProject.coverImageKey = (event.result as EbookProject).coverImageKey;
-            this.notificationService.show('Cover image updated successfully.');
+            this.notificationService.show($localize`Cover image updated successfully.`);
             this.dialogRef.close(true);
         } else {
             this.ongoingActionStatus = LoadingStatus.LOADING;
@@ -74,12 +74,12 @@ export class EbookProjectChangeCoverModalComponent {
             next: () => {
                 this.ongoingActionStatus = LoadingStatus.LOADED;
                 this.ebookProject.coverImageKey = undefined;
-                this.notificationService.show('Cover image deleted successfully.');
+                this.notificationService.show($localize`Cover image deleted successfully.`);
                 this.dialogRef.close(true);
             },
             error: () => {
                 this.ongoingActionStatus = LoadingStatus.ERROR;
-                this.notificationService.show('Failed to delete cover image. Refresh the page and try again.');
+                this.notificationService.show($localize`Failed to delete cover image. Refresh the page and try again.`);
                 this.dialogRef.disableClose = false;
             }
         });

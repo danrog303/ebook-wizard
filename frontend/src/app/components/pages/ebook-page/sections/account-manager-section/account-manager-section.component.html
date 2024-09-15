@@ -1,0 +1,70 @@
+<div class="acc-manager-container" *ngIf="loadStatus === LoadingStatus.LOADED">
+    <div class="welcome-banner">
+        <div>
+            <h2><span i18n>Hello</span>, {{user?.nickname}}!</h2>
+            <app-logout-button />
+        </div>
+
+        <img [src]="gravatarUrl" alt="Your avatar" class="avatar" />
+    </div>
+
+    <mat-divider />
+
+    <div class="line">
+        <p>
+            <strong i18n>Your user identifier</strong>
+        </p>
+        <p>
+            {{ uid }}
+        </p>
+    </div>
+
+    <mat-divider />
+
+    <div class="line">
+        <p>
+            <strong i18n>Your email address</strong>
+        </p>
+        <p>
+            <span>{{ user?.email }}</span>
+            <mat-icon (click)="openChangeEmailDialog()" color="primary">edit</mat-icon>
+        </p>
+    </div>
+
+    <mat-divider />
+
+    <div class="line">
+        <p>
+            <strong i18n>Your nickname</strong>
+        </p>
+        <p>
+            <span>{{ user?.nickname }}</span>
+            <mat-icon (click)="openNicknameEditDialog()"
+                      color="primary">edit</mat-icon>
+        </p>
+    </div>
+
+    <mat-divider />
+
+    <div class="line">
+        <p>
+            <strong i18n>Your disk limit</strong>
+        </p>
+        <p>
+            {{ stringUtils.formatBytes(diskLimitBytes!) }}
+        </p>
+    </div>
+
+    <mat-divider />
+
+    <div class="line">
+        <strong i18n>Account actions</strong>
+
+        <div class="close-account-btn">
+            <button mat-button i18n (click)="openAccountDeletionDialog()">Close account</button>
+            <button mat-button i18n (click)="openPasswordChangeDialog()">Change password</button>
+        </div>
+    </div>
+</div>
+
+<mat-spinner *ngIf="loadStatus === LoadingStatus.LOADING" class="acc-manager-spinner" />

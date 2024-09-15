@@ -52,11 +52,11 @@ export class EbookProjectDownloadModalComponent implements OnInit {
                 this.ongoingTaskStatus = LoadingStatus.LOADED;
                 const filename = this.ebookProject.name + '.' + format;
                 this.fileDownloadService.downloadFile(downloadUrl, filename);
-                this.dialogRef.close();
+                this.dialogRef.close(true);
             },
             error: () => {
                 this.ongoingTaskStatus = LoadingStatus.ERROR;
-                this.notificationService.show('Failed to create download link. Please try again later.');
+                this.notificationService.show($localize`Failed to create download link. Please try again later.`);
             }
         });
     }
@@ -68,11 +68,11 @@ export class EbookProjectDownloadModalComponent implements OnInit {
                 this.ongoingTaskStatus = LoadingStatus.LOADED;
                 const filename = this.ebookProject.name + '.' + file.format;
                 this.fileDownloadService.downloadFile(downloadUrl, filename);
-                this.dialogRef.close(true);
+                this.dialogRef.close();
             },
             error: () => {
                 this.ongoingTaskStatus = LoadingStatus.ERROR;
-                this.notificationService.show('Failed to download the file. Please try again later.');
+                this.notificationService.show($localize`Failed to download the file. Please try again later.`);
             }
         });
     }
@@ -82,12 +82,12 @@ export class EbookProjectDownloadModalComponent implements OnInit {
         this.ebookProjectService.deleteEbookFormat(this.ebookProject.id, file.stub).subscribe({
             next: () => {
                 this.ongoingTaskStatus = LoadingStatus.LOADED;
-                this.notificationService.show('Download link removed successfully.');
+                this.notificationService.show($localize`Download link removed successfully.`);
                 this.dialogRef.close(true);
             },
             error: () => {
                 this.ongoingTaskStatus = LoadingStatus.ERROR;
-                this.notificationService.show('Failed to remove download link. Please try again later.');
+                this.notificationService.show($localize`Failed to remove download link. Please try again later.`);
             }
         });
     }

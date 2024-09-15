@@ -1,8 +1,10 @@
-import {AfterContentInit, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {MatMenuTrigger} from "@angular/material/menu";
 import {MatDialog} from "@angular/material/dialog";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 
 import EbookFileService from "@app/services/ebook-file.service";
 import EbookFile from "@app/models/ebook-file/ebook-file.model";
@@ -16,33 +18,59 @@ import {EbookFileDownloadModalComponent} from "@app/components/pages/ebook-page/
 import {EbookFileSendModalComponent} from "@app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component";
 import {EbookFileMetaEditModalComponent} from "@app/components/pages/ebook-page/modals/files/meta-edit-modal/ebook-file-meta-edit-modal.component";
 import {EbookFileShareModalComponent} from "@app/components/pages/ebook-page/modals/files/share-modal/share-modal.component";
-import {
-    EbookFileChangeCoverModalComponent
-} from "@app/components/pages/ebook-page/modals/files/change-cover-modal/ebook-file-change-cover-modal.component";
-import {
-    ConvertEbookFileToProjectModalComponent
-} from "@app/components/pages/ebook-page/modals/files/convert-to-project-modal/convert-to-project-modal.component";
+import {EbookFileChangeCoverModalComponent} from "@app/components/pages/ebook-page/modals/files/change-cover-modal/ebook-file-change-cover-modal.component";
+import {ConvertEbookFileToProjectModalComponent} from "@app/components/pages/ebook-page/modals/files/convert-to-project-modal/convert-to-project-modal.component";
+import {EbookFileSummaryModalComponent} from "@app/components/pages/ebook-page/modals/files/summary-modal/summary-modal.component";
 
 @Component({
     selector: 'app-ebook-page-files-section',
     standalone: true,
-    imports: [MaterialModule, NgOptimizedImage, CommonModule, EbookFileDetailsComponent],
+    imports: [MaterialModule, NgOptimizedImage, CommonModule, EbookFileDetailsComponent, ReactiveFormsModule, FormsModule],
     templateUrl: './ebook-page-files-section.component.html',
     styleUrl: './ebook-page-files-section.component.scss'
 })
-export class EbookPageFilesSectionComponent implements AfterContentInit {
+export class EbookPageFilesSectionComponent implements AfterContentInit, AfterViewInit {
     selectedEbookFile: EbookFile | null = null;
 
     ebookFiles: EbookFile[] = [];
     ebookFilesLoading: LoadingStatus = LoadingStatus.NOT_STARTED;
 
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | null = null;
     @ViewChildren('ebookFileDropdownTrigger') ebookFileDropdownMenus: QueryList<MatMenuTrigger> | null = null;
+
+    ebookFilesSorted: EbookFile[] = [];
+    filterKeyword: string = "";
+    sortBy: string = "";
 
     constructor(private ebookFileService: EbookFileService,
                 private notificationService: NotificationService,
                 private dialogService: MatDialog,
                 private router: Router,
                 private activatedRoute: ActivatedRoute) {
+    }
+
+    ngAfterViewInit() {
+        this.sortBy = sessionStorage.getItem('ebookFilesSortBy') ?? 'sort_creation_date';
+        this.filterKeyword = sessionStorage.getItem('ebookFilesFilterKeyword') ?? '';
+
+        if (this.paginator) {
+            this.paginator._intl.itemsPerPageLabel = $localize`Files per page`;
+            this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+                if (length === 0 || pageSize === 0) {
+                    return $localize`0 of ${length}`;
+                }
+
+                length = Math.max(length, 0);
+
+                const startIndex = page * pageSize;
+
+                const endIndex = startIndex < length ?
+                    Math.min(startIndex + pageSize, length) :
+                    startIndex + pageSize;
+
+                return $localize`${startIndex + 1} – ${endIndex} of ${length}`;
+            }
+        }
     }
 
     ngAfterContentInit() {
@@ -70,10 +98,12 @@ export class EbookPageFilesSectionComponent implements AfterContentInit {
                 if (this.selectedEbookFile) {
                     this.selectedEbookFile = this.ebookFiles[activeEbookIndex];
                 }
+
+                this.applySortAndFilter();
             },
             error: () => {
                 this.ebookFilesLoading = LoadingStatus.ERROR;
-                this.notificationService.show('Failed to load ebook files. Refresh the page and try again.');
+                this.notificationService.show($localize`Failed to load ebook files. Refresh the page and try again.`);
             }
         });
     }
@@ -91,12 +121,13 @@ export class EbookPageFilesSectionComponent implements AfterContentInit {
         dialogRef.afterClosed().subscribe(() => {
              if (dialogRef.componentInstance.ebookFileUploadStatus === LoadingStatus.LOADED) {
                  this.ebookFiles.push(dialogRef.componentInstance.ebookFile!);
+                 this.applySortAndFilter();
              }
         });
     }
 
     markEbookFileAsSelected(index: number) {
-        this.selectedEbookFile = this.ebookFiles[index];
+        this.selectedEbookFile = this.ebookFilesSorted[index];
     }
 
     openDeleteModal(ebookFile: EbookFile) {
@@ -121,6 +152,7 @@ export class EbookPageFilesSectionComponent implements AfterContentInit {
         modalRef.afterClosed().subscribe(() => {
             if (modalRef.componentInstance.modalDirty) {
                 this.refreshEbookFiles();
+                this.applySortAndFilter();
             }
         });
     }
@@ -151,6 +183,7 @@ export class EbookPageFilesSectionComponent implements AfterContentInit {
                     this.ebookFiles[index] = result;
                 }
                 this.selectedEbookFile = result;
+                this.applySortAndFilter();
             }
         });
     }
@@ -158,7 +191,6 @@ export class EbookPageFilesSectionComponent implements AfterContentInit {
     openShareModal(ebookFile: EbookFile) {
         const modalRef = this.dialogService.open(EbookFileShareModalComponent, {
             autoFocus: false,
-            disableClose: true,
             data: ebookFile
         });
     }
@@ -169,30 +201,82 @@ export class EbookPageFilesSectionComponent implements AfterContentInit {
 
     onEbookFileDeleted(ebookFile: EbookFile) {
         this.ebookFiles = this.ebookFiles.filter((file) => file.id !== ebookFile.id);
+        this.applySortAndFilter();
     }
 
     openChangeCoverImageModal(ebookFile: EbookFile) {
         const modalRef = this.dialogService.open(EbookFileChangeCoverModalComponent, {
             autoFocus: false,
             data: ebookFile,
-            disableClose: true
         });
 
-        modalRef.afterClosed().subscribe(() => {
-            this.refreshEbookFiles();
+        modalRef.afterClosed().subscribe((result: boolean | undefined) => {
+            if (result) {
+                this.refreshEbookFiles();
+            }
         });
     }
 
     openConvertToProjectModal(ebookFile: EbookFile) {
         const modalRef = this.dialogService.open(ConvertEbookFileToProjectModalComponent, {
             autoFocus: false,
-            data: ebookFile,
-            disableClose: true
+            data: ebookFile
         });
 
-        modalRef.afterClosed().subscribe(() => {
-            this.refreshEbookFiles();
+        modalRef.afterClosed().subscribe((result: boolean | undefined) => {
+            if (result) {
+                this.refreshEbookFiles();
+            }
         });
+    }
+
+    openEbookFileDetailsModal(ebookFile: EbookFile) {
+        this.dialogService.open(EbookFileSummaryModalComponent, {
+            autoFocus: false,
+            data: ebookFile
+        });
+    }
+
+    applySortAndFilter() {
+        sessionStorage.setItem('ebookFilesSortBy', this.sortBy);
+        sessionStorage.setItem('ebookFilesFilterKeyword', this.filterKeyword);
+
+        this.ebookFilesSorted = this.ebookFiles.filter((file) => {
+            if (this.filterKeyword === "") {
+                return true;
+            }
+
+            return file.name.toLowerCase().includes(this.filterKeyword.toLowerCase()) ||
+                file.description?.toLowerCase().includes(this.filterKeyword.toLowerCase()) ||
+                file.author?.toLowerCase().includes(this.filterKeyword.toLowerCase()) ||
+                file.tags.some((tag) => tag.toLowerCase().includes(this.filterKeyword.toLowerCase()));
+        }).sort((a, b) => {
+            if (this.sortBy === 'sort_title') {
+                return a.name.localeCompare(b.name);
+            }
+
+            if (this.sortBy == 'sort_creation_date') {
+                return new Date(a.creationDate!).getTime() - new Date(b.creationDate!).getTime();
+            }
+
+            if (this.sortBy === 'sort_author' && a.hasOwnProperty('author') && b.hasOwnProperty('author')) {
+                return a.author!.localeCompare(b.author!);
+            }
+
+            return 0;
+        });
+
+        this.paginator!.length = this.ebookFilesSorted.length;
+        this.ebookFilesSorted = this.ebookFilesSorted.slice(this.paginator!.pageIndex * this.paginator!.pageSize, (this.paginator!.pageIndex + 1) * this.paginator!.pageSize);
+
+        // Reset to first page if the current page is out of bounds
+        if (this.paginator!.pageIndex > this.paginator!.getNumberOfPages() - 1) {
+            this.paginator!.pageIndex = 0;
+        }
+    }
+
+    handlePageChange($event: PageEvent) {
+        this.applySortAndFilter();
     }
 
     protected readonly document = document;

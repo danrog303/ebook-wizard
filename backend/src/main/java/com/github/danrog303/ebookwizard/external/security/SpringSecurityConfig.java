@@ -27,13 +27,17 @@ public class SpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(req -> req
+                .requestMatchers("/**").permitAll()
+                .requestMatchers("/ebook-project/**").permitAll()
+                .requestMatchers("/ebook-file/**").permitAll()
                 .anyRequest().permitAll()
             )
             .sessionManagement(sess -> sess
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
+            .csrf(AbstractHttpConfigurer::disable)
             .oauth2ResourceServer(oauth2 -> oauth2
-                // Spring Boot will auto-configure oauth2 using application.properties variables
+                // Spring Boot will autoconfigure oauth2 using application.properties variables
                 .jwt(jwt -> {})
             )
             .headers(headers -> headers
@@ -50,7 +54,7 @@ public class SpringSecurityConfig {
      */
     private CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+        configuration.setAllowedOrigins(List.of("http://localhost:4200", "http://localhost:2013"));
         configuration.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));

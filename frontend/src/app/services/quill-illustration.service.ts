@@ -27,9 +27,15 @@ export default class QuillIllustrationService {
         const accessTokenKey = this.findKeyEndingWith('accessToken')!;
         const accessToken = localStorage.getItem(accessTokenKey)!;
 
-        return fetch(url, {method: 'GET', headers: {
-            Authorization: `Bearer ${accessToken}`
-        }}).then(response => response.text());
+        const headers: any = {};
+        if (accessToken) {
+            headers['Authorization'] = `Bearer ${accessToken}`;
+        }
+
+        return fetch(url, {
+            method: 'GET', 
+            headers: headers
+        }).then(response => response.text());
     }
 
     async uploadIllustrationImage(ebookProjectId: string, file: File): Promise<{ url: string, stub: string }> {

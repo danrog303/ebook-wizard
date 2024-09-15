@@ -4,6 +4,7 @@ import {CommonModule, NgOptimizedImage, ViewportScroller} from "@angular/common"
 import MaterialModule from "@app/modules/material.module";
 import AuthenticationService from "@app/services/authentication.service";
 import LogoutButtonComponent from "@app/components/common/logout-button/logout-button.component";
+import '@angular/localize/init';
 
 @Component({
     selector: 'app-landing-page-navbar',
@@ -15,17 +16,16 @@ import LogoutButtonComponent from "@app/components/common/logout-button/logout-b
 export default class LandingPageNavbarComponent {
     activeTab: string = 'ebook-page-content-header';
     navItems = [
-        {anchorId: 'landing-page-header', name: 'Home'},
-        {anchorId: 'landing-page-functionalities', name: 'Functionalities'},
-        {anchorId: 'landing-page-supported-formats', name: 'Supported formats'},
-        {anchorId: 'landing-page-cta', name: 'Get started'}
+        {anchorId: 'landing-page-header', name: $localize`Home`},
+        {anchorId: 'landing-page-functionalities', name: $localize`Functionalities`},
+        {anchorId: 'landing-page-supported-formats', name: $localize`Supported formats`},
+        {anchorId: 'landing-page-cta', name: $localize`Get started`}
     ]
 
     constructor(public viewportScrollerService: ViewportScroller,
                 public authenticationService: AuthenticationService) {}
 
     scrollToElement(elementId: string): void {
-        console.log("Scrolling to: ", elementId);
         this.viewportScrollerService.scrollToAnchor(elementId);
     }
 

@@ -8,6 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {
     EbookProjectMetaEditModal
 } from "@app/components/pages/ebook-page/modals/projects/meta-edit-modal/meta-edit-modal.component";
+import StringUtilsService from "@app/services/string-utils.service";
 
 @Component({
     selector: 'app-ebook-project-details',
@@ -24,7 +25,8 @@ export class EbookProjectDetailsComponent implements OnChanges {
     @Output() ebookProjectChange = new EventEmitter<EbookProject>();
 
     constructor(private ebookProjectService: EbookProjectService,
-                private matDialog: MatDialog) {
+                private matDialog: MatDialog,
+                public stringUtils: StringUtilsService) {
     }
 
     ngOnChanges() {
@@ -53,7 +55,6 @@ export class EbookProjectDetailsComponent implements OnChanges {
     openEditModal() {
         const modalRef = this.matDialog.open(EbookProjectMetaEditModal, {
             data: this.ebookProject,
-            disableClose: true
         });
 
         modalRef.afterClosed().subscribe((result: EbookProject | null) => {

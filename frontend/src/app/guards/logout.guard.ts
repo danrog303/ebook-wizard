@@ -9,7 +9,7 @@ const logoutGuard: CanActivateFn = async (route: ActivatedRouteSnapshot, state: 
     const snackBarService: MatSnackBar = inject(MatSnackBar);
     await authService.signOut();
     await routerService.navigate(['/']);
-    snackBarService.open('You have been logged out.', 'Ok', {duration: 5000});
+    snackBarService.open($localize`You have been logged out.`, $localize`Ok`, {duration: 5000});
     return true;
 };
 

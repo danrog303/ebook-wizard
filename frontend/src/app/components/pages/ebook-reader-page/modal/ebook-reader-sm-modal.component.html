@@ -1,0 +1,61 @@
+<h2 matDialogTitle>E-book reader</h2>
+
+<div matDialogContent>
+    <div class="ebook-meta-display">
+        <div>
+            <strong i18n>E-book name:</strong> {{ props.ebookFile.name }}
+        </div>
+
+        <div>
+            <strong i18n>Author:</strong> {{ props.ebookFile.author }}
+        </div>
+
+        <div>
+            <strong i18n>Description:</strong> {{ props.ebookFile.description }}
+        </div>
+
+        <div>
+            <strong i18n>Tags:</strong> {{ props.ebookFile.tags.join(', ') || "-" }}
+        </div>
+    </div>
+
+    <mat-divider class="divider" />
+
+    <div class="ownership-info">
+        @if (!props.isUserAuthenticated) {
+            <p i18n>
+                This file is shared to you by ebook-wizard user.
+            </p>
+
+            <p>
+                <a routerLink="/" mat-button color="primary" i18n matDialogClose>Try ebook-wizard</a>
+            </p>
+        } @else if (props.isUserOwner) {
+            <p i18n>
+                You are the owner of this file.
+            </p>
+
+            <p>
+                <a routerLink="/ebook-file" mat-button color="primary" i18n matDialogClose>Edit it in files editor</a>
+            </p>
+        } @else if (!props.isUserOwner) {
+            <ng-container i18n>This file is shared to you by another user.</ng-container>
+        }
+    </div>
+
+    <mat-divider class="divider" />
+
+    <div class="format-picker">
+        <mat-form-field>
+            <mat-label i18n>Format to read</mat-label>
+            <mat-select [(value)]="props.chosenFormat" (valueChange)="props.onFormatChanged(props.chosenFormat)">
+                @if (props.isUserOwner || ebookHasFormat(props.ebookFile, EbookFormat.HTML)) {
+                    <mat-option [value]="EbookFormat.HTML">HTML</mat-option>
+                }
+                @if (props.isUserOwner || ebookHasFormat(props.ebookFile, EbookFormat.PDF)) {
+                    <mat-option [value]="EbookFormat.PDF">PDF</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>

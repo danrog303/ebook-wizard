@@ -1,6 +1,6 @@
 <div>
     @if (!ebookFile?.coverImageKey) {
-        <p><strong>No cover image</strong></p>
+        <p><strong i18n>No cover image</strong></p>
     }
     @else if (coverUrlLoadingStatus == LoadingStatus.LOADED) {
         <img [ngSrc]="coverUrl!!"
@@ -10,12 +10,12 @@
     } @else if (coverUrlLoadingStatus == LoadingStatus.LOADING) {
         <mat-spinner />
     } @else if (coverUrlLoadingStatus == LoadingStatus.ERROR) {
-        <p><strong>Could not load the cover...</strong></p>
+        <p><strong i18n>Could not load the cover...</strong></p>
     }
 </div>
 
 <div class="details-line">
-    <strong>Title</strong>
+    <strong i18n>Title</strong>
     <span (click)="openEditModal()">
         <mat-icon>edit</mat-icon>
     </span>
@@ -24,7 +24,7 @@
 </div>
 
 <div class="details-line">
-    <strong>Author</strong>
+    <strong i18n>Author</strong>
     <span (click)="openEditModal()">
         <mat-icon>edit</mat-icon>
     </span>
@@ -32,7 +32,7 @@
 </div>
 
 <div class="details-line">
-    <strong>Tags</strong>
+    <strong i18n>Tags</strong>
     <span (click)="openEditModal()">
         <mat-icon>edit</mat-icon>
     </span>
@@ -41,7 +41,7 @@
 </div>
 
 <div class="details-line">
-    <strong>Description</strong>
+    <strong i18n>Description</strong>
     <span (click)="openEditModal()">
         <mat-icon>edit</mat-icon>
     </span>
@@ -50,19 +50,34 @@
 </div>
 
 <div class="details-line">
-    <strong>Created at</strong>
+    <strong i18n>Created at</strong>
 
     <p>{{(ebookFile?.creationDate | date) || '-'}}</p>
 </div>
 
 <div class="details-line">
-    <strong>Source format</strong>
+    <strong i18n>Source format</strong>
 
     <p>{{ ebookFile?.conversionSourceFormat?.toString() || "n/a" }}</p>
 </div>
 
 <div class="details-line">
-    <strong>Share status</strong>
+    <strong i18n>Share status</strong>
 
-    <p>{{ ebookFile?.public ? "Public" : "Private" }}</p>
+    @if (ebookFile?.public) {
+        <p i18n>Public</p>
+    } @else {
+        <p i18n>Private</p>
+    }
 </div>
+
+<div class="details-line">
+    <strong i18n>Total size</strong>
+
+    @if (ebookFile?.totalSizeBytes) {
+        <p>{{stringUtils.formatBytes(ebookFile?.totalSizeBytes!)}}</p>
+    } @else {
+        <p>???</p>
+    }
+</div>
+

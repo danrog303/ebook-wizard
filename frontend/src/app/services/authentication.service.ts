@@ -12,7 +12,11 @@ import {
     resetPassword,
     signIn,
     signOut,
-    signUp
+    signUp,
+    updatePassword,
+    updateUserAttribute,
+    confirmUserAttribute,
+    deleteUser, updateUserAttributes
 } from "@aws-amplify/auth";
 import env from "../../environments/environment";
 
@@ -23,11 +27,11 @@ export interface AuthenticatedUser {
 
 @Injectable({providedIn: 'root'})
 export default class AuthenticationService {
-    public $isUserAuthenticated: BehaviorSubject<boolean>;
+    public $isUserAuthenticated: BehaviorSubject<boolean | null>;
     public $authenticatedUser: BehaviorSubject<AuthenticatedUser | null>;
 
     constructor() {
-        this.$isUserAuthenticated = new BehaviorSubject<boolean>(false);
+        this.$isUserAuthenticated = new BehaviorSubject<boolean | null>(null);
         this.$authenticatedUser = new BehaviorSubject<AuthenticatedUser | null>(null);
         Amplify.configure({
             Auth: {
@@ -143,6 +147,42 @@ export default class AuthenticationService {
 
     public async confirmResetPassword(email: string, code: string, newPassword: string): Promise<boolean> {
         await confirmResetPassword({username: email, newPassword: newPassword, confirmationCode: code});
+        return true;
+    }
+
+    public async updateEmail(email: string): Promise<boolean> {
+        const result = await updateUserAttributes({
+            userAttributes: {
+                email: email
+            }
+        });
+        return true;
+    }
+
+    public async updateNickname(nickname: string) {
+        await updateUserAttributes({
+            userAttributes: {
+                nickname: nickname
+            }
+        });
+        return true;
+    }
+
+    public async confirmUpdateEmail(code: string): Promise<boolean> {
+        await confirmUserAttribute({
+            userAttributeKey: 'email',
+            confirmationCode: code
+        });
+        return true;
+    }
+
+    public async updatePassword(oldPassword: string, newPassword: string): Promise<boolean> {
+        await updatePassword({oldPassword: oldPassword, newPassword: newPassword});
+        return true;
+    }
+
+    public async deleteUser(): Promise<boolean> {
+        await deleteUser();
         return true;
     }
 }

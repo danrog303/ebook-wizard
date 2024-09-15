@@ -6,10 +6,10 @@ export default class NotificationService {
     public constructor(private snackBar: MatSnackBar) {}
 
     public show(message: string) {
-        this.snackBar.open(message, "Dismiss", {duration: 5000});
+        this.snackBar.open(message, $localize`Dismiss`, {duration: 5000});
     }
 
     public showWithDuration(message: string, duration: number) {
-        this.snackBar.open(message, "Dismiss", {duration: duration});
+        this.snackBar.open(message, $localize`Dismiss`, {duration: duration});
     }
 }

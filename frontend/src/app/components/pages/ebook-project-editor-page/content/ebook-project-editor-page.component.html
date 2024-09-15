@@ -10,14 +10,18 @@
             <div class="ebook-link">
                 <a routerLink="/ebook-project" mat-button color="primary">
                     <mat-icon>arrow_back</mat-icon>
-                    <span>Back to ebook projects</span>
+                    <span i18n>Back to ebook projects</span>
                 </a>
             </div>
 
             <div class="chapter-picker">
                 <p class="chapter-picker-info">
-                    <strong>Currently editing:</strong><br/>
-                    {{ebookProject.name || 'Unknown name'}}
+                    <strong i18n>Currently editing:</strong><br/>
+                    @if (chosenChapter) {
+                        {{chosenChapter.name}}
+                    } @else {
+                        <span i18n>No chapter selected</span>
+                    }
                 </p>
 
                 <mat-list cdkDropList (cdkDropListDropped)="onChapterDragged($event)">
@@ -47,7 +51,7 @@
                 <div class="add-chapter">
                     <button mat-button color="primary" (click)="openAddChapterModal()">
                         <mat-icon>add</mat-icon>
-                        <span>Add chapter</span>
+                        <span i18n>Add chapter</span>
                     </button>
                 </div>
             </div>
@@ -55,11 +59,11 @@
             <div class="update-indicator" (click)="saveEbookProject().subscribe()">
                 <p>
                     <mat-icon>save_as</mat-icon>
-                    Last saved:
+                    <span i18n>Last saved:</span>
                     @if (chosenChapterSaveStatus === LoadingStatus.LOADING) {
-                        saving...
+                        <span i18n>saving...</span>
                     } @else if (chosenChapterLastSaved === null) {
-                        not saved yet
+                        <span i18n>not saved yet</span>
                     } @else {
                         {{chosenChapterLastSaved | date: 'medium'}}
                     }
@@ -78,10 +82,11 @@
 } @else {
     <div class="loading-error">
         <p>
-            <strong>Error:</strong> Failed to load ebook project.
+            <strong i18n>Error:</strong>
+            <span i18n>Failed to load ebook project.</span>
         </p>
 
-        <button mat-flat-button color="primary" (click)="document.location.reload()">
+        <button mat-flat-button color="primary" (click)="document.location.reload()" i18n>
             Try again
         </button>
     </div>

@@ -43,8 +43,9 @@ export class ConvertEbookFileToProjectModalComponent {
                     }
                 })
             },
-            error: (error) => {
-                this.notificationService.show('Failed to convert ebook file to project.');
+            error: (_) => {
+                this.dialogRef.disableClose = false;
+                this.notificationService.show($localize`Failed to convert ebook file to project.`);
             }
         });
     }
@@ -54,12 +55,14 @@ export class ConvertEbookFileToProjectModalComponent {
             if (this.deleteEbookFile) {
                 this.handleDeleteEbookFile();
             } else {
+                this.dialogRef.disableClose = false;
                 this.ongoingActionStatus = LoadingStatus.LOADED;
-                this.notificationService.show('Ebook file converted to project successfully. You can now view it in the projects tab.');
-                this.dialogRef.close();
+                this.notificationService.show($localize`Ebook file converted to project successfully. You can now view it in the projects tab.`);
+                this.dialogRef.close(true);
             }
         } else if (progress.status === QueueTaskStatus.FAILED) {
-            this.notificationService.show('Failed to convert ebook file to project.');
+            this.dialogRef.disableClose = false;
+            this.notificationService.show($localize`Failed to convert ebook file to project.`);
             this.dialogRef.close();
         }
     }
@@ -71,12 +74,14 @@ export class ConvertEbookFileToProjectModalComponent {
         this.ebookFileService.deleteEbookFile(this.ebookFile.id!).subscribe({
             next: () => {
                 this.ongoingActionStatus = LoadingStatus.LOADED;
-                this.notificationService.show('Ebook file converted and deleted successfully.');
-                this.dialogRef.close();
+                this.notificationService.show($localize`Ebook file converted and deleted successfully.`);
+                this.dialogRef.close(true);
+                this.dialogRef.disableClose = false;
             },
             error: () => {
-                this.notificationService.show('Failed to delete ebook file.');
+                this.notificationService.show($localize`Failed to delete ebook file.`);
                 this.dialogRef.close();
+                this.dialogRef.disableClose = false;
             }
         });
     }

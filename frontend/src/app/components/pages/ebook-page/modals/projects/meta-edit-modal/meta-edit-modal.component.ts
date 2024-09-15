@@ -23,6 +23,6 @@ export class EbookProjectMetaEditModal {
 
     onEbookProjectUpdated(ebookProject: EbookProject) {
         this.dialogRef.close(ebookProject);
-        this.notificationService.show('Project metadata updated successfully.');
+        this.notificationService.show($localize`Project metadata updated successfully.`);
     }
 }

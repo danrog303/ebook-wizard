@@ -25,10 +25,10 @@ export default class LogoutButtonComponent {
 
         try {
             await this.authService.signOut();
-            this.notificationService.show("You have been logged out.");
+            this.notificationService.show($localize`You have been logged out.`);
         } catch (e: any) {
             console.error(e);
-            this.notificationService.show("An error occurred while logging out.");
+            this.notificationService.show($localize`An error occurred while logging out.`);
         }
 
         this.logoutPending = false;

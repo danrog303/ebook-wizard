@@ -6,6 +6,16 @@
     border-radius: 6px;
 }
 
+@media (max-width: 600px) {
+    .container {
+        margin: 10px;
+    }
+
+    .go-back-link {
+        margin-bottom: 2em;
+    }
+}
+
 .rule-name {
     display: block;
 }

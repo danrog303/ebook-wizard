@@ -26,8 +26,6 @@ export class EbookFileDeleteModalComponent {
 
 
     onDeleteEbook() {
-        console.log(this.ebookFile);
-        console.log(this.ebookFile.id);
         this.deleteStatus = LoadingStatus.LOADING;
 
         this.ebookFileService.deleteEbookFile(this.ebookFile.id!).subscribe({
@@ -37,7 +35,7 @@ export class EbookFileDeleteModalComponent {
             },
             error: () => {
                 this.deleteStatus = LoadingStatus.ERROR;
-                this.notificationService.show('Failed to delete ebook file. Refresh the page and try again')
+                this.notificationService.show($localize`Failed to delete ebook file. Refresh the page and try again`)
             }
         });
     }

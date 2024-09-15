@@ -1,6 +1,7 @@
 package com.github.danrog303.ebookwizard.domain.ebookproject.services;
 
-import com.github.danrog303.ebookwizard.domain.ebook.EbookAccessType;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookAccessType;
+import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageCalculator;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectChapter;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectRepository;
@@ -17,6 +18,7 @@ public class EbookProjectChapterService {
     private final EbookProjectRepository ebookProjectRepository;
     private final EbookProjectPermissionService permissionService;
     private final FileStorageService fileStorageService;
+    private final EbookDiskUsageCalculator diskUsageCalculator;
 
     public EbookProjectChapter createChapter(String ebookProjectId, EbookProjectChapter chapter) {
         validateChapter(chapter);
@@ -27,6 +29,7 @@ public class EbookProjectChapterService {
         chapter.setCreationDate(new Date());
         ebookProject.getChapters().add(chapter);
 
+        ebookProject.setTotalSizeBytes(diskUsageCalculator.calculateEbookProjectSize(ebookProject));
         ebookProjectRepository.save(ebookProject);
         return chapter;
     }
@@ -40,6 +43,11 @@ public class EbookProjectChapterService {
                 .orElseThrow();
 
         ebookProject.getChapters().remove(chapter);
+
+        // Detect illustrations that are no longer used
+        this.removeStaleIllustrations(ebookProject);
+
+        ebookProject.setTotalSizeBytes(diskUsageCalculator.calculateEbookProjectSize(ebookProject));
         ebookProjectRepository.save(ebookProject);
     }
 
@@ -60,6 +68,7 @@ public class EbookProjectChapterService {
         // Detect illustrations that are no longer used
         this.removeStaleIllustrations(ebookProject);
 
+        ebookProject.setTotalSizeBytes(diskUsageCalculator.calculateEbookProjectSize(ebookProject));
         ebookProjectRepository.save(ebookProject);
         return existingChapter;
     }
@@ -91,6 +100,7 @@ public class EbookProjectChapterService {
             }
         }
 
+        ebookProject.setTotalSizeBytes(diskUsageCalculator.calculateEbookProjectSize(ebookProject));
         ebookProjectRepository.save(ebookProject);
     }
 

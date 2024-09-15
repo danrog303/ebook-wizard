@@ -1,6 +1,6 @@
 package com.github.danrog303.ebookwizard.external.document.converter;
 
-import com.github.danrog303.ebookwizard.domain.ebook.EbookFormat;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFormat;
 
 import java.io.InputStream;
 import java.io.OutputStream;

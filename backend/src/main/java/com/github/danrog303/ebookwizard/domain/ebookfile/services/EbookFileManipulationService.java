@@ -1,6 +1,7 @@
 package com.github.danrog303.ebookwizard.domain.ebookfile.services;
 
-import com.github.danrog303.ebookwizard.domain.ebook.*;
+import com.github.danrog303.ebookwizard.domain.ebook.models.*;
+import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageCalculator;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFileRepository;
 import com.github.danrog303.ebookwizard.domain.taskqueue.conversion.ConversionQueueService;
@@ -41,6 +42,7 @@ public class EbookFileManipulationService {
     private final EbookFileLockService ebookFileLockService;
     private final EbookFileImportService ebookFileImportService;
     private final EbookFileUpdateService ebookFileUpdateService;
+    private final EbookDiskUsageCalculator diskUsageCalculator;
 
     public QueueTask<QueueTaskPayload> enqueueAddNewFileTypeToEbookFile(String ebookFileId, String targetFormat) {
         EbookFile ebookFile = requireEbookFilePermission(ebookFileId, EbookAccessType.READ_WRITE);
@@ -150,6 +152,8 @@ public class EbookFileManipulationService {
             downloadableFile.setStub(randomKey);
 
             ebook.setDownloadableFiles(List.of(downloadableFile));
+            ebook.setTotalSizeBytes(diskUsageCalculator.calculateEbookFileSize(ebook));
+
             return ebookFileRepository.save(ebook);
         }
     }
@@ -209,6 +213,7 @@ public class EbookFileManipulationService {
             ebookFile.setConversionSourceFormat(newEbookFile.getConversionSourceFormat());
         }
 
+        ebookFile.setTotalSizeBytes(diskUsageCalculator.calculateEbookFileSize(ebookFile));
         ebookFileUpdateService.updateEbookFileMetadata(ebookFile);
         return ebookFileRepository.save(ebookFile);
     }
@@ -236,6 +241,7 @@ public class EbookFileManipulationService {
 
         this.fileStorageService.deleteFile(downloadableFile.getFileKey());
         ebookFile.getDownloadableFiles().remove(downloadableFile);
+        ebookFile.setTotalSizeBytes(diskUsageCalculator.calculateEbookFileSize(ebookFile));
         ebookFileRepository.save(ebookFile);
     }
 
@@ -255,6 +261,7 @@ public class EbookFileManipulationService {
             ebookFileImportService.applyCoverImageFromImageFileToEbookFile(ebookFile, tempFile);
         }
 
+        ebookFile.setTotalSizeBytes(diskUsageCalculator.calculateEbookFileSize(ebookFile));
         ebookFileRepository.save(ebookFile);
         return ebookFile;
     }
@@ -265,6 +272,7 @@ public class EbookFileManipulationService {
         if (ebookFile.getCoverImageKey() != null) {
             this.fileStorageService.deleteFile(ebookFile.getCoverImageKey());
             ebookFile.setCoverImageKey(null);
+            ebookFile.setTotalSizeBytes(diskUsageCalculator.calculateEbookFileSize(ebookFile));
             ebookFileRepository.save(ebookFile);
         }
     }

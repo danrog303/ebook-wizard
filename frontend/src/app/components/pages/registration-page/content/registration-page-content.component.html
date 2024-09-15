@@ -1,11 +1,11 @@
 <div class="register-form">
     <mat-card class="register-form-card">
         <mat-card-title class="register-form-title">
-            <div class="register-form-heading">
+            <div class="register-form-heading" i18n>
                 Register to ebook-wizard
             </div>
             <div class="register-form-go-back">
-                <button mat-button routerLink="/">
+                <button mat-button routerLink="/" i18n>
                     &larr; Return to main page
                 </button>
             </div>
@@ -15,45 +15,45 @@
             <mat-card-content class="register-form-content">
                 <mat-form-field class="register-form-input">
                     <mat-label>Email</mat-label>
-                    <input type="email" matInput placeholder="john@example.com" formControlName="email">
+                    <input type="email" matInput placeholder="john@example.com" i18n-placeholder formControlName="email">
                     @if (registerForm.controls["email"].hasError('required')) {
-                        <mat-error>Email is required</mat-error>
+                        <mat-error i18n>Email is required</mat-error>
                     } @else if (registerForm.controls["email"].hasError('email')) {
-                        <mat-error>Invalid email</mat-error>
+                        <mat-error i18n>Invalid email</mat-error>
                     }
                 </mat-form-field>
 
                 <mat-form-field class="register-form-input">
-                    <mat-label>Your nickname</mat-label>
-                    <input type="text" matInput placeholder="john12" formControlName="nickname">
+                    <mat-label i18n>Your nickname</mat-label>
+                    <input type="text" matInput placeholder="john12" i18n-placeholder formControlName="nickname">
                     @if (registerForm.controls["nickname"].hasError('required')) {
-                        <mat-error>Nickname is required</mat-error>
+                        <mat-error i18n>Nickname is required</mat-error>
                     } @else if (registerForm.controls["nickname"].hasError('minlength')) {
-                        <mat-error>At least 3 characters</mat-error>
+                        <mat-error i18n>At least 3 characters</mat-error>
                     } @else if (registerForm.controls["nickname"].hasError('maxlength')) {
-                        <mat-error>At most 20 characters</mat-error>
+                        <mat-error i18n>At most 20 characters</mat-error>
                     }
                 </mat-form-field>
 
                 <mat-form-field class="register-form-input">
-                    <mat-label>Password</mat-label>
+                    <mat-label i18n>Password</mat-label>
                     <input type="password" matInput placeholder="********" formControlName="password">
                     @if (registerForm.controls["password"].hasError('required')) {
-                        <mat-error>Password is required</mat-error>
+                        <mat-error i18n>Password is required</mat-error>
                     } @else if (registerForm.controls["password"].hasError('minlength')) {
-                        <mat-error>At least 8 characters</mat-error>
+                        <mat-error i18n>At least 8 characters</mat-error>
                     } @else if (registerForm.controls["password"].hasError('passwordStrength')) {
-                        <mat-error>At least 1 special character and 1 digit</mat-error>
+                        <mat-error i18n>At least 1 special character and 1 digit</mat-error>
                     }
                 </mat-form-field>
 
                 <mat-form-field class="register-form-input">
-                    <mat-label>Repeat password</mat-label>
+                    <mat-label i18n>Repeat password</mat-label>
                     <input type="password" matInput placeholder="********" formControlName="passwordRepeat">
                     @if (registerForm.controls["passwordRepeat"].hasError('required')) {
-                        <mat-error>Repeat password</mat-error>
+                        <mat-error i18n>Repeat password</mat-error>
                     } @else if (registerForm.controls["passwordRepeat"].hasError('passwordMismatch')) {
-                        <mat-error>Passwords do not match</mat-error>
+                        <mat-error i18n>Passwords do not match</mat-error>
                     }
                 </mat-form-field>
 
@@ -63,14 +63,15 @@
 
             <mat-card-actions>
                 <div class="button-flex-container">
-                    <button mat-button routerLink="/auth/login" type="button">
+                    <button mat-button routerLink="/auth/login" type="button" i18n>
                         Login instead &rarr;
                     </button>
 
                     <app-action-pending-button
                         [pending]="pending"
                         [disabled]="registerForm.invalid"
-                        type="submit">
+                        type="submit"
+                        i18n>
                         Register
                     </app-action-pending-button>
                 </div>

@@ -44,7 +44,6 @@ export class EbookProjectMetaEditFormComponent implements OnChanges {
                     name: this.ebookProject.name,
                     author: this.ebookProject.author,
                     description: this.ebookProject.description,
-                    tags: this.ebookProject.tags ?? []
                 });
             } catch (e) {
                 console.error(e);
@@ -101,7 +100,7 @@ export class EbookProjectMetaEditFormComponent implements OnChanges {
             },
             error: () => {
                 this.ebookProjectUpdateProgress = LoadingStatus.ERROR;
-                this.notificationService.show('Failed to set metadata of the ebook project. Refresh the page and try again.');
+                this.notificationService.show($localize`Failed to set metadata of the ebook project. Refresh the page and try again.`);
             }
         });
     }

@@ -11,6 +11,11 @@ import EbookFormat from "@app/models/ebook/ebook-format.enum";
 import SafePipe from "@app/pipes/safe.pipe";
 import AuthenticationService from "@app/services/authentication.service";
 import EbookDisplayComponent from "@app/components/pages/ebook-reader-page/ebook-display/ebook-display.component";
+import {BreakpointObserver} from "@angular/cdk/layout";
+import {MatDialog} from "@angular/material/dialog";
+import {
+    EbookReaderSmModalComponent
+} from "@app/components/pages/ebook-reader-page/modal/ebook-reader-sm-modal.component";
 
 @Component({
     selector: 'app-ebook-reader-page',
@@ -32,15 +37,23 @@ export class EbookReaderPageComponent implements OnInit, OnDestroy {
 
     chosenFormat: EbookFormat | null = null;
 
+    isSmallScreen: boolean = false;
+
     constructor(private activatedRoute: ActivatedRoute,
                 private ebookFileService: EbookFileService,
-                private authService: AuthenticationService) {
+                private authService: AuthenticationService,
+                private breakpointObserver: BreakpointObserver,
+                private matDialog: MatDialog) {
     }
 
     async ngOnInit() {
         this.routeSubscription = this.activatedRoute.params.subscribe(params => {
             this.ebookFileId = params['id'];
             this.fetchEbookFile();
+        });
+
+        this.breakpointObserver.observe('(max-width: 768px)').subscribe(result => {
+            this.isSmallScreen = result.matches;
         });
     }
 
@@ -50,14 +63,15 @@ export class EbookReaderPageComponent implements OnInit, OnDestroy {
 
     async fetchIsOwner() {
         this.isUserAuthenticated = await this.authService.isUserAuthenticated();
+
         const userId = await this.authService.getUserId();
         this.isUserOwner = this.isUserAuthenticated && this.ebookFile?.ownerUserId === userId;
 
         if (this.isUserOwner) {
             this.chosenFormat = EbookFormat.HTML;
-        } else if (this.ebookHasFormat(EbookFormat.PDF)) {
+        } else if (ebookHasFormat(this.ebookFile, EbookFormat.PDF)) {
             this.chosenFormat = EbookFormat.PDF;
-        } else if (this.ebookHasFormat(EbookFormat.HTML)) {
+        } else if (ebookHasFormat(this.ebookFile, EbookFormat.HTML)) {
             this.chosenFormat = EbookFormat.HTML;
         } else {
             this.chosenFormat = null;
@@ -87,15 +101,32 @@ export class EbookReaderPageComponent implements OnInit, OnDestroy {
         });
     }
 
-    ebookHasFormat(format: EbookFormat) {
-        if (!this.ebookFile || !this.ebookFile.downloadableFiles) {
-            return false;
-        }
-
-        return this.ebookFile.downloadableFiles
-            .some(file => file.format.toLowerCase() === format.toLowerCase());
+    showSmallScreenModal() {
+        const dialogRef = this.matDialog.open(EbookReaderSmModalComponent, {
+            data: {
+                ebookFile: this.ebookFile!,
+                isUserOwner: this.isUserOwner!,
+                isUserAuthenticated: this.isUserAuthenticated!,
+                chosenFormat: this.chosenFormat,
+                onFormatChanged: (chosenFormat: EbookFormat | null) => {
+                    this.chosenFormat = chosenFormat;
+                    dialogRef.close();
+                }
+            },
+            autoFocus: false
+        });
     }
 
     protected readonly LoadingStatus = LoadingStatus;
     protected readonly EbookFormat = EbookFormat;
+    protected readonly ebookHasFormat = ebookHasFormat;
+}
+
+export function ebookHasFormat(ebookFile: EbookFile | null, format: EbookFormat) {
+    if (!ebookFile || !ebookFile.downloadableFiles) {
+        return false;
+    }
+
+    return ebookFile.downloadableFiles
+        .some(file => file.format.toLowerCase() === format.toLowerCase());
 }

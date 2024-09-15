@@ -1,0 +1,46 @@
+.acc-manager-container {
+    background: white;
+    height: calc(100% - 4em);
+    padding: 2em;
+    margin-right: 1em;
+    border-radius: 8px;
+    overflow-y: scroll;
+}
+
+.welcome-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2em;
+}
+
+.acc-manager-spinner {
+    position: absolute;
+    top: 40%;
+    left: calc(50%);
+    width: 30em;
+    text-align: center;
+}
+
+img {
+    border-radius: 10%;
+}
+
+.line {
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
+
+    p, *, p * {
+        vertical-align: middle;
+    }
+}
+
+mat-icon {
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.close-account-btn {
+    margin-top: 0.5em;
+}

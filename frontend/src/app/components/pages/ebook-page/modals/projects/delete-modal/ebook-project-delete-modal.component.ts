@@ -31,11 +31,11 @@ export class EbookProjectDeleteModalComponent {
             next: () => {
                 this.deleteStatus = LoadingStatus.LOADED;
                 this.dialogRef.close(true);
-                this.notificationService.show('Project deleted successfully.')
+                this.notificationService.show($localize`Project deleted successfully.`)
             },
             error: () => {
                 this.deleteStatus = LoadingStatus.ERROR;
-                this.notificationService.show('Failed to delete the project. Refresh the page and try again.')
+                this.notificationService.show($localize`Failed to delete the project. Refresh the page and try again.`)
             }
         });
     }

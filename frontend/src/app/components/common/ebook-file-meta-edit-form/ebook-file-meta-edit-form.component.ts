@@ -45,7 +45,6 @@ export default class EbookFileMetaEditFormComponent implements OnChanges {
                     name: this.ebookFile.name,
                     author: this.ebookFile.author,
                     description: this.ebookFile.description,
-                    tags: this.ebookFile.tags ?? []
                 });
             } catch(e) {
                 this.ebookFile = createEmptyEbookFile();
@@ -88,7 +87,7 @@ export default class EbookFileMetaEditFormComponent implements OnChanges {
             },
             error: () => {
                 this.ebookFileUpdateMetaStatus = LoadingStatus.ERROR;
-                this.notificationService.show('Failed to update metadata of the ebook file. Refresh the page and try again.');
+                this.notificationService.show($localize`Failed to update metadata of the ebook file. Refresh the page and try again.`);
             }
         });
     }

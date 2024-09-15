@@ -50,6 +50,11 @@ export const routes: Routes = [
         loadComponent: () => import('./components/pages/ebook-page/content/ebook-page-content.component').then(m => m.EbookPageContent),
     },
     {
+        path: 'account-manager',
+        canActivate: [authenticatedGuard],
+        loadComponent: () => import('./components/pages/ebook-page/content/ebook-page-content.component').then(m => m.EbookPageContent),
+    },
+    {
         path: 'reader/ebook-file/:id',
         loadComponent: () => import('./components/pages/ebook-reader-page/content/ebook-reader-page.component').then(m => m.EbookReaderPageComponent),
     },
@@ -57,6 +62,10 @@ export const routes: Routes = [
         path: 'editor/ebook-project/:id',
         canActivate: [authenticatedGuard],
         loadComponent: () => import('./components/pages/ebook-project-editor-page/content/ebook-project-editor-page.component').then(m => m.EbookProjectEditorPageComponent),
+    },
+    {
+        path: 'reader/ebook-project/:id',
+        loadComponent: () => import('./components/pages/ebook-project-reader-page/content/ebook-project-reader-page.component').then(m => m.EbookProjectReaderPageComponent),
     },
     {
         path: 'about',

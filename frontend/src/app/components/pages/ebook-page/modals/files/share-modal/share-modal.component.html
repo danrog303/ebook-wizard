@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Share e-book</h2>
+<h2 mat-dialog-title i18n>Share e-book</h2>
 
 <mat-dialog-content>
     @if (updatingStatus === LoadingStatus.LOADING) {
@@ -8,19 +8,20 @@
     }
 
     <div style="padding-bottom: 1.5em; padding-top: 1.5em;">
-        <div>
+        <div i18n>
             Public?
         </div>
 
         <div>
             <mat-checkbox (change)="onPublicToggle($event)"
                           [disabled]="updatingStatus === LoadingStatus.LOADING"
-                          [checked]="ebookFile.public">
+                          [checked]="ebookFile.public"
+                          i18n>
                 Make e-book public
             </mat-checkbox>
         </div>
 
-        <div>
+        <div i18n>
             Public ebooks can be viewed by other users.
         </div>
     </div>
@@ -28,7 +29,7 @@
     <mat-divider />
 
     <div style="padding-top: 1.5em;">
-        <div>
+        <div i18n>
             Share link to your e-book:
         </div>
 
@@ -42,7 +43,8 @@
         <div>
             <button mat-button color="primary"
                     (click)="copyUrlToClipboard()"
-                    [disabled]="updatingStatus === LoadingStatus.LOADING">
+                    [disabled]="updatingStatus === LoadingStatus.LOADING"
+                    i18n>
                 Copy to clipboard
             </button>
         </div>
@@ -50,7 +52,7 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close [disabled]="updatingStatus === LoadingStatus.LOADING">
+    <button mat-button mat-dialog-close [disabled]="updatingStatus === LoadingStatus.LOADING" i18n>
         Close
     </button>
 </mat-dialog-actions>

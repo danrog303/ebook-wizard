@@ -1,10 +1,10 @@
 package com.github.danrog303.ebookwizard.domain.ebookproject.services;
 
-import com.github.danrog303.ebookwizard.domain.ebook.EbookAccessType;
-import com.github.danrog303.ebookwizard.domain.ebook.EbookDownloadableResource;
-import com.github.danrog303.ebookwizard.domain.ebook.EbookFileLock;
-import com.github.danrog303.ebookwizard.domain.ebook.EbookFormat;
-import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookAccessType;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookDownloadableResource;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFileLock;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFormat;
+import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageCalculator;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectChapter;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectIllustration;
@@ -12,6 +12,8 @@ import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectR
 import com.github.danrog303.ebookwizard.domain.taskqueue.conversion.ConversionQueueService;
 import com.github.danrog303.ebookwizard.domain.taskqueue.conversion.ConversionQueueTaskPayload;
 import com.github.danrog303.ebookwizard.domain.taskqueue.conversion.ConversionQueueTaskType;
+import com.github.danrog303.ebookwizard.domain.taskqueue.email.EmailQueueService;
+import com.github.danrog303.ebookwizard.domain.taskqueue.email.EmailQueueTaskPayload;
 import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTask;
 import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTaskPayload;
 import com.github.danrog303.ebookwizard.external.auth.AuthorizationProvider;
@@ -45,6 +47,8 @@ public class EbookProjectManipulationService {
     private final MimeTypeDetector mimeTypeDetector;
     private final ImageConverter imageConverter;
     private final ConversionQueueService conversionQueueService;
+    private final EmailQueueService emailQueueService;
+    private final EbookDiskUsageCalculator diskUsageCalculator;
 
     public EbookProject createEmptyEbookProject(EbookProject ebookProject) {
         authorizationProvider.requireAuthentication();
@@ -64,6 +68,7 @@ public class EbookProjectManipulationService {
         ebookProject.setIllustrations(new ArrayList<>());
         ebookProject.setDownloadableFiles(new ArrayList<>());
         ebookProject.setOwnerUserId(authorizationProvider.getAuthenticatedUserId());
+        ebookProject.setTotalSizeBytes(diskUsageCalculator.calculateEbookProjectSize(ebookProject));
 
         if (ebookProject.getIsPublic() == null) {
             ebookProject.setIsPublic(false);
@@ -89,6 +94,7 @@ public class EbookProjectManipulationService {
 
         EbookProjectIllustration illustration = new EbookProjectIllustration(randomKey, uploadFileKey);
         ebookProject.getIllustrations().add(illustration);
+        ebookProject.setTotalSizeBytes(diskUsageCalculator.calculateEbookProjectSize(ebookProject));
         ebookProjectRepository.save(ebookProject);
 
         return illustration;
@@ -122,6 +128,8 @@ public class EbookProjectManipulationService {
 
             this.fileStorageService.uploadFile(uploadFileKey, convertedFile.toFile());
             ebookProject.setCoverImageKey(uploadFileKey);
+            ebookProject.setTotalSizeBytes(diskUsageCalculator.calculateEbookProjectSize(ebookProject));
+
             return ebookProjectRepository.save(ebookProject);
         }
     }
@@ -141,6 +149,7 @@ public class EbookProjectManipulationService {
                 );
 
         ebookProject.getIllustrations().removeIf(illustration -> illustration.getStub().equals(illustrationHash));
+        ebookProject.setTotalSizeBytes(diskUsageCalculator.calculateEbookProjectSize(ebookProject));
         ebookProjectRepository.save(ebookProject);
     }
 
@@ -167,6 +176,7 @@ public class EbookProjectManipulationService {
         ebookProject.setName(newEbookProject.getName());
         ebookProject.setIsPublic(newEbookProject.getIsPublic());
         ebookProject.setContainerName(newEbookProject.getContainerName());
+        ebookProject.setTotalSizeBytes(diskUsageCalculator.calculateEbookProjectSize(ebookProject));
 
         if (ebookProject.getIsPublic() == null) {
             ebookProject.setIsPublic(false);
@@ -222,14 +232,7 @@ public class EbookProjectManipulationService {
     }
 
     @SneakyThrows(IOException.class)
-    public String convertToDownloadableUrl(String ebookProjectId, String ebookFileFormat) {
-        EbookProject ebookProject = permissionService.getEbookProject(ebookProjectId, EbookAccessType.READ_ONLY);
-
-        EbookFormat ebookFormat = EbookFormat.fromExtension(ebookFileFormat);
-        if (ebookFormat == null) {
-            throw new IllegalArgumentException("Invalid ebook file format");
-        }
-
+    private EbookDownloadableResource addFormat(EbookProject ebookProject, EbookFormat ebookFormat) {
         try (TemporaryDirectory tempDir = new TemporaryDirectory()) {
             Path targetPath = Path.of(tempDir.getDirectory().toAbsolutePath().toString(), "out." + ebookFormat.getExtensionName());
             ebookProjectConversionService.convertEbookProjectToPhysicalFile(ebookProject, targetPath);
@@ -242,11 +245,22 @@ public class EbookProjectManipulationService {
             var downloadableResource = new EbookDownloadableResource(randomKey, ebookFormat, new Date(), uploadFileKey);
             ebookProject.getDownloadableFiles().add(0, downloadableResource);
 
+            ebookProject.setTotalSizeBytes(diskUsageCalculator.calculateEbookProjectSize(ebookProject));
             ebookProjectRepository.save(ebookProject);
-
-            String fileName = StringNormalizer.normalize(ebookProject.getName()) + "." + ebookFormat.getExtensionName();
-            return fileStorageService.getDownloadUrl(uploadFileKey, fileName);
+            return downloadableResource;
         }
+    }
+
+    public String convertToDownloadableUrl(String ebookProjectId, String ebookFileFormat) {
+        EbookProject ebookProject = permissionService.getEbookProject(ebookProjectId, EbookAccessType.READ_WRITE);
+        EbookFormat ebookFormat = EbookFormat.fromExtension(ebookFileFormat);
+        if (ebookFormat == null) {
+            throw new IllegalArgumentException("Invalid ebook file format");
+        }
+
+        EbookDownloadableResource res = addFormat(ebookProject, ebookFormat);
+        String fileName = StringNormalizer.normalize(ebookProject.getName()) + "." + ebookFormat.getExtensionName();
+        return fileStorageService.getDownloadUrl(res.getFileKey(), fileName);
     }
 
     public void deleteEbookFormat(String ebookProjectId, String downloadableResourceStub) {
@@ -259,6 +273,7 @@ public class EbookProjectManipulationService {
 
         fileStorageService.deleteFile(ebookFormatRes.getFileKey());
         ebookProject.getDownloadableFiles().remove(ebookFormatRes);
+        ebookProject.setTotalSizeBytes(diskUsageCalculator.calculateEbookProjectSize(ebookProject));
         ebookProjectRepository.save(ebookProject);
     }
 
@@ -275,6 +290,7 @@ public class EbookProjectManipulationService {
             ebookProject.setCoverImageKey(null);
         }
 
+        ebookProject.setTotalSizeBytes(diskUsageCalculator.calculateEbookProjectSize(ebookProject));
         return ebookProjectRepository.save(ebookProject);
     }
 
@@ -299,5 +315,31 @@ public class EbookProjectManipulationService {
                 targetFormat);
 
         return conversionQueueService.enqueueConversionTask(conversionQueueTaskPayload);
+    }
+
+    public QueueTask<QueueTaskPayload> enqueueSendToReader(String ebookProjectId, String ebookFileFormat, String targetEmail) {
+        EbookProject ebookProject = permissionService.getEbookProject(ebookProjectId, EbookAccessType.READ_ONLY);
+        assert ebookProject != null;
+
+        EbookFormat ebookFormat = EbookFormat.fromExtension(ebookFileFormat);
+        if (ebookFormat == null) {
+            throw new IllegalArgumentException("Invalid ebook file format");
+        }
+
+        EbookDownloadableResource res = addFormat(ebookProject, ebookFormat);
+
+        var attachment = new EmailQueueTaskPayload.EmailQueueTaskPayloadAttachment(
+                "ebook." + ebookFileFormat,
+                res.getFileKey()
+        );
+
+        EmailQueueTaskPayload emailQueueTaskPayload = new EmailQueueTaskPayload(
+                targetEmail,
+                "Your ebook from ebook-wizard",
+                "Here is your requested ebook file",
+                List.of(attachment)
+        );
+
+        return emailQueueService.enqueueEmail(emailQueueTaskPayload);
     }
 }

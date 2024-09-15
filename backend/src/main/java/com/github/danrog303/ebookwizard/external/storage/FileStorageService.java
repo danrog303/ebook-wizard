@@ -53,4 +53,10 @@ public interface FileStorageService {
      * @param key The name of the file to download (e.g. S3 file key).
      */
     String getInlineDownloadUrl(String key);
+
+    /**
+     * Get the file size in bytes.
+     * @param key The name of the file to download (e.g. S3 file key).
+     */
+    long getFileSize(String key);
 }

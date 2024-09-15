@@ -52,7 +52,7 @@ export class EbookFileImportModalComponent {
             next: this.onUploadProgress.bind(this),
             error: () => {
                 this.ebookFileUploadStatus = LoadingStatus.ERROR;
-                this.notificationService.show('Failed to upload the file. Refresh the page and try again.');
+                this.notificationService.show($localize`Failed to upload the file. Refresh the page and try again.`);
             }
         });
     }

@@ -8,6 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {
     EbookFileMetaEditModalComponent
 } from "@app/components/pages/ebook-page/modals/files/meta-edit-modal/ebook-file-meta-edit-modal.component";
+import StringUtilsService from "@app/services/string-utils.service";
 
 @Component({
     selector: 'app-ebook-file-details',
@@ -24,7 +25,8 @@ export class EbookFileDetailsComponent implements OnChanges {
     @Output() ebookFileChange = new EventEmitter<EbookFile>();
 
     constructor(private ebookFileService: EbookFileService,
-                private matDialog: MatDialog) {
+                private matDialog: MatDialog,
+                public stringUtils: StringUtilsService) {
     }
 
     ngOnChanges() {
@@ -47,7 +49,6 @@ export class EbookFileDetailsComponent implements OnChanges {
     openEditModal() {
         const modalRef = this.matDialog.open(EbookFileMetaEditModalComponent, {
             data: this.ebookFile,
-            disableClose: true
         });
 
         modalRef.afterClosed().subscribe((result: EbookFile | null) => {

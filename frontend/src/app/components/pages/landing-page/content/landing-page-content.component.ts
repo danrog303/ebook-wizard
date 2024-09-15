@@ -14,7 +14,7 @@ import AuthenticationService from "@app/services/authentication.service";
     styleUrl: './landing-page-content.component.scss'
 })
 export class LandingPageContentComponent implements OnInit, OnDestroy {
-    isUserAuthenticated: boolean = false;
+    isUserAuthenticated: boolean | null = null;
     isUserAuthenticatedSubscription: Subscription | null = null;
 
     constructor(private authService: AuthenticationService) {}

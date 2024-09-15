@@ -1,10 +1,31 @@
-.loading-msg,
 .error-msg {
     width: 100%;
     height: 100%;
     display: inline-flex;
     justify-content: center;
     align-items: center;
+}
+
+.loading-msg {
+    position: absolute;
+    top: calc(50% - 1em);
+    left: calc(50% + 10em);
+    transform: translate(-50%, -50%);
+}
+
+.loading-msg,
+.loading-msg * {
+    vertical-align: middle;
+    font-size: 120%;
+    text-align: center;
+}
+
+.loading-msg * {
+    display: inline-block;
+}
+
+.loading-msg mat-spinner {
+    margin-right: 1em;
 }
 
 .ebook-iframe {

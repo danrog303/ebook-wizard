@@ -1,6 +1,6 @@
 package com.github.danrog303.ebookwizard.external.document.metadata;
 
-import com.github.danrog303.ebookwizard.domain.ebook.EbookFormat;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFormat;
 import com.github.danrog303.ebookwizard.external.document.thumbnail.CalibreDocumentThumbnailManipulatorTest;
 import com.github.danrog303.ebookwizard.util.temp.TemporaryDirectory;
 import lombok.SneakyThrows;

@@ -42,10 +42,10 @@ export default class RegistrationConfirmModalComponent {
             this.accountActivated = true;
         } catch(e: any) {
             if (e.toString().includes("CodeMismatchException")) {
-                this.notificationService.show("Invalid confirmation code.");
+                this.notificationService.show($localize`Invalid confirmation code.`);
             } else {
                 console.error(e);
-                this.notificationService.show("An error occurred while confirming registration.");
+                this.notificationService.show($localize`An error occurred while confirming registration.`);
             }
             this.registrationPending = false;
         }
@@ -55,13 +55,13 @@ export default class RegistrationConfirmModalComponent {
         this.codeResendPending = true;
         try {
             await this.authService.resendSignUpConfirmationCode(this.userData.userEmail);
-            this.notificationService.show("Confirmation code has been resent.");
+            this.notificationService.show($localize`Confirmation code has been resent.`);
         } catch(e: any) {
             if (e.toString().includes("LimitExceededException")) {
-                this.notificationService.show("You're going too fast! Please wait a little bit before next attempt.");
+                this.notificationService.show($localize`You're going too fast! Please wait a little bit before next attempt.`);
             } else {
                 console.error(e);
-                this.notificationService.show("An error occurred while resending confirmation code.");
+                this.notificationService.show($localize`An error occurred while resending confirmation code.`);
             }
         }
         this.codeResendPending = false;

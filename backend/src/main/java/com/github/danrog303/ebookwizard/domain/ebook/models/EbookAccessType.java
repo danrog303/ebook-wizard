@@ -1,4 +1,4 @@
-package com.github.danrog303.ebookwizard.domain.ebook;
+package com.github.danrog303.ebookwizard.domain.ebook.models;
 
 public enum EbookAccessType {
     READ_ONLY,

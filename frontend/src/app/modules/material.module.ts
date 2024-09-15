@@ -17,6 +17,7 @@ import {MatStepperModule} from "@angular/material/stepper";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatSelectModule} from "@angular/material/select";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
     imports: [
@@ -41,7 +42,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
         MatChipsModule,
         MatSelectModule,
         MatCheckboxModule,
-        CdkTrapFocus
+        CdkTrapFocus,
+        MatPaginatorModule
     ]
 })
 export default class MaterialModule {}

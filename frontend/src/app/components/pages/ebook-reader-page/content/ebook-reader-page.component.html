@@ -10,65 +10,77 @@
             <div class="ebook-link">
                 <a routerLink="/ebook-file" mat-button color="primary">
                     <mat-icon>arrow_back</mat-icon>
-                    <span>Back to ebook list</span>
+
+                    @if (isSmallScreen) {
+                        <span i18n>Back</span>
+                    } @else {
+                        <span i18n>Back to ebook list</span>
+                    }
                 </a>
+
+                @if (isSmallScreen) {
+                    <button mat-button (click)="showSmallScreenModal()" color="primary">
+                        <mat-icon>menu</mat-icon>
+                        <span i18n>Menu</span>
+                    </button>
+                }
             </div>
         }
 
         <div class="nav-pane-controls">
-            @if (ebookFile) {
+            @if (ebookFile && !isSmallScreen) {
                 <div class="ebook-meta-display">
                     <div>
-                        <strong>E-book name:</strong> {{ ebookFile.name }}
+                        <strong i18n>E-book name:</strong> {{ ebookFile.name }}
                     </div>
 
                     <div>
-                        <strong>Author:</strong> {{ ebookFile.author }}
+                        <strong i18n>Author:</strong> {{ ebookFile.author }}
                     </div>
 
                     <div>
-                        <strong>Description:</strong> {{ ebookFile.description }}
+                        <strong i18n>Description:</strong> {{ ebookFile.description }}
                     </div>
 
                     <div>
-                        <strong>Tags:</strong> {{ ebookFile.tags.join(', ') || "-" }}
+                        <strong i18n>Tags:</strong> {{ ebookFile.tags.join(', ') || "-" }}
                     </div>
                 </div>
             }
 
-            @if (ebookFile) {
+            @if (ebookFile && !isSmallScreen) {
                 <div class="ownership-info">
                     @if (!isUserAuthenticated) {
-                        <p>
+                        <p i18n>
                             This file is shared to you by ebook-wizard user.
                         </p>
 
                         <p>
-                            <a routerLink="/" mat-button color="primary">Try ebook-wizard</a>
+                            <a routerLink="/" mat-button color="primary" i18n>Try ebook-wizard</a>
                         </p>
                     } @else if (isUserOwner) {
-                        <p>
+                        <p i18n>
                             You are the owner of this file.
                         </p>
 
                         <p>
-                            <a routerLink="/ebook-file" mat-button color="primary">Edit it in files editor</a>
+                            <a routerLink="/ebook-file" mat-button color="primary" i18n>Edit it in files editor</a>
                         </p>
                     } @else if (!isUserOwner) {
-                        This file is shared to you by another user.
+                        <ng-container i18n>This file is shared to you by another user.</ng-container>
                     }
                 </div>
             }
 
-            @if (ebookFile) {
+            @if (ebookFile && !isSmallScreen) {
                 <div class="format-picker">
                     <mat-form-field>
-                        <mat-label>Choose format</mat-label>
+                        <mat-label i18n>Choose format</mat-label>
                         <mat-select [(value)]="chosenFormat">
-                            @if (isUserOwner || ebookHasFormat(EbookFormat.HTML)) {
+                            @if (isUserOwner || ebookHasFormat(ebookFile, EbookFormat.HTML)) {
                                 <mat-option [value]="EbookFormat.HTML">HTML</mat-option>
                             }
-                            @if (isUserOwner || ebookHasFormat(EbookFormat.PDF)) {
+                            @if (isUserOwner || ebookHasFormat(ebookFile, EbookFormat.PDF)) {
                                 <mat-option [value]="EbookFormat.PDF">PDF</mat-option>
                             }
                         </mat-select>
@@ -81,17 +93,18 @@
     <div class="ebook-pane">
         @if (ebookFileLoadingStatus === LoadingStatus.LOADING) {
             <div class="loading-msg">
-                <mat-spinner mode="indeterminate"></mat-spinner>
+                <mat-spinner mode="indeterminate" [diameter]="24"></mat-spinner>
+                <strong i18n>The ebook is being loaded...</strong>
             </div>
         } @else if (ebookFileLoadingStatus === LoadingStatus.ERROR) {
             <div class="error-msg">
                 <div><strong>
                     @if (ebookFileLoadingError === "unauthorized") {
-                        You are not authorized to view this ebook file...
+                        <ng-container i18n></ng-container>
                     } @else if (ebookFileLoadingError === "not-found") {
-                        Ebook file not found.
+                        <ng-container i18n>Ebook file not found.</ng-container>
                     } @else {
-                        Error loading ebook file.
+                        <ng-container i18n>Error loading ebook file.</ng-container>
                     }
                 </strong></div>
             </div>

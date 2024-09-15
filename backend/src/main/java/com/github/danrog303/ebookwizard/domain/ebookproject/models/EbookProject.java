@@ -1,7 +1,7 @@
 package com.github.danrog303.ebookwizard.domain.ebookproject.models;
 
-import com.github.danrog303.ebookwizard.domain.ebook.EbookDownloadableResource;
-import com.github.danrog303.ebookwizard.domain.ebook.EbookFileLock;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookDownloadableResource;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFileLock;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -54,4 +54,6 @@ public class EbookProject {
 
     @NotNull
     private List<EbookProjectChapter> chapters = new ArrayList<>();
+
+    private long totalSizeBytes;
 }

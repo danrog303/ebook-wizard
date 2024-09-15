@@ -80,10 +80,10 @@ export class RegistrationPageContentComponent {
             this.pending = false;
         } catch (e: any) {
             if (e.toString().includes("UsernameExistsException")) {
-                this.notificationService.show("User with this email already exists.");
+                this.notificationService.show($localize`User with this email already exists.`);
             } else {
                 console.error(e);
-                this.notificationService.show("Error occurred during registration. Please try again later.");
+                this.notificationService.show($localize`Error occurred during registration. Please try again later.`);
             }
             this.pending = false;
         }

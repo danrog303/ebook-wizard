@@ -1,14 +1,12 @@
 package com.github.danrog303.ebookwizard.domain.ebookproject.controllers;
 
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
-import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectChapter;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectIllustration;
 import com.github.danrog303.ebookwizard.domain.ebookproject.services.EbookProjectManipulationService;
 import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTask;
 import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTaskPayload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -108,6 +106,13 @@ public class EbookProjectController {
     public QueueTask<QueueTaskPayload> convertEbookProjectToEbookFile(@PathVariable String ebookProjectId,
                                                                       @PathVariable String ebookFileFormat) {
         return this.ebookProjectManipulationService.enqueueConvertEbookProjectToEbookFile(ebookProjectId, ebookFileFormat);
+    }
+
+    @PostMapping("/{ebookProjectId}/send/{ebookFileFormat}")
+    public QueueTask<QueueTaskPayload> sendToReader(@PathVariable String ebookProjectId,
+                                                    @PathVariable String ebookFileFormat,
+                                                    @RequestBody String targetEmail) {
+        return this.ebookProjectManipulationService.enqueueSendToReader(ebookProjectId, ebookFileFormat, targetEmail);
     }
 
 }

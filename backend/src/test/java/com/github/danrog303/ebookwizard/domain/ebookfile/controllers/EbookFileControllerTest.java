@@ -1,6 +1,6 @@
 package com.github.danrog303.ebookwizard.domain.ebookfile.controllers;
 
-import com.github.danrog303.ebookwizard.domain.ebook.ContentDispositionType;
+import com.github.danrog303.ebookwizard.domain.ebook.models.ContentDispositionType;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.domain.ebookfile.services.EbookFileManipulationService;
 import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTask;

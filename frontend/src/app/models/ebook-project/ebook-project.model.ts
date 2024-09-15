@@ -18,6 +18,7 @@ export default interface EbookProject {
     illustrations: EbookProjectIllustration[];
     downloadableFiles: EbookDownloadableResource[];
     chapters: EbookProjectChapter[];
+    totalSizeBytes?: number;
 }
 
 export function createEmptyEbookProject(): EbookProject {

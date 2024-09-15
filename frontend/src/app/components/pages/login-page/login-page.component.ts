@@ -42,10 +42,10 @@ export class LoginPageComponent {
                 .navigateByUrl(this.activatedRoute.snapshot.queryParamMap.get("redirect") ?? "/")
                 .then();
 
-            this.notificationService.show('You have successfuly logged in.');
+            this.notificationService.show($localize`You have successfuly logged in.`);
         } catch(e: any) {
             if (e.toString().includes("NotAuthorizedException")) {
-                this.notificationService.show("Invalid email or password.");
+                this.notificationService.show($localize`Invalid email or password.`);
             } else if (e.toString().includes("CONFIRM_SIGN_UP")) {
                 const dialogRef = this.dialogService.open(RegistrationConfirmModalComponent, {
                     data: {
@@ -56,7 +56,7 @@ export class LoginPageComponent {
             }
             else {
                 console.error(e);
-                this.notificationService.show("An error occurred while signing in.");
+                this.notificationService.show($localize`An error occurred while signing in.`);
             }
             this.loginPending = false;
         }

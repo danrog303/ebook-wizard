@@ -1,4 +1,4 @@
-<h2 matDialogTitle>Change cover image</h2>
+<h2 matDialogTitle i18n>Change cover image</h2>
 
 <div class="cover-upload" matDialogContent>
     @if (ongoingActionStatus === LoadingStatus.LOADING) {
@@ -7,14 +7,15 @@
     } @else {
         <ngx-file-drag-drop (valueChanged)="onFileChosen($event)"
                             emptyPlaceholder="Drop cover image"
+                            i18n-emptyPlaceholder
                             accept=".jpg,.jpeg,.png" />
     }
 
     <div class="delete-cover">
-        If you want to delete cover image,
+        <span i18n>If you want to delete cover image,</span>
         <span class="delete-cover-link"
               (click)="onDeleteCoverImage()"
-              [ngClass]="{'disabled': ongoingActionStatus === LoadingStatus.LOADING}">click here.</span>
+              [ngClass]="{'disabled': ongoingActionStatus === LoadingStatus.LOADING}" i18n>click here.</span>
     </div>
 
 </div>
@@ -24,5 +25,6 @@
             matDialogClose
             class="cancel-btn"
             color="primary"
-            [disabled]="ongoingActionStatus == LoadingStatus.LOADING">Cancel</button>
+            [disabled]="ongoingActionStatus == LoadingStatus.LOADING"
+            i18n>Cancel</button>
 </mat-dialog-actions>

@@ -5,6 +5,12 @@
   "projects": {
     "frontend": {
       "projectType": "application",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "pl": "src/locale/messages.pl.xlf"
+        }
+      },
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
@@ -43,6 +49,7 @@
           },
           "configurations": {
             "production": {
+              "localize": ["pl"],
               "budgets": [
                 {
                   "type": "initial",
@@ -58,6 +65,7 @@
               "outputHashing": "all"
             },
             "development": {
+              "localize": ["pl"],
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,

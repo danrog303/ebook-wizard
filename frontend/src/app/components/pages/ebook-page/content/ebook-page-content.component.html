@@ -1,97 +1,154 @@
-<div class="ebook-page">
-    <div class="ebook-page-navbar">
-        <app-ebook-page-navbar></app-ebook-page-navbar>
-    </div>
+<mat-drawer-container class="ebook-sidenav-container" autosize>
+    <mat-drawer #drawer class="ebook-sidenav" mode="over">
+        <a routerLink="/" class="logo-link">
+            <img ngSrc="/assets/logo.svg" alt="logo" height="323" width="2000" class="logo-image" />
+        </a>
 
-    <div class="ebook-page-nav">
+        <button mat-flat-button color="primary" i18n [matMenuTriggerFor]="addEbookMenu">
+            <mat-icon>add</mat-icon>
+            Add ebook
+        </button>
+
         <mat-list>
-            <button mat-flat-button color="primary" class="ebook-add-button" [matMenuTriggerFor]="addEbookMenu">
-                <mat-icon>add</mat-icon>
-                Add ebook
-            </button>
-
-            <mat-menu #addEbookMenu="matMenu">
-                <button mat-menu-item class="ebook-file-add-button" (click)="openNewEbookFileCreator()">
-                    <mat-icon>menu_book</mat-icon>
-                    <span>
-                        <strong>New ebook file</strong>
-                        <br/>
-                        Import ebook that you've downloaded or bought online.
-                    </span>
-                </button>
-
-                <mat-divider />
-
-                <button mat-menu-item class="ebook-project-add-button" (click)="openNewEbookProjectCreator()">
-                    <mat-icon>border_color</mat-icon>
-                    <span>
-                        <strong>New ebook project</strong>
-                        <br/>
-                        Create ebook from scratch by using our editor.
-                    </span>
-                </button>
-            </mat-menu>
-
-            <mat-divider />
-
-            <mat-list-item class="ebook-page-nav-item"
-                           routerLink="/ebook"
-                           [ngClass]="{'active': currentRoute=='ebook'}" >
+            <mat-list-item class="ebook-page-nav-item" routerLink="/ebook" [ngClass]="{'active': currentRoute=='ebook'}">
                 <mat-icon matListItemIcon>home</mat-icon>
-                <div matListItemTitle>Home page</div>
+                <div matListItemTitle i18n>Home page</div>
             </mat-list-item>
 
-            <mat-list-item class="ebook-page-nav-item"
-                           routerLink="/ebook-file"
-                           [ngClass]="{'active': currentRoute=='ebook-file'}" >
+            <mat-list-item class="ebook-page-nav-item" routerLink="/ebook-file" [ngClass]="{'active': currentRoute=='ebook-file'}">
                 <mat-icon matListItemIcon>menu_book</mat-icon>
-                <div matListItemTitle>Ebook files</div>
+                <div matListItemTitle i18n>Ebook files</div>
             </mat-list-item>
 
-            <mat-list-item class="ebook-page-nav-item"
-                           routerLink="/ebook-project"
-                           [ngClass]="{'active': currentRoute=='ebook-project'}" >
+            <mat-list-item class="ebook-page-nav-item" routerLink="/ebook-project" [ngClass]="{'active': currentRoute=='ebook-project'}">
                 <mat-icon matListItemIcon>border_color</mat-icon>
-                <div matListItemTitle>Ebook projects</div>
+                <div matListItemTitle i18n>Ebook projects</div>
             </mat-list-item>
+        </mat-list>
 
-            <mat-divider class="ebook-page-nav-divider" />
+        <mat-divider />
 
+        <mat-list>
             <mat-list-item class="ebook-page-nav-item"
-                           routerLink="/ebook/last-modified"
-                           [ngClass]="{'active': currentRoute=='ebook/last-modified'}" >
-                <mat-icon matListItemIcon>history</mat-icon>
-                <div matListItemTitle>Last modified</div>
+                           routerLink="/account-manager"
+                           [ngClass]="{'active': currentRoute=='account-manager'}">
+                <mat-icon matListItemIcon>account</mat-icon>
+                <div matListItemTitle i18n>Account manager</div>
             </mat-list-item>
 
             <mat-list-item class="ebook-page-nav-item" routerLink="/about">
                 <mat-icon matListItemIcon>info</mat-icon>
-                <div matListItemTitle>About</div>
+                <div matListItemTitle i18n>About</div>
             </mat-list-item>
-
-            <mat-divider class="ebook-page-nav-divider" />
-
-            <div class="ebook-space-meter">
-                <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-                Uses <strong>300MB</strong> of <strong>500MB</strong>
-            </div>
         </mat-list>
-    </div>
 
-    <div class="ebook-page-content">
-        @if (currentRoute == 'ebook') {
-            <app-ebook-page-home-section></app-ebook-page-home-section>
-        } @else if (currentRoute == 'ebook-file') {
-            <app-ebook-page-files-section></app-ebook-page-files-section>
-        } @else if (currentRoute == 'ebook-project') {
-            <app-ebook-page-projects-section></app-ebook-page-projects-section>
-        } @else if (currentRoute == 'ebook/last-modified') {
-            <app-ebook-page-last-modified-section></app-ebook-page-last-modified-section>
-        }
-    </div>
+        <mat-divider />
 
-    <div class="ebook-page-footer">
-        &copy; 2024 by Daniel Rogowski
-    </div>
-</div>
+        <app-disk-usage-display />
 
+        <mat-divider style="margin-top: 1em; margin-bottom: 0.5em;" />
+
+        <app-logout-button />
+    </mat-drawer>
+
+    <div class="ebook-page">
+        <div class="ebook-page-navbar">
+            <app-ebook-page-navbar />
+
+            <button mat-flat-button (click)="drawer.toggle()" class="drawer-menu-btn">
+                <mat-icon>menu</mat-icon>
+                <span i18n>Open menu</span>
+            </button>
+        </div>
+
+        <div class="ebook-page-nav">
+            <mat-list>
+                <button mat-flat-button color="primary" class="ebook-add-button" [matMenuTriggerFor]="addEbookMenu">
+                    <mat-icon>add</mat-icon>
+                    <span i18n>Add ebook</span>
+                </button>
+
+                <mat-menu #addEbookMenu="matMenu">
+                    <button mat-menu-item class="ebook-file-add-button" (click)="openNewEbookFileCreator()">
+                        <mat-icon>menu_book</mat-icon>
+                        <span>
+                            <strong i18n>New ebook file</strong>
+                            <br/>
+                            <span i18n>Import ebook that you've downloaded or bought online.</span>
+                        </span>
+                    </button>
+
+                    <mat-divider />
+
+                    <button mat-menu-item class="ebook-project-add-button" (click)="openNewEbookProjectCreator()">
+                        <mat-icon>border_color</mat-icon>
+                        <span>
+                            <strong i18n>New ebook project</strong>
+                            <br/>
+                            <span i18n>Create ebook from scratch by using our editor.</span>
+                        </span>
+                    </button>
+                </mat-menu>
+
+                <mat-divider />
+
+                <mat-list-item class="ebook-page-nav-item"
+                               routerLink="/ebook"
+                               [ngClass]="{'active': currentRoute=='ebook'}" >
+                    <mat-icon matListItemIcon>home</mat-icon>
+                    <div matListItemTitle i18n>Home page</div>
+                </mat-list-item>
+
+                <mat-list-item class="ebook-page-nav-item"
+                               routerLink="/ebook-file"
+                               [ngClass]="{'active': currentRoute=='ebook-file'}" >
+                    <mat-icon matListItemIcon>menu_book</mat-icon>
+                    <div matListItemTitle i18n>Ebook files</div>
+                </mat-list-item>
+
+                <mat-list-item class="ebook-page-nav-item"
+                               routerLink="/ebook-project"
+                               [ngClass]="{'active': currentRoute=='ebook-project'}" >
+                    <mat-icon matListItemIcon>border_color</mat-icon>
+                    <div matListItemTitle i18n>Ebook projects</div>
+                </mat-list-item>
+
+                <mat-divider class="ebook-page-nav-divider" />
+
+                <mat-list-item class="ebook-page-nav-item"
+                               routerLink="/account-manager"
+                               [ngClass]="{'active': currentRoute=='account-manager'}">
+                    <mat-icon matListItemIcon>person</mat-icon>
+                    <div matListItemTitle i18n>Account manager</div>
+                </mat-list-item>
+
+                <mat-list-item class="ebook-page-nav-item" routerLink="/about">
+                    <mat-icon matListItemIcon>info</mat-icon>
+                    <div matListItemTitle i18n>About</div>
+                </mat-list-item>
+
+                <mat-divider class="ebook-page-nav-divider" />
+
+                <app-disk-usage-display />
+            </mat-list>
+        </div>
+
+        <div class="ebook-page-content">
+            @if (currentRoute == 'ebook') {
+                <app-ebook-page-home-section />
+            } @else if (currentRoute == 'ebook-file') {
+                <app-ebook-page-files-section />
+            } @else if (currentRoute == 'ebook-project') {
+                <app-ebook-page-projects-section />
+            } @else if (currentRoute == 'ebook/last-modified') {
+                <app-ebook-page-last-modified-section />
+            } @else if (currentRoute == 'account-manager') {
+                <app-account-manager-section />
+            }
+        </div>
+
+        <div class="ebook-page-footer">
+            &copy; 2024 by Daniel Rogowski
+        </div>
+    </div>
+</mat-drawer-container>

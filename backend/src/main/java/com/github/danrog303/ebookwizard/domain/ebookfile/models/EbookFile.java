@@ -1,8 +1,8 @@
 package com.github.danrog303.ebookwizard.domain.ebookfile.models;
 
-import com.github.danrog303.ebookwizard.domain.ebook.EbookDownloadableResource;
-import com.github.danrog303.ebookwizard.domain.ebook.EbookFileLock;
-import com.github.danrog303.ebookwizard.domain.ebook.EbookFormat;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookDownloadableResource;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFileLock;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFormat;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -109,6 +109,8 @@ public class EbookFile {
      * A list of S3 objects belonging to this book.
      */
     private List<EbookDownloadableResource> downloadableFiles = new ArrayList<>();
+
+    private long totalSizeBytes;
 
     public void setContainerName(String newName) {
         this.containerName = newName;

@@ -1,6 +1,6 @@
 package com.github.danrog303.ebookwizard.domain.ebookfile.controllers;
 
-import com.github.danrog303.ebookwizard.domain.ebook.ContentDispositionType;
+import com.github.danrog303.ebookwizard.domain.ebook.models.ContentDispositionType;
 import com.github.danrog303.ebookwizard.domain.ebookfile.services.EbookFileManipulationService;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTask;
@@ -16,7 +16,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ebook-file")
-@PreAuthorize("isAuthenticated()")
 @RequiredArgsConstructor
 public class EbookFileController {
     private final EbookFileManipulationService ebookFileManipulationService;
