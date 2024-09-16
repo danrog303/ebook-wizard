@@ -1,0 +1,46 @@
+<div class="metrics-display">
+    <div class="metric">
+        <strong class="stat-name" i18n>Users</strong>:
+        @if (loadingStatus === LoadingStatus.LOADING) {
+            <mat-spinner diameter="30"></mat-spinner>
+        } @else if (loadingStatus === LoadingStatus.ERROR) {
+            <span i18n>network error</span>
+        } @else if (loadingStatus === LoadingStatus.LOADED) {
+            <span>{{ websiteStats?.totalUsers }}</span>
+        }
+
+        <mat-divider />
+
+        <ng-container i18n>Ebook-wizard has a total of {{ websiteStats?.totalUsers }} users.</ng-container>
+    </div>
+
+    <div class="metric">
+        <strong class="stat-name" i18n>Ebook files</strong>:
+        @if (loadingStatus === LoadingStatus.LOADING) {
+            <mat-spinner diameter="30"></mat-spinner>
+        } @else if (loadingStatus === LoadingStatus.ERROR) {
+            <span i18n>network error</span>
+        } @else if (loadingStatus === LoadingStatus.LOADED) {
+            <span>{{ websiteStats?.totalEbookFiles }}</span>
+        }
+
+        <mat-divider />
+
+        <ng-container i18n>Ebook-wizard has a total of {{ websiteStats?.totalUsers }} users.</ng-container>
+    </div>
+
+    <div class="metric">
+        <strong class="stat-name" i18n>Ebook projects</strong>:
+        @if (loadingStatus === LoadingStatus.LOADING) {
+            <mat-spinner diameter="30"></mat-spinner>
+        } @else if (loadingStatus === LoadingStatus.ERROR) {
+            <span i18n>network error</span>
+        } @else if (loadingStatus === LoadingStatus.LOADED) {
+            <span>{{ websiteStats?.totalEbookProjects }}</span>
+        }
+
+        <mat-divider />
+
+        <ng-container i18n>Ebook-wizard has a total of {{ websiteStats?.totalUsers }} users.</ng-container>
+    </div>
+</div>

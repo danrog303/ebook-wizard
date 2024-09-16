@@ -32,11 +32,11 @@
             <mat-list-item class="ebook-page-nav-item"
                            routerLink="/account-manager"
                            [ngClass]="{'active': currentRoute=='account-manager'}">
-                <mat-icon matListItemIcon>account</mat-icon>
+                <mat-icon matListItemIcon>person</mat-icon>
                 <div matListItemTitle i18n>Account manager</div>
             </mat-list-item>
 
-            <mat-list-item class="ebook-page-nav-item" routerLink="/about">
+            <mat-list-item class="ebook-page-nav-item" (click)="openAboutWebsitePage()">
                 <mat-icon matListItemIcon>info</mat-icon>
                 <div matListItemTitle i18n>About</div>
             </mat-list-item>
@@ -122,7 +122,7 @@
                     <div matListItemTitle i18n>Account manager</div>
                 </mat-list-item>
 
-                <mat-list-item class="ebook-page-nav-item" routerLink="/about">
+                <mat-list-item class="ebook-page-nav-item" (click)="openAboutWebsitePage()">
                     <mat-icon matListItemIcon>info</mat-icon>
                     <div matListItemTitle i18n>About</div>
                 </mat-list-item>

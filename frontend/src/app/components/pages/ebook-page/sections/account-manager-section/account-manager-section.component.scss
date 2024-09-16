@@ -7,6 +7,13 @@
     overflow-y: scroll;
 }
 
+@media (max-width: 600px) {
+    .acc-manager-container {
+        margin-right: 0;
+        height: unset;
+    }
+}
+
 .welcome-banner {
     display: flex;
     justify-content: space-between;
@@ -20,6 +27,18 @@
     left: calc(50%);
     width: 30em;
     text-align: center;
+}
+
+@media (max-width: 600px) {
+    .acc-manager-spinner {
+        left: 40%;
+    }
+}
+
+@media (max-width: 1200px) {
+    .acc-manager-spinner {
+        left: 55%;
+    }
 }
 
 img {

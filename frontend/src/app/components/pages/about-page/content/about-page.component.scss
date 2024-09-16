@@ -1,9 +1,7 @@
 .container {
     background: white;
     margin: 1em 70px;
-    border: 1px solid #ccc;
     padding: 1em;
-    border-radius: 6px;
 }
 
 @media (max-width: 600px) {
@@ -16,11 +14,23 @@
     }
 }
 
-.rule-name {
-    display: block;
+.go-back-link {
+    a {
+        display: inline-block;
+        margin-left: 0.8em;
+        margin-right: 0.8em;
+    }
+
+    a * {
+        vertical-align: middle;
+    }
 }
 
 .logo-container {
     display: flex;
     justify-content: center;
+}
+
+.main-section {
+    margin-top: 2em;
 }

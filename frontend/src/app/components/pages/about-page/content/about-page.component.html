@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="logo-container">
+        @if (isUserAuthenticated) {
+            <a routerLink="/ebook">
+                <img ngSrc="/assets/logo.svg" height="100" width="300" alt="Ebook-wizard logo" class="logo">
+            </a>
+        } @else {
+            <a routerLink="/">
+                <img ngSrc="/assets/logo.svg" height="100" width="300" alt="Ebook-wizard logo" class="logo">
+            </a>
+        }
+
+    </div>
+
+    <div class="logo-container go-back-link">
+        <a routerLink="/">
+            <mat-icon>home</mat-icon>
+            <span i18n>Home page</span>
+        </a>
+
+        @if (isUserAuthenticated) {
+            <a routerLink="/ebook">
+                <mat-icon>menu_book</mat-icon>
+                <span i18n>Ebook editor</span>
+            </a>
+        }
+    </div>
+
+    <div class="main-section">
+        <mat-tab-group>
+            <mat-tab label="Website rules" i18n-label>
+                <app-rules />
+            </mat-tab>
+
+            <mat-tab label="Statistics panel" i18n-label>
+                <app-stats-display />
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

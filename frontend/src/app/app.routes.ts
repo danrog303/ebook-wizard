@@ -69,7 +69,7 @@ export const routes: Routes = [
     },
     {
         path: 'about',
-        loadComponent: () => import('./components/pages/about-page/about-page.component').then(m => m.AboutPageComponent),
+        loadComponent: () => import('./components/pages/about-page/content/about-page.component').then(m => m.AboutPageComponent),
     },
     {
         path: 'error/not-found',

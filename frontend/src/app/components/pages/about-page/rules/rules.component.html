@@ -1,31 +1,4 @@
-<div class="container">
-    <div class="logo-container">
-        @if (isUserAuthenticated) {
-            <a routerLink="/ebook">
-                <img ngSrc="/assets/logo.svg" height="100" width="300" alt="Ebook-wizard logo" class="logo">
-            </a>
-        } @else {
-            <a routerLink="/">
-                <img ngSrc="/assets/logo.svg" height="100" width="300" alt="Ebook-wizard logo" class="logo">
-            </a>
-        }
-
-    </div>
-
-    <div class="logo-container go-back-link">
-        @if (isUserAuthenticated) {
-            <a routerLink="/ebook">
-                &larr;
-                <span i18n>Go back</span>
-            </a>
-        } @else {
-            <a routerLink="/">
-                &larr;
-                <span i18n>Go back</span>
-            </a>
-        }
-    </div>
-
+<div class="rules-container">
     <h1 i18n>Ebook-wizard rules</h1>
 
     <p>

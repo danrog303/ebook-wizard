@@ -48,4 +48,8 @@ export class EbookPageContent implements OnInit, OnDestroy {
     async openNewEbookFileCreator() {
         await this.router.navigate(["/ebook-file"], {queryParams: {modal: "creator"}});
     }
+
+    openAboutWebsitePage() {
+        window.open("/about", "_blank");
+    }
 }
