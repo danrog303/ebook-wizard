@@ -51,3 +51,27 @@ variable "atlas_db_password" {
     type        = string
     sensitive   = true
 }
+
+variable cognito_pool_id {
+    description = "AWS Cognito: Pool ID"
+    type        = string
+    sensitive   = true
+}
+
+variable cognito_oauth2_jwk_uri {
+    description = "AWS Cognito: OAuth2 JWK URI"
+    type        = string
+    sensitive   = true
+}
+
+variable cognito_oauth2_issuer_uri {
+    description = "AWS Cognito: OAuth2 Issuer URI"
+    type        = string
+    sensitive   = true
+}
+
+variable mail_ses_source_arn {
+    description = "AWS SES: Source ARN"
+    type        = string
+    sensitive   = true
+}

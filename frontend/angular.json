@@ -49,7 +49,7 @@
           },
           "configurations": {
             "production": {
-              "localize": ["pl"],
+              "localize": ["pl", "en-US"],
               "budgets": [
                 {
                   "type": "initial",
@@ -65,7 +65,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "localize": ["pl"],
+              "localize": ["pl", "en-US"],
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,

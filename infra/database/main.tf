@@ -8,7 +8,7 @@ terraform {
 }
 
 resource "mongodbatlas_project" "mongodb_project" {
-  name   = "ebook-wizard-mongo"
+  name   = "ebook-wizard-mongo-${terraform.workspace}"
   org_id = var.atlas_organization_id
 }
 
