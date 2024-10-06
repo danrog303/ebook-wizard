@@ -7,67 +7,14 @@
                 </a>
             </div>
 
-            <div class="ebook-link">
-                <a routerLink="/ebook-project" mat-button color="primary">
-                    <mat-icon>arrow_back</mat-icon>
-                    <span i18n>Back to ebook projects</span>
-                </a>
-            </div>
-
             <div class="chapter-picker">
-                <p class="chapter-picker-info">
-                    <strong i18n>Currently editing:</strong><br/>
-                    @if (chosenChapter) {
-                        {{chosenChapter.name}}
-                    } @else {
-                        <span i18n>No chapter selected</span>
-                    }
-                </p>
-
-                <mat-list cdkDropList (cdkDropListDropped)="onChapterDragged($event)">
-                    @for (chapter of ebookProject.chapters; track chapter.id) {
-                        <mat-list-item class="chapter-item"
-                                       (click)="markChapterAsActive(chapter)"
-                                       [ngClass]="{'active': chapter === chosenChapter}"
-                                       cdkDrag>
-
-                            <span matListItemTitle>{{chapter.name}}</span>
-
-                            <div matListItemIcon class="chapter-action-btn"
-                                 style="margin-right: 0; padding-right: 0;"
-                                 (click)="openDeleteChapterModal(chapter)">
-                                <mat-icon>delete</mat-icon>
-                            </div>
-
-                            <div matListItemIcon class="chapter-action-btn" (click)="openEditChapterNameModal(chapter)">
-                                <mat-icon>edit</mat-icon>
-                            </div>
-
-                            <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
-                        </mat-list-item>
-                    }
-                </mat-list>
-
-                <div class="add-chapter">
-                    <button mat-button color="primary" (click)="openAddChapterModal()">
-                        <mat-icon>add</mat-icon>
-                        <span i18n>Add chapter</span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="update-indicator" (click)="saveEbookProject().subscribe()">
-                <p>
-                    <mat-icon>save_as</mat-icon>
-                    <span i18n>Last saved:</span>
-                    @if (chosenChapterSaveStatus === LoadingStatus.LOADING) {
-                        <span i18n>saving...</span>
-                    } @else if (chosenChapterLastSaved === null) {
-                        <span i18n>not saved yet</span>
-                    } @else {
-                        {{chosenChapterLastSaved | date: 'medium'}}
-                    }
-                </p>
+                <app-chapter-picker [ebookProject]="ebookProject"
+                                    [chosenChapter]="chosenChapter"
+                                    [chosenChapterLastSaved]="chosenChapterLastSaved"
+                                    [chosenChapterSaveStatus]="chosenChapterSaveStatus"
+                                    (onChapterSelected)="markChapterAsActive($event)"
+                                    (onChapterDragged)="onChapterDragged($event)"
+                                    (onSave)="saveEbookProject().subscribe()" />
             </div>
         </div>
 
@@ -91,3 +38,10 @@
         </button>
     </div>
 }
+
+<!-- Chapter picker icon for small screen devices -->
+<div class="chapter-picker-icon" (click)="openChapterPickerModal()">
+    <button mat-mini-fab color="primary">
+        <mat-icon>menu</mat-icon>
+    </button>
+</div>

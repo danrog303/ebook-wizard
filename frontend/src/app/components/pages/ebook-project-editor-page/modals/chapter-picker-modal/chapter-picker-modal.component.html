@@ -1,0 +1,8 @@
+<app-chapter-picker (onChapterDragged)="dialogData.onChapterDragged($event) ; dialogRef.close()"
+                    (onChapterSelected)="dialogData.onChapterSelected($event) ; dialogRef.close()"
+                    (onGoBack)="dialogRef.close()"
+                    (onSave)="dialogData.onSave() ; dialogRef.close()"
+                    [chosenChapterLastSaved]="dialogData.chosenChapterLastSaved"
+                    [chosenChapterSaveStatus]="dialogData.chosenChapterSaveStatus"
+                    [chosenChapter]="dialogData.chosenChapter"
+                    [ebookProject]="dialogData.ebookProject" />

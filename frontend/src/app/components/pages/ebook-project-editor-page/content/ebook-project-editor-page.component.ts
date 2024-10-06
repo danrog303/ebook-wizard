@@ -10,11 +10,15 @@ import NotificationService from "@app/services/notification.service";
 import LoadingStatus from "@app/models/misc/loading-status.enum";
 import EbookProjectChapter from "@app/models/ebook-project/ebook-project-chapter.model";
 import {MatDialog} from "@angular/material/dialog";
-import {ChapterNameModalComponent} from "@app/components/pages/ebook-project-editor-page/modals/chapter-name-modal/chapter-name-modal.component";
-import ChapterDeleteModalComponent from "@app/components/pages/ebook-project-editor-page/modals/chapter-delete-modal/chapter-delete-modal.component";
 import {CdkDragDrop, DragDropModule, moveItemInArray} from "@angular/cdk/drag-drop";
 import EbookProjectChapterService from "@app/services/ebook-project-chapter.service";
 import QuillIllustrationService, {ebookProjectIdForQuill, quillInstance} from "@app/services/quill-illustration.service";
+import {
+    ChapterPickerComponent
+} from "@app/components/pages/ebook-project-editor-page/chapter-picker/chapter-picker.component";
+import {
+    ChapterPickerModalComponent
+} from "@app/components/pages/ebook-project-editor-page/modals/chapter-picker-modal/chapter-picker-modal.component";
 
 @Component({
     selector: 'app-ebook-project-editor-page',
@@ -25,7 +29,8 @@ import QuillIllustrationService, {ebookProjectIdForQuill, quillInstance} from "@
         NgOptimizedImage,
         MaterialModule,
         RouterLink,
-        DragDropModule
+        DragDropModule,
+        ChapterPickerComponent
     ],
     templateUrl: './ebook-project-editor-page.component.html',
     styleUrl: './ebook-project-editor-page.component.scss'
@@ -89,62 +94,6 @@ export class EbookProjectEditorPageComponent implements AfterContentInit {
         });
     }
 
-    openAddChapterModal() {
-        const modalRef = this.matDialog.open(ChapterNameModalComponent, {
-            data: {
-                ebookProject: this.ebookProject,
-                chapter: null,
-                mode: "create"
-            }
-        });
-
-        modalRef.afterClosed().subscribe((chapter: EbookProjectChapter) => {
-            if (chapter) {
-                this.ebookProject.chapters.push(chapter);
-                this.chosenChapter = chapter;
-            }
-        });
-    }
-
-    openEditChapterNameModal(chapter: EbookProjectChapter) {
-        const modalRef = this.matDialog.open(ChapterNameModalComponent, {
-            data: {
-                ebookProject: this.ebookProject,
-                chapter: chapter,
-                mode: "update"
-            }
-        });
-
-        modalRef.afterClosed().subscribe((chapter: EbookProjectChapter) => {
-            if (chapter) {
-                const index = this.ebookProject.chapters.findIndex(c => c.id === chapter.id);
-
-                if (index !== -1) {
-                    this.ebookProject.chapters[index] = chapter;
-                    this.chosenChapter = chapter;
-                }
-            }
-        });
-    }
-
-    openDeleteChapterModal(chapter: EbookProjectChapter) {
-        const modalRef = this.matDialog.open(ChapterDeleteModalComponent, {
-            autoFocus: false,
-            data: {
-                ebookProject: this.ebookProject,
-                ebookProjectChapter: chapter
-            }
-        });
-
-        modalRef.afterClosed().subscribe((result: boolean | undefined) => {
-            const index = this.ebookProject.chapters.findIndex(c => c.id === chapter.id);
-
-            if (index !== -1 && result === true) {
-                this.ebookProject.chapters.splice(index, 1);
-                this.chosenChapter = this.ebookProject.chapters[0] || null;
-            }
-        });
-    }
 
 
     onChapterDragged(event: CdkDragDrop<EbookProjectChapter[]>) {
@@ -217,6 +166,22 @@ export class EbookProjectEditorPageComponent implements AfterContentInit {
 
             this.saveTimeoutHandler = setTimeout(() => this.saveEbookProject().subscribe(), 500);
         }
+    }
+
+    openChapterPickerModal() {
+        this.matDialog.open(ChapterPickerModalComponent, {
+            data: {
+                ebookProject: this.ebookProject,
+                chosenChapter: this.chosenChapter,
+                chosenChapterSaveStatus: this.chosenChapterSaveStatus,
+                chosenChapterLastSaved: this.chosenChapterLastSaved,
+                onChapterDragged: this.onChapterDragged.bind(this),
+                onChapterSelected: this.markChapterAsActive.bind(this),
+                onSave: () => this.saveEbookProject().subscribe()
+            },
+            autoFocus: false
+        });
+
     }
 
     protected readonly LoadingStatus = LoadingStatus;
