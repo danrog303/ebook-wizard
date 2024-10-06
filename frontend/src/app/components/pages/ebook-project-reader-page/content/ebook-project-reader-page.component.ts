@@ -5,11 +5,10 @@ import {ActivatedRoute, RouterLink} from "@angular/router";
 import MaterialModule from "@app/modules/material.module";
 import EbookProject, {createEmptyEbookProject} from "@app/models/ebook-project/ebook-project.model";
 import EbookProjectService from "@app/services/ebook-project.service";
-import NotificationService from "@app/services/notification.service";
 import LoadingStatus from "@app/models/misc/loading-status.enum";
 import EbookProjectChapter from "@app/models/ebook-project/ebook-project-chapter.model";
 import {DragDropModule} from "@angular/cdk/drag-drop";
-import QuillIllustrationService, {ebookProjectIdForQuill, quillInstance} from "@app/services/quill-illustration.service";
+import QuillIllustrationService from "@app/services/quill-illustration.service";
 import AuthenticationService from "@app/services/authentication.service";
 import {BreakpointObserver} from "@angular/cdk/layout";
 import {

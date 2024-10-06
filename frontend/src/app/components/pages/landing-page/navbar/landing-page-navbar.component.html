@@ -32,6 +32,10 @@
                     <button mat-raised-button color="primary" routerLink="/ebook" i18n>Open disk</button>
                 </div>
             }
+
+            <div style="margin-top: 2em;">
+                <app-language-picker />
+            </div>
         </div>
     </mat-sidenav>
 
@@ -57,6 +61,8 @@
         <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 
         <div class="main-navbar-actions">
+            <app-language-picker />
+
             @if ((authenticationService.$isUserAuthenticated | async) == true) {
                 <app-logout-button />
                 <button mat-raised-button color="primary" routerLink="/ebook" i18n>Open disk</button>

@@ -5,13 +5,14 @@ import MaterialModule from "@app/modules/material.module";
 import AuthenticationService from "@app/services/authentication.service";
 import LogoutButtonComponent from "@app/components/common/logout-button/logout-button.component";
 import '@angular/localize/init';
+import {LanguagePickerComponent} from "@app/components/common/language-picker/language-picker.component";
 
 @Component({
     selector: 'app-landing-page-navbar',
     standalone: true,
     templateUrl: './landing-page-navbar.component.html',
     styleUrl: './landing-page-navbar.component.scss',
-    imports: [MaterialModule, RouterModule, CommonModule, LogoutButtonComponent, NgOptimizedImage]
+    imports: [MaterialModule, RouterModule, CommonModule, LogoutButtonComponent, NgOptimizedImage, LanguagePickerComponent]
 })
 export default class LandingPageNavbarComponent {
     activeTab: string = 'ebook-page-content-header';

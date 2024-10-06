@@ -1,0 +1,9 @@
+<div class="lang-picker">
+    <mat-select [value]="getSelectedLanguageKey()" (selectionChange)="onLanguageChanged($event)">
+        @for (language of languages; track language.value;) {
+            <mat-option [value]="language.value">
+                {{ language.label }}
+            </mat-option>
+        }
+    </mat-select>
+</div>

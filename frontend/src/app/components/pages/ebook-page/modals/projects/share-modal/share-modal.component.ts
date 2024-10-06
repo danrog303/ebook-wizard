@@ -28,7 +28,11 @@ export class EbookProjectShareModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.projectUrl = `${environment.FRONTEND_BASE_URI}/reader/ebook-project/${this.ebookProject.id}`;
+        if (window.location.href.includes(environment.FRONTEND_BASE_URI_PL)) {
+            this.projectUrl = `${environment.FRONTEND_BASE_URI_PL}/reader/ebook-project/${this.ebookProject.id}`;
+        } else {
+            this.projectUrl = `${environment.FRONTEND_BASE_URI_EN}/reader/ebook-project/${this.ebookProject.id}`;
+        }
     }
 
     onPublicToggle(_: MatCheckboxChange) {
