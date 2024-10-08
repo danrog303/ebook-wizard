@@ -1,6 +1,8 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject} from "rxjs";
 import {Amplify} from 'aws-amplify';
+import { CookieStorage } from 'aws-amplify/utils';
+
 import {
     AuthUser,
     confirmResetPassword,
@@ -19,6 +21,7 @@ import {
     deleteUser, updateUserAttributes
 } from "@aws-amplify/auth";
 import env from "../../environments/environment";
+import {cognitoUserPoolsTokenProvider} from "@aws-amplify/auth/cognito";
 
 export interface AuthenticatedUser {
     email: string;
@@ -39,8 +42,19 @@ export default class AuthenticationService {
                     userPoolId: env.COGNITO_USER_POOL_ID,
                     userPoolClientId: env.COGNITO_PUBLIC_CLIENT_ID,
                 }
-            }
+            },
         });
+
+        // Setup subdomain authentication for AWS Cognito
+        if (env.AUTH_DOMAIN) {
+            cognitoUserPoolsTokenProvider.setKeyValueStorage(new CookieStorage({
+                domain: env.AUTH_DOMAIN,
+                path: '/',
+                secure: true,
+                expires: 360,
+                sameSite: 'none'
+            }));
+        }
 
         getCurrentUser().then((user: AuthUser) => {
             if (user) {

@@ -18,6 +18,11 @@ export class LanguagePickerComponent {
     ]
 
     getSelectedLanguageKey(): string {
+        // Prioritize English, when code is being ran on the server
+        if (typeof window === "undefined") {
+            return "en";
+        }
+
         if (window.location.href.includes(environment.FRONTEND_BASE_URI_PL)) {
             return "pl";
         } else {

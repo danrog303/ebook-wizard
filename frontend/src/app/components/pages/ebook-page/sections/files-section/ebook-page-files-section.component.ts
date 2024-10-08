@@ -119,10 +119,8 @@ export class EbookPageFilesSectionComponent implements AfterContentInit, AfterVi
         });
 
         dialogRef.afterClosed().subscribe(() => {
-             if (dialogRef.componentInstance.ebookFileUploadStatus === LoadingStatus.LOADED) {
-                 this.ebookFiles.push(dialogRef.componentInstance.ebookFile!);
-                 this.applySortAndFilter();
-             }
+             dialogRef.componentInstance.uploadedEbookFiles.forEach(ebook => this.ebookFiles.push(ebook));
+             this.applySortAndFilter();
         });
     }
 

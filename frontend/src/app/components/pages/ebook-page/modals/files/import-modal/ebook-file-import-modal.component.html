@@ -1,5 +1,5 @@
 <h2 mat-dialog-title i18n>Import ebook file</h2>
-<mat-dialog-content>
+<mat-dialog-content *ngIf="!multiMode">
     <mat-stepper linear #stepper>
         <mat-step [editable]="false" [stepControl]="fileUploadForm">
             <ng-template matStepLabel i18n>Upload file</ng-template>
@@ -11,6 +11,15 @@
 
                 <p i18n>Accepted formats: MOBI, EPUB, AZW3, PDF, DOCX, HTML, TXT</p>
 
+                <p>
+                    <span i18n>You can also drop multiple files to import more ebooks at once </span>
+                    <span class="info-tooltip"
+                          i18n-matTooltip
+                          matTooltip="If you upload multiple files at once, you won't have control over setting the metadata of each individual ebook. They will be imported using the default settings, and you'll be able swap the cover and metadata later.">
+                        [?]
+                    </span>.
+                </p>
+
                 <div class="ebook-upload">
                     @if (ebookFileUploadStatus === LoadingStatus.LOADING) {
                         <mat-progress-bar [mode]="ebookFileUploadProgress === 100 ? 'indeterminate' : 'determinate'"
@@ -20,6 +29,7 @@
                                             emptyPlaceholder="Drop ebook file or click to select"
                                             i18n-emptyPlaceholder
                                             accept=".docx,.mobi,.pdf,.azw3,.txt,.html,.epub"
+                                            [multiple]="true"
                                             formControlName="file" />
                     }
                 </div>
@@ -48,7 +58,7 @@
             </p>
 
             <app-ebook-file-meta-edit-form (updateEbookFile)="onEbookFileMetaUpdated($event)"
-                                           [ebookFile]="ebookFile!"
+                                           [ebookFile]="uploadedEbookFiles[0]"
                                            #metaEditForm />
         </mat-step>
 
@@ -61,7 +71,7 @@
 
             <p i18n>This is the ebook you've created!</p>
 
-            <app-ebook-file-details [ebookFile]="ebookFile" />
+            <app-ebook-file-details [ebookFile]="uploadedEbookFiles[0]" />
 
             <div mat-dialog-actions align="end">
                 <button mat-flat-button color="primary" mat-dialog-close i18n>Close</button>
@@ -70,3 +80,25 @@
     </mat-stepper>
 </mat-dialog-content>
 
+
+<mat-dialog-content *ngIf="multiMode">
+    <p i18n>
+        Bulk upload in progress.
+    </p>
+
+    <p i18n>
+        Please wait until all files are uploaded.
+    </p>
+
+    <p i18n>
+        Do not close this modal until all ebooks are uploaded to the server.
+    </p>
+
+    <div class="multi-mode-progress-bar">
+        <mat-progress-bar [value]="multiModeProgressedFilesCount / multiModeFilesCount * 100" />
+    </div>
+
+    <p class="multi-mode-progress-text">
+        <span>{{ multiModeProgressedFilesCount }}</span> <span i18n>of</span> <span>{{ multiModeFilesCount }}</span>
+    </p>
+</mat-dialog-content>

@@ -30,7 +30,7 @@ export class EbookFileDetailsComponent implements OnChanges {
     }
 
     ngOnChanges() {
-        if (this.ebookFile === null) {
+        if (!this.ebookFile) {
             return;
         }
 

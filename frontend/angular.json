@@ -27,7 +27,8 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
-              "zone.js"
+              "zone.js",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
@@ -63,15 +64,15 @@
                 }
               ],
               "outputHashing": "all",
-                "fileReplacements": [
-                    {
-                        "replace": "src/environments/environment.ts",
-                        "with": "src/environments/environment.aws.ts"
-                    }
-                ]
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.aws.ts"
+                }
+              ]
             },
             "development": {
-              "localize": ["pl", "en-US"],
+              "localize": ["pl"],
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,

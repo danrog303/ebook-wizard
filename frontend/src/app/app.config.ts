@@ -4,7 +4,7 @@ import {routes} from './app.routes';
 import {provideClientHydration} from '@angular/platform-browser';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {provideNativeDateAdapter} from "@angular/material/core";
-import {HttpClient, provideHttpClient, withInterceptors} from "@angular/common/http";
+import {HttpClient, provideHttpClient, withFetch, withInterceptors} from "@angular/common/http";
 import {authenticationInterceptor} from "./interceptors/authentication.interceptor";
 import {provideQuillConfig, QuillModule} from "ngx-quill";
 import QuillIllustrationService from "@app/services/quill-illustration.service";
@@ -17,6 +17,7 @@ export const appConfig: ApplicationConfig = {
         provideNativeDateAdapter(),
 
         provideHttpClient(
+            withFetch(),
             withInterceptors([
                 authenticationInterceptor
             ])
