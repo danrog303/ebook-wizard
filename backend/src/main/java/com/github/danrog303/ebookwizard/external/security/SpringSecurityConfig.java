@@ -54,7 +54,14 @@ public class SpringSecurityConfig {
      */
     private CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200", "https://pl.ebookwizard.danielrogowski.net", "https://en.ebookwizard.danielrogowski.net"));
+        configuration.setAllowedOrigins(List.of(
+            "http://localhost:4200",
+            "https://pl.ebookwizard.danielrogowski.net",
+            "http://192.168.32.7:4200",
+            "http://192.168.32.5:4200",
+            "https://en.ebookwizard.danielrogowski.net"
+        ));
+
         configuration.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
