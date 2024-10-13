@@ -16,9 +16,7 @@ public class EbookDiskUsageController {
     @GetMapping("/limit")
     @PreAuthorize("isAuthenticated()")
     public long getLimit() {
-        // For now, just return 500 MB
-        // In the future, this could be a dynamic value based on the user's subscription
-        return 500 * 1024 * 1024;
+        return ebookDiskUsageService.getDiskLimitOfAuthenticatedUser();
     }
 
     @GetMapping("/usage")

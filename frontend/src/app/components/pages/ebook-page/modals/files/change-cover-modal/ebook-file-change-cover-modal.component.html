@@ -6,8 +6,9 @@
                           [value]="coverImageUploadProgress" />
     } @else {
         <ngx-file-drag-drop (valueChanged)="onFileChosen($event)"
-                            emptyPlaceholder="Drop cover image"
+                            emptyPlaceholder="Drop cover image (max 5 MB)"
                             i18n-emptyPlaceholder
+                            #fileInput
                             accept=".jpg,.jpeg,.png" />
     }
 

@@ -37,6 +37,7 @@ import {NgxFileDragDropComponent} from "ngx-file-drag-drop";
     styleUrl: './create-ebook-project-modal.component.scss'
 })
 export class CreateEbookProjectModalComponent {
+    @ViewChild("fileInput") fileInput: NgxFileDragDropComponent | null = null;
     @ViewChild("stepper") stepper: MatStepper | null = null;
 
     ebookProject: EbookProject = createEmptyEbookProject();
@@ -64,13 +65,26 @@ export class CreateEbookProjectModalComponent {
             return;
         }
 
+        if (files[0].size > this.ebookProjectService.MAX_COVER_IMAGE_SIZE_BYTES) {
+            this.notificationService.show($localize`The file is too large. The maximum size is 5 MB.`);
+            this.fileInput?.clear();
+            this.coverUploadForm.reset();
+            return;
+        }
+
         this.coverImageUploadStatus = LoadingStatus.LOADING;
 
         this.coverImageUploadSubscription = this.ebookProjectService.updateCoverImage(this.ebookProject.id, files[0]).subscribe({
             next: this.onUploadProgress.bind(this),
-            error: () => {
+            error: (err) => {
                 this.coverImageUploadStatus = LoadingStatus.ERROR;
-                this.notificationService.show($localize`Failed to upload the file. Refresh the page and try again.`);
+                this.fileInput?.clear();
+                this.coverUploadForm.reset();
+                if (JSON.stringify(err).includes("FileStorageQuotaExceededException")) {
+                    this.notificationService.show($localize`File storage quota exceeded. Could not upload the file.`);
+                } else {
+                    this.notificationService.show($localize`Failed to upload the file.`);
+                }
             }
         });
     }

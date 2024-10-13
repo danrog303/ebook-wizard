@@ -17,7 +17,6 @@ export const appConfig: ApplicationConfig = {
         provideNativeDateAdapter(),
 
         provideHttpClient(
-            withFetch(),
             withInterceptors([
                 authenticationInterceptor
             ])

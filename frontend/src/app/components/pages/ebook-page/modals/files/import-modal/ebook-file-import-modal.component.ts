@@ -3,7 +3,7 @@ import {RouterLink} from "@angular/router";
 import {NgxFileDragDropComponent} from "ngx-file-drag-drop";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatStepper} from "@angular/material/stepper";
-import {catchError, concatMap, from, of, Subscription, tap, throwError} from "rxjs";
+import {concatMap, from, of, Subscription, tap, throwError} from "rxjs";
 import {CommonModule} from "@angular/common";
 import ActionPendingButtonComponent from "@app/components/common/action-pending-button/action-pending-button.component";
 import MaterialModule from "@app/modules/material.module";
@@ -16,6 +16,7 @@ import LoadingStatus from "@app/models/misc/loading-status.enum";
 import UploadProgressEvent from "@app/models/misc/upload-progress-event.model";
 import {MatTooltip} from "@angular/material/tooltip";
 import {MatDialogRef} from "@angular/material/dialog";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
     selector: 'app-import-modal',
@@ -51,6 +52,10 @@ export class EbookFileImportModalComponent {
     }
 
     onFileChosen(files: File[]) {
+        if (!this.validateFileSizes(files)) {
+            return;
+        }
+
         if (files.length === 0 || this.ebookFileUploadStatus !== LoadingStatus.NOT_STARTED) {
             // When no files selected, don't do anything
             return;
@@ -61,9 +66,8 @@ export class EbookFileImportModalComponent {
             this.ebookFileUploadStatus = LoadingStatus.LOADING;
             this.ebookFileUploadSubscription = this.ebookFileService.importEbookFromFile(files[0]).subscribe({
                 next: this.onUploadProgress.bind(this),
-                error: () => {
-                    this.ebookFileUploadStatus = LoadingStatus.ERROR;
-                    this.notificationService.show($localize`Failed to upload the file. Refresh the page and try again.`);
+                error: (err) => {
+                    this.handleUploadError(err);
                 }
             });
         } else {
@@ -77,12 +81,23 @@ export class EbookFileImportModalComponent {
                 concatMap(file => this.ebookFileService.importEbookFromFile(file))
             ).subscribe({
                 next: this.onUploadProgress.bind(this),
-                error: () => {
-                    this.ebookFileUploadStatus = LoadingStatus.ERROR;
-                    this.notificationService.show($localize`Failed to upload the file. Refresh the page and try again.`);
+                error: (err) => {
+                    this.handleUploadError(err);
                 }
             });
         }
+    }
+
+    validateFileSizes(files: File[]): boolean {
+        const allFilesGood = files.every(file => file.size <= this.ebookFileService.MAX_FILE_SIZE_BYTES);
+        if (!allFilesGood) {
+            this.notificationService.show($localize`Maximum file size exceeded (25 MB). Try with a smaller file.`);
+            this.fileUploadForm.reset();
+            this.dialogRef.disableClose = false;
+            return false;
+        }
+
+        return true;
     }
 
     onEbookFileMetaUpdated(ebookFile: EbookFile) {
@@ -110,6 +125,18 @@ export class EbookFileImportModalComponent {
         } else {
             this.ebookFileUploadStatus = LoadingStatus.LOADING;
             this.ebookFileUploadProgress = event.progress;
+        }
+    }
+
+    private handleUploadError(err: any) {
+        this.ebookFileUploadStatus = LoadingStatus.ERROR;
+        this.dialogRef.close();
+        this.fileUploadForm.reset();
+
+        if (JSON.stringify(err).includes("FileStorageQuotaExceededException")) {
+            this.notificationService.show($localize`File size quota exceeded (25 MB). Try with a smaller file.`);
+        } else {
+            this.notificationService.show($localize`Failed to upload the file. Refresh the page and try again.`);
         }
     }
 

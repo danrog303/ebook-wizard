@@ -6,7 +6,7 @@
                           [value]="coverImageUploadProgress" />
     } @else {
         <ngx-file-drag-drop (valueChanged)="onFileChosen($event)"
-                            emptyPlaceholder="Drop cover image"
+                            emptyPlaceholder="Drop cover image (max 5 MB)"
                             i18n-emptyPlaceholder
                             accept=".jpg,.jpeg,.png" />
     }
@@ -14,6 +14,7 @@
     <div class="delete-cover">
         <span i18n>If you want to delete cover image,</span>
         <span class="delete-cover-link"
+              #fileInput
               (click)="onDeleteCoverImage()"
               [ngClass]="{'disabled': ongoingActionStatus === LoadingStatus.LOADING}" i18n>click here.</span>
     </div>

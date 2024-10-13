@@ -48,10 +48,15 @@ export class ConvertEbookProjectToFileModalComponent {
             next: (task: QueueTask<QueueTaskPayload>) => {
                 this.trackingService.getTaskStatus(task.id).subscribe(this.handleConversionTaskProgress());
             },
-            error: () => {
+            error: (err) => {
                 this.conversionStatus = LoadingStatus.ERROR;
                 this.dialogRef.disableClose = false;
-                this.notificationService.show($localize`Failed to convert project to file...`);
+
+                if (JSON.stringify(err).includes("FileStorageQuotaExceededException")) {
+                    this.notificationService.show($localize`Failed to convert project to file. File storage quota exceeded.`);
+                } else {
+                    this.notificationService.show($localize`Failed to convert project to file...`);
+                }
             }
         });
     }

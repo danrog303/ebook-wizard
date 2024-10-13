@@ -3,7 +3,7 @@ import {ContentChange, QuillEditorComponent} from "ngx-quill";
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import MaterialModule from "@app/modules/material.module";
-import {map, Observable, Subscription} from "rxjs";
+import {catchError, map, Observable, Subscription} from "rxjs";
 import EbookProject, {createEmptyEbookProject} from "@app/models/ebook-project/ebook-project.model";
 import EbookProjectService from "@app/services/ebook-project.service";
 import NotificationService from "@app/services/notification.service";
@@ -119,10 +119,22 @@ export class EbookProjectEditorPageComponent implements AfterContentInit {
         this.chosenChapterSaveStatus = LoadingStatus.LOADING;
         return this.ebookProjectChapterService
             .updateChapter(this.ebookProjectId, this.chosenChapter?.id || "", this.chosenChapter!)
-            .pipe(map(() => {
-                this.chosenChapterSaveStatus = LoadingStatus.LOADED;
-                this.chosenChapterLastSaved = new Date();
-            }));
+            .pipe(
+                map(() => {
+                    this.chosenChapterSaveStatus = LoadingStatus.LOADED;
+                    this.chosenChapterLastSaved = new Date();
+                }),
+                catchError((err) => {
+                    if (JSON.stringify(err).includes("FileStorageQuotaExceededException")) {
+                        this.notificationService.show($localize`Failed to save the chapter due to storage quota.`);
+                    } else {
+                        this.notificationService.show($localize`Failed to save the chapter.`);
+                    }
+
+                    this.chosenChapterSaveStatus = LoadingStatus.ERROR;
+                    return new Observable<void>();
+                })
+            );
     }
 
     onQuillEditorCreated() {

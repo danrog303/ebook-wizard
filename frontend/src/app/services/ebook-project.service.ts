@@ -11,6 +11,10 @@ import QueueTaskPayload from "@app/models/task-queue/queue-task-payload.model";
 
 @Injectable({providedIn: 'root'})
 export default class EbookProjectService {
+    readonly MAX_FILE_SIZE_BYTES = 25 * 1024 * 1024; // 25 MB
+    readonly MAX_ILLUSTRATION_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
+    readonly MAX_COVER_IMAGE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
+
     constructor(private http: HttpClient) {}
 
     createEmptyEbookProject(ebookProject: EbookProject): Observable<EbookProject> {

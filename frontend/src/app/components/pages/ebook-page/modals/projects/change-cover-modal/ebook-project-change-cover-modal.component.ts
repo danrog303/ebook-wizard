@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, ViewChild} from '@angular/core';
 import LoadingStatus from "@app/models/misc/loading-status.enum";
 import {NgxFileDragDropComponent} from "ngx-file-drag-drop";
 import {ReactiveFormsModule} from "@angular/forms";
@@ -24,6 +24,7 @@ import {NgClass} from "@angular/common";
     styleUrl: './ebook-project-change-cover-modal.component.scss'
 })
 export class EbookProjectChangeCoverModalComponent {
+    @ViewChild("fileInput") fileInput: NgxFileDragDropComponent | null = null;
     ongoingActionStatus: LoadingStatus = LoadingStatus.NOT_STARTED;
     coverImageUploadSubscription: Subscription | null = null;
     coverImageUploadProgress: number = 0;
@@ -35,7 +36,17 @@ export class EbookProjectChangeCoverModalComponent {
     }
 
     onFileChosen(files: File[]) {
-        if (files.length === 0 || this.ongoingActionStatus !== LoadingStatus.NOT_STARTED) {
+        if (files.length === 0) {
+            return;
+        }
+
+        if (this.ongoingActionStatus !== LoadingStatus.NOT_STARTED && this.ongoingActionStatus !== LoadingStatus.ERROR) {
+            return;
+        }
+
+        if (files[0].size > this.ebookProjectService.MAX_COVER_IMAGE_SIZE_BYTES) {
+            this.notificationService.show($localize`Cover image size must be less than 5 MB.`);
+            this.fileInput?.clear();
             return;
         }
 
@@ -44,10 +55,8 @@ export class EbookProjectChangeCoverModalComponent {
 
         this.coverImageUploadSubscription = this.ebookProjectService.updateCoverImage(this.ebookProject.id, files[0]).subscribe({
             next: this.onUploadProgress.bind(this),
-            error: () => {
-                this.ongoingActionStatus = LoadingStatus.ERROR;
-                this.notificationService.show($localize`Failed to upload the file. Refresh the page and try again.`);
-                this.dialogRef.disableClose = false;
+            error: (err) => {
+                this.handleError(err);
             }
         });
     }
@@ -77,12 +86,21 @@ export class EbookProjectChangeCoverModalComponent {
                 this.notificationService.show($localize`Cover image deleted successfully.`);
                 this.dialogRef.close(true);
             },
-            error: () => {
-                this.ongoingActionStatus = LoadingStatus.ERROR;
-                this.notificationService.show($localize`Failed to delete cover image. Refresh the page and try again.`);
-                this.dialogRef.disableClose = false;
+            error: (err) => {
+                this.handleError(err);
             }
         });
+    }
+
+    handleError(err: any) {
+        this.ongoingActionStatus = LoadingStatus.ERROR;
+        this.dialogRef.disableClose = false;
+
+        if (JSON.stringify(err).includes("FileStorageQuotaExceededException")) {
+            this.notificationService.show($localize`File storage quota exceeded. Please delete some files and try again.`);
+        } else {
+            this.notificationService.show($localize`Failed to delete cover image. Refresh the page and try again.`);
+        }
     }
 
     protected readonly LoadingStatus = LoadingStatus;

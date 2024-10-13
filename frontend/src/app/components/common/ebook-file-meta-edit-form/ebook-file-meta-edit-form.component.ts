@@ -23,10 +23,10 @@ export default class EbookFileMetaEditFormComponent implements OnChanges {
     protected readonly LoadingStatus = LoadingStatus;
 
     metadataForm = new FormGroup({
-        name: new FormControl("", [Validators.required, Validators.minLength(2)]),
-        author: new FormControl("", [Validators.required, Validators.minLength(2)]),
-        description: new FormControl(""),
-        tags: new FormControl([] as string[]),
+        name: new FormControl("", [Validators.required, Validators.minLength(2), Validators.maxLength(128)]),
+        author: new FormControl("", [Validators.required, Validators.minLength(2), Validators.maxLength(128)]),
+        description: new FormControl("", [Validators.maxLength(2048)]),
+        tags: new FormControl([] as string[], [Validators.maxLength(64)])
     });
 
     ebookFileUpdateMetaStatus: LoadingStatus = LoadingStatus.NOT_STARTED;

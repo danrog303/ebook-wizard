@@ -9,6 +9,7 @@ import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectChapter;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectIllustration;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectRepository;
+import com.github.danrog303.ebookwizard.domain.errorhandling.exceptions.FileStorageQuotaExceededException;
 import com.github.danrog303.ebookwizard.domain.taskqueue.conversion.ConversionQueueService;
 import com.github.danrog303.ebookwizard.domain.taskqueue.conversion.ConversionQueueTaskPayload;
 import com.github.danrog303.ebookwizard.domain.taskqueue.conversion.ConversionQueueTaskType;
@@ -20,19 +21,17 @@ import com.github.danrog303.ebookwizard.external.auth.AuthorizationProvider;
 import com.github.danrog303.ebookwizard.external.image.ImageConverter;
 import com.github.danrog303.ebookwizard.external.mime.MimeTypeDetector;
 import com.github.danrog303.ebookwizard.external.storage.FileStorageService;
+import com.github.danrog303.ebookwizard.external.validator.ValidatorService;
 import com.github.danrog303.ebookwizard.util.string.StringNormalizer;
 import com.github.danrog303.ebookwizard.util.temp.TemporaryDirectory;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
+ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
@@ -49,6 +48,10 @@ public class EbookProjectManipulationService {
     private final ConversionQueueService conversionQueueService;
     private final EmailQueueService emailQueueService;
     private final EbookDiskUsageCalculator diskUsageCalculator;
+    private final ValidatorService validatorService;
+
+    public int MAX_EBOOK_PROJECT_COVER_SIZE = 5 * 1024 * 1024;
+    public int MAX_EBOOK_PROJECT_ILLUSTRATION_SIZE = 5 * 1024 * 1024;
 
     public EbookProject createEmptyEbookProject(EbookProject ebookProject) {
         authorizationProvider.requireAuthentication();
@@ -74,12 +77,23 @@ public class EbookProjectManipulationService {
             ebookProject.setIsPublic(false);
         }
 
-        return ebookProjectRepository.save(ebookProject);
+        // Validate by using Hibernate Validator
+        if (this.validatorService.isValid(ebookProject)) {
+            return ebookProjectRepository.save(ebookProject);
+        } else {
+            throw new IllegalArgumentException("Invalid ebook project data (bean validation failed)");
+        }
     }
 
     @SneakyThrows(IOException.class)
     public EbookProjectIllustration uploadIllustrationImage(String ebookProjectId, MultipartFile illustrationImageFile) {
         EbookProject ebookProject = permissionService.getEbookProject(ebookProjectId, EbookAccessType.READ_WRITE);
+        this.diskUsageCalculator.requireDiskSpace(illustrationImageFile.getSize());
+
+        if (illustrationImageFile.getSize() > MAX_EBOOK_PROJECT_ILLUSTRATION_SIZE) {
+            throw new FileStorageQuotaExceededException("Illustration image file is too large");
+        }
+
         String currentUserId = authorizationProvider.getAuthenticatedUserId();
 
         String randomKey = RandomStringUtils.randomAlphanumeric(64);
@@ -104,6 +118,11 @@ public class EbookProjectManipulationService {
     public EbookProject updateCoverImage(String ebookProjectId, MultipartFile coverImageFile) {
         EbookProject ebookProject = permissionService.getEbookProject(ebookProjectId, EbookAccessType.READ_WRITE);
         String currentUserId = authorizationProvider.getAuthenticatedUserId();
+        this.diskUsageCalculator.requireDiskSpace(coverImageFile.getSize());
+
+        if (coverImageFile.getSize() > MAX_EBOOK_PROJECT_COVER_SIZE) {
+            throw new FileStorageQuotaExceededException("Cover image file is too large");
+        }
 
         if (ebookProject.getCoverImageKey() != null) {
             fileStorageService.deleteFile(ebookProject.getCoverImageKey());
@@ -153,20 +172,6 @@ public class EbookProjectManipulationService {
         ebookProjectRepository.save(ebookProject);
     }
 
-    @SneakyThrows(IOException.class)
-    public ResponseEntity<byte[]> getIllustrationImageBytes(String ebookProjectId, String illustrationHash) {
-        EbookProject ebookProject = permissionService.getEbookProject(ebookProjectId, EbookAccessType.READ_ONLY);
-        var illustration = ebookProject.getIllustrations()
-                .stream()
-                .filter(ill -> ill.getStub().equals(illustrationHash))
-                .findFirst()
-                .orElseThrow();
-
-        try (InputStream file = fileStorageService.downloadFile(illustration.getFileKey())) {
-            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(file.readAllBytes());
-        }
-    }
-
     public EbookProject updateEbookProject(String ebookProjectId, EbookProject newEbookProject) {
         EbookProject ebookProject = permissionService.getEbookProject(ebookProjectId, EbookAccessType.READ_WRITE);
 
@@ -182,8 +187,12 @@ public class EbookProjectManipulationService {
             ebookProject.setIsPublic(false);
         }
 
-        ebookProjectRepository.save(ebookProject);
-        return ebookProject;
+        if (this.validatorService.isValid(ebookProject)) {
+            ebookProjectRepository.save(ebookProject);
+            return ebookProject;
+        } else {
+            throw new IllegalArgumentException("Invalid ebook project data (bean validation failed)");
+        }
     }
 
     public void deleteEbookProject(String ebookProjectId) {
@@ -236,6 +245,8 @@ public class EbookProjectManipulationService {
         try (TemporaryDirectory tempDir = new TemporaryDirectory()) {
             Path targetPath = Path.of(tempDir.getDirectory().toAbsolutePath().toString(), "out." + ebookFormat.getExtensionName());
             ebookProjectConversionService.convertEbookProjectToPhysicalFile(ebookProject, targetPath);
+
+            this.diskUsageCalculator.requireDiskSpace(Files.size(targetPath));
 
             String randomKey = RandomStringUtils.randomAlphanumeric(64);
             String uploadFileKey = "ebook-projects/downloadables/%s/%s.%s"
@@ -308,6 +319,7 @@ public class EbookProjectManipulationService {
     public QueueTask<QueueTaskPayload> enqueueConvertEbookProjectToEbookFile(String ebookProjectId, String targetFormat) {
         EbookProject ebookProject = permissionService.getEbookProject(ebookProjectId, EbookAccessType.READ_WRITE);
         assert ebookProject != null;
+        this.diskUsageCalculator.requireDiskSpace(ebookProject.getTotalSizeBytes() * 2);
 
         ConversionQueueTaskPayload conversionQueueTaskPayload = new ConversionQueueTaskPayload(
                 ebookProjectId,

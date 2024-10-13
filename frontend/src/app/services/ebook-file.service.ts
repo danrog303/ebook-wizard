@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import { HttpClient, HttpEvent, HttpEventType, HttpHeaders, HttpRequest } from "@angular/common/http";
-import {filter, map, Observable} from "rxjs";
+import {catchError, filter, map, Observable} from "rxjs";
 
 import environment from "@env/environment";
 import EbookFile from "@app/models/ebook-file/ebook-file.model";
@@ -11,6 +11,9 @@ import EbookProject from "@app/models/ebook-project/ebook-project.model";
 
 @Injectable({providedIn: 'root'})
 export default class EbookFileService {
+    readonly MAX_FILE_SIZE_BYTES = 25 * 1024 * 1024; // 25 MB
+    readonly MAX_FILE_COVER_IMAGE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
+
     constructor(private http: HttpClient) {}
 
     convertEbookToEbookFile(ebookFileId: string, targetFormat: string): Observable<QueueTask<QueueTaskPayload>> {
@@ -66,8 +69,18 @@ export default class EbookFileService {
         });
 
         return <Observable<UploadProgressEvent<EbookFile>>> this.http.request(req).pipe(
-            map((event: HttpEvent<any>) => this.getEventMessage(event)),
-            filter(msg => msg !== null),
+            map((event: HttpEvent<any>) => {
+                switch (event.type) {
+                    case HttpEventType.UploadProgress:
+                        const progress = Math.round((event.loaded / event.total!) * 100);
+                        return { progress: progress, result: null };
+                    case HttpEventType.Response:
+                        return { progress: 100, result: event.body };
+                    default:
+                        return null;
+                }
+            }),
+            filter(msg => msg !== null)
         );
     }
 

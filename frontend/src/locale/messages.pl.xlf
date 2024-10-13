@@ -13,6 +13,22 @@
                     <context context-type="linenumber">34</context>
                 </context-group>
             </trans-unit>
+            <trans-unit id="1102602252322619638">
+                <target></target>
+                <source>Operacja nie powiodła się. Przekroczono limit pamięci dyskowej.</source>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/change-cover-modal/ebook-file-change-cover-modal.component.ts</context>
+                <context context-type="linenumber">102</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="4759576908924514764">
+                <source></source>
+                <target>Operacja nie powiodła się. Odśwież stronę i spróbuj ponownie.</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/change-cover-modal/ebook-file-change-cover-modal.component.ts</context>
+                <context context-type="linenumber">104</context>
+                </context-group>
+            </trans-unit>
             <trans-unit id="860458673907737223">
                 <source></source>
                 <target>Ebook-wizard ma łącznie <x id="INTERPOLATION" equiv-text="{{ websiteStats?.totalUsers }}"/> użytkowników.</target>
@@ -1243,6 +1259,145 @@
                 <context-group purpose="location">
                     <context context-type="sourcefile">src/app/components/pages/registration-page/confirm-modal/registration-confirm-modal.component.ts</context>
                     <context context-type="linenumber">58</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="4990526543615129632">
+                <target>Upuść okładkę tutaj (max 5 MB)</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/change-cover-modal/ebook-file-change-cover-modal.component.html</context>
+                    <context context-type="linenumber">9,10</context>
+                </context-group>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/change-cover-modal/ebook-project-change-cover-modal.component.html</context>
+                    <context context-type="linenumber">9,10</context>
+                </context-group>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/create-modal/create-ebook-project-modal.component.html</context>
+                    <context context-type="linenumber">36,37</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="3520662196448949133">
+            <source></source>
+            <target>Przekroczono limit użycia dysku. Plik nie został przesłany.</target>
+            <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/create-modal/create-ebook-project-modal.component.ts</context>
+                <context context-type="linenumber">84</context>
+            </context-group>
+            </trans-unit>
+            <trans-unit id="4678684191366672652">
+                <source></source>
+                <source>Failed to delete cover image. File storage quota exceeded.</source>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/change-cover-modal/ebook-file-change-cover-modal.component.ts</context>
+                <context context-type="linenumber">102</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="8251551139427018268">
+                <source></source>
+                <source>Plik jest zbyt duży. Maksymalny rozmiar to 5 MB.</source>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/create-modal/create-ebook-project-modal.component.ts</context>
+                <context context-type="linenumber">69</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="174271756481916786">
+                <source></source>
+                <target>Zapisywanie treści rozdziału nie powiodło się (przekroczony limit dyskowy).</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-project-editor-page/content/ebook-project-editor-page.component.ts</context>
+                <context context-type="linenumber">129</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="9009253668846100430">
+                <source></source>
+                <target>Konwersja nie powiodła się. Przekroczono limit dyskowy.</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/convert-to-project-modal/convert-to-project-modal.component.ts</context>
+                <context context-type="linenumber">51</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="1708780119081162630">
+                <source></source>
+                <target>Konwersja pliku nie powiodła się. Przekroczono limit pamięci dyskowej.</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/download-modal/ebook-project-download-modal.component.ts</context>
+                <context context-type="linenumber">60</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="4161251074951046148">
+                <source></source>
+                <target>Przesyłanie pliku zakończyło się niepowodzeniem.</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/create-modal/create-ebook-project-modal.component.ts</context>
+                <context context-type="linenumber">86</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="6109004400524315623">
+                <source></source>
+                <target>Przekroczono limit rozmiaru pliku (25 MB).</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/import-modal/ebook-file-import-modal.component.ts</context>
+                <context context-type="linenumber">137</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="4439802414003270331">
+                <target>Obrazek zbyt wielki. Maksymalny rozmiar to 5 MB.</target>
+                <source></source>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/services/quill-illustration.service.ts</context>
+                <context context-type="linenumber">79</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="864122261157394364">
+                <source></source>
+                <target>Nie udało się wykonać konwersji. Przekroczono limit dyskowy przydzielony do konta.</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/convert-to-file-modal/convert-to-file-modal.component.ts</context>
+                <context context-type="linenumber">56</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="20789445448942366">
+                <source></source>
+                <target>Maksymalny rozmiar pliku</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/import-modal/ebook-file-import-modal.component.html</context>
+                <context context-type="linenumber">24</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="1262608789124951192">
+                <source></source>
+                <target>Rozmiar okładki musi być mniejszy niż 5 MB.</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/change-cover-modal/ebook-file-change-cover-modal.component.ts</context>
+                <context context-type="linenumber">48</context>
+                </context-group>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/change-cover-modal/ebook-project-change-cover-modal.component.ts</context>
+                <context context-type="linenumber">48</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="7887147434951259865">
+                <source></source>
+                <target>Przekroczono limit danych dyskowych konta.</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.ts</context>
+                    <context context-type="linenumber">159</context>
+                </context-group>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/change-cover-modal/ebook-project-change-cover-modal.component.ts</context>
+                    <context context-type="linenumber">100</context>
+                </context-group>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">src/app/services/quill-illustration.service.ts</context>
+                    <context context-type="linenumber">100</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="7194805900634203005">
+                <source></source>
+                <target>Maksymalny rozmiar pliku przekroczony (25 MB).</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/import-modal/ebook-file-import-modal.component.ts</context>
+                <context context-type="linenumber">94</context>
                 </context-group>
             </trans-unit>
             <trans-unit id="5935020990747921619">

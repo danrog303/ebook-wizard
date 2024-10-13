@@ -4,10 +4,13 @@ import com.github.danrog303.ebookwizard.domain.ebook.models.EbookDownloadableRes
 import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFileLock;
 import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFormat;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
+import com.github.danrog303.ebookwizard.external.validator.MaxStringLengthList;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -45,21 +48,25 @@ public class EbookFile {
      * A required field that represents the name of the book.
      */
     @NotNull
+    @Length(min=2, max=128)
     private String name;
 
     /**
      * The author of the book.
      */
+    @Length(min=2, max=128)
     private String author;
 
     /**
      * A description of the book.
      */
+    @Length(max=2048)
     private String description;
 
     /**
      * The name of the container where the ebook file is stored.
      */
+    @Length(max=128)
     private String containerName;
 
     /**
@@ -72,6 +79,8 @@ public class EbookFile {
      * A list of tags that describe the book (e.g. "romance" or "my favorites").
      */
     @NotNull
+    @Size(max=64)
+    @MaxStringLengthList(64)
     private List<String> tags = new ArrayList<>();
 
     /**

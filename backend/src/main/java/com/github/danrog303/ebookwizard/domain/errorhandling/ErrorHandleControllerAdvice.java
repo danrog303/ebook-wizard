@@ -1,5 +1,6 @@
 package com.github.danrog303.ebookwizard.domain.errorhandling;
 
+import com.github.danrog303.ebookwizard.domain.errorhandling.exceptions.FileStorageQuotaExceededException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
@@ -108,6 +110,24 @@ public class ErrorHandleControllerAdvice {
         log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
         var status = HttpStatus.NOT_FOUND;
         var key = "NOT_FOUND";
+        var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<ErrorResponse> handleMaxUploadSizeExceededException(MaxUploadSizeExceededException e) {
+        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+        var status = HttpStatus.BAD_REQUEST;
+        var key = "FILE_STORAGE_QUOTA_EXCEEDED";
+        var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(FileStorageQuotaExceededException.class)
+    public ResponseEntity<ErrorResponse> handleFileStorageQuotaExceededException(MaxUploadSizeExceededException e) {
+        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+        var key = "FILE_STORAGE_QUOTA_EXCEEDED";
+        var status = HttpStatus.BAD_REQUEST;
         var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
         return ResponseEntity.status(status).body(response);
     }

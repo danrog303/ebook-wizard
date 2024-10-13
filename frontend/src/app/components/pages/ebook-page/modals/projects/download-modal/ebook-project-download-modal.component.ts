@@ -54,9 +54,13 @@ export class EbookProjectDownloadModalComponent implements OnInit {
                 this.fileDownloadService.downloadFile(downloadUrl, filename);
                 this.dialogRef.close(true);
             },
-            error: () => {
+            error: (err) => {
                 this.ongoingTaskStatus = LoadingStatus.ERROR;
-                this.notificationService.show($localize`Failed to create download link. Please try again later.`);
+                if (JSON.stringify(err).includes("FileStorageQuotaExceededException")) {
+                    this.notificationService.show($localize`Failed to create download link. File storage quota exceeded.`);
+                } else {
+                    this.notificationService.show($localize`Failed to create download link. Please try again later.`);
+                }
             }
         });
     }

@@ -1,6 +1,6 @@
 <h2 matDialogTitle i18n>Convert file to project</h2>
 
-@if (ongoingActionStatus === LoadingStatus.NOT_STARTED) {
+@if (ongoingActionStatus === LoadingStatus.NOT_STARTED || ongoingActionStatus === LoadingStatus.ERROR) {
     <div matDialogContent>
         <p>
             <span i18n>Do you want to convert this file to a project?</span><br/>

@@ -43,9 +43,15 @@ export class ConvertEbookFileToProjectModalComponent {
                     }
                 })
             },
-            error: (_) => {
+            error: (err) => {
                 this.dialogRef.disableClose = false;
-                this.notificationService.show($localize`Failed to convert ebook file to project.`);
+                this.ongoingActionStatus = LoadingStatus.ERROR;
+
+                if (JSON.stringify(err).includes("FileStorageQuotaExceededException")) {
+                    this.notificationService.show($localize`Failed to convert ebook file to project. File storage quota exceeded.`);
+                } else {
+                    this.notificationService.show($localize`Failed to convert ebook file to project.`);
+                }
             }
         });
     }

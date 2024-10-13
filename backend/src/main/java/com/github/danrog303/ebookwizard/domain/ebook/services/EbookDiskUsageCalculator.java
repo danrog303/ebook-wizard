@@ -4,6 +4,7 @@ import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFileRepository;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectRepository;
+import com.github.danrog303.ebookwizard.domain.errorhandling.exceptions.FileStorageQuotaExceededException;
 import com.github.danrog303.ebookwizard.external.storage.FileStorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,7 @@ public class EbookDiskUsageCalculator {
         }
 
         for (var chapter : project.getChapters()) {
-            long chapterNameSize = chapter.getName().length();
             long chapterTextSize = chapter.getContentHtml().length();
-            totalSizeBytes += chapterNameSize;
             totalSizeBytes += chapterTextSize;
         }
 
@@ -81,5 +80,20 @@ public class EbookDiskUsageCalculator {
         }
 
         return totalSizeBytes;
+    }
+
+    public void requireDiskSpace(long bytes) {
+        long diskUsage = calculateDiskUsage();
+        long diskLimit = getDiskLimitOfAuthenticatedUser();
+
+        if (diskUsage + bytes > diskLimit) {
+            throw new FileStorageQuotaExceededException("Not enough disk space available");
+        }
+    }
+
+    public long getDiskLimitOfAuthenticatedUser() {
+        // For now, just return 500 MB
+        // In the future, this could be a dynamic value based on the user's subscription
+        return 500 * 1024 * 1024;
     }
 }

@@ -155,7 +155,12 @@ export class EbookFileDownloadModalComponent implements OnInit {
             return;
         }
 
-        this.notificationService.show($localize`Failed to perform the requested action. Refresh the page and try again.`);
+        if (JSON.stringify(err).includes("FileStorageQuotaExceededException")) {
+            this.notificationService.show($localize`File storage quota exceeded. Please delete some files and try again.`);
+        } else {
+            this.notificationService.show($localize`Failed to perform the requested action. Refresh the page and try again.`);
+        }
+
         console.error(err);
         this.ongoingActionItem = null;
     }

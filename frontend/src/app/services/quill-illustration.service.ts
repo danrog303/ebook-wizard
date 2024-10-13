@@ -1,6 +1,8 @@
 import environment from "@env/environment";
 import EbookProjectIllustration from "@app/models/ebook-project/ebook-project-illustration.model";
 import Quill from "quill";
+import {inject} from "@angular/core";
+import NotificationService from "@app/services/notification.service";
 
 export let ebookProjectIdForQuill = {
     value: ""
@@ -33,7 +35,7 @@ export default class QuillIllustrationService {
         }
 
         return fetch(url, {
-            method: 'GET', 
+            method: 'GET',
             headers: headers
         }).then(response => response.text());
     }
@@ -71,8 +73,13 @@ export default class QuillIllustrationService {
         input.onchange = async () => {
             const file = input.files![0];
             const fileB64 = await this.fileToBase64(file);
-
             const range = quillInstance.value!.getSelection();
+
+            if (file.size > 1024 * 1024 * 5) {
+                quillInstance.value!.insertText(range!.index, $localize`Image is too large. Maximum size is 5MB.`);
+                return;
+            }
+
             quillInstance.value!.insertEmbed(range!.index, 'image', fileB64, 'user');
 
             const imageElement = quillInstance.value!.root.querySelector(`img[src="${fileB64}"]`);
@@ -81,9 +88,21 @@ export default class QuillIllustrationService {
 
             if (file) {
                 this.uploadIllustrationImage(ebookProjectIdForQuill.value, file).then((image) => {
+                    if (!image.url || !image.stub) {
+                        throw new Error('Image upload failed');
+                    }
+
                     imageElement!.classList.remove("image-uploading");
                     imageElement!.setAttribute('src', image.url);
                     imageElement!.setAttribute('alt', `${image.stub}`);
+                }).catch((err) => {
+                    if (JSON.stringify(err).includes("FileStorageQuotaExceededException")) {
+                        imageElement!.after($localize`File storage quota exceeded. Please delete some files and try again.`);
+                    } else {
+                        imageElement!.after('Failed to upload image...');
+                    }
+
+                    imageElement!.remove();
                 });
             }
         };

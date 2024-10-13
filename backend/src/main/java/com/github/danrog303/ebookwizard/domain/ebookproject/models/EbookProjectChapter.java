@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.Date;
 
@@ -14,6 +15,7 @@ public class EbookProjectChapter {
     private String id;
 
     @NotNull
+    @Length(min=2, max=128)
     private String name;
 
     @NotNull

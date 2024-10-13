@@ -4,6 +4,7 @@ import com.github.danrog303.ebookwizard.domain.ebook.models.*;
 import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageCalculator;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFileRepository;
+import com.github.danrog303.ebookwizard.domain.errorhandling.exceptions.FileStorageQuotaExceededException;
 import com.github.danrog303.ebookwizard.domain.taskqueue.conversion.ConversionQueueService;
 import com.github.danrog303.ebookwizard.domain.taskqueue.conversion.ConversionQueueTaskPayload;
 import com.github.danrog303.ebookwizard.domain.taskqueue.conversion.ConversionQueueTaskType;
@@ -14,6 +15,7 @@ import com.github.danrog303.ebookwizard.domain.taskqueue.email.EmailQueueTaskPay
 import com.github.danrog303.ebookwizard.external.auth.AuthorizationProvider;
 import com.github.danrog303.ebookwizard.external.mime.MimeTypeDetector;
 import com.github.danrog303.ebookwizard.external.storage.FileStorageService;
+import com.github.danrog303.ebookwizard.external.validator.ValidatorService;
 import com.github.danrog303.ebookwizard.util.string.StringNormalizer;
 import com.github.danrog303.ebookwizard.util.temp.TemporaryDirectory;
 import lombok.RequiredArgsConstructor;
@@ -43,9 +45,17 @@ public class EbookFileManipulationService {
     private final EbookFileImportService ebookFileImportService;
     private final EbookFileUpdateService ebookFileUpdateService;
     private final EbookDiskUsageCalculator diskUsageCalculator;
+    private final ValidatorService validatorService;
+
+    public int MAX_EBOOK_FILE_COVER_SIZE = 5 * 1024 * 1024;
 
     public QueueTask<QueueTaskPayload> enqueueAddNewFileTypeToEbookFile(String ebookFileId, String targetFormat) {
         EbookFile ebookFile = requireEbookFilePermission(ebookFileId, EbookAccessType.READ_WRITE);
+        EbookFormat sourceFormat = ebookFile.getConversionSourceFormat();
+        String sourceFormatKey = ebookFile.getDownloadableFiles().stream()
+                .filter(file -> file.getFormat().equals(sourceFormat))
+                .findFirst().orElseThrow().getFileKey();
+        diskUsageCalculator.requireDiskSpace(this.fileStorageService.getFileSize(sourceFormatKey));
 
         this.ebookFileLockService.lockEbookFileForEditing(ebookFileId);
         ConversionQueueTaskPayload conversionQueueTaskPayload = new ConversionQueueTaskPayload(
@@ -58,6 +68,7 @@ public class EbookFileManipulationService {
 
     public QueueTask<QueueTaskPayload> enqueueConvertEbookFileToEbookProject(String ebookFileId) {
         EbookFile ebookFile = requireEbookFilePermission(ebookFileId, EbookAccessType.READ_WRITE);
+        diskUsageCalculator.requireDiskSpace(ebookFile.getTotalSizeBytes());
 
         this.ebookFileLockService.lockEbookFileForEditing(ebookFileId);
         ConversionQueueTaskPayload conversionQueueTaskPayload = new ConversionQueueTaskPayload(
@@ -107,6 +118,8 @@ public class EbookFileManipulationService {
     @SneakyThrows(IOException.class)
     public EbookFile importEbookFile(MultipartFile file) {
         authorizationProvider.requireAuthentication();
+        diskUsageCalculator.requireDiskSpace(file.getSize());
+
         String currentUserId = authorizationProvider.getAuthenticatedUserId();
         String fileName = Objects.requireNonNull(file.getOriginalFilename());
 
@@ -214,6 +227,11 @@ public class EbookFileManipulationService {
         }
 
         ebookFile.setTotalSizeBytes(diskUsageCalculator.calculateEbookFileSize(ebookFile));
+
+        if (! validatorService.isValid(ebookFile)) {
+            throw new IllegalArgumentException("Invalid ebook file data (bean validation failed)");
+        }
+
         ebookFileUpdateService.updateEbookFileMetadata(ebookFile);
         return ebookFileRepository.save(ebookFile);
     }
@@ -248,6 +266,11 @@ public class EbookFileManipulationService {
     @SneakyThrows({IOException.class})
     public EbookFile updateEbookFileCoverImage(String ebookFileId, MultipartFile coverImageFile) {
         EbookFile ebookFile = requireEbookFilePermission(ebookFileId, EbookAccessType.READ_WRITE);
+        diskUsageCalculator.requireDiskSpace(coverImageFile.getSize());
+
+        if (coverImageFile.getSize() > MAX_EBOOK_FILE_COVER_SIZE) {
+            throw new FileStorageQuotaExceededException("Cover image file is too large");
+        }
 
         try (TemporaryDirectory tempDir = new TemporaryDirectory()) {
             Path tempFile = Path.of(tempDir.getDirectory().toAbsolutePath().toString(), coverImageFile.getOriginalFilename());
