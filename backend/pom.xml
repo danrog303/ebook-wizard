@@ -18,6 +18,9 @@
 
 	<properties>
 		<java.version>21</java.version>
+		<sonar.host.url>https://sonarqube.danielrogowski.net</sonar.host.url>
+		<sonar.projectKey>ebookwizard-backend</sonar.projectKey>
+		<sonar.projectName>ebookwizard-backend</sonar.projectName>
 	</properties>
 
 	<repositories>
@@ -275,6 +278,12 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.9.1.2184</version>
 			</plugin>
 		</plugins>
 	</build>
