@@ -31,6 +31,10 @@
             <p i18n>
                 Please check your email. There you will find a code to confirm your registration.
             </p>
+            <p>
+                <span i18n>We've sent a code to: </span>
+                <em>{{ userData.userEmail }}</em>
+            </p>
             <mat-form-field>
                 <mat-label i18n>Verification code</mat-label>
                 <input matInput formControlName="code" />

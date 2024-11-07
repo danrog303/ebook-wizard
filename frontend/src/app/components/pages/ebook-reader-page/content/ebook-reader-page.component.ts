@@ -68,7 +68,7 @@ export class EbookReaderPageComponent implements OnInit, OnDestroy {
         this.isUserOwner = this.isUserAuthenticated && this.ebookFile?.ownerUserId === userId;
 
         if (this.isUserOwner) {
-            this.chosenFormat = EbookFormat.HTML;
+            this.chosenFormat = EbookFormat.PDF;
         } else if (ebookHasFormat(this.ebookFile, EbookFormat.PDF)) {
             this.chosenFormat = EbookFormat.PDF;
         } else if (ebookHasFormat(this.ebookFile, EbookFormat.HTML)) {

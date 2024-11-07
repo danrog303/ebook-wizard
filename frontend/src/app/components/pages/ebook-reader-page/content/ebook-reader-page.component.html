@@ -71,22 +71,6 @@
                     }
                 </div>
             }
-
-            @if (ebookFile && !isSmallScreen) {
-                <div class="format-picker">
-                    <mat-form-field>
-                        <mat-label i18n>Choose format</mat-label>
-                        <mat-select [(value)]="chosenFormat">
-                            @if (isUserOwner || ebookHasFormat(ebookFile, EbookFormat.HTML)) {
-                                <mat-option [value]="EbookFormat.HTML">HTML</mat-option>
-                            }
-                            @if (isUserOwner || ebookHasFormat(ebookFile, EbookFormat.PDF)) {
-                                <mat-option [value]="EbookFormat.PDF">PDF</mat-option>
-                            }
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            }
         </div>
     </div>
 

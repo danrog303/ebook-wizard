@@ -1,0 +1,35 @@
+<div class="bookmark-menu" (click)="$event.stopPropagation()">
+    <section>
+        <header>
+            <strong i18n>Bookmark this page?</strong>
+        </header>
+
+        <div>
+            <mat-slide-toggle [(ngModel)]="bookmarkSliderChecked"
+                              (change)="onBookmarkUpdated($event)"
+                              [disabled]="operationProgress === LoadingStatus.LOADING"
+                              i18n>Bookmark current page</mat-slide-toggle>
+        </div>
+    </section>
+
+    <hr />
+
+    <section>
+        <header>
+            <strong>Your bookmarks</strong>
+        </header>
+
+        <div class="bookmark-picker">
+            @for (bookmarkedPage of bookmarks?.bookmarkedPages; track bookmarkedPage) {
+                <div class="bookmark" (click)="onBookmarkSelected(bookmarkedPage)">
+                    <mat-icon color="primary">bookmark</mat-icon>
+                    <span i18n>Page {{bookmarkedPage}}</span>
+                </div>
+            } @empty {
+                <div class="no-bookmarks">
+                    <span i18n>No bookmarks yet...</span>
+                </div>
+            }
+        </div>
+    </section>
+</div>

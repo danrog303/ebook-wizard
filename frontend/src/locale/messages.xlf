@@ -710,7 +710,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/password-change-modal/password-change-modal.component.html</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">59</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/convert-to-project-modal/convert-to-project-modal.component.html</context>
@@ -798,11 +798,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/password-change-modal/password-change-modal.component.html</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">30</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/password-change-modal/password-change-modal.component.html</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8223691381154676661" datatype="html">
@@ -841,7 +841,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/confirm-modal/registration-confirm-modal.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/reset-password-page/confirm-modal/reset-password-confirm-modal.component.html</context>
@@ -972,7 +972,7 @@
         <source>New password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/password-change-modal/password-change-modal.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/reset-password-page/confirm-modal/reset-password-confirm-modal.component.html</context>
@@ -983,63 +983,63 @@
         <source>At least 8 characters.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/password-change-modal/password-change-modal.component.html</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8172624937277077971" datatype="html">
         <source>At least 1 special character and 1 digit.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/password-change-modal/password-change-modal.component.html</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8174919026012824751" datatype="html">
         <source>Repeat new password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/password-change-modal/password-change-modal.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1543538730036692975" datatype="html">
         <source>Passwords do not match.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/password-change-modal/password-change-modal.component.html</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8626615958100222841" datatype="html">
         <source> Change password </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/password-change-modal/password-change-modal.component.html</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8855720469043224627" datatype="html">
         <source>New password must be different from the old password.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/password-change-modal/password-change-modal.component.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4287536295160593651" datatype="html">
         <source>Password updated successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/password-change-modal/password-change-modal.component.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7603459055013836218" datatype="html">
         <source>Incorrect password.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/password-change-modal/password-change-modal.component.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1796597620812015639" datatype="html">
         <source>Failed to update the password. Refresh the page and try again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/password-change-modal/password-change-modal.component.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9190028422377990637" datatype="html">
@@ -1058,7 +1058,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
-          <context context-type="linenumber">112,113</context>
+          <context context-type="linenumber">117,118</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4990526543615129632" datatype="html">
@@ -1135,10 +1135,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/meta-edit-modal/meta-edit-modal.component.html</context>
           <context context-type="linenumber">10,11</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.html</context>
-          <context context-type="linenumber">69,70</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-project-editor-page/modals/chapter-delete-modal/chapter-delete-modal.component.html</context>
@@ -1319,10 +1315,6 @@
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/delete-modal/ebook-project-delete-modal.component.html</context>
           <context context-type="linenumber">10,11</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.html</context>
-          <context context-type="linenumber">11,12</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="4623300028088503557" datatype="html">
         <source>You want be able to restore it.</source>
@@ -1405,7 +1397,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
-          <context context-type="linenumber">119,120</context>
+          <context context-type="linenumber">124,125</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7022070615528435141" datatype="html">
@@ -1424,7 +1416,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
-          <context context-type="linenumber">129,130</context>
+          <context context-type="linenumber">134,135</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6543556943789492715" datatype="html">
@@ -1593,6 +1585,10 @@
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/create-modal/create-ebook-project-modal.component.html</context>
           <context context-type="linenumber">66,67</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/summary-modal/summary-modal.component.html</context>
+          <context context-type="linenumber">8,9</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="2180960139248525178" datatype="html">
         <source> Bulk upload in progress. </source>
@@ -1657,16 +1653,12 @@
           <context context-type="linenumber">1,3</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.html</context>
-          <context context-type="linenumber">1,3</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
           <context context-type="linenumber">114,115</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
-          <context context-type="linenumber">136,137</context>
+          <context context-type="linenumber">141,142</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6314191585748022987" datatype="html">
@@ -1675,20 +1667,12 @@
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.html</context>
           <context context-type="linenumber">13</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.html</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="4768749765465246664" datatype="html">
         <source>Email</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.html</context>
           <context context-type="linenumber">17</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.html</context>
-          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6148310441088693231" datatype="html">
@@ -1697,20 +1681,12 @@
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.html</context>
           <context context-type="linenumber">20,21</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.html</context>
-          <context context-type="linenumber">28,29</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="7325105977688401773" datatype="html">
         <source> Choose which format you want to send. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.html</context>
           <context context-type="linenumber">27</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.html</context>
-          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6528666807210251283" datatype="html">
@@ -1719,10 +1695,6 @@
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.html</context>
           <context context-type="linenumber">31</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.html</context>
-          <context context-type="linenumber">39</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="1155180493212540424" datatype="html">
         <source> (e.g. Amazon Kindle only accepts MOBI and AZW3). </source>
@@ -1730,20 +1702,12 @@
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.html</context>
           <context context-type="linenumber">35</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.html</context>
-          <context context-type="linenumber">43</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="6444278467869793935" datatype="html">
         <source>Target format</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.html</context>
           <context context-type="linenumber">40</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.html</context>
-          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4950403912056759503" datatype="html">
@@ -1759,20 +1723,12 @@
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.html</context>
           <context context-type="linenumber">63,64</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.html</context>
-          <context context-type="linenumber">62,63</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="8756954001993004690" datatype="html">
         <source>Chosen format may not be supported by your e-reader.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.html</context>
           <context context-type="linenumber">64,65</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.html</context>
-          <context context-type="linenumber">63,64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4482649733522675672" datatype="html">
@@ -1781,20 +1737,12 @@
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.html</context>
           <context context-type="linenumber">78</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.html</context>
-          <context context-type="linenumber">77</context>
-        </context-group>
       </trans-unit>
-      <trans-unit id="6489087633339445069" datatype="html">
-        <source>Converting ebook file to</source>
+      <trans-unit id="2670550286314105691" datatype="html">
+        <source>Converting ebook file to </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.html</context>
           <context context-type="linenumber">87,88</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.html</context>
-          <context context-type="linenumber">86,87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="667352561706629839" datatype="html">
@@ -1803,38 +1751,34 @@
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.html</context>
           <context context-type="linenumber">100</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.html</context>
-          <context context-type="linenumber">99</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="5615502595317538173" datatype="html">
         <source>Ebook file sent successfully!.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.ts</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5307588897175116049" datatype="html">
         <source>Failed to send the ebook file. Refresh the page and try again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.ts</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">93</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8048392107116131392" datatype="html">
         <source>Failed to convert the ebook file. Refresh the page and try again</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.ts</context>
-          <context context-type="linenumber">104</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.ts</context>
           <context context-type="linenumber">110</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.ts</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.ts</context>
+          <context context-type="linenumber">130</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6978144092528796291" datatype="html">
@@ -2198,58 +2142,6 @@
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="149021698773659858" datatype="html">
-        <source>Unknown name</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.html</context>
-          <context context-type="linenumber">9,10</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">77,78</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
-          <context context-type="linenumber">78,79</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="4754940053432921778" datatype="html">
-        <source>Unknown author</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.html</context>
-          <context context-type="linenumber">15,16</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">86,87</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
-          <context context-type="linenumber">87,88</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="3733355815508983772" datatype="html">
-        <source>Failed to send the ebook project to the reader. Try again later.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.ts</context>
-          <context context-type="linenumber">79</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.ts</context>
-          <context context-type="linenumber">96</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.ts</context>
-          <context context-type="linenumber">102</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="7755872422307787758" datatype="html">
-        <source>Ebook project sent successfully!</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/send-to-reader-modal/send-to-reader-modal.component.ts</context>
-          <context context-type="linenumber">91</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="1722293197359060211" datatype="html">
         <source>Share project</source>
         <context-group purpose="location">
@@ -2292,6 +2184,13 @@
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="1181131479974759943" datatype="html">
+        <source>E-book project summary</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/summary-modal/summary-modal.component.html</context>
+          <context context-type="linenumber">1,3</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="3902961887793684628" datatype="html">
         <source>Hello</source>
         <context-group purpose="location">
@@ -2321,7 +2220,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3360969135685287242" datatype="html">
@@ -2435,6 +2334,17 @@
           <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="149021698773659858" datatype="html">
+        <source>Unknown name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
+          <context context-type="linenumber">77,78</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
+          <context context-type="linenumber">78,79</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="305142716106924307" datatype="html">
         <source>Author:</source>
         <context-group purpose="location">
@@ -2454,6 +2364,17 @@
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="4754940053432921778" datatype="html">
+        <source>Unknown author</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
+          <context context-type="linenumber">86,87</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
+          <context context-type="linenumber">87,88</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="3193976279273491157" datatype="html">
         <source>Actions</source>
         <context-group purpose="location">
@@ -2470,6 +2391,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
           <context context-type="linenumber">101,102</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
+          <context context-type="linenumber">102,103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2327592562693301723" datatype="html">
@@ -2501,7 +2426,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
-          <context context-type="linenumber">141,142</context>
+          <context context-type="linenumber">146,147</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5020458760606835721" datatype="html">
@@ -2512,7 +2437,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
-          <context context-type="linenumber">146,147</context>
+          <context context-type="linenumber">151,152</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5949260254611443015" datatype="html">
@@ -2523,7 +2448,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
-          <context context-type="linenumber">147,148</context>
+          <context context-type="linenumber">152,153</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2277393731943752560" datatype="html">
@@ -2541,7 +2466,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6254244813559792688" datatype="html">
@@ -2552,7 +2477,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.ts</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2697772314566029943" datatype="html">
@@ -2664,35 +2589,35 @@
         <source>Edit</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
-          <context context-type="linenumber">102,103</context>
+          <context context-type="linenumber">107,108</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2263238014639335901" datatype="html">
         <source>Modify metadata</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
-          <context context-type="linenumber">107,108</context>
+          <context context-type="linenumber">112,113</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2781881140950031016" datatype="html">
         <source>Convert to file</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
-          <context context-type="linenumber">124,125</context>
+          <context context-type="linenumber">129,130</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4704391640810590845" datatype="html">
         <source>Projects per page</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8081992040085312050" datatype="html">
         <source>Failed to load ebook projects. Refresh the page and try again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.ts</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="linenumber">106</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8059994942673446746" datatype="html">
@@ -3220,8 +3145,8 @@
           <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5781761092080268719" datatype="html">
-        <source> Ebook-wizard supports all popular e-book formats. You can store and convert e-books in formats such as epub, mobi, azw3, pdf, docx, txt. </source>
+      <trans-unit id="4185011818465965115" datatype="html">
+        <source> Ebook-wizard supports all popular e-book formats. You can store and convert e-books in formats such as epub, mobi, azw3, pdf, docx, txt, html. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/landing-page/content/landing-page-content.component.html</context>
           <context context-type="linenumber">67,68</context>
@@ -3357,49 +3282,49 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8948520286104403095" datatype="html">
         <source> Register instead → </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/login-page/login-page.component.html</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2727496946419791472" datatype="html">
         <source>Forgot password?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/login-page/login-page.component.html</context>
-          <context context-type="linenumber">35,36</context>
+          <context context-type="linenumber">41,42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1908285951500318953" datatype="html">
         <source> Login </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/login-page/login-page.component.html</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3544265412619519638" datatype="html">
         <source>You have successfuly logged in.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/login-page/login-page.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1578341976423133065" datatype="html">
         <source>Invalid email or password.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/login-page/login-page.component.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3679151981400659514" datatype="html">
         <source>An error occurred while signing in.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/login-page/login-page.component.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7022780577364254409" datatype="html">
@@ -3491,22 +3416,29 @@
           <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="5210250836005440118" datatype="html">
+        <source>We&apos;ve sent a code to: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/registration-page/confirm-modal/registration-confirm-modal.component.html</context>
+          <context context-type="linenumber">35,36</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="658918870171606758" datatype="html">
         <source>Resend verification codes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/confirm-modal/registration-confirm-modal.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6249484391846924804" datatype="html">
         <source> Confirm </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/confirm-modal/registration-confirm-modal.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">58</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/reset-password-page/confirm-modal/reset-password-confirm-modal.component.html</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">99</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4957802491583910467" datatype="html">
@@ -3544,98 +3476,112 @@
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="6968179489937129275" datatype="html">
+        <source>Requirements: 3-20 characters</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
+          <context context-type="linenumber">27,28</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="5395991681110441979" datatype="html">
         <source>john12</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3778349413354670258" datatype="html">
         <source>Nickname is required</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9147492118147205064" datatype="html">
         <source>At least 3 characters</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4666233743228489544" datatype="html">
         <source>At most 20 characters</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8587558660737612362" datatype="html">
+        <source>Requirements: at least 8 characters, 1 special character, 1 digit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
+          <context context-type="linenumber">41,42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="205044832662301680" datatype="html">
         <source>Password is required</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">42</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/reset-password-page/confirm-modal/reset-password-confirm-modal.component.html</context>
-          <context context-type="linenumber">53</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="5241223076967248456" datatype="html">
-        <source>At least 8 characters</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">49</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/reset-password-page/confirm-modal/reset-password-confirm-modal.component.html</context>
           <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="678225422456447922" datatype="html">
-        <source>At least 1 special character and 1 digit</source>
+      <trans-unit id="5241223076967248456" datatype="html">
+        <source>At least 8 characters</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">51</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/reset-password-page/confirm-modal/reset-password-confirm-modal.component.html</context>
           <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="678225422456447922" datatype="html">
+        <source>At least 1 special character and 1 digit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/reset-password-page/confirm-modal/reset-password-confirm-modal.component.html</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="5373727393387841282" datatype="html">
         <source>Repeat password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">61</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">67</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/reset-password-page/confirm-modal/reset-password-confirm-modal.component.html</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6451269955734195952" datatype="html">
         <source>Passwords do not match</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">69</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/reset-password-page/confirm-modal/reset-password-confirm-modal.component.html</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="759700768007867447" datatype="html">
         <source> Login instead → </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">83</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/reset-password-page/content/reset-password-page-content.component.html</context>
@@ -3646,21 +3592,21 @@
         <source> Register </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3048954960405056572" datatype="html">
         <source>User with this email already exists.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.ts</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8524034778539350579" datatype="html">
         <source>Error occurred during registration. Please try again later.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.ts</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2824563780433996829" datatype="html">
@@ -3716,28 +3662,28 @@
         <source>New password (repeat)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/reset-password-page/confirm-modal/reset-password-confirm-modal.component.html</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5562068388168583623" datatype="html">
         <source> ← Go back </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/reset-password-page/confirm-modal/reset-password-confirm-modal.component.html</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8788682991630035135" datatype="html">
         <source>The confirmation code you entered is incorrect. Please try again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/reset-password-page/confirm-modal/reset-password-confirm-modal.component.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6963311832187146875" datatype="html">
         <source>An error occurred while confirming your password reset.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/reset-password-page/confirm-modal/reset-password-confirm-modal.component.ts</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4821044223424956000" datatype="html">

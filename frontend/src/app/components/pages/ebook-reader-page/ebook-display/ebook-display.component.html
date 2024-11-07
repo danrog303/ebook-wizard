@@ -14,5 +14,51 @@
         <div><strong i18n>Error loading URL.</strong></div>
     </div>
 } @else if (fileUrlLoadingStatus === LoadingStatus.LOADED) {
-    <iframe [src]="fileUrl | safe:'resourceUrl'" class="ebook-iframe"></iframe>
+    <div class="ebook-frame" [ngStyle]="{'width': readerWidth, 'height': readerHeight}">
+        <div class="pdf-viewer">
+            <app-pdf-viewer [url]="fileUrl"
+                            [cssHeight]="readerHeight"
+                            [cssWidth]="readerWidth"
+                            #pdfViewerComponent>
+            </app-pdf-viewer>
+        </div>
+
+        <div class="ebook-frame-controls-container">
+            <div class="ebook-frame-controls">
+                <div class="ebook-frame-control page-num-display mat-primary">
+                    {{pdfViewerComponent.currentPage}} / {{pdfViewerComponent.getMaxPages()}}
+                </div>
+
+                <div class="ebook-frame-control"
+                     [ngClass]="{'disabled': pdfViewerComponent.currentPage <= 1 || audiobookComponent.audioPlaybackOn}"
+                     (click)="pageBackward($event)">
+                    <mat-icon color="primary">arrow_upward</mat-icon>
+                </div>
+
+                <div class="ebook-frame-control"
+                     (click)="pageForward($event)"
+                     [ngClass]="{'disabled': pdfViewerComponent.currentPage >= pdfViewerComponent.getMaxPages() || audiobookComponent.audioPlaybackOn}">
+                    <mat-icon color="primary">arrow_downward</mat-icon>
+                </div>
+
+                <div class="ebook-frame-control">
+                    <mat-icon color="primary" [matMenuTriggerFor]="bookmarkMenu">bookmark_bag</mat-icon>
+                </div>
+
+                <mat-menu #bookmarkMenu="matMenu">
+                    <app-bookmark-menu [ebookFileId]="ebookFile?.id!"
+                                       [context]="bookmarkMenuContext"
+                                       [currentPageNumber]="pdfViewerComponent.currentPage"/>
+                </mat-menu>
+
+                <div class="ebook-frame-control">
+                    <mat-icon color="primary" [matMenuTriggerFor]="audiobookMenu">music_note</mat-icon>
+                </div>
+
+                <mat-menu #audiobookMenu="matMenu">
+                    <app-audiobook-menu [context]="audiobookPlayerContext" #audiobookComponent />
+                </mat-menu>
+            </div>
+        </div>
+    </div>
 }

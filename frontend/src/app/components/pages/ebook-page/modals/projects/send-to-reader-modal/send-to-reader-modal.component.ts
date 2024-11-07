@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {AfterViewInit, Component, Inject} from '@angular/core';
 import {KeyValuePipe} from "@angular/common";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import MaterialModule from "@app/modules/material.module";
@@ -12,7 +12,8 @@ import EbookFormat from "@app/models/ebook/ebook-format.enum";
 import QueueTask from "@app/models/task-queue/queue-task.model";
 import QueueTaskPayload from "@app/models/task-queue/queue-task-payload.model";
 import QueueTaskSseReport from "@app/models/task-queue/queue-task-sse-report.model";
-import {Subscription} from "rxjs";
+import {from, Subscription} from "rxjs";
+import {$localize} from "@angular/localize/init";
 
 @Component({
     selector: 'app-send-to-reader-modal',
@@ -25,7 +26,7 @@ import {Subscription} from "rxjs";
     templateUrl: './send-to-reader-modal.component.html',
     styleUrl: './send-to-reader-modal.component.scss'
 })
-export class EbookProjectSendToReaderModalComponent {
+export class EbookProjectSendToReaderModalComponent implements AfterViewInit {
     /**
      * The ongoing action that the user is performing.
      * Used to show the loading spinner with appropriate label.
@@ -65,6 +66,7 @@ export class EbookProjectSendToReaderModalComponent {
     onSendEbookFile() {
         const format = this.sendToReaderForm.get("format")?.value;
         const email = this.sendToReaderForm.get("email")?.value;
+        localStorage.setItem("eReaderEmail", email);
         this.ongoingAction = "conversion";
         this.dialogRef.disableClose = true;
 
@@ -103,6 +105,19 @@ export class EbookProjectSendToReaderModalComponent {
                 this.dialogRef.close();
                 this.ongoingActionSubscription?.unsubscribe();
             }
+        }
+    }
+
+
+    ngAfterViewInit() {
+        if (localStorage.getItem("eReaderEmail")) {
+            this.sendToReaderForm.get("email")?.setValue(localStorage.getItem("eReaderEmail"));
+        } else {
+            from(this.authService.fetchAuthenticatedUser()).subscribe({
+                next: (user) => {
+                    this.sendToReaderForm.get("email")?.setValue(user?.email || "");
+                }
+            });
         }
     }
 }

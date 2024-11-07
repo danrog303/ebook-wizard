@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import LoadingStatus from "@app/models/misc/loading-status.enum";
 import EbookFormat from "@app/models/ebook/ebook-format.enum";
@@ -10,25 +10,60 @@ import EbookFileService from "@app/services/ebook-file.service";
 import QueueTaskTrackingService from "@app/services/queue-task-tracking.service";
 import EbookFile from "@app/models/ebook-file/ebook-file.model";
 import SafePipe from "@app/pipes/safe.pipe";
+import {PdfViewerComponent} from "@app/components/common/pdf-viewer/pdf-viewer.component";
+import {CommonModule} from "@angular/common";
+import MaterialModule from "@app/modules/material.module";
+import {
+    AudiobookMenuComponent,
+    AudiobookMenuContext
+} from "@app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component";
+import {
+    BookmarkMenuComponent,
+    BookmarkMenuContext
+} from "@app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component";
 
 @Component({
     selector: 'app-ebook-reader-display',
     standalone: true,
-    imports: [MatProgressSpinner, SafePipe],
+    imports: [SafePipe, PdfViewerComponent, CommonModule, MaterialModule, AudiobookMenuComponent, BookmarkMenuComponent],
     templateUrl: './ebook-display.component.html',
     styleUrl: './ebook-display.component.scss'
 })
-export default class EbookDisplayComponent implements OnChanges {
+export default class EbookDisplayComponent implements OnInit, OnChanges, OnDestroy {
     fileUrl: string = "";
     fileUrlLoadingStatus: LoadingStatus = LoadingStatus.NOT_STARTED;
 
+    readerWidth: string = "calc((100vh - 2em) * 0.77272)";
+    readerHeight: string = "calc(100vh - 2em)";
+
     @Input() ebookFile: EbookFile | null = null;
     @Input() ebookFormat: EbookFormat | null = null;
+    @ViewChild(PdfViewerComponent) pdfViewerComponent!: PdfViewerComponent;
+    @ViewChild(AudiobookMenuComponent) audiobookMenuComponent!: AudiobookMenuComponent;
 
     conversionOngoing: boolean = false;
+    audiobookPlayerContext: AudiobookMenuContext | null = null;
+    bookmarkMenuContext: BookmarkMenuContext | null = null;
 
     constructor(private ebookFileService: EbookFileService,
                 private queueTaskTrackingService: QueueTaskTrackingService) {
+    }
+
+    ngOnInit() {
+        this.audiobookPlayerContext = {
+            openNextPage: this.pageForward.bind(this),
+            getCurrentText: () => this.pdfViewerComponent.getTextContent(this.pdfViewerComponent.currentPage),
+            isNextPageAvailable: () => this.pdfViewerComponent.currentPage < this.pdfViewerComponent.getMaxPages(),
+        };
+
+        this.bookmarkMenuContext = {
+            changePage: (pageNumber: number) => this.pdfViewerComponent.goToPage(pageNumber),
+            getCurrentPage: () => this.pdfViewerComponent.currentPage,
+        };
+    }
+
+    async ngOnDestroy() {
+        await this.audiobookMenuComponent.stopAudio();
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -91,6 +126,22 @@ export default class EbookDisplayComponent implements OnChanges {
                 this.fileUrlLoadingStatus = LoadingStatus.ERROR;
             }
         });
+    }
+
+    async pageForward($event: MouseEvent | undefined = undefined) {
+        if ($event && ($event.target as HTMLElement).classList.contains("disabled")) {
+            return;
+        }
+
+        await this.pdfViewerComponent.goToPage(this.pdfViewerComponent.currentPage + 1);
+    }
+
+    async pageBackward($event: MouseEvent | undefined = undefined) {
+        if ($event && ($event.target as HTMLElement).classList.contains("disabled")) {
+            return;
+        }
+
+        await this.pdfViewerComponent.goToPage(this.pdfViewerComponent.currentPage - 1);
     }
 
     protected readonly LoadingStatus = LoadingStatus;

@@ -28,10 +28,17 @@
     margin-right: 1em;
 }
 
-.ebook-iframe {
-    width: 100%;
-    height: 100%;
+.ebook-frame {
+    position: relative;
     border: none;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+}
+
+.pdf-viewer {
+    transform: translateX(-3em);
 }
 
 .ebook-iframe::-webkit-scrollbar-track
@@ -54,4 +61,53 @@
 
 .ebook-meta-display {
     margin-top: 2em;
+}
+
+.ebook-frame-controls-container {
+    position: relative;
+}
+
+.ebook-frame-controls {
+    position: absolute;
+    left: calc((100vh - 2em) * 0.77272);
+    transform: translateX(-3em);
+}
+
+.ebook-frame-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.4em;
+    margin-bottom: 4px;
+    border: 1px solid #333333;
+    border-radius: 3px;
+}
+
+.ebook-frame-control:hover {
+    cursor: pointer;
+}
+
+.ebook-frame-control.disabled {
+    opacity: 0.3;
+}
+
+.ebook-frame-control.disabled:hover {
+    cursor: not-allowed;
+}
+
+.page-num-display {
+    width: 150%;
+    cursor: unset;
+}
+
+@media screen and (max-width: 1300px) {
+    .pdf-viewer {
+        transform: unset;
+    }
+    .ebook-frame {
+        justify-content: unset;
+    }
+    .ebook-frame-controls {
+        left: calc((100vh - 2em) * 0.77272 + 3.3em);
+    }
 }

@@ -55,11 +55,15 @@ export class EbookFileSendModalComponent implements AfterViewInit {
     }
 
     ngAfterViewInit() {
-        from(this.authService.fetchAuthenticatedUser()).subscribe({
-            next: (user) => {
-                this.sendToReaderForm.get("email")?.setValue(user?.email || "");
-            }
-        });
+        if (localStorage.getItem("eReaderEmail")) {
+            this.sendToReaderForm.get("email")?.setValue(localStorage.getItem("eReaderEmail"));
+        } else {
+            from(this.authService.fetchAuthenticatedUser()).subscribe({
+                next: (user) => {
+                    this.sendToReaderForm.get("email")?.setValue(user?.email || "");
+                }
+            });
+        }
     }
 
     onSendEbookFile() {
@@ -76,6 +80,8 @@ export class EbookFileSendModalComponent implements AfterViewInit {
 
     sendEbook(email: string, format: string, ebookFileId: string) {
         this.ongoingAction = "sending";
+        localStorage.setItem("eReaderEmail", email);
+
         this.ebookFileService.sendEbookFileToDevice(email, ebookFileId, format as EbookFormat).subscribe({
             next: () => {
                 this.ongoingAction = null;

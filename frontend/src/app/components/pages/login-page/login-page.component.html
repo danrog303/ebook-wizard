@@ -22,7 +22,13 @@
 
                 <mat-form-field class="login-form-input">
                     <mat-label i18n>Password</mat-label>
-                    <input type="password" matInput placeholder="********" formControlName="password">
+                    <input [type]="hidePassword ? 'password' : 'text'"
+                           matInput
+                           placeholder="********"
+                           formControlName="password" />
+                    <mat-icon matSuffix (click)="hidePassword = !hidePassword">
+                        {{hidePassword ? 'visibility_off' : 'visibility'}}
+                    </mat-icon>
                 </mat-form-field>
             </mat-card-content>
 

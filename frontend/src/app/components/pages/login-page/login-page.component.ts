@@ -20,6 +20,8 @@ export class LoginPageComponent {
     loginForm: FormGroup;
     loginPending: boolean = false;
 
+    hidePassword = true;
+
     constructor(private cognitoService: AuthenticationService,
                 private dialogService: MatDialog,
                 private notificationService: NotificationService,

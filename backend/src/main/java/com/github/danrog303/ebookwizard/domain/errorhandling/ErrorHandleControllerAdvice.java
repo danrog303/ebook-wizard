@@ -8,11 +8,13 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.Date;
 import java.util.NoSuchElementException;
@@ -101,6 +103,24 @@ public class ErrorHandleControllerAdvice {
         log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
         var status = HttpStatus.UNAUTHORIZED;
         var key = "UNAUTHORIZED_ACCESS";
+        var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<Object> handleNotFoundException(NoHandlerFoundException e) {
+        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+        var status = HttpStatus.NOT_FOUND;
+        var key = "RESOURCE_NOT_FOUND";
+        var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<ErrorResponse> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
+        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+        var status = HttpStatus.BAD_REQUEST;
+        var key = "MISSING_REQUEST_PARAMETER";
         var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
         return ResponseEntity.status(status).body(response);
     }

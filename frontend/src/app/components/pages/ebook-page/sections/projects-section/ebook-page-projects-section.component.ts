@@ -21,6 +21,9 @@ import {EbookProjectSendToReaderModalComponent} from "@app/components/pages/eboo
 import {EbookProjectShareModalComponent} from "@app/components/pages/ebook-page/modals/projects/share-modal/share-modal.component";
 import {FormsModule} from "@angular/forms";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {
+    EbookProjectSummaryModalComponent
+} from "@app/components/pages/ebook-page/modals/projects/summary-modal/summary-modal.component";
 
 @Component({
     selector: 'app-ebook-page-projects-section',
@@ -260,6 +263,13 @@ export class EbookPageProjectsSectionComponent implements AfterContentInit {
 
     handlePageChange(pageEvent: PageEvent) {
         this.applySortAndFilter();
+    }
+
+    openEbookProjectDetailsModal(ebookProject: EbookProject) {
+        this.dialogService.open(EbookProjectSummaryModalComponent, {
+            data: ebookProject,
+            autoFocus: false
+        });
     }
 
     protected readonly LoadingStatus = LoadingStatus;

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import AuthenticationService, {AuthenticatedUser} from "@app/services/authentication.service";
-import {MatDivider} from "@angular/material/divider";
 import GravatarService from "@app/services/gravatar.service";
 import LoadingStatus from "@app/models/misc/loading-status.enum";
 import MaterialModule from "@app/modules/material.module";

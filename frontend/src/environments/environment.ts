@@ -4,7 +4,7 @@ const environment = {
     "FRONTEND_BASE_URI_EN": "http://localhost:4200",
 
     // Frontend configuration for links building
-    "API_BASE_URI": "http://192.168.32.7:8080/",
+    "API_BASE_URI": "http://192.168.32.7:8080",
 
     // Recaptcha configuration
     "RECAPTCHA_SITE_KEY": "6LdX6ewpAAAAADI2jjWT-mzbTAt5gDzdMlztWjPv",

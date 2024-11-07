@@ -2082,10 +2082,58 @@
             </trans-unit>
             <trans-unit id="5395991681110441979">
                 <source></source>
-                <target>daniel12</target>
+                <target>uzytkownik123</target>
                 <context-group purpose="location">
                     <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
                     <context context-type="linenumber">28</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="1181131479974759943">
+                <source></source>
+                <target>Informacje o projekcie</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/summary-modal/summary-modal.component.html</context>
+                <context context-type="linenumber">1,3</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="6968179489937129275">
+                <source></source>
+                <target>Wymagania: 3-20 znaków</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
+                <context context-type="linenumber">27,28</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="5210250836005440118">
+                <source></source>
+                <source>Wysłano kod weryfik. do: </source>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/registration-page/confirm-modal/registration-confirm-modal.component.html</context>
+                <context context-type="linenumber">35,36</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="2670550286314105691">
+                <source></source>
+                <target>Konwertowanie pliku do </target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component.html</context>
+                <context context-type="linenumber">87,88</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="8587558660737612362">
+                <source></source>
+                <target>Wymagania: min. 8 znaków, 1 znak specjalny, 1 cyfra</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
+                <context context-type="linenumber">41,42</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="4185011818465965115">
+                <source></source>
+                <target> Ebook-wizard wspiera wszystkie popularne formaty e-booków. Możesz przechowywać i konwertować e-booki do formatów takich jak: epub, mobi, azw3, pdf, docx, txt, html. </target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/landing-page/content/landing-page-content.component.html</context>
+                <context context-type="linenumber">67,68</context>
                 </context-group>
             </trans-unit>
             <trans-unit id="5410761983847449622">

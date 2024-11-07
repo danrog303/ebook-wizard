@@ -37,6 +37,10 @@ export class PasswordChangeModalComponent {
         ])
     });
 
+    hidePassword = true;
+    hideNewPassword = true;
+    hideNewPasswordRepeat = true;
+
     constructor(@Inject(MatDialogRef) private dialogRef: MatDialogRef<PasswordChangeModalComponent>,
                 private authService: AuthenticationService,
                 private notificationService: NotificationService) {

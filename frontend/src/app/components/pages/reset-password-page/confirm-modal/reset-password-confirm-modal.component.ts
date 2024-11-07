@@ -25,6 +25,9 @@ export default class ResetPasswordConfirmModalComponent {
     resetPasswordConfirmPending: boolean = false;
     resetPasswordConfirmForm: FormGroup;
 
+    hidePassword = true;
+    hidePasswordRepeat = true;
+
     constructor(public dialogRef: MatDialogRef<ResetPasswordConfirmModalComponent>,
                 @Inject(MAT_DIALOG_DATA) public userData: ResetPasswordConfirmModalInput,
                 private notificationService: NotificationService,

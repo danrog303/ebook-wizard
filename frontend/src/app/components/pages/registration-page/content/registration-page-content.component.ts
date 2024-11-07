@@ -24,6 +24,9 @@ export class RegistrationPageContentComponent {
     recaptchaSiteKey = env.RECAPTCHA_SITE_KEY;
     registerForm: FormGroup
 
+    hidePassword = true;
+    hidePasswordRepeat = true;
+
     constructor(private cognitoService: AuthenticationService,
                 private dialogService: MatDialog,
                 private notificationService: NotificationService) {

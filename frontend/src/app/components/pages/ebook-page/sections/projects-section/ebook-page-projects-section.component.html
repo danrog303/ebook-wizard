@@ -97,6 +97,11 @@
                     </mat-list-item>
 
                     <mat-menu #ebookProjectDropdownMenu="matMenu">
+                        <button mat-menu-item (click)="openEbookProjectDetailsModal(ebookProject)" class="md-only">
+                            <mat-icon>info</mat-icon>
+                            <span i18n>Show details</span>
+                        </button>
+
                         <button mat-menu-item (click)="openEditPage(ebookProject)">
                             <mat-icon>edit_document</mat-icon>
                             <span i18n>Edit</span>

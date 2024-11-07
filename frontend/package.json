@@ -34,6 +34,7 @@
     "ng-recaptcha-2": "^14.0.0",
     "ngx-file-drag-drop": "^10.0.1",
     "ngx-quill": "^26.0.5",
+    "pdfjs-dist": "^4.8.69",
     "quill": "^2.0.2",
     "quill-image-resize": "^3.0.9",
     "quill-image-resize-module": "^3.0.0",

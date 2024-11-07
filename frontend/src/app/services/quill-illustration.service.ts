@@ -26,8 +26,7 @@ export default class QuillIllustrationService {
     async getIllustrationImageUrl(ebookProjectId: string, illustrationHash: string): Promise<string> {
         const url = `${environment.API_BASE_URI}/ebook-project/${ebookProjectId}/illustration/${illustrationHash}`;
 
-        const accessTokenKey = this.findKeyEndingWith('accessToken')!;
-        const accessToken = localStorage.getItem(accessTokenKey)!;
+        const accessToken = this.findCookieEndingWith('accessToken');
 
         const headers: any = {};
         if (accessToken) {
@@ -45,8 +44,7 @@ export default class QuillIllustrationService {
         const formData = new FormData();
         formData.append('file', file);
 
-        const accessTokenKey = this.findKeyEndingWith('accessToken')!;
-        const accessToken = localStorage.getItem(accessTokenKey)!;
+        const accessToken = this.findCookieEndingWith('accessToken');
 
         const illustration: EbookProjectIllustration = await fetch(url, {
             method: 'POST',
@@ -108,11 +106,12 @@ export default class QuillIllustrationService {
         };
     }
 
-    private findKeyEndingWith(ending: string) {
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i)!;
-            if (key.endsWith(ending)) {
-                return key;
+    private findCookieEndingWith(ending: string): string | null {
+        const cookies = document.cookie.split(';');
+        for (const cookie of cookies) {
+            const [name, value] = cookie.trim().split('=');
+            if (name.endsWith(ending)) {
+                return decodeURIComponent(value);
             }
         }
         return null;
