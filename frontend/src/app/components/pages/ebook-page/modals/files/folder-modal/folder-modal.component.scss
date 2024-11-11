@@ -1,0 +1,15 @@
+mat-form-field {
+    width: 100%;
+}
+
+.remove-folder-option {
+    color: indianred;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 0.7em;
+    font-size: 85%;
+
+    &.disabled {
+        cursor: not-allowed;
+    }
+}

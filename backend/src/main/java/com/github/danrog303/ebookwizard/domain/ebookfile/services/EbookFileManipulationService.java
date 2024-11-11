@@ -28,9 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -213,9 +211,13 @@ public class EbookFileManipulationService {
         ebookFile.setDescription(newEbookFile.getDescription());
         ebookFile.setAuthor(newEbookFile.getAuthor());
         ebookFile.setTags(newEbookFile.getTags());
-        ebookFile.setContainerName(newEbookFile.getContainerName());
         ebookFile.setFavorite(newEbookFile.isFavorite());
         ebookFile.setPublic(newEbookFile.isPublic());
+
+        ebookFile.setContainerName(newEbookFile.getContainerName());
+        if (ebookFile.getContainerName() != null && ebookFile.getContainerName().isBlank()) {
+            ebookFile.setContainerName(null);
+        }
 
         var hasRequestedFormat = ebookFile
                 .getDownloadableFiles()
@@ -321,5 +323,26 @@ public class EbookFileManipulationService {
         }
 
         return ef;
+    }
+
+    public List<EbookFolder> getExistingFolders() {
+        authorizationProvider.requireAuthentication();
+        String currentUserId = authorizationProvider.getAuthenticatedUserId();
+        List<EbookFile> ebookFiles = ebookFileRepository.findAllByOwnerUserId(currentUserId);
+        Map<String, Long> folderSizes = new HashMap<>();
+
+        for (EbookFile ebookFile : ebookFiles) {
+            String containerName = ebookFile.getContainerName();
+            if (containerName == null) {
+                continue;
+            }
+
+            long currentSize = folderSizes.getOrDefault(containerName, 0L);
+            folderSizes.put(containerName, currentSize + 1);
+        }
+
+        return folderSizes.entrySet().stream()
+                .map(entry -> new EbookFolder(entry.getKey(), entry.getValue()))
+                .toList();
     }
 }

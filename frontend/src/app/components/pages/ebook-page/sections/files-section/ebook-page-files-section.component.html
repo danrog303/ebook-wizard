@@ -63,83 +63,136 @@
                     </mat-form-field>
                 </div>
 
-                @for (ebookFile of ebookFilesSorted; track ebookFile.id; let index = $index) {
-                    <mat-list-item (contextmenu)="openEbookFileDropdownMenu($event, index)"
-                                   (click)="markEbookFileAsSelected(index)"
-                                   [ngClass]="{'active': selectedEbookFile?.id == ebookFile.id}"
-                                   class="ebook-file-pane">
-                        <mat-icon matListItemIcon>menu_book</mat-icon>
-
-                        <div matListItemTitle>
-                            @if (ebookFile.name) {
-                                <span>{{ ebookFile.name }}</span>
-                            } @else {
-                                <span i18n>Unknown name</span>
-                            }
+                @if (activeFolder !== null || ebookFolders.length === 0) {
+                    @if (activeFolder !== null) {
+                        <div class="active-folder-indicator">
+                            <h3>
+                                <span i18n>Active folder</span>:&nbsp;
+                                @if (!activeFolder) {
+                                    <span i18n>Unassigned</span>
+                                } @else {
+                                    <span>{{ activeFolder }}</span>
+                                }
+                            </h3>
+                            <a mat-button color="primary" routerLink="/ebook-file" i18n>
+                                &larr; Go back to folder list
+                            </a>
                         </div>
+                    }
 
-                        <div matListItemLine>
-                            <span i18n>Author:</span>
-                            @if (ebookFile.author) {
-                                <span>{{ ebookFile.author }}</span>
-                            } @else {
-                                <span i18n>Unknown author</span>
-                            }
-                        </div>
+                    @for (ebookFile of ebookFilesSorted; track ebookFile.id; let index = $index) {
+                        <mat-list-item (contextmenu)="openEbookFileDropdownMenu($event, index)"
+                                       (click)="markEbookFileAsSelected(index)"
+                                       [ngClass]="{'active': selectedEbookFile?.id == ebookFile.id}"
+                                       class="ebook-file-pane">
+                            <mat-icon matListItemIcon>menu_book</mat-icon>
 
-                        <button mat-button
-                                #ebookFileDropdownTrigger="matMenuTrigger"
-                                [matMenuTriggerFor]="ebookFileDropdownMenu">
-                            <span i18n>Actions</span>
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                    </mat-list-item>
+                            <div matListItemTitle>
+                                @if (ebookFile.name) {
+                                    <span>{{ ebookFile.name }}</span>
+                                } @else {
+                                    <span i18n>Unknown name</span>
+                                }
+                            </div>
 
-                    <mat-menu #ebookFileDropdownMenu="matMenu">
-                        <button mat-menu-item (click)="openEbookFileDetailsModal(ebookFile)" class="md-only">
-                            <mat-icon>info</mat-icon>
-                            <span i18n>Show details</span>
-                        </button>
-                        <button mat-menu-item (click)="openReaderPage(ebookFile)">
-                            <mat-icon>visibility</mat-icon>
-                            <span i18n>Read</span>
-                        </button>
-                        <button mat-menu-item (click)="openDownloadModal(ebookFile)">
-                            <mat-icon>download</mat-icon>
-                            <span i18n>Download</span>
-                        </button>
-                        <mat-divider />
-                        <button mat-menu-item (click)="openSendToReaderModal(ebookFile)">
-                            <mat-icon>send</mat-icon>
-                            <span i18n>Send to e-reader</span>
-                        </button>
-                        <button mat-menu-item (click)="openChangeMetadataModal(ebookFile)">
-                            <mat-icon>edit</mat-icon>
-                            <span i18n>Change metadata</span>
-                        </button>
-                        <button mat-menu-item (click)="openChangeCoverImageModal(ebookFile)">
-                            <mat-icon>image</mat-icon>
-                            <span i18n>Change cover image</span>
-                        </button>
-                        <button mat-menu-item (click)="openDeleteModal(ebookFile)">
-                            <mat-icon>delete</mat-icon>
-                            <span i18n>Delete</span>
-                        </button>
-                        <mat-divider />
-                        <button mat-menu-item (click)="openConvertToProjectModal(ebookFile)">
-                            <mat-icon>autorenew</mat-icon>
-                            <span i18n>Convert to project</span>
-                        </button>
-                        <button mat-menu-item (click)="openShareModal(ebookFile)">
-                            <mat-icon>share</mat-icon>
-                            <span i18n>Share</span>
-                        </button>
-                    </mat-menu>
-                } @empty {
-                    <mat-list-item class="all-items-filtered-indicator">
-                        <p i18n>All items filtered...</p>
-                        <p i18n>Remove some filters and try again...</p>
-                    </mat-list-item>
+                            <div matListItemLine>
+                                <span i18n>Author:</span>
+                                @if (ebookFile.author) {
+                                    <span>{{ ebookFile.author }}</span>
+                                } @else {
+                                    <span i18n>Unknown author</span>
+                                }
+                            </div>
+
+                            <button mat-button
+                                    #ebookFileDropdownTrigger="matMenuTrigger"
+                                    [matMenuTriggerFor]="ebookFileDropdownMenu">
+                                <span i18n>Actions</span>
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                        </mat-list-item>
+
+                        <mat-menu #ebookFileDropdownMenu="matMenu">
+                            <button mat-menu-item (click)="openEbookFileDetailsModal(ebookFile)" class="md-only">
+                                <mat-icon>info</mat-icon>
+                                <span i18n>Show details</span>
+                            </button>
+                            <button mat-menu-item (click)="openReaderPage(ebookFile)">
+                                <mat-icon>visibility</mat-icon>
+                                <span i18n>Read</span>
+                            </button>
+                            <button mat-menu-item (click)="openDownloadModal(ebookFile)">
+                                <mat-icon>download</mat-icon>
+                                <span i18n>Download</span>
+                            </button>
+                            <mat-divider />
+                            <button mat-menu-item (click)="openSendToReaderModal(ebookFile)">
+                                <mat-icon>send</mat-icon>
+                                <span i18n>Send to e-reader</span>
+                            </button>
+                            <button mat-menu-item (click)="openChangeMetadataModal(ebookFile)">
+                                <mat-icon>edit</mat-icon>
+                                <span i18n>Change metadata</span>
+                            </button>
+                            <button mat-menu-item (click)="openFolderModal(ebookFile)">
+                                <mat-icon>folder</mat-icon>
+                                <span i18n>Assign to folder</span>
+                            </button>
+                            <button mat-menu-item (click)="openChangeCoverImageModal(ebookFile)">
+                                <mat-icon>image</mat-icon>
+                                <span i18n>Change cover image</span>
+                            </button>
+                            <button mat-menu-item (click)="openDeleteModal(ebookFile)">
+                                <mat-icon>delete</mat-icon>
+                                <span i18n>Delete</span>
+                            </button>
+                            <mat-divider />
+                            <button mat-menu-item (click)="openConvertToProjectModal(ebookFile)">
+                                <mat-icon>autorenew</mat-icon>
+                                <span i18n>Convert to project</span>
+                            </button>
+                            <button mat-menu-item (click)="openShareModal(ebookFile)">
+                                <mat-icon>share</mat-icon>
+                                <span i18n>Share</span>
+                            </button>
+                        </mat-menu>
+                    } @empty {
+                        <mat-list-item class="all-items-filtered-indicator">
+                            <p i18n>All items filtered...</p>
+                            <p i18n>Remove some filters and try again...</p>
+                        </mat-list-item>
+                    }
+                } @else {
+                    @for (folder of ebookFolders; track folder.name) {
+                        <mat-list-item class="ebook-file-pane">
+                            <mat-icon matListItemIcon>folder</mat-icon>
+
+                            <div matListItemTitle>
+                                @if (folder.name) {
+                                    <span>{{ folder.name }}</span>
+                                } @else {
+                                    <span i18n>Unassigned</span>
+                                }
+                            </div>
+
+                            <div matListItemLine>
+                                <span i18n>Book count: </span>
+                                <span>{{ folder.bookCount }}</span>
+                            </div>
+
+                            <button mat-button [matMenuTriggerFor]="ebookFolderDropdownMenu">
+                                <span i18n>Actions</span>
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                        </mat-list-item>
+
+                        <mat-menu #ebookFolderDropdownMenu="matMenu">
+                            <button mat-menu-item (click)="openFolder(folder)">
+                                <mat-icon>folder_open</mat-icon>
+                                <span i18n>Open folder</span>
+                            </button>
+                        </mat-menu>
+                    }
                 }
             </mat-list>
         }
@@ -147,7 +200,7 @@
         <mat-paginator [pageSize]="10"
                        [pageSizeOptions]="[5, 10, 25, 100]"
                        (page)="handlePageChange($event)"
-                       [ngStyle]="{'display': ebookFiles.length > 0 ? 'block' : 'none'}"
+                       [ngStyle]="{'display': this.ebookFiles.length > 0 && (this.activeFolder !== null || this.ebookFolders.length === 0) ? 'block' : 'none'}"
                        aria-label="Select page">
         </mat-paginator>
     </div>

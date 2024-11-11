@@ -1,0 +1,69 @@
+<h2 mat-dialog-title i18n>Assign to folder</h2>
+
+<mat-dialog-content>
+    @if (existingFoldersToChoose.length > 0) {
+        <div>
+            <div>
+                <strong>Choose one of existing folders:</strong>
+            </div>
+
+            <div>
+                <mat-form-field>
+                    <mat-label i18n>Folder</mat-label>
+                    <mat-select (selectionChange)="onExistingFolderChosen($event)">
+                        @for (folder of existingFoldersToChoose; track folder) {
+                            <mat-option value="{{folder.name}}">
+                                {{folder.name}} ({{folder.bookCount}})
+                            </mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    }
+
+    <div>
+        <div>
+            @if (existingFoldersToChoose.length > 0) {
+                <strong i18n>Or, provide your own folder name:</strong>
+            } @else {
+                <strong i18n>Provide a name to create new folder:</strong>
+            }
+        </div>
+
+        <div>
+            <form [formGroup]="folderForm"
+                  (ngSubmit)="onSubmitFolderAssign()">
+                <mat-form-field>
+                    <input matInput
+                           [disabled]="isPending"
+                           placeholder="Folder name"
+                           i18n-placeholder
+                           formControlName="folderName" />
+                    <mat-hint i18n>From 1 to 128 characters</mat-hint>
+                </mat-form-field>
+            </form>
+        </div>
+
+        <div class="remove-folder-option">
+            <span i18n [ngClass]="{'disabled': isPending}" (click)="onRemoveFolderAssignment()">
+                Alternatively, click here to remove folder assignment.
+            </span>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close i18n
+            [disabled]="isPending">
+        Cancel
+    </button>
+
+    <app-action-pending-button [pending]="isPending"
+                               [disabled]="folderForm.invalid"
+                               color="primary"
+                               i18n
+                               (click)="onSubmitFolderAssign()">
+        Save
+    </app-action-pending-button>
+</mat-dialog-actions>

@@ -1,5 +1,5 @@
-import {AfterContentInit, AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {AfterContentInit, AfterViewInit, Component, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {MatMenuTrigger} from "@angular/material/menu";
 import {MatDialog} from "@angular/material/dialog";
@@ -12,20 +12,43 @@ import NotificationService from "@app/services/notification.service";
 import LoadingStatus from "@app/models/misc/loading-status.enum";
 import MaterialModule from "@app/modules/material.module";
 import {EbookFileDetailsComponent} from "@app/components/common/ebook-file-details/ebook-file-details.component";
-import {EbookFileImportModalComponent} from "@app/components/pages/ebook-page/modals/files/import-modal/ebook-file-import-modal.component";
-import {EbookFileDeleteModalComponent} from "@app/components/pages/ebook-page/modals/files/delete-modal/ebook-file-delete-modal.component";
-import {EbookFileDownloadModalComponent} from "@app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component";
-import {EbookFileSendModalComponent} from "@app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component";
-import {EbookFileMetaEditModalComponent} from "@app/components/pages/ebook-page/modals/files/meta-edit-modal/ebook-file-meta-edit-modal.component";
-import {EbookFileShareModalComponent} from "@app/components/pages/ebook-page/modals/files/share-modal/share-modal.component";
-import {EbookFileChangeCoverModalComponent} from "@app/components/pages/ebook-page/modals/files/change-cover-modal/ebook-file-change-cover-modal.component";
-import {ConvertEbookFileToProjectModalComponent} from "@app/components/pages/ebook-page/modals/files/convert-to-project-modal/convert-to-project-modal.component";
-import {EbookFileSummaryModalComponent} from "@app/components/pages/ebook-page/modals/files/summary-modal/summary-modal.component";
+import {
+    EbookFileImportModalComponent
+} from "@app/components/pages/ebook-page/modals/files/import-modal/ebook-file-import-modal.component";
+import {
+    EbookFileDeleteModalComponent
+} from "@app/components/pages/ebook-page/modals/files/delete-modal/ebook-file-delete-modal.component";
+import {
+    EbookFileDownloadModalComponent
+} from "@app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component";
+import {
+    EbookFileSendModalComponent
+} from "@app/components/pages/ebook-page/modals/files/send-modal/ebook-file-send-modal.component";
+import {
+    EbookFileMetaEditModalComponent
+} from "@app/components/pages/ebook-page/modals/files/meta-edit-modal/ebook-file-meta-edit-modal.component";
+import {
+    EbookFileShareModalComponent
+} from "@app/components/pages/ebook-page/modals/files/share-modal/share-modal.component";
+import {
+    EbookFileChangeCoverModalComponent
+} from "@app/components/pages/ebook-page/modals/files/change-cover-modal/ebook-file-change-cover-modal.component";
+import {
+    ConvertEbookFileToProjectModalComponent
+} from "@app/components/pages/ebook-page/modals/files/convert-to-project-modal/convert-to-project-modal.component";
+import {
+    EbookFileSummaryModalComponent
+} from "@app/components/pages/ebook-page/modals/files/summary-modal/summary-modal.component";
+import {
+    EbookFileFolderModalComponent
+} from "@app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component";
+import EbookFolder from "@app/models/ebook/ebook-folder.model";
+import {firstValueFrom} from "rxjs";
 
 @Component({
     selector: 'app-ebook-page-files-section',
     standalone: true,
-    imports: [MaterialModule, NgOptimizedImage, CommonModule, EbookFileDetailsComponent, ReactiveFormsModule, FormsModule],
+    imports: [MaterialModule, NgOptimizedImage, CommonModule, EbookFileDetailsComponent, ReactiveFormsModule, FormsModule, RouterLink],
     templateUrl: './ebook-page-files-section.component.html',
     styleUrl: './ebook-page-files-section.component.scss'
 })
@@ -41,6 +64,10 @@ export class EbookPageFilesSectionComponent implements AfterContentInit, AfterVi
     ebookFilesSorted: EbookFile[] = [];
     filterKeyword: string = "";
     sortBy: string = "";
+    displayPaginator: boolean = true;
+
+    ebookFolders: EbookFolder[] = [];
+    activeFolder: string | null = null;
 
     constructor(private ebookFileService: EbookFileService,
                 private notificationService: NotificationService,
@@ -74,38 +101,57 @@ export class EbookPageFilesSectionComponent implements AfterContentInit, AfterVi
     }
 
     ngAfterContentInit() {
-        this.refreshEbookFiles();
         this.activatedRoute.queryParamMap.subscribe((params) => {
+            this.selectedEbookFile = null;
+            this.refreshEbookFiles().then();
             const activeModal = params.get('modal');
             if (activeModal === 'creator') {
                 this.openEbookFileImportModal();
             }
+
+            this.activeFolder = params.get('folder');
         });
     }
 
-    refreshEbookFiles() {
+    async refreshEbookFiles() {
         this.ebookFilesLoading = LoadingStatus.LOADING;
-        this.ebookFileService.listEbookFilesOfAuthenticatedUser().subscribe({
-            next: (ebookFiles: EbookFile[]) => {
-                let activeEbookIndex = -1;
-                if (this.selectedEbookFile) {
-                    activeEbookIndex = this.ebookFiles.indexOf(this.selectedEbookFile);
-                }
 
-                this.ebookFiles = ebookFiles;
-                this.ebookFilesLoading = LoadingStatus.LOADED;
+        try {
+            this.ebookFolders = await firstValueFrom(this.ebookFileService.getExistingFolders());
+        } catch {
+            this.notificationService.show($localize`Failed to load existing folders.`);
+        }
 
-                if (this.selectedEbookFile) {
-                    this.selectedEbookFile = this.ebookFiles[activeEbookIndex];
-                }
-
-                this.applySortAndFilter();
-            },
-            error: () => {
-                this.ebookFilesLoading = LoadingStatus.ERROR;
-                this.notificationService.show($localize`Failed to load ebook files. Refresh the page and try again.`);
+        try {
+            const ebookFiles = await firstValueFrom(this.ebookFileService.listEbookFilesOfAuthenticatedUser());
+            let activeEbookIndex = -1;
+            if (this.selectedEbookFile) {
+                activeEbookIndex = this.ebookFiles.indexOf(this.selectedEbookFile);
             }
-        });
+
+            this.ebookFiles = ebookFiles;
+            this.ebookFilesLoading = LoadingStatus.LOADED;
+
+            if (this.selectedEbookFile) {
+                this.selectedEbookFile = this.ebookFiles[activeEbookIndex];
+            }
+
+            // If any ebook has no container name
+            const allEbooksAreUnassigned = ebookFiles.every((file) => file.containerName === null || file.containerName === "");
+            const hasUnassignedFolder = this.ebookFolders.some((folder) => folder.name === "");
+            const shouldHaveUnassignedFolder = ebookFiles.some((file) => file.containerName === null || file.containerName === "");
+            if (shouldHaveUnassignedFolder && !hasUnassignedFolder && !allEbooksAreUnassigned) {
+                this.ebookFolders.push({
+                    name: "",
+                    bookCount: ebookFiles.filter((file) => file.containerName === null || file.containerName === "").length
+                });
+            }
+
+            this.applySortAndFilter();
+        } catch {
+            this.ebookFilesLoading = LoadingStatus.ERROR;
+            this.notificationService.show($localize`Failed to load ebook files. Refresh the page and try again.`);
+        }
     }
 
     openEbookFileDropdownMenu(event: Event, index: number) {
@@ -116,9 +162,13 @@ export class EbookPageFilesSectionComponent implements AfterContentInit, AfterVi
     openEbookFileImportModal() {
         const dialogRef = this.dialogService.open(EbookFileImportModalComponent, {
             autoFocus: false,
+            data: {
+                containerName: this.activeFolder
+            }
         });
 
         dialogRef.afterClosed().subscribe(() => {
+             this.router.navigate(["/ebook-file"]).then();
              dialogRef.componentInstance.uploadedEbookFiles.forEach(ebook => this.ebookFiles.push(ebook));
              this.applySortAndFilter();
         });
@@ -235,6 +285,13 @@ export class EbookPageFilesSectionComponent implements AfterContentInit, AfterVi
         });
     }
 
+    openFolderModal(ebookFile: EbookFile) {
+        this.dialogService.open(EbookFileFolderModalComponent, {
+            autoFocus: false,
+            data: ebookFile
+        });
+    }
+
     applySortAndFilter() {
         sessionStorage.setItem('ebookFilesSortBy', this.sortBy);
         sessionStorage.setItem('ebookFilesFilterKeyword', this.filterKeyword);
@@ -264,6 +321,15 @@ export class EbookPageFilesSectionComponent implements AfterContentInit, AfterVi
             return 0;
         });
 
+        if (this.activeFolder === "") {
+            this.ebookFilesSorted = this.ebookFilesSorted
+                .filter((file) => file.containerName === null || file.containerName === "");
+        }
+        if (this.activeFolder !== null && this.activeFolder !== "") {
+            this.ebookFilesSorted = this.ebookFilesSorted
+                .filter((file) => file.containerName === this.activeFolder);
+        }
+
         this.paginator!.length = this.ebookFilesSorted.length;
         this.ebookFilesSorted = this.ebookFilesSorted.slice(this.paginator!.pageIndex * this.paginator!.pageSize, (this.paginator!.pageIndex + 1) * this.paginator!.pageSize);
 
@@ -275,6 +341,12 @@ export class EbookPageFilesSectionComponent implements AfterContentInit, AfterVi
 
     handlePageChange($event: PageEvent) {
         this.applySortAndFilter();
+    }
+
+    openFolder(folder: EbookFolder) {
+        this.router
+            .navigate([], { queryParams: { folder: folder.name }, queryParamsHandling: 'merge' })
+            .then();
     }
 
     protected readonly document = document;

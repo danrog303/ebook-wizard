@@ -7,7 +7,6 @@ import NotificationService from "@app/services/notification.service";
 import {MatIcon} from "@angular/material/icon";
 import LoadingStatus from "@app/models/misc/loading-status.enum";
 import {FormsModule} from "@angular/forms";
-import {$localize} from "@angular/localize/init";
 
 export interface BookmarkMenuContext {
     changePage: (pageNumber: number) => Promise<void>;

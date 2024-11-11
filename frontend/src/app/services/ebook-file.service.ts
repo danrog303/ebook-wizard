@@ -8,6 +8,7 @@ import QueueTask from "@app/models/task-queue/queue-task.model";
 import QueueTaskPayload from "@app/models/task-queue/queue-task-payload.model";
 import UploadProgressEvent from "@app/models/misc/upload-progress-event.model";
 import EbookProject from "@app/models/ebook-project/ebook-project.model";
+import EbookFolder from "@app/models/ebook/ebook-folder.model";
 
 @Injectable({providedIn: 'root'})
 export default class EbookFileService {
@@ -114,6 +115,11 @@ export default class EbookFileService {
     deleteCoverImage(ebookFileId: string): Observable<void> {
         const url = `${environment.API_BASE_URI}/ebook-file/${ebookFileId}/cover-image`;
         return this.http.delete<void>(url);
+    }
+
+    getExistingFolders(): Observable<EbookFolder[]> {
+        const url = `${environment.API_BASE_URI}/ebook-file/folders`;
+        return this.http.get<EbookFolder[]>(url);
     }
 
     private getEventMessage<T>(event: HttpEvent<any>): UploadProgressEvent<T> | null {

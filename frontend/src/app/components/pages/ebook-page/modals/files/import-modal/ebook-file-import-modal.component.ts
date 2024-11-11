@@ -3,7 +3,7 @@ import {RouterLink} from "@angular/router";
 import {NgxFileDragDropComponent} from "ngx-file-drag-drop";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatStepper} from "@angular/material/stepper";
-import {concatMap, from, of, Subscription, tap, throwError} from "rxjs";
+import {concatMap, from, Subscription} from "rxjs";
 import {CommonModule} from "@angular/common";
 import ActionPendingButtonComponent from "@app/components/common/action-pending-button/action-pending-button.component";
 import MaterialModule from "@app/modules/material.module";
@@ -15,8 +15,11 @@ import NotificationService from "@app/services/notification.service";
 import LoadingStatus from "@app/models/misc/loading-status.enum";
 import UploadProgressEvent from "@app/models/misc/upload-progress-event.model";
 import {MatTooltip} from "@angular/material/tooltip";
-import {MatDialogRef} from "@angular/material/dialog";
-import {error} from "@angular/compiler-cli/src/transformers/util";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+
+export interface EbookFileImportModalData {
+    containerName: string | null;
+}
 
 @Component({
     selector: 'app-import-modal',
@@ -47,6 +50,7 @@ export class EbookFileImportModalComponent {
     });
 
     constructor(@Inject(MatDialogRef) private dialogRef: MatDialogRef<EbookFileImportModalComponent>,
+                @Inject(MAT_DIALOG_DATA) private dialogData: EbookFileImportModalData,
                 private ebookFileService: EbookFileService,
                 private notificationService: NotificationService) {
     }

@@ -13,12 +13,284 @@
                     <context context-type="linenumber">34</context>
                 </context-group>
             </trans-unit>
+            <trans-unit id="7195365001408647639">
+                <source></source>
+                <target>Ładowanie listy folderów nie powiodło się.</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.ts</context>
+                <context context-type="linenumber">44</context>
+                </context-group>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.ts</context>
+                <context context-type="linenumber">121</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="2826581353496868063" datatype="html">
+                <source></source>
+                <target>Język</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
+                <context context-type="linenumber">9</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="7046259383943324039">
+                <source></source>
+                <target>Folder</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/common/ebook-file-details/ebook-file-details.component.html</context>
+                <context context-type="linenumber">53,54</context>
+                </context-group>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.html</context>
+                <context context-type="linenumber">12</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="5980488715818469513">
+                <source></source>
+                <target> Możesz też kliknąć tutaj, aby usunąć przypisanie do folderu. </target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.html</context>
+                <context context-type="linenumber">49</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="5392628466411738090">
+                <source></source>
+                <target>Od 1 do 128 znaków</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.html</context>
+                <context context-type="linenumber">42</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="4263900766601281906">
+                <source></source>
+                <target>Przypisz do folderu</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.html</context>
+                <context context-type="linenumber">1,3</context>
+                </context-group>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
+                <context context-type="linenumber">139,140</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="5963835709705720699">
+                <source></source>
+                <source>Przypisanie folderu zakończyło się błędem.</source>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.ts</context>
+                <context context-type="linenumber">69</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="1605956916236438472">
+                <source></source>
+                <source>Folder usunięty pomyślnie.</source>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.ts</context>
+                <context context-type="linenumber">62</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="2245315713858495079">
+                <source></source>
+                <target>Folder przypisany pomyślnie.</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.ts</context>
+                <context context-type="linenumber">60</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="8406787523492971076">
+                <source></source>
+                <target>Nieprzypisane</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
+                <context context-type="linenumber">72,73</context>
+                </context-group>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
+                <context context-type="linenumber">174,175</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="8564202903947049539" datatype="html">
+                <source></source>
+                <target>Odtwórz</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
+                <context context-type="linenumber">57</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="3133539296286953705" datatype="html">
+                <source></source>
+                <target>Stop</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
+                <context context-type="linenumber">50</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="9042260521669277115" datatype="html">
+                <source></source>
+                <target>Pauza</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
+                <context context-type="linenumber">71,72</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="5102833078243868892" datatype="html">
+                <source></source>
+                <target>Nie udało się zaktualizować zakładek. Spróbuj ponownie później.</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.ts</context>
+                <context context-type="linenumber">69</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="5079356911458640450">
+                <source></source>
+                <target>Nie udało się załadować zakładek. Spróbuj ponownie później.</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.ts</context>
+                <context context-type="linenumber">44</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="32807755618468633" datatype="html">
+                <source></source>
+                <target>Zakładka</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.html</context>
+                <context context-type="linenumber">4,5</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="2361176006445353643" datatype="html">
+                <source></source>
+                <target>Dodaj zakładkę do obecnej strony</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.html</context>
+                <context context-type="linenumber">11</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="1780443122243811873" datatype="html">
+                <source></source>
+                <target>Twoje zakładki</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.html</context>
+                <context context-type="linenumber">19,20</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="7183480413524166008" datatype="html">
+                <source></source>
+                <target> Automatycznie zmieniaj strony </target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
+                <context context-type="linenumber">32</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="5048957535073058856" datatype="html">
+                <source></source>
+                <target>Strona <x id="INTERPOLATION" equiv-text="{{bookmarkedPage}}"/></target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.html</context>
+                <context context-type="linenumber">26,27</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="4624027260453516324" datatype="html">
+                <source></source>
+                <target>Nie ma jeszcze zakładek...</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.html</context>
+                <context context-type="linenumber">30,31</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="3197464844057959713" datatype="html">
+                <source></source>
+                <target>Nie udało się załadować usługi audiobooka. Spróbuj ponownie później.</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.ts</context>
+                    <context context-type="linenumber">57</context>
+                </context-group>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.ts</context>
+                    <context context-type="linenumber">69</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="1233062525939746039">
+                <source></source>
+                <target>Nieznany język</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/services/audiobook.service.ts</context>
+                <context context-type="linenumber">89</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="8406787523492971076">
+                <source></source>
+                <target>Nieprzypisane</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
+                <context context-type="linenumber">72,73</context>
+                </context-group>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
+                <context context-type="linenumber">174,175</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="6574369372172883795" datatype="html">
+                <source></source>
+                <target>Otwórz folder</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
+                <context context-type="linenumber">192,193</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="6556077414496524933">
+                <source></source>
+                <target>Liczba książek: </target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
+                <context context-type="linenumber">179,180</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="15899705850375759" datatype="html">
+                <source></source>
+                <target> ← Powrót do listy folderów </target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
+                <context context-type="linenumber">78</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="8868762350999309067">
+                <source></source>
+                <target>Aktywny folder</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
+                <context context-type="linenumber">70</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="8096140117358672227">
+                <source></source>
+                <target>Lub podaj własną nazwę dla folderu:</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.html</context>
+                <context context-type="linenumber">28,29</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="1750555739180809831">
+                <source></source>
+                <target>Głos</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
+                    <context context-type="linenumber">20</context>
+                </context-group>
+            </trans-unit>
             <trans-unit id="1102602252322619638">
-                <target></target>
-                <source>Operacja nie powiodła się. Przekroczono limit pamięci dyskowej.</source>
+                <source></source>
+                <target>Operacja nie powiodła się. Przekroczono limit pamięci dyskowej.</target>
                 <context-group purpose="location">
                 <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/change-cover-modal/ebook-file-change-cover-modal.component.ts</context>
                 <context context-type="linenumber">102</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="8196342796823749174">
+                <source></source>
+                <target>Podaj nazwę folderu, aby go utworzyć:</target>
+                <context-group purpose="location">
+                    <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.html</context>
+                    <context context-type="linenumber">30,31</context>
                 </context-group>
             </trans-unit>
             <trans-unit id="4759576908924514764">

@@ -1,6 +1,7 @@
 package com.github.danrog303.ebookwizard.domain.ebookfile.controllers;
 
 import com.github.danrog303.ebookwizard.domain.ebook.models.ContentDispositionType;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFolder;
 import com.github.danrog303.ebookwizard.domain.ebookfile.services.EbookFileManipulationService;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.domain.taskqueue.models.QueueTask;
@@ -102,5 +103,11 @@ public class EbookFileController {
     public EbookFile updateEbookFile(@PathVariable String ebookFileId,
                                      @RequestBody @Valid EbookFile ebook) {
         return this.ebookFileManipulationService.updateEbookFile(ebookFileId, ebook);
+    }
+
+    @GetMapping("/folders")
+    @ResponseStatus(HttpStatus.OK)
+    public List<EbookFolder> getExistingFolders() {
+        return this.ebookFileManipulationService.getExistingFolders();
     }
 }

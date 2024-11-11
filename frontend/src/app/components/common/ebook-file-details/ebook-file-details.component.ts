@@ -9,6 +9,9 @@ import {
     EbookFileMetaEditModalComponent
 } from "@app/components/pages/ebook-page/modals/files/meta-edit-modal/ebook-file-meta-edit-modal.component";
 import StringUtilsService from "@app/services/string-utils.service";
+import {
+    EbookFileFolderModalComponent
+} from "@app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component";
 
 @Component({
     selector: 'app-ebook-file-details',
@@ -56,6 +59,13 @@ export class EbookFileDetailsComponent implements OnChanges {
                 this.ebookFile = result;
                 this.ebookFileChange.emit(result);
             }
+        });
+    }
+
+    openEditFolderNameModal() {
+        const modalRef = this.matDialog.open(EbookFileFolderModalComponent, {
+            data: this.ebookFile,
+            autoFocus: false
         });
     }
 

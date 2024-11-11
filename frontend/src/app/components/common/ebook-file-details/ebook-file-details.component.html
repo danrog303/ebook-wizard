@@ -50,6 +50,15 @@
 </div>
 
 <div class="details-line">
+    <strong i18n>Folder</strong>
+    <span (click)="openEditFolderNameModal()">
+        <mat-icon>edit</mat-icon>
+    </span>
+
+    <p>{{ ebookFile?.containerName ?? "-" }}</p>
+</div>
+
+<div class="details-line">
     <strong i18n>Created at</strong>
 
     <p>{{(ebookFile?.creationDate | date) || '-'}}</p>
