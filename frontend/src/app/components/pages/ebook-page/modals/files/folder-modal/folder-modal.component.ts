@@ -23,10 +23,10 @@ export class EbookFileFolderModalComponent implements OnInit {
     existingFoldersToChoose: EbookFolder[] = [];
 
     constructor(@Inject(MAT_DIALOG_DATA) public ebookFile: EbookFile,
-                @Inject(MatDialogRef) private dialogRef: MatDialogRef<EbookFileFolderModalComponent>,
-                private ebookFileService: EbookFileService,
-                private notificationService: NotificationService,
-                private router: Router) {}
+                @Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<EbookFileFolderModalComponent>,
+                private readonly ebookFileService: EbookFileService,
+                private readonly notificationService: NotificationService,
+                private readonly router: Router) {}
 
 
     folderForm: FormGroup = new FormGroup({

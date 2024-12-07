@@ -6,7 +6,6 @@ import MaterialModule from "@app/modules/material.module";
 import EbookProjectChapter from "@app/models/ebook-project/ebook-project-chapter.model";
 import EbookProject from "@app/models/ebook-project/ebook-project.model";
 import NotificationService from "@app/services/notification.service";
-import EbookProjectService from "@app/services/ebook-project.service";
 import LoadingStatus from "@app/models/misc/loading-status.enum";
 import EbookProjectChapterService from "@app/services/ebook-project-chapter.service";
 
@@ -32,9 +31,9 @@ export default class ChapterDeleteModalComponent {
     deleteStatus: LoadingStatus = LoadingStatus.NOT_STARTED;
 
     constructor(@Inject(MAT_DIALOG_DATA) dialogData: ChapterDeleteModalData,
-                @Inject(MatDialogRef) private dialogRef: MatDialogRef<ChapterDeleteModalComponent>,
-                private ebookProjectChapterService: EbookProjectChapterService,
-                private notificationService: NotificationService) {
+                @Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<ChapterDeleteModalComponent>,
+                private readonly ebookProjectChapterService: EbookProjectChapterService,
+                private readonly notificationService: NotificationService) {
         this.ebookProject = dialogData.ebookProject;
         this.ebookProjectChapter = dialogData.ebookProjectChapter;
     }

@@ -34,8 +34,6 @@ public class TemporaryDirectory implements AutoCloseable {
                 deleteRecursively(child);
             }
         }
-        if (!file.delete()) {
-            throw new IOException("Failed to delete file: " + file);
-        }
+        Files.delete(file.toPath());
     }
 }

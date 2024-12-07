@@ -26,8 +26,8 @@ export class EbookPageContent implements OnInit, OnDestroy {
     currentRoute: string = "";
     currentRouteSubscription: Subscription | null = null;
 
-    constructor(private route: ActivatedRoute,
-                private router: Router) {}
+    constructor(private readonly route: ActivatedRoute,
+                private readonly router: Router) {}
 
     ngOnInit() {
         this.currentRouteSubscription = this.route.url.subscribe(url => {

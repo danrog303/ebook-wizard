@@ -24,8 +24,8 @@ export class EbookProjectDetailsComponent implements OnChanges {
     @Input() ebookProject: EbookProject | null = null;
     @Output() ebookProjectChange = new EventEmitter<EbookProject>();
 
-    constructor(private ebookProjectService: EbookProjectService,
-                private matDialog: MatDialog,
+    constructor(private readonly ebookProjectService: EbookProjectService,
+                private readonly matDialog: MatDialog,
                 public stringUtils: StringUtilsService) {
     }
 
@@ -41,7 +41,7 @@ export class EbookProjectDetailsComponent implements OnChanges {
         }
 
         this.coverUrlLoadingStatus = LoadingStatus.LOADING;
-        this.ebookProjectService.getUrlToDisplayCoverImage(this.ebookProject.id!).subscribe({
+        this.ebookProjectService.getUrlToDisplayCoverImage(this.ebookProject.id).subscribe({
             next: (url: string) => {
                 this.coverUrl = url;
                 this.coverUrlLoadingStatus = LoadingStatus.LOADED;

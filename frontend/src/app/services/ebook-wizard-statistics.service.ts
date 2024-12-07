@@ -6,7 +6,7 @@ import EbookWizardStatistics from "@app/models/ebook/ebook-wizard-statistics.mod
 
 @Injectable({providedIn: 'root'})
 export default class EbookWizardStatisticsService {
-    constructor(private httpClient: HttpClient) {
+    constructor(private readonly httpClient: HttpClient) {
     }
 
     getStatistics(): Observable<EbookWizardStatistics> {

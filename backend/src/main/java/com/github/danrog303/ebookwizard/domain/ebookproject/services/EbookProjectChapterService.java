@@ -1,7 +1,7 @@
 package com.github.danrog303.ebookwizard.domain.ebookproject.services;
 
 import com.github.danrog303.ebookwizard.domain.ebook.models.EbookAccessType;
-import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageCalculator;
+import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageService;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectChapter;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectRepository;
@@ -19,10 +19,10 @@ public class EbookProjectChapterService {
     private final EbookProjectRepository ebookProjectRepository;
     private final EbookProjectPermissionService permissionService;
     private final FileStorageService fileStorageService;
-    private final EbookDiskUsageCalculator diskUsageCalculator;
+    private final EbookDiskUsageService diskUsageCalculator;
 
-    public final int MAX_CHAPTER_CONTENT_SIZE = 4 * 1024 * 1024; // 4 MB
-    public final int MAX_COMBINED_CHAPTER_CONTENT_SIZE = 10 * 1024 * 1024; // 10 MB
+    public static final int MAX_CHAPTER_CONTENT_SIZE = 4 * 1024 * 1024; // 4 MB
+    public static final int MAX_COMBINED_CHAPTER_CONTENT_SIZE = 10 * 1024 * 1024; // 10 MB
 
     public EbookProjectChapter createChapter(String ebookProjectId, EbookProjectChapter chapter) {
         EbookProject ebookProject = permissionService.getEbookProject(ebookProjectId, EbookAccessType.READ_WRITE);

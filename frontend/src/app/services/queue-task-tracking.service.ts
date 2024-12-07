@@ -5,7 +5,7 @@ import environment from "../../environments/environment";
 
 @Injectable({providedIn: 'root'})
 export default class QueueTaskTrackingService {
-    constructor(private ngZone: NgZone) { }
+    constructor(private readonly ngZone: NgZone) { }
 
     getTaskStatus(taskId: string): Observable<QueueTaskSseReport> {
         return new Observable<any>(observer => {

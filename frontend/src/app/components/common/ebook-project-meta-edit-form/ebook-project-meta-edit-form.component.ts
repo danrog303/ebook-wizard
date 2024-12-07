@@ -33,8 +33,8 @@ export class EbookProjectMetaEditFormComponent implements OnChanges {
         tags: new FormControl([] as string[], [Validators.maxLength(64)]),
     });
 
-    constructor(private ebookProjectService: EbookProjectService,
-                private notificationService: NotificationService) {
+    constructor(private readonly ebookProjectService: EbookProjectService,
+                private readonly notificationService: NotificationService) {
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -68,7 +68,7 @@ export class EbookProjectMetaEditFormComponent implements OnChanges {
             this.ebookProject?.tags.push(value);
         }
 
-        event.chipInput!.clear();
+        event.chipInput.clear();
     }
 
     updateEbookProjectMeta() {
@@ -81,9 +81,9 @@ export class EbookProjectMetaEditFormComponent implements OnChanges {
         // Update name, author and description fields
         // Field "tags" is already updated inside "addEbookFileTag" handler
         let ebookProject = structuredClone(this.ebookProject);
-        ebookProject.name = this.metadataForm.get('name')?.value || "Unknown name";
-        ebookProject.author = this.metadataForm.get('author')?.value || "Unknown author";
-        ebookProject.description = this.metadataForm.get('description')?.value || "";
+        ebookProject.name = this.metadataForm.get('name')?.value ?? "Unknown name";
+        ebookProject.author = this.metadataForm.get('author')?.value ?? "Unknown author";
+        ebookProject.description = this.metadataForm.get('description')?.value ?? "";
 
         let method;
         if (this.mode === "create") {

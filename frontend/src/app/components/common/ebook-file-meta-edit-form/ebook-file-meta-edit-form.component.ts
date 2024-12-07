@@ -34,8 +34,8 @@ export default class EbookFileMetaEditFormComponent implements OnChanges {
     @Input() ebookFile: EbookFile = createEmptyEbookFile();
     @Output() updateEbookFile = new EventEmitter<EbookFile>();
 
-    constructor(private ebookFileService: EbookFileService,
-                private notificationService: NotificationService) {
+    constructor(private readonly ebookFileService: EbookFileService,
+                private readonly notificationService: NotificationService) {
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -59,7 +59,7 @@ export default class EbookFileMetaEditFormComponent implements OnChanges {
             this.ebookFile?.tags.push(value);
         }
 
-        event.chipInput!.clear();
+        event.chipInput.clear();
     }
 
     deleteEbookFileTag(tag: string) {
@@ -75,11 +75,11 @@ export default class EbookFileMetaEditFormComponent implements OnChanges {
 
         // Update name, author and description fields
         // Field "tags" is already updated inside "addEbookFileTag" handler
-        this.ebookFile!.name = this.metadataForm.get('name')?.value || "Unknown name";
-        this.ebookFile!.author = this.metadataForm.get('author')?.value || "Unknown author";
-        this.ebookFile!.description = this.metadataForm.get('description')?.value || "";
+        this.ebookFile.name = this.metadataForm.get('name')?.value ?? "Unknown name";
+        this.ebookFile.author = this.metadataForm.get('author')?.value ?? "Unknown author";
+        this.ebookFile.description = this.metadataForm.get('description')?.value ?? "";
 
-        this.ebookFileService.updateEbookFile(this.ebookFile!.id!, this.ebookFile!).subscribe({
+        this.ebookFileService.updateEbookFile(this.ebookFile.id!, this.ebookFile).subscribe({
             next: (ebookFile: EbookFile) => {
                 this.ebookFileUpdateMetaStatus = LoadingStatus.LOADED;
                 this.ebookFile = ebookFile;

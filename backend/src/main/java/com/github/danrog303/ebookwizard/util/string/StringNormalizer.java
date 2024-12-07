@@ -12,8 +12,8 @@ public class StringNormalizer {
         String withoutDiacritics = normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 
         // For some reason, Polish "ł" character is not being normalized correctly.
-        withoutDiacritics = withoutDiacritics.replaceAll("ł", "l")
-                .replaceAll("Ł", "L");
+        withoutDiacritics = withoutDiacritics.replace("ł", "l")
+                .replace("Ł", "L");
 
         return withoutDiacritics.replaceAll("\\s+", "-");
     }

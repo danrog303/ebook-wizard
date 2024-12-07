@@ -28,28 +28,28 @@ import {Router} from "@angular/router";
     styleUrl: './account-delete-modal.component.scss'
 })
 export class AccountDeleteModalComponent implements OnInit {
-    userEmail: string = "";
+    userNickname: string = "???";
 
-    emailForm = new FormGroup({
-        email: new FormControl('', [
+    nicknameForm = new FormGroup({
+        nickname: new FormControl('', [
             Validators.required,
-            Validators.email,
-            this.equalsToUserEmailValidator()
+            Validators.minLength(1),
+            this.equalsToUserNicknameValidator()
         ])
     });
 
     actionInProgress: "cleanup" | "delete" | null = null;
 
-    constructor(@Inject(MatDialogRef) private dialogRef: MatDialogRef<AccountDeleteModalComponent>,
-                private authService: AuthenticationService,
-                private notificationService: NotificationService,
-                private accountCleanupService: EbookAccountCleanupService,
-                private routerService: Router) {
+    constructor(@Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<AccountDeleteModalComponent>,
+                private readonly authService: AuthenticationService,
+                private readonly notificationService: NotificationService,
+                private readonly accountCleanupService: EbookAccountCleanupService,
+                private readonly routerService: Router) {
     }
 
     ngOnInit() {
         this.authService.fetchAuthenticatedUser().then(user => {
-            this.userEmail = user!.email;
+            this.userNickname = user!.nickname;
         });
     }
 
@@ -69,10 +69,10 @@ export class AccountDeleteModalComponent implements OnInit {
         }
     }
 
-    equalsToUserEmailValidator(): ValidatorFn {
+    equalsToUserNicknameValidator(): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
-            const emailMismatch = control.value !== this.userEmail;
-            return emailMismatch ? { emailMismatch: { value: "Email mismatch" } } : null;
+            const nicknameMismatch = control.value !== this.userNickname;
+            return nicknameMismatch ? { nicknameMismatch: { value: "Nickname mismatch" } } : null;
         };
     }
 }

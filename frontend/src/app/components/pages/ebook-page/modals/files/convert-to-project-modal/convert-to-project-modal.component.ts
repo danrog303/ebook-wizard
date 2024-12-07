@@ -26,10 +26,10 @@ export class ConvertEbookFileToProjectModalComponent {
     ongoingActionStatus: LoadingStatus = LoadingStatus.NOT_STARTED
 
     constructor(@Inject(MAT_DIALOG_DATA) public ebookFile: EbookFile,
-                @Inject(MatDialogRef) private dialogRef: MatDialogRef<ConvertEbookFileToProjectModalComponent>,
-                private ebookFileService: EbookFileService,
-                private queueTaskTrackingService: QueueTaskTrackingService,
-                private notificationService: NotificationService) {}
+                @Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<ConvertEbookFileToProjectModalComponent>,
+                private readonly ebookFileService: EbookFileService,
+                private readonly queueTaskTrackingService: QueueTaskTrackingService,
+                private readonly notificationService: NotificationService) {}
 
     convertToProject() {
         this.ongoingAction = "conversion";

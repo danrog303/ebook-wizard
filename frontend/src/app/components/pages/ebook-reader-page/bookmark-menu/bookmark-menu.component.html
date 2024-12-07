@@ -1,35 +1,51 @@
-<div class="bookmark-menu" (click)="$event.stopPropagation()">
-    <section>
-        <header>
-            <strong i18n>Bookmark this page?</strong>
-        </header>
+@if (!bookmarkServiceAvailable) {
+    <div class="bookmark-menu">
+        <p><strong i18n>Bookmark service</strong></p>
+        <p i18n>is available only for authenticated users.</p>
 
-        <div>
-            <mat-slide-toggle [(ngModel)]="bookmarkSliderChecked"
-                              (change)="onBookmarkUpdated($event)"
-                              [disabled]="operationProgress === LoadingStatus.LOADING"
-                              i18n>Bookmark current page</mat-slide-toggle>
-        </div>
-    </section>
+        <button mat-flat-button color="primary" [routerLink]="'/auth/register'">
+            <mat-icon>login</mat-icon>
+            <ng-container i18n>Register now</ng-container>
+        </button>
 
-    <hr />
+        <button mat-button color="primary" [routerLink]="'/auth/login'">
+            <ng-container i18n>Or, log in here</ng-container>
+        </button>
+    </div>
+} @else {
+    <div class="bookmark-menu" (click)="$event.stopPropagation()">
+        <section>
+            <header>
+                <strong i18n>Bookmark this page?</strong>
+            </header>
 
-    <section>
-        <header>
-            <strong i18n>Your bookmarks</strong>
-        </header>
+            <div>
+                <mat-slide-toggle [(ngModel)]="bookmarkSliderChecked"
+                                  (change)="onBookmarkUpdated($event)"
+                                  [disabled]="operationProgress === LoadingStatus.LOADING"
+                                  i18n>Bookmark current page</mat-slide-toggle>
+            </div>
+        </section>
 
-        <div class="bookmark-picker">
-            @for (bookmarkedPage of bookmarks?.bookmarkedPages; track bookmarkedPage) {
-                <div class="bookmark" (click)="onBookmarkSelected(bookmarkedPage)">
-                    <mat-icon color="primary">bookmark</mat-icon>
-                    <span i18n>Page {{bookmarkedPage}}</span>
-                </div>
-            } @empty {
-                <div class="no-bookmarks">
-                    <span i18n>No bookmarks yet...</span>
-                </div>
-            }
-        </div>
-    </section>
-</div>
+        <hr />
+
+        <section>
+            <header>
+                <strong i18n>Your bookmarks</strong>
+            </header>
+
+            <div class="bookmark-picker">
+                @for (bookmarkedPage of bookmarks?.bookmarkedPages; track bookmarkedPage) {
+                    <div class="bookmark" (click)="onBookmarkSelected(bookmarkedPage)">
+                        <mat-icon color="primary">bookmark</mat-icon>
+                        <span i18n>Page {{bookmarkedPage}}</span>
+                    </div>
+                } @empty {
+                    <div class="no-bookmarks">
+                        <span i18n>No bookmarks yet...</span>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+}

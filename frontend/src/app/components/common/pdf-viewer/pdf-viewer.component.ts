@@ -21,6 +21,7 @@ export class PdfViewerComponent implements OnInit, OnDestroy {
 
     currentPage: number = 1;
     private pdfDoc: pdfjsLib.PDFDocumentProxy | null = null;
+    private canChangePage: boolean = true;
 
     async ngOnInit() {
         await this.loadPdf(this.url);
@@ -42,7 +43,7 @@ export class PdfViewerComponent implements OnInit, OnDestroy {
             return;
         }
 
-        if (pageNumber > 0 && pageNumber <= this.pdfDoc!.numPages) {
+        if (pageNumber > 0 && pageNumber <= this.pdfDoc.numPages) {
             this.currentPage = pageNumber;
             await this.renderPage(pageNumber);
         }
@@ -81,10 +82,21 @@ export class PdfViewerComponent implements OnInit, OnDestroy {
     }
 
     async onKeyDown(event: KeyboardEvent) {
+        // When pages are being changed too fast (before the previous page render function finished),
+        // PDF.js sometimes glitches and renders the page in a wrong position
+        // this.canChangePage is used to prevent this from happening
+        if (!this.canChangePage) {
+            return;
+        }
+
         if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+            this.canChangePage = false;
             await this.goToPage(this.currentPage - 1);
+            this.canChangePage = true;
         } else if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+            this.canChangePage = false;
             await this.goToPage(this.currentPage + 1);
+            this.canChangePage = true;
         }
     }
 }

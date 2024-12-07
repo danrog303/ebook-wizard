@@ -45,7 +45,6 @@ public class QueueTaskService {
         task.setTaskPayload(payloadClone);
         task.setStatus(QueueTaskStatus.IN_QUEUE);
         task.setCreationDate(new Date());
-        task.setExpirationDate(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000));
 
         final var updatedTask = queueTaskRepository.save(task);
         payloadClone.setTaskId(updatedTask.getId());

@@ -4,18 +4,15 @@ import EbookProject from "../models/ebook-project/ebook-project.model";
 import {filter, map, Observable} from "rxjs";
 import environment from "../../environments/environment";
 import UploadProgressEvent from "@app/models/misc/upload-progress-event.model";
-import EbookFile from "@app/models/ebook-file/ebook-file.model";
 import EbookFormat from "@app/models/ebook/ebook-format.enum";
 import QueueTask from "@app/models/task-queue/queue-task.model";
 import QueueTaskPayload from "@app/models/task-queue/queue-task-payload.model";
 
 @Injectable({providedIn: 'root'})
 export default class EbookProjectService {
-    readonly MAX_FILE_SIZE_BYTES = 25 * 1024 * 1024; // 25 MB
-    readonly MAX_ILLUSTRATION_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
     readonly MAX_COVER_IMAGE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
 
-    constructor(private http: HttpClient) {}
+    constructor(private readonly http: HttpClient) {}
 
     createEmptyEbookProject(ebookProject: EbookProject): Observable<EbookProject> {
         const url = `${environment.API_BASE_URI}/ebook-project`;

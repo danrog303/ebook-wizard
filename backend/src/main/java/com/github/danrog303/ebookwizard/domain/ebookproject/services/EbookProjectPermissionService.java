@@ -17,7 +17,7 @@ public class EbookProjectPermissionService {
     public EbookProject getEbookProject(String ebookProjectId, EbookAccessType accessType) {
         EbookProject ep = ebookProjectRepository.findById(ebookProjectId).orElseThrow();
 
-        if (accessType.equals(EbookAccessType.READ_ONLY) && ep.getIsPublic()) {
+        if (accessType.equals(EbookAccessType.READ_ONLY) && Boolean.TRUE.equals(ep.getIsPublic())) {
             return ep;
         }
 

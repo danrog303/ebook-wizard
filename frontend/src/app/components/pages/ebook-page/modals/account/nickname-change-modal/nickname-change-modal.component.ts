@@ -1,9 +1,7 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef, MatDialogTitle} from "@angular/material/dialog";
+import {MatDialogRef} from "@angular/material/dialog";
 import MaterialModule from "@app/modules/material.module";
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import EbookFile from "@app/models/ebook-file/ebook-file.model";
-import EbookFileService from "@app/services/ebook-file.service";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import NotificationService from "@app/services/notification.service";
 import AuthenticationService from "@app/services/authentication.service";
 
@@ -26,9 +24,9 @@ export class NicknameChangeModalComponent {
         ])
     });
 
-    constructor(@Inject(MatDialogRef) private dialogRef: MatDialogRef<NicknameChangeModalComponent>,
-                private authService: AuthenticationService,
-                private notificationService: NotificationService) {
+    constructor(@Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<NicknameChangeModalComponent>,
+                private readonly authService: AuthenticationService,
+                private readonly notificationService: NotificationService) {
     }
 
     async onNicknameFormSubmitted() {

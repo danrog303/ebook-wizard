@@ -2,7 +2,7 @@ package com.github.danrog303.ebookwizard.domain.ebookfile.services;
 
 import com.github.danrog303.ebookwizard.domain.ebook.models.EbookDownloadableResource;
 import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFormat;
-import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageCalculator;
+import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageService;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.external.document.metadata.DocumentMetadata;
 import com.github.danrog303.ebookwizard.external.document.metadata.DocumentMetadataManipulator;
@@ -27,7 +27,7 @@ import java.nio.file.Path;
 public class EbookFileUpdateService {
     private final FileStorageService fileStorageService;
     private final DocumentMetadataManipulator metadataManipulator;
-    private final EbookDiskUsageCalculator diskUsageCalculator;
+    private final EbookDiskUsageService diskUsageCalculator;
 
     @SneakyThrows(IOException.class)
     public void updateEbookFileMetadata(EbookFile ebook) {

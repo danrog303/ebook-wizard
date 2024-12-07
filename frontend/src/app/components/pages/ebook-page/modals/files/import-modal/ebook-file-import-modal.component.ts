@@ -49,10 +49,10 @@ export class EbookFileImportModalComponent {
         file: new FormControl(null, [Validators.required]),
     });
 
-    constructor(@Inject(MatDialogRef) private dialogRef: MatDialogRef<EbookFileImportModalComponent>,
-                @Inject(MAT_DIALOG_DATA) private dialogData: EbookFileImportModalData,
-                private ebookFileService: EbookFileService,
-                private notificationService: NotificationService) {
+    constructor(@Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<EbookFileImportModalComponent>,
+                @Inject(MAT_DIALOG_DATA) private readonly dialogData: EbookFileImportModalData,
+                private readonly ebookFileService: EbookFileService,
+                private readonly notificationService: NotificationService) {
     }
 
     onFileChosen(files: File[]) {

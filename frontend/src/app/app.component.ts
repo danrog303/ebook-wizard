@@ -10,7 +10,7 @@ import {Title} from "@angular/platform-browser";
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-    constructor(private titleService: Title) {
+    constructor(private readonly titleService: Title) {
     }
 
     ngOnInit() {

@@ -1,13 +1,12 @@
 import {Injectable} from "@angular/core";
 import { HttpClient, HttpEvent, HttpEventType, HttpHeaders, HttpRequest } from "@angular/common/http";
-import {catchError, filter, map, Observable} from "rxjs";
+import {filter, map, Observable} from "rxjs";
 
 import environment from "@env/environment";
 import EbookFile from "@app/models/ebook-file/ebook-file.model";
 import QueueTask from "@app/models/task-queue/queue-task.model";
 import QueueTaskPayload from "@app/models/task-queue/queue-task-payload.model";
 import UploadProgressEvent from "@app/models/misc/upload-progress-event.model";
-import EbookProject from "@app/models/ebook-project/ebook-project.model";
 import EbookFolder from "@app/models/ebook/ebook-folder.model";
 
 @Injectable({providedIn: 'root'})
@@ -15,7 +14,7 @@ export default class EbookFileService {
     readonly MAX_FILE_SIZE_BYTES = 25 * 1024 * 1024; // 25 MB
     readonly MAX_FILE_COVER_IMAGE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
 
-    constructor(private http: HttpClient) {}
+    constructor(private readonly http: HttpClient) {}
 
     convertEbookToEbookFile(ebookFileId: string, targetFormat: string): Observable<QueueTask<QueueTaskPayload>> {
         const url = `${environment.API_BASE_URI}/ebook-file/convert/${ebookFileId}/to-file/${targetFormat}`;

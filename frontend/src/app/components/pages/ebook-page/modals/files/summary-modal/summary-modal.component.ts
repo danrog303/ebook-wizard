@@ -12,7 +12,7 @@ import {EbookFileDetailsComponent} from "@app/components/common/ebook-file-detai
     styleUrl: './summary-modal.component.scss'
 })
 export class EbookFileSummaryModalComponent {
-    constructor(@Inject(MAT_DIALOG_DATA) public ebookFile: EbookFile,
-                @Inject(MatDialogRef) private dialogRef: MatDialogRef<EbookFileSummaryModalComponent>) {
+    constructor(@Inject(MAT_DIALOG_DATA) public readonly ebookFile: EbookFile,
+                @Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<EbookFileSummaryModalComponent>) {
     }
 }

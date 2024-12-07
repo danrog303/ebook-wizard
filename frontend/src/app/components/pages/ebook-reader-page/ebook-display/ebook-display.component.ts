@@ -1,5 +1,12 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {
+    AfterViewInit,
+    Component,
+    Input,
+    OnChanges,
+    OnDestroy,
+    SimpleChanges,
+    ViewChild
+} from '@angular/core';
 import LoadingStatus from "@app/models/misc/loading-status.enum";
 import EbookFormat from "@app/models/ebook/ebook-format.enum";
 import QueueTask from "@app/models/task-queue/queue-task.model";
@@ -21,15 +28,20 @@ import {
     BookmarkMenuComponent,
     BookmarkMenuContext
 } from "@app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component";
+import AuthenticationService from "@app/services/authentication.service";
+import {
+    PageJumpMenuComponent,
+    PageJumpMenuContext
+} from "@app/components/pages/ebook-reader-page/page-jump-menu/page-jump-menu.component";
 
 @Component({
     selector: 'app-ebook-reader-display',
     standalone: true,
-    imports: [SafePipe, PdfViewerComponent, CommonModule, MaterialModule, AudiobookMenuComponent, BookmarkMenuComponent],
+    imports: [SafePipe, PdfViewerComponent, CommonModule, MaterialModule, AudiobookMenuComponent, BookmarkMenuComponent, PageJumpMenuComponent],
     templateUrl: './ebook-display.component.html',
     styleUrl: './ebook-display.component.scss'
 })
-export default class EbookDisplayComponent implements OnInit, OnChanges, OnDestroy {
+export default class EbookDisplayComponent implements AfterViewInit, OnChanges, OnDestroy {
     fileUrl: string = "";
     fileUrlLoadingStatus: LoadingStatus = LoadingStatus.NOT_STARTED;
 
@@ -44,12 +56,19 @@ export default class EbookDisplayComponent implements OnInit, OnChanges, OnDestr
     conversionOngoing: boolean = false;
     audiobookPlayerContext: AudiobookMenuContext | null = null;
     bookmarkMenuContext: BookmarkMenuContext | null = null;
+    pageJumpMenuContext: PageJumpMenuContext | null = null;
 
-    constructor(private ebookFileService: EbookFileService,
-                private queueTaskTrackingService: QueueTaskTrackingService) {
+    constructor(private readonly ebookFileService: EbookFileService,
+                private readonly queueTaskTrackingService: QueueTaskTrackingService,
+                private readonly authService: AuthenticationService) {
     }
 
-    ngOnInit() {
+    async ngAfterViewInit() {
+        this.pageJumpMenuContext = {
+            getMaxPage: () => this.getMaxPage(),
+            changePage: (pageNumber: number) => this.pageJump(pageNumber),
+        };
+
         this.audiobookPlayerContext = {
             openNextPage: this.pageForward.bind(this),
             getCurrentText: () => this.pdfViewerComponent.getTextContent(this.pdfViewerComponent.currentPage),
@@ -63,7 +82,7 @@ export default class EbookDisplayComponent implements OnInit, OnChanges, OnDestr
     }
 
     async ngOnDestroy() {
-        await this.audiobookMenuComponent.stopAudio();
+        await this.audiobookMenuComponent?.stopAudio();
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -111,6 +130,10 @@ export default class EbookDisplayComponent implements OnInit, OnChanges, OnDestr
         }
     }
 
+    getMaxPage() {
+        return this.pdfViewerComponent.getMaxPages();
+    }
+
     retrieveRequestedFormat() {
         const ebookFileId = this.ebookFile!.id!;
 
@@ -142,6 +165,10 @@ export default class EbookDisplayComponent implements OnInit, OnChanges, OnDestr
         }
 
         await this.pdfViewerComponent.goToPage(this.pdfViewerComponent.currentPage - 1);
+    }
+
+    async pageJump(pageNumber: number) {
+        await this.pdfViewerComponent.goToPage(pageNumber);
     }
 
     protected readonly LoadingStatus = LoadingStatus;

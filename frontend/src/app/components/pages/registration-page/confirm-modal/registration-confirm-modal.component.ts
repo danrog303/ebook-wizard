@@ -26,9 +26,9 @@ export default class RegistrationConfirmModalComponent {
 
     constructor(public dialogRef: MatDialogRef<RegistrationConfirmModalComponent>,
                 @Inject(MAT_DIALOG_DATA) public userData: RegistrationConfirmModalInput,
-                private authService: AuthenticationService,
-                private notificationService: NotificationService,
-                private routerService: Router) {
+                private readonly authService: AuthenticationService,
+                private readonly notificationService: NotificationService,
+                private readonly routerService: Router) {
         this.registrationConfirmForm = new FormGroup({
             'code': new FormControl(null, [Validators.required, Validators.pattern(/^\d{6}$/)])
         });

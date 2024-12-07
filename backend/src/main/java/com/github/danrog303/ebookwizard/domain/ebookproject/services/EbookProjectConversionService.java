@@ -1,9 +1,9 @@
 package com.github.danrog303.ebookwizard.domain.ebookproject.services;
 
 import com.github.danrog303.ebookwizard.domain.ebook.models.EbookDownloadableResource;
-import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFileLock;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookEditLock;
 import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFormat;
-import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageCalculator;
+import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageService;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFileRepository;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
@@ -42,7 +42,7 @@ public class EbookProjectConversionService {
     private final DocumentMetadataManipulator metadataManipulator;
     private final DocumentConverter documentConverter;
     private final DocumentThumbnailManipulator documentThumbnailManipulator;
-    private final EbookDiskUsageCalculator diskUsageCalculator;
+    private final EbookDiskUsageService diskUsageCalculator;
 
     @SneakyThrows(IOException.class)
     public void convertEbookProjectToPhysicalFile(EbookProject sourceProject, Path targetPath) {
@@ -134,7 +134,7 @@ public class EbookProjectConversionService {
         newFile.setTags(sourceProject.getTags());
         newFile.setPublic(false);
         newFile.setId(null);
-        newFile.setEditLock(new EbookFileLock(false, null));
+        newFile.setEditLock(new EbookEditLock(false, null));
         newFile.setOwnerUserId(sourceProject.getOwnerUserId());
         newFile.setFavorite(false);
         newFile.setCreationDate(new Date());

@@ -18,9 +18,11 @@ import java.nio.file.StandardCopyOption;
 @Slf4j
 @Service
 public class CalibreDocumentConverter implements DocumentConverter {
+    private static final String HTML_EXTENSION = ".html";
+
     @SneakyThrows({IOException.class})
     public void convertDocument(Path documentInputPath, Path documentOutputPath) {
-        boolean isHtmlConversion = documentInputPath.toString().endsWith(".html") || documentOutputPath.toString().endsWith(".html");
+        boolean isHtmlConversion = documentInputPath.toString().endsWith(HTML_EXTENSION) || documentOutputPath.toString().endsWith(HTML_EXTENSION);
 
         try (TemporaryDirectory tempDir = new TemporaryDirectory()) {
             if (isHtmlConversion) {
@@ -71,14 +73,14 @@ public class CalibreDocumentConverter implements DocumentConverter {
 
         // Pandoc does not support most ebook formats, so we need to convert input to EPUB first
         Path pandocInputPath = tempDir.getDirectory().resolve("input_epub.epub");
-        if (documentInputPath.endsWith(".epub") || documentInputPath.endsWith(".html")) {
+        if (documentInputPath.endsWith(".epub") || documentInputPath.endsWith(HTML_EXTENSION)) {
             pandocInputPath = documentInputPath;
         } else {
             runCalibreConversion(tempDir, documentInputPath, pandocInputPath);
         }
 
         Path pandocOutputPath;
-        if (documentOutputPath.toString().endsWith(".epub") || documentOutputPath.toString().endsWith(".html")) {
+        if (documentOutputPath.toString().endsWith(".epub") || documentOutputPath.toString().endsWith(HTML_EXTENSION)) {
             pandocOutputPath = documentOutputPath;
         } else {
             pandocOutputPath = tempDir.getDirectory().resolve("output_epub.epub");
@@ -96,7 +98,7 @@ public class CalibreDocumentConverter implements DocumentConverter {
             runCalibreConversion(tempDir, pandocOutputPath, documentOutputPath);
         }
 
-        if (documentOutputPath.toString().endsWith(".html")) {
+        if (documentOutputPath.toString().endsWith(HTML_EXTENSION)) {
             Path tempWorkingFile = tempDir.getDirectory().resolve("temp_fix.html");
             fixPandocHtml(documentOutputPath, tempWorkingFile);
         }

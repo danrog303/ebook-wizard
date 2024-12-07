@@ -1,6 +1,6 @@
 package com.github.danrog303.ebookwizard.domain.ebook.controllers;
 
-import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageCalculator;
+import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/ebook/disk")
 @RequiredArgsConstructor
 public class EbookDiskUsageController {
-    private final EbookDiskUsageCalculator ebookDiskUsageService;
+    private final EbookDiskUsageService ebookDiskUsageService;
 
     @GetMapping("/limit")
     @PreAuthorize("isAuthenticated()")

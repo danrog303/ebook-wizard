@@ -1,6 +1,6 @@
 package com.github.danrog303.ebookwizard.domain.ebookfile.services;
 
-import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFileLock;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookEditLock;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFileRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,14 +24,14 @@ public class EbookFileLockService {
         }
 
         long datePlus30Minutes = System.currentTimeMillis()+(30*60*1000);
-        ebookFile.setEditLock(new EbookFileLock(true, new Date(datePlus30Minutes)));
+        ebookFile.setEditLock(new EbookEditLock(true, new Date(datePlus30Minutes)));
         ebookFileRepository.save(ebookFile);
     }
 
     public void unlockEbookFileForEditing(String ebookFileId) {
         log.debug("Unlocking ebook file for editing: {}", ebookFileId);
         EbookFile ebookFile = ebookFileRepository.findById(ebookFileId).orElseThrow();
-        ebookFile.setEditLock(new EbookFileLock(false, null));
+        ebookFile.setEditLock(new EbookEditLock(false, null));
         ebookFileRepository.save(ebookFile);
     }
 }

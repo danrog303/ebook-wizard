@@ -1,12 +1,11 @@
-import {Component, Inject, Input} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef, MatDialogTitle} from "@angular/material/dialog";
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 
 import EbookProjectChapter from "@app/models/ebook-project/ebook-project-chapter.model";
 import EbookProject, {createEmptyEbookProject} from "@app/models/ebook-project/ebook-project.model";
 import MaterialModule from "@app/modules/material.module";
 import EbookProjectChapterService from "@app/services/ebook-project-chapter.service";
-import EbookFile from "@app/models/ebook-file/ebook-file.model";
 import NotificationService from "@app/services/notification.service";
 import structuredClone from "@ungap/structured-clone";
 
@@ -35,9 +34,9 @@ export class ChapterNameModalComponent {
     });
 
     constructor(@Inject(MAT_DIALOG_DATA) dialogData: ChapterNameModalComponentData,
-                @Inject(MatDialogRef) private dialogRef: MatDialogRef<ChapterNameModalComponent>,
-                private ebookProjectChapterService: EbookProjectChapterService,
-                private notificationService: NotificationService) {
+                @Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<ChapterNameModalComponent>,
+                private readonly ebookProjectChapterService: EbookProjectChapterService,
+                private readonly notificationService: NotificationService) {
         this.ebookProject = dialogData.ebookProject;
         this.chapter = dialogData.chapter;
         this.mode = dialogData.mode;

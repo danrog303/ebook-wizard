@@ -23,7 +23,7 @@ import EbookFile from "@app/models/ebook-file/ebook-file.model";
 })
 export class EbookFileMetaEditModalComponent {
     constructor(@Inject(MAT_DIALOG_DATA) public ebookFile: EbookFile,
-                @Inject(MatDialogRef) private dialogRef: MatDialogRef<EbookFileMetaEditModalComponent>) {
+                @Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<EbookFileMetaEditModalComponent>) {
         this.ebookFile = structuredClone(ebookFile);
     }
 

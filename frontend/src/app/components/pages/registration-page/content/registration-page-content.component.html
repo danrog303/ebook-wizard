@@ -73,6 +73,17 @@
                     </mat-icon>
                 </mat-form-field>
 
+                <div class="accept-terms">
+                    <mat-checkbox formControlName="termsAndConditionsAccepted" i18n>
+                        I accept the <a href="/about" target="_blank">terms and conditions.</a>
+                    </mat-checkbox>
+
+                    @if (registerForm.controls["termsAndConditionsAccepted"].hasError('requiredTrue')) {
+                        <mat-error i18n>You must accept the terms and conditions</mat-error>
+                    }
+                </div>
+
+
                 <re-captcha (resolved)="onRecaptchaResolved($event)"
                             [siteKey]="recaptchaSiteKey"/>
             </mat-card-content>

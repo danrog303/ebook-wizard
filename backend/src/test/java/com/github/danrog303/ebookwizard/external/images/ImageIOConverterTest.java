@@ -13,26 +13,41 @@ import java.nio.file.Files;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ImageIOConverterTest {
-    private final ImageConverter imageConverter = new ImageIOConverter();
-    private final MimeTypeDetector mimeTypeDetector = new ApacheTikaMimeTypeDetector();
+    private final ImageConverter imageConverter;
+    private final MimeTypeDetector mimeTypeDetector;
+
+    public ImageIOConverterTest() {
+        this.imageConverter = new ImageIOConverter();
+        this.mimeTypeDetector = new ApacheTikaMimeTypeDetector();
+    }
 
     @Test
     public void test_convertTo_webpToPng() throws IOException {
-        try (var webpImage = this.getClass().getClassLoader().getResourceAsStream("images/image-webp.webp")) {
+        var webpImage = this.getClass().getClassLoader()
+                .getResourceAsStream("images/image-webp.webp");
+
+        try (webpImage) {
             try (TemporaryDirectory tempDir = new TemporaryDirectory()) {
-                var inputPath = tempDir.getDirectory().resolve("image-webp.webp");
-                var outputPath = tempDir.getDirectory().resolve("image-png.png");
+                var inputPath = tempDir.getDirectory()
+                        .resolve("image-webp.webp");
+                var outputPath = tempDir.getDirectory()
+                        .resolve("image-png.png");
 
                 assertThat(webpImage).isNotNull();
                 Files.copy(webpImage, inputPath);
-                assertThat(mimeTypeDetector.detectMimeType(inputPath.toFile())).isEqualTo("image/webp");
+
+                assertThat(mimeTypeDetector
+                        .detectMimeType(inputPath.toFile()))
+                        .isEqualTo("image/webp");
 
                 imageConverter.convertTo(inputPath, outputPath, "png");
-                assertThat(mimeTypeDetector.detectMimeType(outputPath.toFile())).isEqualTo("image/png");
+
+                assertThat(mimeTypeDetector
+                        .detectMimeType(outputPath.toFile()))
+                        .isEqualTo("image/png");
             }
         }
     }
-
     @Test
     public void test_convertTo_jpgToPng() throws IOException {
         try (var jpgImage = this.getClass().getClassLoader().getResourceAsStream("images/image-jpg.jpg")) {

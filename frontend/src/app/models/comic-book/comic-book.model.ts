@@ -1,5 +1,5 @@
 import EbookDownloadableResource from "../ebook/ebook-downloadable-resource.model";
-import EbookFileLock from "../ebook/ebook-file-lock.model";
+import EbookEditLock from "../ebook/ebook-file-lock.model";
 
 interface ComicBook {
     id: string;
@@ -12,7 +12,7 @@ interface ComicBook {
     creationDate: string;
     isPublic: boolean;
     isManga: boolean;
-    editLock: EbookFileLock;
+    editLock: EbookEditLock;
     downloadableFiles: EbookDownloadableResource[];
     chapters: ComicBookChapter[];
 }

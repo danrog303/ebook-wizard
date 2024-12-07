@@ -1,7 +1,7 @@
 package com.github.danrog303.ebookwizard.domain.ebookfile.models;
 
 import com.github.danrog303.ebookwizard.domain.ebook.models.EbookDownloadableResource;
-import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFileLock;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookEditLock;
 import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFormat;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
 import com.github.danrog303.ebookwizard.external.validator.MaxStringLengthList;
@@ -112,7 +112,7 @@ public class EbookFile {
     /**
      * The lock that prevents the ebook file from being edited when background task is updating its contents.
      */
-    private EbookFileLock editLock;
+    private EbookEditLock editLock;
 
     /**
      * A list of S3 objects belonging to this book.

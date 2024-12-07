@@ -28,7 +28,4 @@ public class QueueTask<T extends QueueTaskPayload> {
 
     @NotNull
     private Date creationDate;
-
-    @NotNull
-    private Date expirationDate;
 }

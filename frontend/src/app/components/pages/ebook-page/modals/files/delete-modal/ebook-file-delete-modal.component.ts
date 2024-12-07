@@ -19,9 +19,9 @@ export class EbookFileDeleteModalComponent {
     deleteStatus: LoadingStatus = LoadingStatus.NOT_STARTED;
 
     constructor(@Inject(MAT_DIALOG_DATA) public ebookFile: EbookFile,
-                @Inject(MatDialogRef) private dialogRef: MatDialogRef<EbookFileDeleteModalComponent>,
-                private ebookFileService: EbookFileService,
-                private notificationService: NotificationService) {
+                @Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<EbookFileDeleteModalComponent>,
+                private readonly ebookFileService: EbookFileService,
+                private readonly notificationService: NotificationService) {
     }
 
 

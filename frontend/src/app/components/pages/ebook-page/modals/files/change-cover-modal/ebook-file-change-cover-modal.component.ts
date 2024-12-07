@@ -29,10 +29,10 @@ export class EbookFileChangeCoverModalComponent {
     coverImageUploadSubscription: Subscription | null = null;
     coverImageUploadProgress: number = 0;
 
-    constructor(@Inject(MAT_DIALOG_DATA) public ebookFile: EbookFile,
-                @Inject(MatDialogRef) private dialogRef: MatDialogRef<EbookFileChangeCoverModalComponent>,
-                private ebookFileService: EbookFileService,
-                private notificationService: NotificationService) {
+    constructor(@Inject(MAT_DIALOG_DATA) public readonly ebookFile: EbookFile,
+                @Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<EbookFileChangeCoverModalComponent>,
+                private readonly ebookFileService: EbookFileService,
+                private readonly notificationService: NotificationService) {
     }
 
     onFileChosen(files: File[]) {
@@ -66,7 +66,7 @@ export class EbookFileChangeCoverModalComponent {
             this.dialogRef.disableClose = false;
             this.coverImageUploadSubscription?.unsubscribe();
             this.ongoingActionStatus = LoadingStatus.LOADED;
-            this.ebookFile.coverImageKey = (event.result as EbookFile).coverImageKey;
+            this.ebookFile.coverImageKey = event.result.coverImageKey;
             this.notificationService.show($localize`Cover image updated successfully.`);
             this.dialogRef.close(true);
         } else {

@@ -1,7 +1,7 @@
 package com.github.danrog303.ebookwizard.domain.ebookproject.models;
 
 import com.github.danrog303.ebookwizard.domain.ebook.models.EbookDownloadableResource;
-import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFileLock;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookEditLock;
 import com.github.danrog303.ebookwizard.external.validator.MaxStringLengthList;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -52,7 +52,7 @@ public class EbookProject {
     private Boolean isPublic;
 
     @NotNull
-    private EbookFileLock lock;
+    private EbookEditLock lock;
 
     @NotNull
     private List<EbookProjectIllustration> illustrations = new ArrayList<>();

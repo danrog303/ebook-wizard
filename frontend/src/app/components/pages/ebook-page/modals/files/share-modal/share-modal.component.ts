@@ -9,11 +9,13 @@ import NotificationService from "@app/services/notification.service";
 import {MatCheckboxChange} from "@angular/material/checkbox";
 import LoadingStatus from "@app/models/misc/loading-status.enum";
 import environment from "@env/environment";
+import EbookFormat from "@app/models/ebook/ebook-format.enum";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
     selector: 'app-ebook-file-share-modal',
     standalone: true,
-    imports: [MaterialModule, KeyValuePipe, ReactiveFormsModule],
+    imports: [MaterialModule, KeyValuePipe, ReactiveFormsModule, MatTooltip],
     templateUrl: './share-modal.component.html',
     styleUrl: './share-modal.component.scss'
 })
@@ -22,9 +24,9 @@ export class EbookFileShareModalComponent implements OnInit {
     updatingStatus: LoadingStatus = LoadingStatus.NOT_STARTED;
 
     constructor(@Inject(MAT_DIALOG_DATA) public ebookFile: EbookFile,
-                @Inject(MatDialogRef) private dialogRef: MatDialogRef<EbookFileShareModalComponent>,
-                private ebookFileService: EbookFileService,
-                private notificationService: NotificationService) {
+                @Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<EbookFileShareModalComponent>,
+                private readonly ebookFileService: EbookFileService,
+                private readonly notificationService: NotificationService) {
     }
 
     ngOnInit() {
@@ -33,6 +35,10 @@ export class EbookFileShareModalComponent implements OnInit {
         } else {
             this.ebookUrl = `${environment.FRONTEND_BASE_URI_EN}/reader/ebook-file/${this.ebookFile.id}`;
         }
+    }
+
+    ebookHasPdfFormat() {
+        return this.ebookFile.downloadableFiles!.some(file => file.format === EbookFormat.PDF);
     }
 
     onPublicToggle(event: MatCheckboxChange) {

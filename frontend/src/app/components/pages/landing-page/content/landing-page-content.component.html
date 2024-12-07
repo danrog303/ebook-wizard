@@ -18,14 +18,14 @@
             </p>
 
             <div class="landing-section-buttons">
-                @if (isUserAuthenticated) {
+                @if (isUserAuthenticated === true) {
                     <button mat-flat-button color="primary" routerLink="/ebook" i18n>Open your disk</button>
-                } @else {
+                } @else if (isUserAuthenticated === false) {
                     <button mat-flat-button color="primary" routerLink="/auth/login" i18n>Sign in</button>
                 }
             </div>
 
-            @if (!isUserAuthenticated) {
+            @if (isUserAuthenticated === false) {
                 <div class="landing-section-registration">
                     <ng-container i18n>You don't have an account yet?</ng-container>
                     <a routerLink="/auth/register" i18n>Register now!</a>

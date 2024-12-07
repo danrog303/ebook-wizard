@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class EbookDiskUsageCalculator {
+public class EbookDiskUsageService {
     private final EbookProjectRepository projectRepository;
     private final EbookFileRepository fileRepository;
     private final FileStorageService fileStorageService;
@@ -94,6 +94,6 @@ public class EbookDiskUsageCalculator {
     public long getDiskLimitOfAuthenticatedUser() {
         // For now, just return 500 MB
         // In the future, this could be a dynamic value based on the user's subscription
-        return 500 * 1024 * 1024;
+        return 500L * 1024L * 1024L;
     }
 }

@@ -5,7 +5,12 @@
             <app-logout-button />
         </div>
 
-        <img [src]="gravatarUrl" alt="Your avatar" class="avatar" />
+        <img [src]="gravatarUrl"
+             alt="Your avatar"
+             class="avatar"
+             matTooltip="Click to change your avatar by using Gravatar service."
+             i18n-matTooltip
+             (click)="openGravatarRedirectPage()" />
     </div>
 
     <mat-divider />

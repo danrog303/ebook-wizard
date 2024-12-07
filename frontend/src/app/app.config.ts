@@ -1,10 +1,10 @@
-import {ApplicationConfig, importProvidersFrom, inject} from '@angular/core';
+import {ApplicationConfig, importProvidersFrom} from '@angular/core';
 import {provideRouter} from '@angular/router';
 import {routes} from './app.routes';
 import {provideClientHydration} from '@angular/platform-browser';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {provideNativeDateAdapter} from "@angular/material/core";
-import {HttpClient, provideHttpClient, withFetch, withInterceptors} from "@angular/common/http";
+import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {authenticationInterceptor} from "./interceptors/authentication.interceptor";
 import {provideQuillConfig, QuillModule} from "ngx-quill";
 import QuillIllustrationService from "@app/services/quill-illustration.service";
@@ -30,10 +30,14 @@ export const appConfig: ApplicationConfig = {
             modules: {
                 toolbar: {
                     container: [
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],   // Listy numerowane i punktowane
+                        [{ 'indent': '-1'}, { 'indent': '+1' }],
                         ['bold', 'italic', 'underline', 'strike'],
+                        [{ 'font': [] }],
+                        [{ 'size': ['small', false, 'large', 'huge'] }],
                         ['image'],
                         [{ 'align': [] }],
-                        [{ 'header': [1, 2, false] }],
+                        [{ 'header': [1, 2, 3, 4, false] }],
                         ['clean']
                     ],
                     handlers: {

@@ -48,9 +48,6 @@ public class Base64ImagesExtractor {
             String src = img.attr("src");
             if (src.startsWith("data:image")) {
                 String randomTag = RandomStringUtils.randomAlphanumeric(64);
-
-                System.out.println(src);
-
                 Matcher matcher = base64ImagePattern.matcher(src);
 
                 String extensionName;

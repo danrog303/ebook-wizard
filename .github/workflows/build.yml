@@ -2,7 +2,6 @@ name: ci
 
 on:
   push:
-  pull_request:
 
 jobs:
   build_backend:
@@ -36,16 +35,6 @@ jobs:
       - name: Build with Maven
         run: mvn clean verify
         working-directory: ./backend
-
-      - name: Upload coverage report
-        uses: codecov/codecov-action@v4
-        with:
-          files: ./backend/target/site/jacoco/jacoco.xml
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: backend
-          name: backend-ut-coverage
-          fail_ci_if_error: true
-          verbose: true
       
   build_frontend:
     name: Build frontend
@@ -69,16 +58,7 @@ jobs:
       - name: Install dependencies
         run: npm ci --force
         working-directory: ./frontend
-          
-      # - name: Run Unit Tests
-      #   run: npm run ci:test
 
-      # - name: Run codacy-coverage-reporter
-      #   uses: codacy/codacy-coverage-reporter-action@master
-      #   with:
-      #     project-token: ${{ secrets.CODACY_CODE_COVERAGE_TOKEN }}
-      #     coverage-reports: coverage/lcov.info
-      
       - name: Build application
         run: npm run build
         working-directory: ./frontend

@@ -30,9 +30,9 @@ export class EbookProjectChangeCoverModalComponent {
     coverImageUploadProgress: number = 0;
 
     constructor(@Inject(MAT_DIALOG_DATA) public ebookProject: EbookProject,
-                @Inject(MatDialogRef) private dialogRef: MatDialogRef<EbookProjectChangeCoverModalComponent>,
-                private ebookProjectService: EbookProjectService,
-                private notificationService: NotificationService) {
+                @Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<EbookProjectChangeCoverModalComponent>,
+                private readonly ebookProjectService: EbookProjectService,
+                private readonly notificationService: NotificationService) {
     }
 
     onFileChosen(files: File[]) {
@@ -65,7 +65,7 @@ export class EbookProjectChangeCoverModalComponent {
         if (event.progress === 100 && event.result) {
             this.coverImageUploadSubscription?.unsubscribe();
             this.ongoingActionStatus = LoadingStatus.LOADED;
-            this.ebookProject.coverImageKey = (event.result as EbookProject).coverImageKey;
+            this.ebookProject.coverImageKey = event.result.coverImageKey;
             this.notificationService.show($localize`Cover image updated successfully.`);
             this.dialogRef.close(true);
         } else {

@@ -1,7 +1,7 @@
 package com.github.danrog303.ebookwizard.domain.comicbook.models;
 
 import com.github.danrog303.ebookwizard.domain.ebook.models.EbookDownloadableResource;
-import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFileLock;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookEditLock;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -45,7 +45,7 @@ public class ComicBook {
     private Boolean isManga;
 
     @NotNull
-    private EbookFileLock editLock;
+    private EbookEditLock editLock;
 
     @NotNull
     private List<EbookDownloadableResource> downloadableFiles = new ArrayList<>();

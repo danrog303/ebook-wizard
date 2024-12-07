@@ -7,6 +7,8 @@ import NotificationService from "@app/services/notification.service";
 import LoadingStatus from "@app/models/misc/loading-status.enum";
 import {MatSlider, MatSliderThumb} from "@angular/material/slider";
 import {FormsModule} from "@angular/forms";
+import AuthenticationService from "@app/services/authentication.service";
+import {RouterLink} from "@angular/router";
 
 export interface AudiobookMenuContext {
     openNextPage: () => Promise<void>;
@@ -17,7 +19,7 @@ export interface AudiobookMenuContext {
 @Component({
     selector: 'app-audiobook-menu',
     standalone: true,
-    imports: [MaterialModule, CommonModule, MatSlider, MatSliderThumb, FormsModule],
+    imports: [MaterialModule, CommonModule, MatSlider, MatSliderThumb, FormsModule, RouterLink],
     templateUrl: './audiobook-menu.component.html',
     styleUrl: './audiobook-menu.component.scss'
 })
@@ -31,30 +33,44 @@ export class AudiobookMenuComponent implements OnInit {
     chosenLanguage: string = '';
     chosenVoice: string = '';
     chosenVolumePercentage: number = 25;
+    audiobookServiceAvailable = false;
 
     protected loadingLanguagesList: LoadingStatus = LoadingStatus.NOT_STARTED;
     protected loadingVoicesList: LoadingStatus = LoadingStatus.NOT_STARTED;
 
     @Input() context: AudiobookMenuContext | null = null;
     private audioUrl: string | null = null;
-    private audioPlayer: HTMLAudioElement = new Audio();
+    private readonly audioPlayer: HTMLAudioElement = new Audio();
 
-    constructor(private audiobookService: AudiobookService,
-                private notificationService: NotificationService) {}
+    constructor(private readonly audiobookService: AudiobookService,
+                private readonly notificationService: NotificationService,
+                private readonly authService: AuthenticationService) {}
 
     async ngOnInit() {
-        await this.fetchLanguages();
-        await this.fetchVoicesForCurrentLanguage();
+        const isAuthenticated = await this.authService.isUserAuthenticated();
+
+        if (isAuthenticated) {
+            this.audiobookServiceAvailable = true;
+            await this.fetchLanguages();
+            await this.fetchVoicesForCurrentLanguage();
+        } else {
+            this.audiobookServiceAvailable = false;
+        }
     }
 
     async fetchLanguages() {
         try {
+            this.audiobookServiceAvailable = true;
             this.loadingLanguagesList = LoadingStatus.LOADING;
             this.supportedLanguages = await firstValueFrom(this.audiobookService.getSupportedLanguages());
             this.chosenLanguage = this.getDefaultLanguage();
             this.loadingLanguagesList = LoadingStatus.LOADED;
-        } catch {
-            this.notificationService.show($localize`Failed to load audiobook data. Please try again later.`);
+        } catch (e) {
+            if (JSON.stringify(e).includes("403") || JSON.stringify(e).includes("401")) {
+                this.audiobookServiceAvailable = false;
+            } else {
+                this.notificationService.show($localize`Failed to load audiobook data. Please try again later.`);
+            }
             this.loadingLanguagesList = LoadingStatus.ERROR;
         }
     }

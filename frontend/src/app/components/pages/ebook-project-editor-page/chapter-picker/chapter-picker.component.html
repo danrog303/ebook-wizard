@@ -25,11 +25,12 @@
 
             <div matListItemIcon class="chapter-action-btn"
                  style="margin-right: 0; padding-right: 0;"
-                 (click)="openDeleteChapterModal(chapter)">
+                 (click)="$event.stopPropagation(); openDeleteChapterModal(chapter)">
                 <mat-icon>delete</mat-icon>
             </div>
 
-            <div matListItemIcon class="chapter-action-btn" (click)="openEditChapterNameModal(chapter)">
+            <div matListItemIcon class="chapter-action-btn"
+                 (click)="$event.stopPropagation(); openEditChapterNameModal(chapter)">
                 <mat-icon>edit</mat-icon>
             </div>
 

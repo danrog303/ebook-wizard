@@ -1,7 +1,7 @@
 package com.github.danrog303.ebookwizard.domain.ebookfile.services;
 
 import com.github.danrog303.ebookwizard.domain.ebook.models.EbookDownloadableResource;
-import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageCalculator;
+import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageService;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.external.document.metadata.DocumentMetadata;
 import com.github.danrog303.ebookwizard.external.document.metadata.DocumentMetadataManipulator;
@@ -29,7 +29,7 @@ public class EbookFileImportService {
     private final DocumentThumbnailManipulator thumbnailManipulator;
     private final FileStorageService fileStorageService;
     private final ImageConverter imageConverter;
-    private final EbookDiskUsageCalculator diskUsageCalculator;
+    private final EbookDiskUsageService diskUsageCalculator;
 
     public void applyMetadataFromDocumentToEbookFle(EbookFile ebookFile, Path documentPath) {
         DocumentMetadata metadata = metadataManipulator.getDocumentMetadata(documentPath);

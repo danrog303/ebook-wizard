@@ -5,9 +5,9 @@ import environment from "@env/environment";
 
 @Injectable({providedIn: "root"})
 export default class DiskUsageService {
-    private limitCacheKey = "diskUsageLimit";
+    private readonly limitCacheKey = "diskUsageLimit";
 
-    constructor(private httpService: HttpClient) {
+    constructor(private readonly httpService: HttpClient) {
     }
 
     getDiskUsageBytes(): Observable<number> {

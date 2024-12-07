@@ -48,11 +48,11 @@ export class EbookProjectEditorPageComponent implements AfterContentInit {
     chosenChapterLastSaved: Date | null = null;
     chosenChapter: EbookProjectChapter | null = null;
 
-    constructor(private activatedRoute: ActivatedRoute,
-                private ebookProjectService: EbookProjectService,
-                private ebookProjectChapterService: EbookProjectChapterService,
-                private notificationService: NotificationService,
-                private matDialog: MatDialog) {
+    constructor(private readonly activatedRoute: ActivatedRoute,
+                private readonly ebookProjectService: EbookProjectService,
+                private readonly ebookProjectChapterService: EbookProjectChapterService,
+                private readonly notificationService: NotificationService,
+                private readonly matDialog: MatDialog) {
     }
 
     async ngAfterContentInit() {
@@ -118,7 +118,7 @@ export class EbookProjectEditorPageComponent implements AfterContentInit {
     saveEbookProject(): Observable<void> {
         this.chosenChapterSaveStatus = LoadingStatus.LOADING;
         return this.ebookProjectChapterService
-            .updateChapter(this.ebookProjectId, this.chosenChapter?.id || "", this.chosenChapter!)
+            .updateChapter(this.ebookProjectId, this.chosenChapter?.id ?? "", this.chosenChapter!)
             .pipe(
                 map(() => {
                     this.chosenChapterSaveStatus = LoadingStatus.LOADED;

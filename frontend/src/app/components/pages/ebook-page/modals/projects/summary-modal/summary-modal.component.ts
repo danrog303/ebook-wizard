@@ -14,6 +14,6 @@ import EbookProject from "@app/models/ebook-project/ebook-project.model";
 })
 export class EbookProjectSummaryModalComponent {
     constructor(@Inject(MAT_DIALOG_DATA) public ebookProject: EbookProject,
-                @Inject(MatDialogRef) private dialogRef: MatDialogRef<EbookProjectSummaryModalComponent>) {
+                @Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<EbookProjectSummaryModalComponent>) {
     }
 }

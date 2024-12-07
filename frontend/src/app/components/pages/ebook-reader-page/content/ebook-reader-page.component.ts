@@ -39,11 +39,11 @@ export class EbookReaderPageComponent implements OnInit, OnDestroy {
 
     isSmallScreen: boolean = false;
 
-    constructor(private activatedRoute: ActivatedRoute,
-                private ebookFileService: EbookFileService,
-                private authService: AuthenticationService,
-                private breakpointObserver: BreakpointObserver,
-                private matDialog: MatDialog) {
+    constructor(private readonly activatedRoute: ActivatedRoute,
+                private readonly ebookFileService: EbookFileService,
+                private readonly authService: AuthenticationService,
+                private readonly breakpointObserver: BreakpointObserver,
+                private readonly matDialog: MatDialog) {
     }
 
     async ngOnInit() {

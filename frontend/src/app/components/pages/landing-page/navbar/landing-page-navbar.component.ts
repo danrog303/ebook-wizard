@@ -1,4 +1,4 @@
-import {Component, HostListener} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {RouterModule} from "@angular/router";
 import {CommonModule, NgOptimizedImage, ViewportScroller} from "@angular/common";
 import MaterialModule from "@app/modules/material.module";
@@ -14,7 +14,8 @@ import {LanguagePickerComponent} from "@app/components/common/language-picker/la
     styleUrl: './landing-page-navbar.component.scss',
     imports: [MaterialModule, RouterModule, CommonModule, LogoutButtonComponent, NgOptimizedImage, LanguagePickerComponent]
 })
-export default class LandingPageNavbarComponent {
+export default class LandingPageNavbarComponent implements OnInit {
+    userAuthenticated: boolean | null = null;
     activeTab: string = 'ebook-page-content-header';
     navItems = [
         {anchorId: 'landing-page-header', name: $localize`Home`},
@@ -25,6 +26,17 @@ export default class LandingPageNavbarComponent {
 
     constructor(public viewportScrollerService: ViewportScroller,
                 public authenticationService: AuthenticationService) {}
+
+    ngOnInit(): void {
+        // Skip checking authentication when running in SSR context
+        if (typeof window === 'undefined') {
+            return;
+        }
+
+        this.authenticationService.isUserAuthenticated().then(isAuthenticated => {
+            this.userAuthenticated = isAuthenticated;
+        });
+    }
 
     scrollToElement(elementId: string): void {
         this.viewportScrollerService.scrollToAnchor(elementId);

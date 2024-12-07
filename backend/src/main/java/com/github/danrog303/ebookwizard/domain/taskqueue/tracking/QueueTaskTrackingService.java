@@ -52,6 +52,9 @@ public class QueueTaskTrackingService {
             emitter.complete();
         } catch (IOException | InterruptedException e) {
             log.debug("SSE stream for task id={} stopped", task.getId());
+            if (e.getClass().equals(InterruptedException.class)) {
+                Thread.currentThread().interrupt();
+            }
         }
     }
 

@@ -1,5 +1,5 @@
-import {AfterContentInit, AfterViewInit, Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {QuillEditorComponent, QuillModule} from "ngx-quill";
+import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
+import {QuillEditorComponent} from "ngx-quill";
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import MaterialModule from "@app/modules/material.module";
@@ -44,11 +44,11 @@ export class EbookProjectReaderPageComponent implements OnInit, AfterContentInit
 
     @ViewChild("viewPaneIframe") viewPaneIframe: HTMLIFrameElement | undefined;
 
-    constructor(private activatedRoute: ActivatedRoute,
-                private ebookProjectService: EbookProjectService,
-                private matDialog: MatDialog,
-                private authService: AuthenticationService,
-                private breakpointObserver: BreakpointObserver) {
+    constructor(private readonly activatedRoute: ActivatedRoute,
+                private readonly ebookProjectService: EbookProjectService,
+                private readonly matDialog: MatDialog,
+                private readonly authService: AuthenticationService,
+                private readonly breakpointObserver: BreakpointObserver) {
     }
 
     async ngOnInit() {
@@ -109,7 +109,7 @@ export class EbookProjectReaderPageComponent implements OnInit, AfterContentInit
 
         this.chosenChapter!.contentHtml = htmlDoc.body.innerHTML;
         if (this.viewPaneIframe) {
-            this.viewPaneIframe!.srcdoc = this.chosenChapter!.contentHtml;
+            this.viewPaneIframe.srcdoc = this.chosenChapter!.contentHtml;
         }
     }
 

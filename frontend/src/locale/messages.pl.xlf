@@ -75,7 +75,7 @@
             </trans-unit>
             <trans-unit id="5963835709705720699">
                 <source></source>
-                <source>Przypisanie folderu zakończyło się błędem.</source>
+                <target>Przypisanie folderu zakończyło się błędem.</target>
                 <context-group purpose="location">
                 <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.ts</context>
                 <context context-type="linenumber">69</context>
@@ -83,7 +83,7 @@
             </trans-unit>
             <trans-unit id="1605956916236438472">
                 <source></source>
-                <source>Folder usunięty pomyślnie.</source>
+                <target>Folder usunięty pomyślnie.</target>
                 <context-group purpose="location">
                 <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.ts</context>
                 <context context-type="linenumber">62</context>
@@ -123,6 +123,54 @@
                 <context-group purpose="location">
                 <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
                 <context context-type="linenumber">50</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="4558682950868010570" datatype="html">
+                <source></source>
+                <target>Wybierz jeden z istniejących folderów:</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.html</context>
+                <context context-type="linenumber">7,8</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="4930564400046824067" datatype="html">
+                <source></source>
+                <target>Usługa tworzenia zakładek</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.html</context>
+                <context context-type="linenumber">3</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="1366046683539707055" datatype="html">
+                <source></source>
+                <target>jest dostępna wyłącznie dla zalogowanych czytelników.</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
+                <context context-type="linenumber">4,6</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="931889978803020512" datatype="html">
+                <source></source>
+                <target>Usługa generowania audiobooków</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
+                <context context-type="linenumber">3</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="455868z2950868010570">
+                <source></source>
+                <target>Wybierz jeden z istniejących folderów:</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.html</context>
+                <context context-type="linenumber">7,8</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="1791220611144857246" datatype="html">
+                <source></source>
+                <target>Nazwa folderu</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.html</context>
+                <context context-type="linenumber">40,41</context>
                 </context-group>
             </trans-unit>
             <trans-unit id="9042260521669277115" datatype="html">
@@ -1558,7 +1606,7 @@
             </trans-unit>
             <trans-unit id="4678684191366672652">
                 <source></source>
-                <source>Failed to delete cover image. File storage quota exceeded.</source>
+                <target>Nie udało się wykonać żądanej operacji. Przekroczono limit przestrzeni dyskowej.</target>
                 <context-group purpose="location">
                 <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/change-cover-modal/ebook-file-change-cover-modal.component.ts</context>
                 <context context-type="linenumber">102</context>
@@ -1566,7 +1614,7 @@
             </trans-unit>
             <trans-unit id="8251551139427018268">
                 <source></source>
-                <source>Plik jest zbyt duży. Maksymalny rozmiar to 5 MB.</source>
+                <target>Plik jest zbyt duży. Maksymalny rozmiar to 5 MB.</target>
                 <context-group purpose="location">
                 <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/create-modal/create-ebook-project-modal.component.ts</context>
                 <context context-type="linenumber">69</context>
@@ -2376,9 +2424,297 @@
                 <context context-type="linenumber">27,28</context>
                 </context-group>
             </trans-unit>
+            <trans-unit id="6551086417408671596" datatype="html">
+                <source></source>
+                <target>Jeśli usuniesz format PDF w publicznym e-booku, stanie się on prywatny.</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.html</context>
+                <context context-type="linenumber">52,53</context>
+                </context-group>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.html</context>
+                <context context-type="linenumber">96,97</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="329625467803188512" datatype="html">
+                <source></source>
+                <target>Udostępnianie plików w serwisie Ebook-Wizard pozwala innym użytkownikiem na wyświetlenie twojego e-booka w formacie "tylko do odczytu". Interaktywny czytnik Ebook-Wizard jest przystosowany do wyświetlania formatu PDF, który musi być obecny, aby inni użytkownicy uzyskali dostęp do Twojego e-booka.</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/share-modal/share-modal.component.html</context>
+                <context context-type="linenumber">34,35</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="7736358316085709592" datatype="html">
+                <source>1. Services provided</source>
+                <target>1. Świadczone usługi</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
+                <context context-type="linenumber">5,6</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="5211793514175658492" datatype="html">
+                <source> Ebook-Wizard is a cloud-based network drive providing tools for creating and storing electronic books (e-books). </source>
+                <target> Ebook-Wizard to sieciowy dysk w chumurze, udostępniający narzędzia do tworzenia i przechowywania książek elektronicznych (e-booków). </target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
+                <context context-type="linenumber">7,8</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="723298147162410003" datatype="html">
+                <source>2. Acceptance of terms and conditions</source>
+                <target>2. Akceptacja warunków</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
+                <context context-type="linenumber">13,14</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="7250230005497716762" datatype="html">
+                <source> By using the Ebook-Wizard service, you agree to be bound by these terms and conditions. If you do not agree with any part of this document, do not create the account. </source>
+                <target> Korzystając z usługi Ebook-Wizard, zobowiązujesz się do przestrzegania niniejszego regulaminu. Jeśli nie zgadzasz się z jakąkolwiek częścią niniejszego dokumentu, nie zakładaj konta w serwisie. </target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
+                <context context-type="linenumber">15,17</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="7162527611758720074" datatype="html">
+                <source>3. User responsibilities</source>
+                <target>3. Obowiązki użytkownika</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
+                <context context-type="linenumber">22,23</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="8770404104063999684" datatype="html">
+                <source> When storing e-books on the Ebook-Wizard service, please ensure that you are not infringing the laws of the country in which you live (including copyright laws). You should only upload books which are free or which you you have purchased legally. Ebook-Wizard is not responsible for the content stored by users and reserves the right to remove any content that violates the terms and conditions. </source>
+                <target> Przechowując e-booki w usłudze Ebook-Wizard, upewnij się że nie naruszasz praw obowiązujących w kraju, w którym mieszkasz (w tym praw autorskich). Do usługi Ebook-Wizard powinieneś przesyłać wyłącznie książki, które są darmowe, lub które legalnie zakupiłeś. Ebook-Wizard nie ponosi odpowiedzialności za treści przechowywane przez użytkowników i zastrzega sobie prawo do usuwania wszelkich treści, które naruszają warunki niniejszego regulaminu. </target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
+                <context context-type="linenumber">24,27</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="2404436228462557063" datatype="html">
+                <source>4. Limitation of liability</source>
+                <target>4. Ograniczenie odpowiedzialności</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
+                <context context-type="linenumber">32,33</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="2955155722204960206" datatype="html">
+                <source> I accept the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;/about&quot; target=&quot;_blank&quot;&gt;"/>terms and conditions.<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+                <target> Akceptuję <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;/about&quot; target=&quot;_blank&quot;&gt;"/>regulamin Ebook-Wizard.<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
+                <context context-type="linenumber">78,79</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="3866346772841323862" datatype="html">
+                <source> Ebook-Wizard is not liable for any indirect damages resulting from the use of the service. The author of the application does not guarantee that the service will operate uninterrupted or free of errors. </source>
+                <target> Ebook-Wizard nie ponosi odpowiedzialności za żadne szkody pośrednie wynikające z korzystania z serwisu. Autor aplikacji nie gwarantuje, że usługa będzie działać w sposób nieprzerwany lub wolny od błędów. </target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
+                <context context-type="linenumber">34,36</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="718035918853862261" datatype="html">
+                <source></source>
+                <target>Musisz zaakceptować regulamin serwisu</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
+                <context context-type="linenumber">82</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="2667096514012347996" datatype="html">
+                <source>5. Account termination</source>
+                <target>5. Zawieszenie konta</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
+                <context context-type="linenumber">42,43</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="2218068826834907855" datatype="html">
+                <source> The author of Ebook-Wizard reserves the right to terminate or suspend your access to the service, if it is found to be in flagrant breach of the terms and conditions. The user whose account is suspended, will receive an e-mail with the reason for the account suspension. </source>
+                <target> Autor Ebook-Wizard zastrzega sobie prawo do wypowiedzenia lub zawieszenia Twojego dostępu do usługi, jeżeli zostanie stwierdzone rażące naruszenie zasad regulaminu. Użytkownik, którego konto zostanie zawieszone, otrzyma na adres e-mail informację zawierającą powód zawieszenia konta. </target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
+                <context context-type="linenumber">44,47</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="3604754505213407740" datatype="html">
+                <source>6. Security evasion</source>
+                <target>6. Obchodzenie zabezpieczeń</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
+                <context context-type="linenumber">52,53</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="1168822646682342189" datatype="html">
+                <source> Any attempt to gain unauthorised access, disruption or breach of security of the Ebook-Wizard service is strictly prohibited and may lead to prosecution. </source>
+                <target> Wszelkie działania zmierzające do uzyskania nieautoryzowanego dostępu, zakłócenia działania lub naruszenia bezpieczeństwa witryny są surowo wzbronione i mogą stanowić podstawę do pociągnięcia do odpowiedzialności prawnej. </target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
+                <context context-type="linenumber">54,56</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="5948910300820716640" datatype="html">
+                <source>7. Changes to the terms and conditions</source>
+                <target>7. Zmiany w warunkach regulaminu</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
+                <context context-type="linenumber">61,62</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="225093204361323074" datatype="html">
+                <source> The author of Ebook-Wizard reserves the right to amend these terms and conditions. Any changes will be published on the main page of the website, and your continued use of the service shall signify your acceptance of the amended terms and conditions. terms and conditions. </source>
+                <target> Autor Ebook-Wizard zastrzega sobie prawo do zmiany niniejszego regulaminu. Wszelkie zmiany zostaną opublikowane na stronie głównej serwisu, a dalsze korzystanie z usługi oznacza akceptację zmienionych warunków. </target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
+                <context context-type="linenumber">63,65</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="1221982201969404301" datatype="html">
+                <source>8. Contact information</source>
+                <target>8. Inforamacje kontaktowe</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
+                <context context-type="linenumber">71,72</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="7035083609708852387" datatype="html">
+                <source> The website administrator is Daniel Rogowski. If you have any questions or concerns regarding these terms and conditions, please contact me at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:daniel.rogowski@onet.pl&quot;&gt;"/>daniel.rogowski@onet.pl<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>. </source>
+                <target> Administratorem serwisu Ebook-Wizard jest Daniel Rogowski. Jeśli masz jakiekolwiek pytania lub wątpliwości dotyczące regulaminu, proszę o kontakt pod adresem <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:daniel.rogowski@onet.pl&quot;&gt;"/>daniel.rogowski@onet.pl<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>. </target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
+                <context context-type="linenumber">73,76</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="4859966902487009263" datatype="html">
+                <source></source>
+                <target>Skocz do strony</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/page-jump-menu/page-jump-menu.component.html</context>
+                <context context-type="linenumber">2,3</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="2489604628795070296" datatype="html">
+                <source></source>
+                <target>Jesteś już zalogowany.</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/login-page/login-page.component.ts</context>
+                <context context-type="linenumber">60</context>
+                </context-group>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.ts</context>
+                <context context-type="linenumber">89</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="4477141585742981179" datatype="html">
+                <source>If you want to share the ebook, you must convert it to PDF first.</source>
+                <target>Jeśli chcesz udostępnić e-booka, najpierw przekonwertuj go na typ PDF.</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/share-modal/share-modal.component.html</context>
+                <context context-type="linenumber">30,31</context>
+                </context-group>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/share-modal/share-modal.component.html</context>
+                <context context-type="linenumber">32,33</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="4538249447147171538" datatype="html">
+                <source></source>
+                <target>Pobierz/konwertuj</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
+                <context context-type="linenumber">136,137</context>
+                </context-group>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
+                <context context-type="linenumber">124,125</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="8938021292627660831" datatype="html">
+                <source></source>
+                <source> Wpisz <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ userNickname }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>, żeby potwierdzic usunięcie konta. </source>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/account-delete-modal/account-delete-modal.component.html</context>
+                <context context-type="linenumber">14,17</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="6502971109521371382" datatype="html">
+                <source></source>
+                <target>Wprowadź pseudonim Twojego konta</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/account-delete-modal/account-delete-modal.component.html</context>
+                <context context-type="linenumber">29</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="8320510466592318149" datatype="html">
+                <source></source>
+                <target>Potwierdzenie jest wymagane</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/account-delete-modal/account-delete-modal.component.html</context>
+                <context context-type="linenumber">25</context>
+                </context-group>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/account-delete-modal/account-delete-modal.component.html</context>
+                <context context-type="linenumber">27</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="995998826400208891" datatype="html">
+                <source></source>
+                <target>Pseudonim (potwierdzenie)</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/account-delete-modal/account-delete-modal.component.html</context>
+                <context context-type="linenumber">19</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="4649711232397678200" datatype="html">
+                <source></source>
+                <target>Wybierz stronę</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/page-jump-menu/page-jump-menu.component.html</context>
+                <context context-type="linenumber">18,19</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="5163931341483575277" datatype="html">
+                <source></source>
+                <target>Numer strony</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/page-jump-menu/page-jump-menu.component.html</context>
+                <context context-type="linenumber">9</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="6170469386815204147" datatype="html">
+                <source></source>
+                <target>Wybierz numer strony:</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/page-jump-menu/page-jump-menu.component.html</context>
+                <context context-type="linenumber">5,7</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="1812213334845863562" datatype="html">
+                <source></source>
+                <target>Lub kliknij tutaj, by się zalogować</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
+                <context context-type="linenumber">13</context>
+                </context-group>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.html</context>
+                <context context-type="linenumber">12</context>
+                </context-group>
+            </trans-unit>
+            <trans-unit id="2302630272296953495" datatype="html">
+                <source></source>
+                <target>Kliknij, aby zmienić twój awatar przy użyciu usługi Gravatar.</target>
+                <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/account-manager-section/account-manager-section.component.html</context>
+                <context context-type="linenumber">11,12</context>
+                </context-group>
+            </trans-unit>
             <trans-unit id="5210250836005440118">
                 <source></source>
-                <source>Wysłano kod weryfik. do: </source>
+                <target>Wysłano kod weryfik. do: </target>
                 <context-group purpose="location">
                 <context context-type="sourcefile">src/app/components/pages/registration-page/confirm-modal/registration-confirm-modal.component.html</context>
                 <context context-type="linenumber">35,36</context>

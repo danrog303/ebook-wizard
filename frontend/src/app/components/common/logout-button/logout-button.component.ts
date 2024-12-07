@@ -15,9 +15,9 @@ import NotificationService from "@app/services/notification.service";
 export default class LogoutButtonComponent {
     logoutPending = false;
 
-    constructor(private authService: AuthenticationService,
-                private notificationService: NotificationService,
-                private router: Router) {
+    constructor(private readonly authService: AuthenticationService,
+                private readonly notificationService: NotificationService,
+                private readonly router: Router) {
     }
 
     async onLogout() {

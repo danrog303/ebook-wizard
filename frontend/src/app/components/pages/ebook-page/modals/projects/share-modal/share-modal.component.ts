@@ -22,9 +22,9 @@ export class EbookProjectShareModalComponent implements OnInit {
     updatingStatus: LoadingStatus = LoadingStatus.NOT_STARTED;
 
     constructor(@Inject(MAT_DIALOG_DATA) public ebookProject: EbookProject,
-                @Inject(MatDialogRef) private dialogRef: MatDialogRef<EbookProjectShareModalComponent>,
-                private ebookProjectService: EbookProjectService,
-                private notificationService: NotificationService) {
+                @Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<EbookProjectShareModalComponent>,
+                private readonly ebookProjectService: EbookProjectService,
+                private readonly notificationService: NotificationService) {
     }
 
     ngOnInit() {
@@ -40,7 +40,7 @@ export class EbookProjectShareModalComponent implements OnInit {
         this.ebookProject.isPublic = !this.ebookProject.isPublic;
         this.dialogRef.disableClose = true;
 
-        this.ebookProjectService.updateEbookProject(this.ebookProject.id!, this.ebookProject).subscribe({
+        this.ebookProjectService.updateEbookProject(this.ebookProject.id, this.ebookProject).subscribe({
             next: () => {
                 this.updatingStatus = LoadingStatus.LOADED;
                 this.notificationService.show($localize`Ebook project updated`);

@@ -2,9 +2,9 @@ package com.github.danrog303.ebookwizard.domain.ebookproject.services;
 
 import com.github.danrog303.ebookwizard.domain.ebook.models.EbookAccessType;
 import com.github.danrog303.ebookwizard.domain.ebook.models.EbookDownloadableResource;
-import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFileLock;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookEditLock;
 import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFormat;
-import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageCalculator;
+import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageService;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectChapter;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectIllustration;
@@ -47,11 +47,11 @@ public class EbookProjectManipulationService {
     private final ImageConverter imageConverter;
     private final ConversionQueueService conversionQueueService;
     private final EmailQueueService emailQueueService;
-    private final EbookDiskUsageCalculator diskUsageCalculator;
+    private final EbookDiskUsageService diskUsageCalculator;
     private final ValidatorService validatorService;
 
-    public int MAX_EBOOK_PROJECT_COVER_SIZE = 5 * 1024 * 1024;
-    public int MAX_EBOOK_PROJECT_ILLUSTRATION_SIZE = 5 * 1024 * 1024;
+    public static final int MAX_EBOOK_PROJECT_COVER_SIZE = 5 * 1024 * 1024;
+    public static final int MAX_EBOOK_PROJECT_ILLUSTRATION_SIZE = 5 * 1024 * 1024;
 
     public EbookProject createEmptyEbookProject(EbookProject ebookProject) {
         authorizationProvider.requireAuthentication();
@@ -67,7 +67,7 @@ public class EbookProjectManipulationService {
         ebookProject.setCreationDate(new Date());
         ebookProject.setChapters(List.of(chapter));
         ebookProject.setCoverImageKey(null);
-        ebookProject.setLock(new EbookFileLock(false, null));
+        ebookProject.setLock(new EbookEditLock(false, null));
         ebookProject.setIllustrations(new ArrayList<>());
         ebookProject.setDownloadableFiles(new ArrayList<>());
         ebookProject.setOwnerUserId(authorizationProvider.getAuthenticatedUserId());

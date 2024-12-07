@@ -40,9 +40,9 @@ export class EmailChangeModalComponent implements AfterViewInit {
     @ViewChild("verificationCodeInput") verificationCodeInput: ElementRef<MatInput> | undefined;
     currentEmail: string = "";
 
-    constructor(@Inject(MatDialogRef) private dialogRef: MatDialogRef<EmailChangeModalComponent>,
-                private authService: AuthenticationService,
-                private notificationService: NotificationService) {
+    constructor(@Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<EmailChangeModalComponent>,
+                private readonly authService: AuthenticationService,
+                private readonly notificationService: NotificationService) {
     }
 
     ngAfterViewInit() {

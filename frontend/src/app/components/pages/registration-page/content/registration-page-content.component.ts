@@ -27,9 +27,9 @@ export class RegistrationPageContentComponent {
     hidePassword = true;
     hidePasswordRepeat = true;
 
-    constructor(private cognitoService: AuthenticationService,
-                private dialogService: MatDialog,
-                private notificationService: NotificationService) {
+    constructor(private readonly cognitoService: AuthenticationService,
+                private readonly dialogService: MatDialog,
+                private readonly notificationService: NotificationService) {
         this.registerForm = new FormGroup({
             'email': new FormControl(null, [
                 Validators.required, Validators.email
@@ -50,6 +50,10 @@ export class RegistrationPageContentComponent {
             'passwordRepeat': new FormControl(null, [
                 Validators.required,
                 passwordMatchValidator("password", "passwordRepeat")
+            ]),
+
+            "termsAndConditionsAccepted": new FormControl(false, [
+                Validators.requiredTrue
             ]),
 
             'recaptcha': new FormControl(null, [
@@ -82,8 +86,11 @@ export class RegistrationPageContentComponent {
             this.openConfirmRegistrationDialog();
             this.pending = false;
         } catch (e: any) {
-            if (e.toString().includes("UsernameExistsException")) {
+            const error = JSON.stringify(e);
+            if (error.toString().includes("UsernameExistsException")) {
                 this.notificationService.show($localize`User with this email already exists.`);
+            } else if (error.includes("UserAlreadyAuthenticatedException")) {
+                this.notificationService.show($localize`You are already logged in.`);
             } else {
                 console.error(e);
                 this.notificationService.show($localize`Error occurred during registration. Please try again later.`);

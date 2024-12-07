@@ -10,6 +10,5 @@ public enum QueueTaskStatus {
     IN_PROGRESS,
     COMPLETED,
     FAILED,
-    ABORTED,
     NOT_FOUND
 }

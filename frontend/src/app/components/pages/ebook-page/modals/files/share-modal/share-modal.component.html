@@ -14,7 +14,7 @@
 
         <div>
             <mat-checkbox (change)="onPublicToggle($event)"
-                          [disabled]="updatingStatus === LoadingStatus.LOADING"
+                          [disabled]="updatingStatus === LoadingStatus.LOADING || !ebookHasPdfFormat()"
                           [checked]="ebookFile.public"
                           i18n>
                 Make e-book public
@@ -23,6 +23,19 @@
 
         <div i18n>
             Public ebooks can be viewed by other users.
+        </div>
+
+        <div>
+            @if (!ebookHasPdfFormat()) {
+                <strong i18n>If you want to share the ebook, you must convert it to PDF first.</strong>
+            } @else {
+                <span i18n>If you want to share the ebook, you must convert it to PDF first.</span>
+            }
+            <span matTooltip="Sharing in Ebook-Wizard allows other users to view your e-book in a read-only mode. Ebook-Wizard uses a PDF format to display e-books in the browser."
+                  i18n-matTooltip
+                  class="learn-more">
+                [?]
+            </span>
         </div>
     </div>
 

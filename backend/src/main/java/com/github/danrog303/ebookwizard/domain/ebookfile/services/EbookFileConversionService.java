@@ -1,9 +1,9 @@
 package com.github.danrog303.ebookwizard.domain.ebookfile.services;
 
 import com.github.danrog303.ebookwizard.domain.ebook.models.EbookDownloadableResource;
-import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFileLock;
+import com.github.danrog303.ebookwizard.domain.ebook.models.EbookEditLock;
 import com.github.danrog303.ebookwizard.domain.ebook.models.EbookFormat;
-import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageCalculator;
+import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageService;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFileRepository;
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProject;
@@ -12,7 +12,6 @@ import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectI
 import com.github.danrog303.ebookwizard.domain.ebookproject.models.EbookProjectRepository;
 import com.github.danrog303.ebookwizard.external.document.b64.Base64ImagesExtractor;
 import com.github.danrog303.ebookwizard.external.document.converter.DocumentConverter;
-import com.github.danrog303.ebookwizard.external.image.ImageConverter;
 import com.github.danrog303.ebookwizard.external.storage.FileStorageService;
 import com.github.danrog303.ebookwizard.util.temp.TemporaryDirectory;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +41,7 @@ public class EbookFileConversionService {
     private final FileStorageService fileStorageService;
     private final DocumentConverter documentConverter;
     private final Base64ImagesExtractor base64ImagesExtractor;
-    private final EbookDiskUsageCalculator diskUsageCalculator;
+    private final EbookDiskUsageService diskUsageCalculator;
 
     @SneakyThrows(IOException.class)
     public void convertEbookFileToEbookProject(String fileId) {
@@ -57,7 +56,7 @@ public class EbookFileConversionService {
         ebookProject.setCreationDate(new Date());
         ebookProject.setTags(ebookFile.getTags());
         ebookProject.setIsPublic(false);
-        ebookProject.setLock(new EbookFileLock(false, null));
+        ebookProject.setLock(new EbookEditLock(false, null));
 
         try (TemporaryDirectory tempDir = new TemporaryDirectory()) {
             if (ebookFile.getCoverImageKey() != null) {

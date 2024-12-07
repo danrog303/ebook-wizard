@@ -41,11 +41,11 @@ export class EbookProjectSendToReaderModalComponent implements AfterViewInit {
     });
 
     constructor(@Inject(MAT_DIALOG_DATA) public ebookProject: EbookProject,
-                @Inject(MatDialogRef) private dialogRef: MatDialogRef<EbookProjectSendToReaderModalComponent>,
-                private ebookProjectService: EbookProjectService,
-                private notificationService: NotificationService,
-                private queueTaskTrackingService: QueueTaskTrackingService,
-                private authService: AuthenticationService) {
+                @Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<EbookProjectSendToReaderModalComponent>,
+                private readonly ebookProjectService: EbookProjectService,
+                private readonly notificationService: NotificationService,
+                private readonly queueTaskTrackingService: QueueTaskTrackingService,
+                private readonly authService: AuthenticationService) {
     }
 
     protected readonly EbookFormat = EbookFormat;
@@ -70,7 +70,7 @@ export class EbookProjectSendToReaderModalComponent implements AfterViewInit {
         this.ongoingAction = "conversion";
         this.dialogRef.disableClose = true;
 
-        this.ebookProjectService.sendToReader(this.ebookProject.id!, format, email).subscribe({
+        this.ebookProjectService.sendToReader(this.ebookProject.id, format, email).subscribe({
             next: (task: QueueTask<QueueTaskPayload>) => {
                 this.ongoingAction = "sending";
                 this.ongoingActionSubscription =
@@ -115,7 +115,7 @@ export class EbookProjectSendToReaderModalComponent implements AfterViewInit {
         } else {
             from(this.authService.fetchAuthenticatedUser()).subscribe({
                 next: (user) => {
-                    this.sendToReaderForm.get("email")?.setValue(user?.email || "");
+                    this.sendToReaderForm.get("email")?.setValue(user?.email ?? "");
                 }
             });
         }

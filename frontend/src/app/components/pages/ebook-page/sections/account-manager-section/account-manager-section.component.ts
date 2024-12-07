@@ -21,12 +21,14 @@ import LogoutButtonComponent from "@app/components/common/logout-button/logout-b
 import {
     PasswordChangeModalComponent
 } from "@app/components/pages/ebook-page/modals/account/password-change-modal/password-change-modal.component";
+import {Router} from "@angular/router";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
     selector: 'app-account-manager-section',
     standalone: true,
     imports: [
-        MaterialModule, CommonModule, LogoutButtonComponent
+        MaterialModule, CommonModule, LogoutButtonComponent, MatTooltip
     ],
     templateUrl: './account-manager-section.component.html',
     styleUrl: './account-manager-section.component.scss'
@@ -37,13 +39,15 @@ export class AccountManagerSectionComponent implements OnInit {
     user: AuthenticatedUser | undefined = undefined;
     uid: string | undefined = undefined;
     gravatarUrl: string | undefined = undefined;
+    gravatarRedirectUrl: string | undefined = undefined;
     diskLimitBytes: number | undefined = undefined;
 
-    constructor(private authService: AuthenticationService,
-                private gravatarService: GravatarService,
-                private diskUsageService: DiskUsageService,
+    constructor(private readonly authService: AuthenticationService,
+                private readonly gravatarService: GravatarService,
+                private readonly diskUsageService: DiskUsageService,
                 public stringUtils: StringUtilsService,
-                private dialogService: MatDialog) {
+                private readonly dialogService: MatDialog,
+                private readonly router: Router) {
     }
 
     async ngOnInit() {
@@ -53,6 +57,7 @@ export class AccountManagerSectionComponent implements OnInit {
             this.uid = await this.authService.getUserId();
             this.gravatarUrl = await this.gravatarService.getGravatarUrl(this.user?.email ?? '');
             this.diskLimitBytes = await firstValueFrom(this.diskUsageService.getDiskLimitBytes());
+            this.gravatarRedirectUrl = await this.gravatarService.getGravatarChangeUrl(this.user?.email ?? '');
             this.loadStatus = LoadingStatus.LOADED;
         } catch {
             this.loadStatus = LoadingStatus.ERROR;
@@ -84,4 +89,8 @@ export class AccountManagerSectionComponent implements OnInit {
     }
 
     protected readonly LoadingStatus = LoadingStatus;
+
+    openGravatarRedirectPage() {
+        window.open(this.gravatarRedirectUrl, '_blank');
+    }
 }

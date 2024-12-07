@@ -50,8 +50,8 @@ export class CreateEbookProjectModalComponent {
         file: new FormControl(null, []),
     });
 
-    constructor(private ebookProjectService: EbookProjectService,
-                private notificationService: NotificationService) {
+    constructor(private readonly ebookProjectService: EbookProjectService,
+                private readonly notificationService: NotificationService) {
     }
 
     onEbookProjectCreated(ebookProject: EbookProject) {

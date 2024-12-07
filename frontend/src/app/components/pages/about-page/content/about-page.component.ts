@@ -22,7 +22,7 @@ import {StatsDisplayComponent} from "@app/components/pages/about-page/stats-disp
 export class AboutPageComponent implements OnInit {
     isUserAuthenticated: boolean = false;
 
-    constructor(private authenticationService: AuthenticationService) {}
+    constructor(private readonly authenticationService: AuthenticationService) {}
 
     ngOnInit(): void {
         this.authenticationService.isUserAuthenticated().then(isAuthenticated => {

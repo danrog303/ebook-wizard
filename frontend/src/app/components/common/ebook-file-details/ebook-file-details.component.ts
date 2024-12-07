@@ -27,8 +27,8 @@ export class EbookFileDetailsComponent implements OnChanges {
     @Input() ebookFile: EbookFile | null = null;
     @Output() ebookFileChange = new EventEmitter<EbookFile>();
 
-    constructor(private ebookFileService: EbookFileService,
-                private matDialog: MatDialog,
+    constructor(private readonly ebookFileService: EbookFileService,
+                private readonly matDialog: MatDialog,
                 public stringUtils: StringUtilsService) {
     }
 
@@ -63,7 +63,7 @@ export class EbookFileDetailsComponent implements OnChanges {
     }
 
     openEditFolderNameModal() {
-        const modalRef = this.matDialog.open(EbookFileFolderModalComponent, {
+        this.matDialog.open(EbookFileFolderModalComponent, {
             data: this.ebookFile,
             autoFocus: false
         });

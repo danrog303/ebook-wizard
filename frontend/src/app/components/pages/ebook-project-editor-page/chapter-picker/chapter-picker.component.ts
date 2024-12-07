@@ -31,7 +31,7 @@ export class ChapterPickerComponent {
     @Output() onGoBack = new EventEmitter<void>();
     @Output() onSave = new EventEmitter<void>();
 
-    constructor(private matDialog: MatDialog) {
+    constructor(private readonly matDialog: MatDialog) {
     }
 
     openAddChapterModal() {
@@ -46,6 +46,7 @@ export class ChapterPickerComponent {
         modalRef.afterClosed().subscribe((chapter: EbookProjectChapter) => {
             if (chapter) {
                 this.ebookProject!.chapters.push(chapter);
+                this.onChapterSelected.emit(chapter);
                 this.chosenChapter = chapter;
             }
         });
@@ -85,8 +86,13 @@ export class ChapterPickerComponent {
             const index = this.ebookProject!.chapters.findIndex(c => c.id === chapter.id);
 
             if (index !== -1 && result === true) {
+                const chapterToDelete = this.ebookProject!.chapters[index];
                 this.ebookProject!.chapters.splice(index, 1);
-                this.chosenChapter = this.ebookProject!.chapters[0] || null;
+
+                if (chapterToDelete === this.chosenChapter) {
+                    this.chosenChapter = this.ebookProject!.chapters[0] || null;
+                    this.onChapterSelected.emit(this.chosenChapter);
+                }
             }
         });
     }

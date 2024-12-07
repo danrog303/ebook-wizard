@@ -6,16 +6,16 @@ import {HttpClient} from "@angular/common/http";
 
 @Injectable({providedIn: 'root'})
 export default class EbookProjectChapterService {
-    constructor(private http: HttpClient) {}
-
-    createChapter(ebookProjectId: string, chapter: EbookProjectChapter): Observable<EbookProjectChapter> {
-        const url = `${environment.API_BASE_URI}/ebook-project/${ebookProjectId}/chapter`;
-        return this.http.post<EbookProjectChapter>(url, chapter);
-    }
+    constructor(private readonly http: HttpClient) {}
 
     deleteChapter(ebookProjectId: string, chapterId: string): Observable<void> {
         const url = `${environment.API_BASE_URI}/ebook-project/${ebookProjectId}/chapter/${chapterId}`;
         return this.http.delete<void>(url);
+    }
+
+    createChapter(ebookProjectId: string, chapter: EbookProjectChapter): Observable<EbookProjectChapter> {
+        const url = `${environment.API_BASE_URI}/ebook-project/${ebookProjectId}/chapter`;
+        return this.http.post<EbookProjectChapter>(url, chapter);
     }
 
     updateChapter(ebookProjectId: string, chapterId: string, chapter: EbookProjectChapter): Observable<EbookProjectChapter> {

@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Data
 @AllArgsConstructor @NoArgsConstructor
-public class EbookFileLock {
+public class EbookEditLock {
     @NotNull
     private Boolean isLocked;
 

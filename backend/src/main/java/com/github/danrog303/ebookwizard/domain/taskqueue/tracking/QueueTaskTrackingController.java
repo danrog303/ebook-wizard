@@ -38,10 +38,10 @@ public class QueueTaskTrackingController {
         };
 
         emitter.onCompletion(shutdownTask);
-        emitter.onError((arg) -> shutdownTask.run());
-        sseMvcExecutor.execute(() -> {
-            queueTaskTrackingService.waitForTaskCompletion(emitter, taskId);
-        });
+        emitter.onError(arg -> shutdownTask.run());
+        sseMvcExecutor.execute(() ->
+            queueTaskTrackingService.waitForTaskCompletion(emitter, taskId)
+        );
 
         return emitter;
     }

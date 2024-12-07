@@ -17,9 +17,15 @@ export class LandingPageContentComponent implements OnInit, OnDestroy {
     isUserAuthenticated: boolean | null = null;
     isUserAuthenticatedSubscription: Subscription | null = null;
 
-    constructor(private authService: AuthenticationService) {}
+    constructor(private readonly authService: AuthenticationService) {
+    }
 
     ngOnInit(): void {
+        // Skip checking authentication when running in SSR context
+        if (typeof window === 'undefined') {
+            return;
+        }
+
         this.isUserAuthenticatedSubscription = this.authService.$isUserAuthenticated.subscribe((isAuthenticated) => {
             this.isUserAuthenticated = isAuthenticated;
         });

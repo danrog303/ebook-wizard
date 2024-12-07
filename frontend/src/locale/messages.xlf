@@ -61,7 +61,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">61</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
@@ -80,7 +80,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">62</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
@@ -345,144 +345,116 @@
           <context context-type="linenumber">2,4</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3695244455731731152" datatype="html">
-        <source>1. Acceptance of Terms</source>
+      <trans-unit id="7736358316085709592" datatype="html">
+        <source>1. Services provided</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
           <context context-type="linenumber">5,6</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7189071006592574605" datatype="html">
-        <source> By accessing and using ebook-wizard, you agree to comply with and be bound by these Terms of Service. If you do not agree with any part of these terms, please do not use our service. </source>
+      <trans-unit id="5211793514175658492" datatype="html">
+        <source> Ebook-Wizard is a cloud-based network drive providing tools for creating and storing electronic books (e-books). </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">7,8</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4651482506907509202" datatype="html">
-        <source>2. Services Provided</source>
+      <trans-unit id="723298147162410003" datatype="html">
+        <source>2. Acceptance of terms and conditions</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">12,13</context>
+          <context context-type="linenumber">13,14</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="195081084567283491" datatype="html">
-        <source> Ebook-wizard provides tools for editing and creating eBooks. The platform allows users to format, design, and manage their eBooks. </source>
+      <trans-unit id="7250230005497716762" datatype="html">
+        <source> By using the Ebook-Wizard service, you agree to be bound by these terms and conditions. If you do not agree with any part of this document, do not create the account. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">15,17</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6084183650475609125" datatype="html">
-        <source>3. User Responsibilities</source>
+      <trans-unit id="7162527611758720074" datatype="html">
+        <source>3. User responsibilities</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">19,20</context>
+          <context context-type="linenumber">22,23</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1389523117197804345" datatype="html">
-        <source> You are responsible for the content you create or edit using our service. You must ensure that your content does not violate any laws or third-party rights, including copyright laws. Ebook-wizard is not responsible for any content created or edited by users. We reserve the right to remove any content that violates these terms. </source>
+      <trans-unit id="8770404104063999684" datatype="html">
+        <source> When storing e-books on the Ebook-Wizard service, please ensure that you are not infringing the laws of the country in which you live (including copyright laws). You should only upload books which are free or which you you have purchased legally. Ebook-Wizard is not responsible for the content stored by users and reserves the right to remove any content that violates the terms and conditions. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">21,23</context>
+          <context context-type="linenumber">24,27</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1340632166757497941" datatype="html">
-        <source>4. Account Security</source>
+      <trans-unit id="2404436228462557063" datatype="html">
+        <source>4. Limitation of liability</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">28,29</context>
+          <context context-type="linenumber">32,33</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5873400317996776130" datatype="html">
-        <source> You are responsible for maintaining the confidentiality of your account information and for all activities that occur under your account. </source>
+      <trans-unit id="3866346772841323862" datatype="html">
+        <source> Ebook-Wizard is not liable for any indirect damages resulting from the use of the service. The author of the application does not guarantee that the service will operate uninterrupted or free of errors. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">34,36</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="881314526150050873" datatype="html">
-        <source>5. Intellectual Property</source>
+      <trans-unit id="2667096514012347996" datatype="html">
+        <source>5. Account termination</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">35,36</context>
+          <context context-type="linenumber">42,43</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4937762176458816590" datatype="html">
-        <source> All content and materials on ebook-wizard are owned by or licensed to us and are protected by intellectual property laws. You may not copy, modify, or distribute any content from our platform without permission. </source>
+      <trans-unit id="2218068826834907855" datatype="html">
+        <source> The author of Ebook-Wizard reserves the right to terminate or suspend your access to the service, if it is found to be in flagrant breach of the terms and conditions. The user whose account is suspended, will receive an e-mail with the reason for the account suspension. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">37,38</context>
+          <context context-type="linenumber">44,47</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4539264379226204374" datatype="html">
-        <source>6. Limitation of Liability</source>
+      <trans-unit id="3604754505213407740" datatype="html">
+        <source>6. Security evasion</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">43,44</context>
+          <context context-type="linenumber">52,53</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3814273570112093433" datatype="html">
-        <source> Ebook-wizard is not liable for any indirect, incidental, or consequential damages resulting from the use of our service. We do not guarantee that our service will be uninterrupted or error-free. </source>
+      <trans-unit id="1168822646682342189" datatype="html">
+        <source> Any attempt to gain unauthorised access, disruption or breach of security of the Ebook-Wizard service is strictly prohibited and may lead to prosecution. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">45,46</context>
+          <context context-type="linenumber">54,56</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5008163567437545643" datatype="html">
-        <source>7. Termination</source>
+      <trans-unit id="5948910300820716640" datatype="html">
+        <source>7. Changes to the terms and conditions</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">51,52</context>
+          <context context-type="linenumber">61,62</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7118096374784947404" datatype="html">
-        <source> We reserve the right to terminate or suspend your access to ebook-wizard at our sole discretion, with or without cause, and with or without notice. </source>
+      <trans-unit id="225093204361323074" datatype="html">
+        <source> The author of Ebook-Wizard reserves the right to amend these terms and conditions. Any changes will be published on the main page of the website, and your continued use of the service shall signify your acceptance of the amended terms and conditions. terms and conditions. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">63,65</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6106616848964392027" datatype="html">
-        <source>8. Changes to Terms</source>
+      <trans-unit id="1221982201969404301" datatype="html">
+        <source>8. Contact information</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">58,59</context>
+          <context context-type="linenumber">71,72</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3403390912209512115" datatype="html">
-        <source> We may update these Terms of Service from time to time. Any changes will be posted on our website, and your continued use of the service constitutes your acceptance of the revised terms. </source>
+      <trans-unit id="7035083609708852387" datatype="html">
+        <source> The website administrator is Daniel Rogowski. If you have any questions or concerns regarding these terms and conditions, please contact me at <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;mailto:daniel.rogowski@onet.pl&quot;&gt;"/>daniel.rogowski@onet.pl<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">60</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="8036006092729025738" datatype="html">
-        <source>9. Governing Law</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">65,66</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="6702693054908915879" datatype="html">
-        <source> These terms are governed by and construed in accordance with the laws of the jurisdiction where ebook-wizard operates. </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">67</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="8985194158041725692" datatype="html">
-        <source>10. Contact Information</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">72,73</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="8257309227372138691" datatype="html">
-        <source> For any questions or concerns regarding these Terms of Service, please contact us at contact@ebook-wizard.com. </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/about-page/rules/rules.component.html</context>
-          <context context-type="linenumber">74,75</context>
+          <context context-type="linenumber">73,76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4555457172864212828" datatype="html">
@@ -658,44 +630,33 @@
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6713616106984570520" datatype="html">
-        <source> Type your email to confirm the deletion. </source>
+      <trans-unit id="8938021292627660831" datatype="html">
+        <source> Type <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ userNickname }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> to confirm the deletion. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/account-delete-modal/account-delete-modal.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">14,17</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1769661379068269645" datatype="html">
-        <source>Your email</source>
+      <trans-unit id="995998826400208891" datatype="html">
+        <source>Nickname (confirmation)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/account-delete-modal/account-delete-modal.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8552587679160911578" datatype="html">
-        <source>Email is required</source>
+      <trans-unit id="8320510466592318149" datatype="html">
+        <source>Confirmation is required</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/account-delete-modal/account-delete-modal.component.html</context>
           <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="1140599166278569579" datatype="html">
-        <source>Invalid email</source>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/account-delete-modal/account-delete-modal.component.html</context>
           <context context-type="linenumber">27</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
       </trans-unit>
-      <trans-unit id="7572723410227489552" datatype="html">
-        <source>Enter your account&apos;s email</source>
+      <trans-unit id="6502971109521371382" datatype="html">
+        <source>Enter your account&apos;s nickname</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/account/account-delete-modal/account-delete-modal.component.html</context>
           <context context-type="linenumber">29</context>
@@ -729,7 +690,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.html</context>
-          <context context-type="linenumber">58,59</context>
+          <context context-type="linenumber">59,60</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/convert-to-file-modal/convert-to-file-modal.component.html</context>
@@ -1069,7 +1030,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">143,144</context>
+          <context context-type="linenumber">153,154</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
@@ -1125,7 +1086,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.html</context>
-          <context context-type="linenumber">145,146</context>
+          <context context-type="linenumber">160,161</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/meta-edit-modal/ebook-file-meta-edit-modal.component.html</context>
@@ -1353,6 +1314,14 @@
           <context context-type="linenumber">26,27</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.html</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/delete-modal/ebook-project-delete-modal.component.html</context>
           <context context-type="linenumber">26,27</context>
         </context-group>
@@ -1404,30 +1373,37 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.html</context>
-          <context context-type="linenumber">75,76</context>
+          <context context-type="linenumber">82,83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6551086417408671596" datatype="html">
+        <source>If you delete PDF in a public ebook, it will become private.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.html</context>
+          <context context-type="linenumber">52,53</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">126,127</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
-          <context context-type="linenumber">124,125</context>
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.html</context>
+          <context context-type="linenumber">96,97</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7022070615528435141" datatype="html">
         <source>Delete</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.html</context>
-          <context context-type="linenumber">50,51</context>
+          <context context-type="linenumber">56,57</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.html</context>
-          <context context-type="linenumber">87,88</context>
+          <context context-type="linenumber">100,101</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.html</context>
+          <context context-type="linenumber">102,103</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">147,148</context>
+          <context context-type="linenumber">157,158</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
@@ -1438,39 +1414,39 @@
         <source>Set as src</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.html</context>
-          <context context-type="linenumber">60,61</context>
+          <context context-type="linenumber">67,68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9124349142927973489" datatype="html">
         <source>Change to source</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.html</context>
-          <context context-type="linenumber">62,63</context>
+          <context context-type="linenumber">69,70</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.html</context>
-          <context context-type="linenumber">98,99</context>
+          <context context-type="linenumber">113,114</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6389862891142031795" datatype="html">
         <source> Other formats: </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.html</context>
-          <context context-type="linenumber">113</context>
+          <context context-type="linenumber">128</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7792797569747274060" datatype="html">
         <source>Convert</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.html</context>
-          <context context-type="linenumber">130,131</context>
+          <context context-type="linenumber">145,146</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7887147434951259865" datatype="html">
         <source>File storage quota exceeded. Please delete some files and try again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.ts</context>
-          <context context-type="linenumber">159</context>
+          <context context-type="linenumber">164</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/change-cover-modal/ebook-project-change-cover-modal.component.ts</context>
@@ -1478,14 +1454,14 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/services/quill-illustration.service.ts</context>
-          <context context-type="linenumber">98</context>
+          <context context-type="linenumber">96</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6705615488401312354" datatype="html">
         <source>Failed to perform the requested action. Refresh the page and try again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/download-modal/ebook-file-download-modal.component.ts</context>
-          <context context-type="linenumber">161</context>
+          <context context-type="linenumber">166</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4263900766601281906" datatype="html">
@@ -1496,7 +1472,14 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">139,140</context>
+          <context context-type="linenumber">149,150</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4558682950868010570" datatype="html">
+        <source>Choose one of existing folders:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.html</context>
+          <context context-type="linenumber">7,8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8096140117358672227" datatype="html">
@@ -1513,25 +1496,32 @@
           <context context-type="linenumber">30,31</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="1791220611144857246" datatype="html">
+        <source>Folder name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.html</context>
+          <context context-type="linenumber">40,41</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="5392628466411738090" datatype="html">
         <source>From 1 to 128 characters</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.html</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5980488715818469513" datatype="html">
         <source> Alternatively, click here to remove folder assignment. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.html</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3620188369327429839" datatype="html">
         <source> Save </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.html</context>
-          <context context-type="linenumber">66,67</context>
+          <context context-type="linenumber">67,68</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-project-editor-page/modals/chapter-name-modal/chapter-name-modal.component.html</context>
@@ -1542,32 +1532,32 @@
         <source>Failed to load existing folders.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">46</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.ts</context>
-          <context context-type="linenumber">121</context>
+          <context context-type="linenumber">123</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2245315713858495079" datatype="html">
         <source>Folder assigned successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1605956916236438472" datatype="html">
         <source>Folder removed successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5963835709705720699" datatype="html">
         <source>Failed to assign folder.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1455187550519676849" datatype="html">
@@ -1751,7 +1741,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">131,132</context>
+          <context context-type="linenumber">141,142</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
@@ -1910,18 +1900,36 @@
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="4477141585742981179" datatype="html">
+        <source>If you want to share the ebook, you must convert it to PDF first.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/share-modal/share-modal.component.html</context>
+          <context context-type="linenumber">30,31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/share-modal/share-modal.component.html</context>
+          <context context-type="linenumber">32,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="329625467803188512" datatype="html">
+        <source>Sharing in Ebook-Wizard allows other users to view your e-book in a read-only mode. Ebook-Wizard uses a PDF format to display e-books in the browser.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/share-modal/share-modal.component.html</context>
+          <context context-type="linenumber">34,35</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="3153000664536276719" datatype="html">
         <source> Share link to your e-book: </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/share-modal/share-modal.component.html</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1767628118281133971" datatype="html">
         <source> Copy to clipboard </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/share-modal/share-modal.component.html</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">61</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/share-modal/share-modal.component.html</context>
@@ -1932,7 +1940,7 @@
         <source> Close </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/share-modal/share-modal.component.html</context>
-          <context context-type="linenumber">56,57</context>
+          <context context-type="linenumber">69,70</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/share-modal/share-modal.component.html</context>
@@ -1943,21 +1951,21 @@
         <source>Ebook file updated</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/share-modal/share-modal.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4152495048843309493" datatype="html">
         <source>Failed to update the ebook file</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/share-modal/share-modal.component.ts</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6011716694893427562" datatype="html">
         <source>URL copied to clipboard</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/share-modal/share-modal.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">67</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/share-modal/share-modal.component.ts</context>
@@ -1968,7 +1976,7 @@
         <source>Failed to copy URL to clipboard</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/files/share-modal/share-modal.component.ts</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">69</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/modals/projects/share-modal/share-modal.component.ts</context>
@@ -2295,25 +2303,32 @@
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="2302630272296953495" datatype="html">
+        <source>Click to change your avatar by using Gravatar service.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/account-manager-section/account-manager-section.component.html</context>
+          <context context-type="linenumber">11,12</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="5181192128750810171" datatype="html">
         <source>Your user identifier</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/account-manager-section/account-manager-section.component.html</context>
-          <context context-type="linenumber">15,16</context>
+          <context context-type="linenumber">20,21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4616894645263562158" datatype="html">
         <source>Your email address</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/account-manager-section/account-manager-section.component.html</context>
-          <context context-type="linenumber">26,27</context>
+          <context context-type="linenumber">31,32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8009645012542588800" datatype="html">
         <source>Your nickname</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/account-manager-section/account-manager-section.component.html</context>
-          <context context-type="linenumber">38,39</context>
+          <context context-type="linenumber">43,44</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
@@ -2324,28 +2339,28 @@
         <source>Your disk limit</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/account-manager-section/account-manager-section.component.html</context>
-          <context context-type="linenumber">51,52</context>
+          <context context-type="linenumber">56,57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1271491007649261494" datatype="html">
         <source>Account actions</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/account-manager-section/account-manager-section.component.html</context>
-          <context context-type="linenumber">61,62</context>
+          <context context-type="linenumber">66,67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2322688793988378029" datatype="html">
         <source>Close account</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/account-manager-section/account-manager-section.component.html</context>
-          <context context-type="linenumber">64,65</context>
+          <context context-type="linenumber">69,70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6309828574111583895" datatype="html">
         <source>Change password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/account-manager-section/account-manager-section.component.html</context>
-          <context context-type="linenumber">65,66</context>
+          <context context-type="linenumber">70,71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2849721312362923674" datatype="html">
@@ -2402,7 +2417,7 @@
         <source>Search</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">44</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
@@ -2413,7 +2428,7 @@
         <source>tag, title, author...</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">48,49</context>
+          <context context-type="linenumber">49,50</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
@@ -2424,7 +2439,7 @@
         <source>Creation date</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">63</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
@@ -2435,32 +2450,32 @@
         <source>Active folder</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8406787523492971076" datatype="html">
         <source>Unassigned</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">72,73</context>
+          <context context-type="linenumber">74,75</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">174,175</context>
+          <context context-type="linenumber">184,185</context>
         </context-group>
       </trans-unit>
       <trans-unit id="15899705850375759" datatype="html">
         <source> ← Go back to folder list </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="149021698773659858" datatype="html">
         <source>Unknown name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">94,95</context>
+          <context context-type="linenumber">96,97</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
@@ -2471,7 +2486,7 @@
         <source>Author:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">99,100</context>
+          <context context-type="linenumber">109,110</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
@@ -2490,7 +2505,7 @@
         <source>Unknown author</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">103,104</context>
+          <context context-type="linenumber">113,114</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
@@ -2501,11 +2516,11 @@
         <source>Actions</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">110,111</context>
+          <context context-type="linenumber">120,121</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">184,185</context>
+          <context context-type="linenumber">196,197</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
@@ -2516,7 +2531,7 @@
         <source>Show details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">118,119</context>
+          <context context-type="linenumber">128,129</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
@@ -2527,28 +2542,39 @@
         <source>Read</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">122,123</context>
+          <context context-type="linenumber">132,133</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4538249447147171538" datatype="html">
+        <source>Download/convert</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
+          <context context-type="linenumber">136,137</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
+          <context context-type="linenumber">124,125</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4783275312226780731" datatype="html">
         <source>Change metadata</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">135,136</context>
+          <context context-type="linenumber">145,146</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2496139376521319064" datatype="html">
         <source>Convert to project</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">152,153</context>
+          <context context-type="linenumber">162,163</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7419704019640008953" datatype="html">
         <source>Share</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">156,157</context>
+          <context context-type="linenumber">166,167</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
@@ -2559,7 +2585,7 @@
         <source>All items filtered...</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">161,162</context>
+          <context context-type="linenumber">171,172</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
@@ -2570,7 +2596,7 @@
         <source>Remove some filters and try again...</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">162,163</context>
+          <context context-type="linenumber">172,173</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.html</context>
@@ -2581,28 +2607,28 @@
         <source>Book count: </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">179,180</context>
+          <context context-type="linenumber">189,190</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6574369372172883795" datatype="html">
         <source>Open folder</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.html</context>
-          <context context-type="linenumber">192,193</context>
+          <context context-type="linenumber">204,205</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2277393731943752560" datatype="html">
         <source>Files per page</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.ts</context>
-          <context context-type="linenumber">84</context>
+          <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3522470007354852946" datatype="html">
         <source>0 of <x id="PH" equiv-text="length"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.ts</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">88</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.ts</context>
@@ -2613,7 +2639,7 @@
         <source><x id="PH" equiv-text="startIndex + 1"/> – <x id="PH_1" equiv-text="endIndex"/> of <x id="PH_2" equiv-text="length"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.ts</context>
-          <context context-type="linenumber">98</context>
+          <context context-type="linenumber">99</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/projects-section/ebook-page-projects-section.component.ts</context>
@@ -2624,7 +2650,7 @@
         <source>Failed to load ebook files. Refresh the page and try again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-page/sections/files-section/ebook-page-files-section.component.ts</context>
-          <context context-type="linenumber">152</context>
+          <context context-type="linenumber">154</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6719051740558146186" datatype="html">
@@ -2797,28 +2823,28 @@
         <source>Add chapter</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-project-editor-page/chapter-picker/chapter-picker.component.html</context>
-          <context context-type="linenumber">44,45</context>
+          <context context-type="linenumber">45,46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3727767011777233014" datatype="html">
         <source>Last saved:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-project-editor-page/chapter-picker/chapter-picker.component.html</context>
-          <context context-type="linenumber">51,52</context>
+          <context context-type="linenumber">52,53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5025900661543903181" datatype="html">
         <source>saving...</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-project-editor-page/chapter-picker/chapter-picker.component.html</context>
-          <context context-type="linenumber">53,54</context>
+          <context context-type="linenumber">54,55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6131636344526571929" datatype="html">
         <source>not saved yet</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-project-editor-page/chapter-picker/chapter-picker.component.html</context>
-          <context context-type="linenumber">55,56</context>
+          <context context-type="linenumber">56,57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4606091236515013460" datatype="html">
@@ -3048,106 +3074,161 @@
           <context context-type="linenumber">1,3</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="931889978803020512" datatype="html">
+        <source>Audiobook service</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1366046683539707055" datatype="html">
+        <source>is available only for authenticated users.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
+          <context context-type="linenumber">4,6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.html</context>
+          <context context-type="linenumber">4,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="272695040866839830" datatype="html">
+        <source>Register now</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/landing-page/navbar/landing-page-navbar.component.html</context>
+          <context context-type="linenumber">26,27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/landing-page/navbar/landing-page-navbar.component.html</context>
+          <context context-type="linenumber">71,72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1812213334845863562" datatype="html">
+        <source>Or, log in here</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2826581353496868063" datatype="html">
         <source>Language</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1750555739180809831" datatype="html">
         <source>Voice</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7183480413524166008" datatype="html">
         <source> Automatically change pages </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3133539296286953705" datatype="html">
         <source>Stop</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8564202903947049539" datatype="html">
         <source>Play</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9042260521669277115" datatype="html">
         <source>Pause</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.html</context>
-          <context context-type="linenumber">71,72</context>
+          <context context-type="linenumber">88,89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3197464844057959713" datatype="html">
         <source>Failed to load audiobook data. Please try again later.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">72</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/audiobook-menu/audiobook-menu.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4930564400046824067" datatype="html">
+        <source>Bookmark service</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.html</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="32807755618468633" datatype="html">
         <source>Bookmark this page?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.html</context>
-          <context context-type="linenumber">4,5</context>
+          <context context-type="linenumber">19,20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2361176006445353643" datatype="html">
         <source>Bookmark current page</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.html</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1780443122243811873" datatype="html">
         <source>Your bookmarks</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.html</context>
-          <context context-type="linenumber">19,20</context>
+          <context context-type="linenumber">34,35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5048957535073058856" datatype="html">
         <source>Page <x id="INTERPOLATION" equiv-text="{{bookmarkedPage}}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.html</context>
-          <context context-type="linenumber">26,27</context>
+          <context context-type="linenumber">41,42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4624027260453516324" datatype="html">
         <source>No bookmarks yet...</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.html</context>
-          <context context-type="linenumber">30,31</context>
+          <context context-type="linenumber">45,46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5079356911458640450" datatype="html">
         <source>Failed to load bookmarks. Please try again later.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5102833078243868892" datatype="html">
         <source>Failed to update bookmarks. Please try again later.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/bookmark-menu/bookmark-menu.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6913349880076843622" datatype="html">
@@ -3290,6 +3371,34 @@
           <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="4859966902487009263" datatype="html">
+        <source>Page jump</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/page-jump-menu/page-jump-menu.component.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6170469386815204147" datatype="html">
+        <source>Choose a page to jump to:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/page-jump-menu/page-jump-menu.component.html</context>
+          <context context-type="linenumber">5,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5163931341483575277" datatype="html">
+        <source>Page number</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/page-jump-menu/page-jump-menu.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4649711232397678200" datatype="html">
+        <source>Jump</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/ebook-reader-page/page-jump-menu/page-jump-menu.component.html</context>
+          <context context-type="linenumber">18,19</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="4545531357681291824" datatype="html">
         <source>Securely create and store e-books in the cloud</source>
         <context-group purpose="location">
@@ -3352,7 +3461,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/landing-page/navbar/landing-page-navbar.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1692772587663137849" datatype="html">
@@ -3370,7 +3479,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/landing-page/navbar/landing-page-navbar.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4185011818465965115" datatype="html">
@@ -3429,17 +3538,6 @@
           <context context-type="linenumber">92,93</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="272695040866839830" datatype="html">
-        <source>Register now</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/landing-page/navbar/landing-page-navbar.component.html</context>
-          <context context-type="linenumber">26,27</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/pages/landing-page/navbar/landing-page-navbar.component.html</context>
-          <context context-type="linenumber">71,72</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="640123816242262635" datatype="html">
         <source>Open disk</source>
         <context-group purpose="location">
@@ -3455,14 +3553,14 @@
         <source>Home</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/landing-page/navbar/landing-page-navbar.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3163044740176820503" datatype="html">
         <source>Get started</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/landing-page/navbar/landing-page-navbar.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7186878511977620568" datatype="html">
@@ -3545,14 +3643,25 @@
         <source>Invalid email or password.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/login-page/login-page.component.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2489604628795070296" datatype="html">
+        <source>You are already logged in.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/login-page/login-page.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.ts</context>
+          <context context-type="linenumber">93</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3679151981400659514" datatype="html">
         <source>An error occurred while signing in.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/login-page/login-page.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7022780577364254409" datatype="html">
@@ -3704,6 +3813,20 @@
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="8552587679160911578" datatype="html">
+        <source>Email is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1140599166278569579" datatype="html">
+        <source>Invalid email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="6968179489937129275" datatype="html">
         <source>Requirements: 3-20 characters</source>
         <context-group purpose="location">
@@ -3805,11 +3928,25 @@
           <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="2955155722204960206" datatype="html">
+        <source> I accept the <x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;/about&quot; target=&quot;_blank&quot;&gt;"/>terms and conditions.<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
+          <context context-type="linenumber">78,79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="718035918853862261" datatype="html">
+        <source>You must accept the terms and conditions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="759700768007867447" datatype="html">
         <source> Login instead → </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">94</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/reset-password-page/content/reset-password-page-content.component.html</context>
@@ -3820,21 +3957,21 @@
         <source> Register </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.html</context>
-          <context context-type="linenumber">91</context>
+          <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3048954960405056572" datatype="html">
         <source>User with this email already exists.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.ts</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8524034778539350579" datatype="html">
         <source>Error occurred during registration. Please try again later.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/pages/registration-page/content/registration-page-content.component.ts</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">96</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2824563780433996829" datatype="html">
@@ -3985,7 +4122,7 @@
         <source>Image is too large. Maximum size is 5MB.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/services/quill-illustration.service.ts</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
     </body>

@@ -57,8 +57,6 @@ public class SpringSecurityConfig {
         configuration.setAllowedOrigins(List.of(
             "http://localhost:4200",
             "https://pl.ebookwizard.danielrogowski.net",
-            "http://192.168.32.7:4200",
-            "http://192.168.32.5:4200",
             "https://en.ebookwizard.danielrogowski.net"
         ));
 

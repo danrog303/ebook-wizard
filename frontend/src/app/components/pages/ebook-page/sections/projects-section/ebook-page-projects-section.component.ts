@@ -1,4 +1,4 @@
-import {AfterContentInit, AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {AfterContentInit, Component, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {MatMenuTrigger} from "@angular/material/menu";
 import {MatDialog} from "@angular/material/dialog";
@@ -44,11 +44,11 @@ export class EbookPageProjectsSectionComponent implements AfterContentInit {
     filterKeyword: string = "";
     sortBy: string = "";
 
-    constructor(private ebookProjectService: EbookProjectService,
-                private notificationService: NotificationService,
-                private dialogService: MatDialog,
-                private router: Router,
-                private activatedRoute: ActivatedRoute) {
+    constructor(private readonly ebookProjectService: EbookProjectService,
+                private readonly notificationService: NotificationService,
+                private readonly dialogService: MatDialog,
+                private readonly router: Router,
+                private readonly activatedRoute: ActivatedRoute) {
     }
 
     ngAfterContentInit() {
@@ -119,7 +119,7 @@ export class EbookPageProjectsSectionComponent implements AfterContentInit {
 
         dialogRef.afterClosed().subscribe(() => {
             if (dialogRef.componentInstance.ebookProjectCreated) {
-                this.ebookProjects.push(dialogRef.componentInstance.ebookProject!);
+                this.ebookProjects.push(dialogRef.componentInstance.ebookProject);
                 this.applySortAndFilter();
             }
         });
@@ -201,7 +201,7 @@ export class EbookPageProjectsSectionComponent implements AfterContentInit {
     }
 
     openConvertToEbookFileModal(ebookProject: EbookProject) {
-        const modalRef = this.dialogService.open(ConvertEbookProjectToFileModalComponent, {
+        this.dialogService.open(ConvertEbookProjectToFileModalComponent, {
             autoFocus: false,
             data: ebookProject
         });

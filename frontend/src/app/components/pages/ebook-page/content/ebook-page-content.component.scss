@@ -46,6 +46,8 @@
     grid-area: footer;
     text-align: center;
     color: lightgray;
+    align-self: center;
+    justify-self: center;
 }
 
 .ebook-add-button {
@@ -80,11 +82,6 @@
 
 .ebook-page-nav-divider {
     margin-top: 1em;
-}
-
-.ebook-page-footer {
-    align-self: center;
-    justify-self: center;
 }
 
 .drawer-menu-btn {

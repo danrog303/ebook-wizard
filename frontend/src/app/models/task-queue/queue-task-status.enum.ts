@@ -3,7 +3,6 @@ enum QueueTaskStatus {
     IN_PROGRESS = "IN_PROGRESS",
     COMPLETED = "COMPLETED",
     FAILED = "FAILED",
-    ABORTED = "ABORTED",
     NOT_FOUND = "NOT_FOUND"
 }
 

@@ -24,6 +24,6 @@ export interface EbookProjectReaderSmModalProps {
 })
 export class EbookProjectReaderSmModalComponent {
     constructor(@Inject(MAT_DIALOG_DATA) public props: EbookProjectReaderSmModalProps,
-                @Inject(MatDialogRef) private dialogRef: MatDialogRef<EbookProjectReaderSmModalComponent>) {
+                @Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<EbookProjectReaderSmModalComponent>) {
     }
 }

@@ -15,7 +15,7 @@ export class StatsDisplayComponent implements OnInit {
     loadingStatus: LoadingStatus = LoadingStatus.NOT_STARTED;
     websiteStats: EbookWizardStatistics | null = null;
 
-    constructor(private statsService: EbookWizardStatisticsService) {
+    constructor(private readonly statsService: EbookWizardStatisticsService) {
     }
 
     ngOnInit() {

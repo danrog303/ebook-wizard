@@ -1,18 +1,11 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {DatePipe, KeyValuePipe, UpperCasePipe} from "@angular/common";
-import structuredClone from '@ungap/structured-clone';
 import ActionPendingButtonComponent from "@app/components/common/action-pending-button/action-pending-button.component";
 import MaterialModule from "@app/modules/material.module";
 import FileDownloadService from "@app/services/file-download.service";
-import QueueTaskTrackingService from "@app/services/queue-task-tracking.service";
 import NotificationService from "@app/services/notification.service";
-import EbookFileService from "@app/services/ebook-file.service";
-import EbookFile from "@app/models/ebook-file/ebook-file.model";
 import EbookFormat from "@app/models/ebook/ebook-format.enum";
-import QueueTaskSseReport from "@app/models/task-queue/queue-task-sse-report.model";
-import QueueTask from "@app/models/task-queue/queue-task.model";
-import QueueTaskPayload from "@app/models/task-queue/queue-task-payload.model";
 import EbookProject from "@app/models/ebook-project/ebook-project.model";
 import LoadingStatus from "@app/models/misc/loading-status.enum";
 import EbookProjectService from "@app/services/ebook-project.service";
@@ -31,18 +24,14 @@ import EbookDownloadableResource from "@app/models/ebook/ebook-downloadable-reso
     templateUrl: './ebook-project-download-modal.component.html',
     styleUrl: './ebook-project-download-modal.component.scss'
 })
-export class EbookProjectDownloadModalComponent implements OnInit {
+export class EbookProjectDownloadModalComponent {
     ongoingTaskStatus: LoadingStatus = LoadingStatus.NOT_STARTED;
 
-    ngOnInit() {
-
-    }
-
     constructor(@Inject(MAT_DIALOG_DATA) public ebookProject: EbookProject,
-                @Inject(MatDialogRef) private dialogRef: MatDialogRef<EbookProjectDownloadModalComponent>,
-                private ebookProjectService: EbookProjectService,
-                private notificationService: NotificationService,
-                private fileDownloadService: FileDownloadService) {
+                @Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<EbookProjectDownloadModalComponent>,
+                private readonly ebookProjectService: EbookProjectService,
+                private readonly notificationService: NotificationService,
+                private readonly fileDownloadService: FileDownloadService) {
     }
 
     onCreateDownloadLink(format: EbookFormat) {

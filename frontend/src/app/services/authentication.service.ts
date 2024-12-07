@@ -16,7 +16,6 @@ import {
     signOut,
     signUp,
     updatePassword,
-    updateUserAttribute,
     confirmUserAttribute,
     deleteUser, updateUserAttributes
 } from "@aws-amplify/auth";
@@ -165,7 +164,7 @@ export default class AuthenticationService {
     }
 
     public async updateEmail(email: string): Promise<boolean> {
-        const result = await updateUserAttributes({
+        await updateUserAttributes({
             userAttributes: {
                 email: email
             }

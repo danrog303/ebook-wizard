@@ -39,7 +39,8 @@
                         <span i18n>Create ebook file</span>
                     </button>
 
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline"
+                                    [ngStyle]="{'visibility': activeFolder !== null || ebookFolders.length === 0 ? 'visible' : 'hidden'}">
                         <mat-label i18n>Search</mat-label>
                         <input [(ngModel)]="filterKeyword"
                                (ngModelChange)="applySortAndFilter()"
@@ -51,7 +52,8 @@
                         <mat-icon matSuffix>search</mat-icon>
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline"
+                                    [ngStyle]="{'visibility': activeFolder !== null || ebookFolders.length === 0 ? 'visible' : 'hidden'}">
                         <mat-label>Sort by</mat-label>
                         <mat-select value="sort_title"
                                     [(ngModel)]="sortBy"
@@ -93,6 +95,14 @@
                                 } @else {
                                     <span i18n>Unknown name</span>
                                 }
+
+                                <span style="padding-left: 0.5em;">
+                                    @for (downloadableFile of ebookFile.downloadableFiles ?? []; track downloadableFile.stub) {
+                                        <app-badge backgroundColor="darkgray" (click)="openDownloadModal(ebookFile)">
+                                            {{ downloadableFile.format.toUpperCase() }}
+                                        </app-badge>
+                                    }
+                                </span>
                             </div>
 
                             <div matListItemLine>
@@ -123,7 +133,7 @@
                             </button>
                             <button mat-menu-item (click)="openDownloadModal(ebookFile)">
                                 <mat-icon>download</mat-icon>
-                                <span i18n>Download</span>
+                                <span i18n>Download/convert</span>
                             </button>
                             <mat-divider />
                             <button mat-menu-item (click)="openSendToReaderModal(ebookFile)">
@@ -164,7 +174,7 @@
                     }
                 } @else {
                     @for (folder of ebookFolders; track folder.name) {
-                        <mat-list-item class="ebook-file-pane">
+                        <mat-list-item class="ebook-file-pane" (click)="openFolder(folder)">
                             <mat-icon matListItemIcon>folder</mat-icon>
 
                             <div matListItemTitle>
@@ -180,7 +190,9 @@
                                 <span>{{ folder.bookCount }}</span>
                             </div>
 
-                            <button mat-button [matMenuTriggerFor]="ebookFolderDropdownMenu">
+                            <button mat-button
+                                    [matMenuTriggerFor]="ebookFolderDropdownMenu"
+                                    (click)="$event.stopPropagation()">
                                 <span i18n>Actions</span>
                                 <mat-icon>more_vert</mat-icon>
                             </button>

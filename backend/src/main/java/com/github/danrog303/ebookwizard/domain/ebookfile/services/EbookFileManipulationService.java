@@ -1,7 +1,7 @@
 package com.github.danrog303.ebookwizard.domain.ebookfile.services;
 
 import com.github.danrog303.ebookwizard.domain.ebook.models.*;
-import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageCalculator;
+import com.github.danrog303.ebookwizard.domain.ebook.services.EbookDiskUsageService;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFile;
 import com.github.danrog303.ebookwizard.domain.ebookfile.models.EbookFileRepository;
 import com.github.danrog303.ebookwizard.domain.errorhandling.exceptions.FileStorageQuotaExceededException;
@@ -42,10 +42,10 @@ public class EbookFileManipulationService {
     private final EbookFileLockService ebookFileLockService;
     private final EbookFileImportService ebookFileImportService;
     private final EbookFileUpdateService ebookFileUpdateService;
-    private final EbookDiskUsageCalculator diskUsageCalculator;
+    private final EbookDiskUsageService diskUsageCalculator;
     private final ValidatorService validatorService;
 
-    public int MAX_EBOOK_FILE_COVER_SIZE = 5 * 1024 * 1024;
+    public static final int MAX_EBOOK_FILE_COVER_SIZE = 5 * 1024 * 1024;
 
     public QueueTask<QueueTaskPayload> enqueueAddNewFileTypeToEbookFile(String ebookFileId, String targetFormat) {
         EbookFile ebookFile = requireEbookFilePermission(ebookFileId, EbookAccessType.READ_WRITE);
@@ -128,8 +128,8 @@ public class EbookFileManipulationService {
         }
 
         // Workaround for AZW3
-        // This is required, because the mimetype of AZW3 files is the same as MOBI files
-        if (format.getExtensionName().equals("mobi") && fileName.endsWith("azw3")) {
+        // This is required, because the Apache Tika incorrectly reports azw3 as mobi
+        if (format.getExtensionName().equals("mobi") && fileName.toLowerCase().endsWith("azw3")) {
             format = EbookFormat.AZW3;
         }
 
@@ -144,7 +144,7 @@ public class EbookFileManipulationService {
             ebook.setOwnerUserId(currentUserId);
             ebook.setCoverImageKey(null);
             ebook.setCreationDate(new Date());
-            ebook.setEditLock(new EbookFileLock(false, null));
+            ebook.setEditLock(new EbookEditLock(false, null));
             ebook.setConversionSourceFormat(format);
             ebook.setContainerName(null);
             ebook.setPublic(false);
@@ -258,6 +258,12 @@ public class EbookFileManipulationService {
                 .getDownloadableFiles()
                 .stream().filter(file -> file.getFormat().equals(format))
                 .findFirst().orElseThrow();
+
+        // Being public requires to have a PDF format,
+        // so when deleting the PDF format, the book should be marked back as private
+        if (format == EbookFormat.PDF) {
+            ebookFile.setPublic(false);
+        }
 
         this.fileStorageService.deleteFile(downloadableFile.getFileKey());
         ebookFile.getDownloadableFiles().remove(downloadableFile);

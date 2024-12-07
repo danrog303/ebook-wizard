@@ -47,11 +47,11 @@ export class EbookFileSendModalComponent implements AfterViewInit {
     });
 
     constructor(@Inject(MAT_DIALOG_DATA) public ebookFile: EbookFile,
-                @Inject(MatDialogRef) private dialogRef: MatDialogRef<EbookFileSendModalComponent>,
-                private ebookFileService: EbookFileService,
-                private notificationService: NotificationService,
-                private queueTaskTrackingService: QueueTaskTrackingService,
-                private authService: AuthenticationService) {
+                @Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<EbookFileSendModalComponent>,
+                private readonly ebookFileService: EbookFileService,
+                private readonly notificationService: NotificationService,
+                private readonly queueTaskTrackingService: QueueTaskTrackingService,
+                private readonly authService: AuthenticationService) {
     }
 
     ngAfterViewInit() {
@@ -60,7 +60,7 @@ export class EbookFileSendModalComponent implements AfterViewInit {
         } else {
             from(this.authService.fetchAuthenticatedUser()).subscribe({
                 next: (user) => {
-                    this.sendToReaderForm.get("email")?.setValue(user?.email || "");
+                    this.sendToReaderForm.get("email")?.setValue(user?.email ?? "");
                 }
             });
         }

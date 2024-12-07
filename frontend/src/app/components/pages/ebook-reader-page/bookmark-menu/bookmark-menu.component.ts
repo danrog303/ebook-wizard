@@ -7,6 +7,8 @@ import NotificationService from "@app/services/notification.service";
 import {MatIcon} from "@angular/material/icon";
 import LoadingStatus from "@app/models/misc/loading-status.enum";
 import {FormsModule} from "@angular/forms";
+import {MatButton} from "@angular/material/button";
+import {RouterLink} from "@angular/router";
 
 export interface BookmarkMenuContext {
     changePage: (pageNumber: number) => Promise<void>;
@@ -16,7 +18,7 @@ export interface BookmarkMenuContext {
 @Component({
     selector: 'app-bookmark-menu',
     standalone: true,
-    imports: [MatSlideToggle, MatIcon, FormsModule],
+    imports: [MatSlideToggle, MatIcon, FormsModule, MatButton, RouterLink],
     templateUrl: './bookmark-menu.component.html',
     styleUrl: './bookmark-menu.component.scss'
 })
@@ -28,20 +30,26 @@ export class BookmarkMenuComponent implements OnInit, OnChanges {
     bookmarks: EbookFileBookmark | null = null;
     bookmarkSliderChecked: boolean = false;
     operationProgress: LoadingStatus = LoadingStatus.NOT_STARTED;
+    bookmarkServiceAvailable = false;
 
-    constructor(private bookmarkService: BookmarkService,
-                private notificationService: NotificationService) {
+    constructor(private readonly bookmarkService: BookmarkService,
+                private readonly notificationService: NotificationService) {
     }
 
     async ngOnInit() {
         try {
+            this.bookmarkServiceAvailable = true;
             this.bookmarks = await firstValueFrom(this.bookmarkService.getBookmarksForEbookFile(this.ebookFileId));
             this.bookmarks.bookmarkedPages.sort((a, b) => a - b);
             if (this.bookmarks.bookmarkedPages.includes(this.currentPageNumber)) {
                 this.bookmarkSliderChecked = true;
             }
         } catch(err) {
-            this.notificationService.show($localize`Failed to load bookmarks. Please try again later.`);
+            if (JSON.stringify(err).includes("403") || JSON.stringify(err).includes("401")) {
+                this.bookmarkServiceAvailable = false;
+            } else {
+                this.notificationService.show($localize`Failed to load bookmarks. Please try again later.`);
+            }
         }
     }
 

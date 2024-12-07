@@ -22,23 +22,25 @@ import java.util.NoSuchElementException;
 @Slf4j
 @ControllerAdvice
 public class ErrorHandleControllerAdvice {
+    private static final String ERR_TPL = "Controller advice caught a %s exception";
+    
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception e) {
-        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+        log.error(ERR_TPL.formatted(e.getClass().getSimpleName()), e);
         var status = HttpStatus.INTERNAL_SERVER_ERROR;
         var key = "INTERNAL_SERVER_ERROR";
         var msg = e.getMessage();
-        if (msg == null) {
-            msg = "An internal server error occurred.";
+        if (msg == null || msg.isBlank()) {
+            msg = "An internal server error occurred";
         }
 
-        var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
+        var response = new ErrorResponse(status.value(), key, msg, new Date());
         return ResponseEntity.status(status).body(response);
     }
 
     @ExceptionHandler(ClassCastException.class)
     public ResponseEntity<ErrorResponse> handleClassCastException(ClassCastException e) {
-        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+        log.error(ERR_TPL.formatted(e.getClass().getSimpleName()), e);
 
         if (e.getMessage() != null && e.getMessage().contains("AnonymousAuthenticationToken")) {
             var status = HttpStatus.UNAUTHORIZED;
@@ -55,7 +57,7 @@ public class ErrorHandleControllerAdvice {
 
     @ExceptionHandler(MultipartException.class)
     public ResponseEntity<ErrorResponse> handleMultipartException(MultipartException e) {
-        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+        log.error(ERR_TPL.formatted(e.getClass().getSimpleName()), e);
         var status = HttpStatus.BAD_REQUEST;
         var key = "MULTIPART_RESOLUTION_FAILED";
         var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
@@ -64,7 +66,7 @@ public class ErrorHandleControllerAdvice {
 
     @ExceptionHandler(MissingServletRequestPartException.class)
     public ResponseEntity<ErrorResponse> handleMissingServletRequestPartException(MissingServletRequestPartException e) {
-        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+        log.error(ERR_TPL.formatted(e.getClass().getSimpleName()), e);
         var status = HttpStatus.BAD_REQUEST;
         var key = "MULTIPART_MISSING_FIELD";
         var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
@@ -73,7 +75,7 @@ public class ErrorHandleControllerAdvice {
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public ResponseEntity<ErrorResponse> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
-        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+        log.error(ERR_TPL.formatted(e.getClass().getSimpleName()), e);
         var status = HttpStatus.BAD_REQUEST;
         var key = "MEDIA_TYPE_NOT_SUPPORTED";
         var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
@@ -82,7 +84,7 @@ public class ErrorHandleControllerAdvice {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
-        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+        log.error(ERR_TPL.formatted(e.getClass().getSimpleName()), e);
         var status = HttpStatus.BAD_REQUEST;
         var key = "MESSAGE_NOT_READABLE";
         var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
@@ -91,7 +93,7 @@ public class ErrorHandleControllerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+        log.error(ERR_TPL.formatted(e.getClass().getSimpleName()), e);
         var status = HttpStatus.BAD_REQUEST;
         var key = "ARGUMENT_NOT_VALID";
         var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
@@ -100,7 +102,7 @@ public class ErrorHandleControllerAdvice {
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorResponse> handleAccessDeniedException(AccessDeniedException e) {
-        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+        log.error(ERR_TPL.formatted(e.getClass().getSimpleName()), e);
         var status = HttpStatus.UNAUTHORIZED;
         var key = "UNAUTHORIZED_ACCESS";
         var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
@@ -109,7 +111,7 @@ public class ErrorHandleControllerAdvice {
 
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<Object> handleNotFoundException(NoHandlerFoundException e) {
-        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+        log.error(ERR_TPL.formatted(e.getClass().getSimpleName()), e);
         var status = HttpStatus.NOT_FOUND;
         var key = "RESOURCE_NOT_FOUND";
         var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
@@ -118,7 +120,7 @@ public class ErrorHandleControllerAdvice {
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<ErrorResponse> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
-        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+        log.error(ERR_TPL.formatted(e.getClass().getSimpleName()), e);
         var status = HttpStatus.BAD_REQUEST;
         var key = "MISSING_REQUEST_PARAMETER";
         var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
@@ -127,7 +129,7 @@ public class ErrorHandleControllerAdvice {
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<ErrorResponse> handleNoSuchElementException(NoSuchElementException e) {
-        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+        log.error(ERR_TPL.formatted(e.getClass().getSimpleName()), e);
         var status = HttpStatus.NOT_FOUND;
         var key = "NOT_FOUND";
         var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
@@ -136,7 +138,7 @@ public class ErrorHandleControllerAdvice {
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<ErrorResponse> handleMaxUploadSizeExceededException(MaxUploadSizeExceededException e) {
-        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+        log.error(ERR_TPL.formatted(e.getClass().getSimpleName()), e);
         var status = HttpStatus.BAD_REQUEST;
         var key = "FILE_STORAGE_QUOTA_EXCEEDED";
         var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());
@@ -145,7 +147,7 @@ public class ErrorHandleControllerAdvice {
 
     @ExceptionHandler(FileStorageQuotaExceededException.class)
     public ResponseEntity<ErrorResponse> handleFileStorageQuotaExceededException(MaxUploadSizeExceededException e) {
-        log.error("Controller advice caught a %s exception".formatted(e.getClass().getSimpleName()), e);
+        log.error(ERR_TPL.formatted(e.getClass().getSimpleName()), e);
         var key = "FILE_STORAGE_QUOTA_EXCEEDED";
         var status = HttpStatus.BAD_REQUEST;
         var response = new ErrorResponse(status.value(), key, e.getMessage(), new Date());

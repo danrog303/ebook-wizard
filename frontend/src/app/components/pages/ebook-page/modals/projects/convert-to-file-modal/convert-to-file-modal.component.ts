@@ -33,11 +33,11 @@ export class ConvertEbookProjectToFileModalComponent {
     selectedFormat: EbookFormat = EbookFormat.AZW3;
 
     constructor(@Inject(MAT_DIALOG_DATA) public ebookProject: EbookProject,
-                private dialogRef: MatDialogRef<ConvertEbookProjectToFileModalComponent>,
-                private ebookProjectService: EbookProjectService,
-                private notificationService: NotificationService,
-                private trackingService: QueueTaskTrackingService,
-                private router: Router) {
+                private readonly dialogRef: MatDialogRef<ConvertEbookProjectToFileModalComponent>,
+                private readonly ebookProjectService: EbookProjectService,
+                private readonly notificationService: NotificationService,
+                private readonly trackingService: QueueTaskTrackingService,
+                private readonly router: Router) {
     }
 
     convertToEbookFile() {

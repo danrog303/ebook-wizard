@@ -1,7 +1,7 @@
 import EbookDownloadableResource from "../ebook/ebook-downloadable-resource.model";
-import EbookFileLock from "../ebook/ebook-file-lock.model";
 import EbookProjectIllustration from "./ebook-project-illustration.model";
 import EbookProjectChapter from "./ebook-project-chapter.model";
+import EbookEditLock from "@app/models/ebook/ebook-edit-lock";
 
 export default interface EbookProject {
     id: string;
@@ -14,7 +14,7 @@ export default interface EbookProject {
     tags: string[];
     creationDate: Date;
     isPublic: boolean;
-    lock: EbookFileLock;
+    lock: EbookEditLock;
     illustrations: EbookProjectIllustration[];
     downloadableFiles: EbookDownloadableResource[];
     chapters: EbookProjectChapter[];

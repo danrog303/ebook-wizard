@@ -19,9 +19,9 @@ export class ResetPasswordPageContentComponent {
     resetPasswordForm: FormGroup;
     resetPasswordPending: boolean = false;
 
-    constructor(private authService: AuthenticationService,
-                private notificationService: NotificationService,
-                private dialogService: MatDialog) {
+    constructor(private readonly authService: AuthenticationService,
+                private readonly notificationService: NotificationService,
+                private readonly dialogService: MatDialog) {
         this.resetPasswordForm = new FormGroup({
             'email': new FormControl(null, [Validators.required, Validators.email])
         });

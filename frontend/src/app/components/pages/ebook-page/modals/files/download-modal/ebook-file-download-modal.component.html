@@ -47,7 +47,14 @@
                                         [disabled]="ongoingActionItem !== null"
                                         (click)="onDeleteFormat(availableFormat)"
                                         class="action-btn">
-                                    <span i18n>Delete</span>
+                                    @if (ebookFile.public && availableFormat === EbookFormat.PDF) {
+                                        <span i18n i18n-matTooltip
+                                              matTooltip="If you delete PDF in a public ebook, it will become private.">
+                                            Delete
+                                        </span>
+                                    } @else {
+                                        <span i18n>Delete</span>
+                                    }
                                     <mat-icon>delete_forever</mat-icon>
                                 </button>
 
@@ -84,6 +91,14 @@
                                         [disabled]="ongoingActionItem !== null"
                                         (click)="onDeleteFormat(availableFormat)"
                                         class="action-btn">
+                                    @if (ebookFile.public && availableFormat === EbookFormat.PDF) {
+                                        <span i18n i18n-matTooltip
+                                              matTooltip="If you delete PDF in a public ebook, it will become private.">
+                                            Delete
+                                        </span>
+                                    } @else {
+                                        <span i18n>Delete</span>
+                                    }
                                     <span i18n>Delete</span>
                                     <mat-icon>delete_forever</mat-icon>
                                 </button>

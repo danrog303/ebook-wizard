@@ -22,11 +22,11 @@ export class LoginPageComponent {
 
     hidePassword = true;
 
-    constructor(private cognitoService: AuthenticationService,
-                private dialogService: MatDialog,
-                private notificationService: NotificationService,
-                private routerService: Router,
-                private activatedRoute: ActivatedRoute) {
+    constructor(private readonly cognitoService: AuthenticationService,
+                private readonly dialogService: MatDialog,
+                private readonly notificationService: NotificationService,
+                private readonly routerService: Router,
+                private readonly activatedRoute: ActivatedRoute) {
         this.loginForm = new FormGroup({
             'email': new FormControl(null, [Validators.required, Validators.email]),
             'password': new FormControl(null, [Validators.required])
@@ -46,17 +46,20 @@ export class LoginPageComponent {
 
             this.notificationService.show($localize`You have successfuly logged in.`);
         } catch(e: any) {
-            if (e.toString().includes("NotAuthorizedException")) {
+            const error = JSON.stringify(e);
+            if (error.includes("NotAuthorizedException")) {
                 this.notificationService.show($localize`Invalid email or password.`);
-            } else if (e.toString().includes("CONFIRM_SIGN_UP")) {
-                const dialogRef = this.dialogService.open(RegistrationConfirmModalComponent, {
+            } else if (error.toString().includes("CONFIRM_SIGN_UP")) {
+                this.dialogService.open(RegistrationConfirmModalComponent, {
                     data: {
                         userEmail: this.loginForm.controls['email'].value
                     },
                     disableClose: true
                 });
-            }
-            else {
+            } else if (error.includes("UserAlreadyAuthenticatedException")) {
+                this.notificationService.show($localize`You are already logged in.`);
+                this.routerService.navigateByUrl("/ebook").then();
+            } else {
                 console.error(e);
                 this.notificationService.show($localize`An error occurred while signing in.`);
             }

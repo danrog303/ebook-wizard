@@ -89,7 +89,7 @@
         </div>
 
         <div class="view-pane">
-            <iframe #viewPaneIframe [srcdoc]="chosenChapter?.contentHtml"></iframe>
+            <iframe #viewPaneIframe [srcdoc]="chosenChapter?.contentHtml" title="chapter content"></iframe>
         </div>
     </div>
 } @else if (ebookProjectLoadStatus === LoadingStatus.LOADING) {

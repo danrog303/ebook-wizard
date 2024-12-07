@@ -7,7 +7,7 @@ import environment from "@env/environment";
 @Injectable({providedIn: "root"})
 export default class BookmarkService {
 
-    constructor(private http: HttpClient) {}
+    constructor(private readonly http: HttpClient) {}
 
     /**
      * Get bookmarks for a specific ebook file by ID

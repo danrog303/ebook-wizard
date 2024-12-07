@@ -30,9 +30,9 @@ export default class ResetPasswordConfirmModalComponent {
 
     constructor(public dialogRef: MatDialogRef<ResetPasswordConfirmModalComponent>,
                 @Inject(MAT_DIALOG_DATA) public userData: ResetPasswordConfirmModalInput,
-                private notificationService: NotificationService,
-                private authService: AuthenticationService,
-                private routerService: Router) {
+                private readonly notificationService: NotificationService,
+                private readonly authService: AuthenticationService,
+                private readonly routerService: Router) {
         this.resetPasswordConfirmForm = new FormGroup({
             'code': new FormControl(null, [
                 Validators.required,

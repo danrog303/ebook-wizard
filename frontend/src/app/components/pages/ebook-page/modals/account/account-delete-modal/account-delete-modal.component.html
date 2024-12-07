@@ -11,22 +11,22 @@
         </p>
 
         <p i18n>
-            Type your email to confirm the deletion.
+            Type <strong>{{ userNickname }}</strong> to confirm the deletion.
         </p>
 
-        <form [formGroup]="emailForm">
+        <form [formGroup]="nicknameForm">
             <mat-form-field class="account-delete-form-input">
-                <mat-label i18n>Your email</mat-label>
+                <mat-label i18n>Nickname (confirmation)</mat-label>
                 <input matInput
-                       type="email"
-                       formControlName="email"
+                       type="text"
+                       formControlName="nickname"
                        required />
-                @if (emailForm.controls["email"].hasError('required')) {
-                    <mat-error i18n>Email is required</mat-error>
-                } @else if (emailForm.controls["email"].hasError('email')) {
-                    <mat-error i18n>Invalid email</mat-error>
-                } @else if (emailForm.controls["email"].hasError('emailMismatch')) {
-                    <mat-error i18n>Enter your account's email</mat-error>
+                @if (nicknameForm.controls["nickname"].hasError('required')) {
+                    <mat-error i18n>Confirmation is required</mat-error>
+                } @else if (nicknameForm.controls["nickname"].hasError('minLength')) {
+                    <mat-error i18n>Confirmation is required</mat-error>
+                } @else if (nicknameForm.controls["nickname"].hasError('nicknameMismatch')) {
+                    <mat-error i18n>Enter your account's nickname</mat-error>
                 }
             </mat-form-field>
 
@@ -43,7 +43,7 @@
                         color="warn"
                         i18n
                         (click)="onDeleteAccount()"
-                        [disabled]="emailForm.invalid">
+                        [disabled]="nicknameForm.invalid">
                     Delete account
                 </button>
             </mat-dialog-actions>

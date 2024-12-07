@@ -14,6 +14,7 @@ import QueueTaskSseReport from "@app/models/task-queue/queue-task-sse-report.mod
 import QueueTask from "@app/models/task-queue/queue-task.model";
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import QueueTaskPayload from "@app/models/task-queue/queue-task-payload.model";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
     selector: 'app-download-modal',
@@ -22,7 +23,8 @@ import QueueTaskPayload from "@app/models/task-queue/queue-task-payload.model";
         ActionPendingButtonComponent,
         MaterialModule,
         KeyValuePipe,
-        UpperCasePipe
+        UpperCasePipe,
+        MatTooltip
     ],
     templateUrl: './ebook-file-download-modal.component.html',
     styleUrl: './ebook-file-download-modal.component.scss'
@@ -55,12 +57,12 @@ export class EbookFileDownloadModalComponent implements OnInit {
     smallScreen: boolean = false;
 
     constructor(@Inject(MAT_DIALOG_DATA) public ebookFile: EbookFile,
-                @Inject(MatDialogRef) private dialogRef: MatDialogRef<EbookFileDownloadModalComponent>,
-                private ebookFileService: EbookFileService,
-                private notificationService: NotificationService,
-                private fileDownloadService: FileDownloadService,
-                private queueTaskTrackingService: QueueTaskTrackingService,
-                private breakpointObserver: BreakpointObserver) {
+                @Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<EbookFileDownloadModalComponent>,
+                private readonly ebookFileService: EbookFileService,
+                private readonly notificationService: NotificationService,
+                private readonly fileDownloadService: FileDownloadService,
+                private readonly queueTaskTrackingService: QueueTaskTrackingService,
+                private readonly breakpointObserver: BreakpointObserver) {
     }
 
     ngOnInit() {
@@ -127,6 +129,9 @@ export class EbookFileDownloadModalComponent implements OnInit {
                 this.ongoingActionItem = null;
                 this.availableFormats = this.availableFormats.filter(f => f !== format);
                 this.otherFormats.push(format);
+                if (format === EbookFormat.PDF) {
+                    this.ebookFile.public = false;
+                }
                 this.modalDirty = true;
             },
             error: this.handleError.bind(this)

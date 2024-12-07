@@ -1,6 +1,6 @@
 import EbookDownloadableResource from "../ebook/ebook-downloadable-resource.model";
 import EbookFormat from "../ebook/ebook-format.enum";
-import EbookFileLock from "../ebook/ebook-file-lock.model";
+import EbookEditLock from "@app/models/ebook/ebook-edit-lock";
 
 export default interface EbookFile {
     id?: string;
@@ -15,7 +15,7 @@ export default interface EbookFile {
     favorite: boolean;
     public: boolean;
     conversionSourceFormat?: EbookFormat;
-    editLock?: EbookFileLock;
+    editLock?: EbookEditLock;
     downloadableFiles?: EbookDownloadableResource[];
     totalSizeBytes?: number;
 }

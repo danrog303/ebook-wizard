@@ -44,11 +44,12 @@ import {
 } from "@app/components/pages/ebook-page/modals/files/folder-modal/folder-modal.component";
 import EbookFolder from "@app/models/ebook/ebook-folder.model";
 import {firstValueFrom} from "rxjs";
+import {BadgeComponent} from "@app/components/common/badge/badge.component";
 
 @Component({
     selector: 'app-ebook-page-files-section',
     standalone: true,
-    imports: [MaterialModule, NgOptimizedImage, CommonModule, EbookFileDetailsComponent, ReactiveFormsModule, FormsModule, RouterLink],
+    imports: [MaterialModule, NgOptimizedImage, CommonModule, EbookFileDetailsComponent, ReactiveFormsModule, FormsModule, RouterLink, BadgeComponent],
     templateUrl: './ebook-page-files-section.component.html',
     styleUrl: './ebook-page-files-section.component.scss'
 })
@@ -69,11 +70,11 @@ export class EbookPageFilesSectionComponent implements AfterContentInit, AfterVi
     ebookFolders: EbookFolder[] = [];
     activeFolder: string | null = null;
 
-    constructor(private ebookFileService: EbookFileService,
-                private notificationService: NotificationService,
-                private dialogService: MatDialog,
-                private router: Router,
-                private activatedRoute: ActivatedRoute) {
+    constructor(private readonly ebookFileService: EbookFileService,
+                private readonly notificationService: NotificationService,
+                private readonly dialogService: MatDialog,
+                private readonly router: Router,
+                private readonly activatedRoute: ActivatedRoute) {
     }
 
     ngAfterViewInit() {
@@ -237,7 +238,7 @@ export class EbookPageFilesSectionComponent implements AfterContentInit, AfterVi
     }
 
     openShareModal(ebookFile: EbookFile) {
-        const modalRef = this.dialogService.open(EbookFileShareModalComponent, {
+        this.dialogService.open(EbookFileShareModalComponent, {
             autoFocus: false,
             data: ebookFile
         });
@@ -315,7 +316,7 @@ export class EbookPageFilesSectionComponent implements AfterContentInit, AfterVi
             }
 
             if (this.sortBy === 'sort_author' && a.hasOwnProperty('author') && b.hasOwnProperty('author')) {
-                return a.author!.localeCompare(b.author!);
+                return a.author.localeCompare(b.author);
             }
 
             return 0;

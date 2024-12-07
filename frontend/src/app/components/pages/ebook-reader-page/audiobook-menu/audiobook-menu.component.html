@@ -1,3 +1,20 @@
+@if (!audiobookServiceAvailable) {
+    <div class="audiobook-menu">
+        <p><strong i18n>Audiobook service</strong></p>
+        <p i18n>is available only for authenticated users.</p>
+
+        <div class="login-buttons">
+            <button mat-flat-button color="primary" [routerLink]="'/auth/register'">
+                <mat-icon>login</mat-icon>
+                <ng-container i18n>Register now</ng-container>
+            </button>
+
+            <button mat-button color="primary" [routerLink]="'/auth/login'">
+                <ng-container i18n>Or, log in here</ng-container>
+            </button>
+        </div>
+    </div>
+}
 @if (loadingLanguagesList === LoadingStatus.LOADING) {
     <mat-spinner mode="indeterminate" [diameter]="24"></mat-spinner>
 } @else if (loadingLanguagesList === LoadingStatus.LOADED) {

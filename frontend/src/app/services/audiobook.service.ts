@@ -7,7 +7,7 @@ import environment from "@env/environment";
     providedIn: 'root'
 })
 export class AudiobookService {
-    constructor(private http: HttpClient) {}
+    constructor(private readonly http: HttpClient) {}
 
     /**
      * Synthesizes speech from text using the specified voice.

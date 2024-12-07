@@ -1,6 +1,6 @@
-interface EbookFileLock {
+interface EbookEditLock {
     isLocked: boolean;
     lockExpirationDate?: Date;
 }
 
-export default EbookFileLock;
+export default EbookEditLock;

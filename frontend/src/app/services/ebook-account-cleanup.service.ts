@@ -5,7 +5,7 @@ import {firstValueFrom} from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export default class EbookAccountCleanupService {
-    constructor(private httpClient: HttpClient) {
+    constructor(private readonly httpClient: HttpClient) {
     }
 
     public async cleanupAccount() {

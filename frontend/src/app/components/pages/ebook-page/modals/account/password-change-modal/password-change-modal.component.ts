@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {MatDialogRef, MatDialogTitle} from "@angular/material/dialog";
+import {MatDialogRef} from "@angular/material/dialog";
 import MaterialModule from "@app/modules/material.module";
 import {CommonModule} from "@angular/common";
 import AuthenticationService from "@app/services/authentication.service";
@@ -41,9 +41,9 @@ export class PasswordChangeModalComponent {
     hideNewPassword = true;
     hideNewPasswordRepeat = true;
 
-    constructor(@Inject(MatDialogRef) private dialogRef: MatDialogRef<PasswordChangeModalComponent>,
-                private authService: AuthenticationService,
-                private notificationService: NotificationService) {
+    constructor(@Inject(MatDialogRef) private readonly dialogRef: MatDialogRef<PasswordChangeModalComponent>,
+                private readonly authService: AuthenticationService,
+                private readonly notificationService: NotificationService) {
     }
 
     async onPasswordChangeFormSubmitted() {

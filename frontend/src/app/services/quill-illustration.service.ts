@@ -1,8 +1,6 @@
 import environment from "@env/environment";
 import EbookProjectIllustration from "@app/models/ebook-project/ebook-project-illustration.model";
 import Quill from "quill";
-import {inject} from "@angular/core";
-import NotificationService from "@app/services/notification.service";
 
 export let ebookProjectIdForQuill = {
     value: ""

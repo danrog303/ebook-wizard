@@ -16,7 +16,7 @@ export class DiskUsageDisplayComponent implements OnInit {
 
     usagePercentage: number | null = null;
 
-    constructor(private diskUsageService: DiskUsageService,
+    constructor(private readonly diskUsageService: DiskUsageService,
                 public stringUtils: StringUtilsService) {
     }
 

@@ -13,11 +13,11 @@
         </mat-list>
 
         <div class="main-navbar-side-menu-actions">
-            @if ((authenticationService.$isUserAuthenticated | async) == true) {
+            @if (userAuthenticated === true) {
                 <div>
                     <app-logout-button />
                 </div>
-            } @else {
+            } @else if (userAuthenticated === false){
                 <div>
                     <button mat-button color="primary" routerLink="/auth/login" i18n>Sign in</button>
                 </div>
@@ -27,7 +27,7 @@
                 </div>
             }
 
-            @if ((authenticationService.$isUserAuthenticated | async) == true) {
+            @if (userAuthenticated === true) {
                 <div>
                     <button mat-raised-button color="primary" routerLink="/ebook" i18n>Open disk</button>
                 </div>
@@ -63,10 +63,10 @@
         <div class="main-navbar-actions">
             <app-language-picker />
 
-            @if ((authenticationService.$isUserAuthenticated | async) == true) {
+            @if (userAuthenticated === true) {
                 <app-logout-button />
                 <button mat-raised-button color="primary" routerLink="/ebook" i18n>Open disk</button>
-            } @else {
+            } @else if (userAuthenticated === false) {
                 <button mat-button color="primary" routerLink="/auth/login" i18n>Sign in</button>
                 <button mat-button color="primary" routerLink="/auth/register" i18n>Register now</button>
             }
