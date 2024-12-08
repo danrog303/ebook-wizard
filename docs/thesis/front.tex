@@ -1,0 +1,173 @@
+% *************** Front matter ***************
+
+% ************************************************************
+% W tym miejscu mo¿esz zdefiniowaæ wygl¹d strony tytu³owej
+% Mo¿esz tak¿e zdefiniowaæ dedykacjê albo wy³¹czyæ j¹
+% ************************************************************
+
+% *************** Strona tytu³owa ***************
+\pagestyle{empty}
+\pagenumbering{arabic}
+\hyphenpenalty=10000 % Wyłącza automatyczne dzielenie słów
+\exhyphenpenalty=10000 % Wyłącza dzielenie słów z myślnikami
+\sloppy
+
+
+
+\noindent
+%\hspace*{-3cm}
+%\vspace*{-4cm}\vspace*{-4cm}
+%\includegraphics[width=0.7\textwidth]{img/logo_2}
+%\begin{figure}[htb]
+	
+	%\caption{}
+	%\label{fig:logo}
+%\end{figure}
+%\vspace*{1.5cm}
+
+
+
+
+\AddToShipoutPictureBG*{
+	\AtPageUpperLeft{\raisebox{-\height}{
+		\includegraphics[height=0.23\paperwidth]{img/logo_2}
+	}
+}}
+
+
+	
+
+   
+  
+  
+\vspace*{4cm}
+
+\begin{tabular}{l}
+ \HUGE PRACA DYPLOMOWA \\
+ \HUGE INŻYNIERSKA\\
+ \LARGE
+na kierunku informatyka stosowana\\
+\end{tabular}
+
+\vfill
+
+
+	\begin{tabular}{p{15cm}}
+		\Large\bfseries
+		\textbf{Projekt i implementacja aplikacji webowej umożliwiającej tworzenie, edytowanie i konwertowanie e-booków}\\
+		\\
+		\large\bfseries
+		\textbf{Design and implementation of a web application for e-books creation, editing and conversion}\\
+	\end{tabular}
+   
+
+\vfill
+\begin{tabular}{l}
+\Large Daniel Rogowski\\
+Numer albumu: 118843\\
+\\
+\\
+Promotor: dr inż. Piotr Grad\\
+\\
+    Bydgoszcz, grudzień 2024\\ %\today\\
+\end{tabular}
+
+\cleardoublepage
+
+% *************** Dedykacja ***************
+%\vspace*{\fill}
+%{\hfill\sffamily\itshape ...}
+%\cleardoublepage
+
+% *************** Spis treci ***************
+
+%\pagestyle{headings}
+%\addtocounter{page}{1}
+%\setcounter{page}{2}
+
+
+\pagestyle{plain}
+\scriptsize
+
+\section*{Metryka pracy dyplomowej}
+\subsubsection*{Dane ogólne}
+\begin{tabular}{p{3cm}p{12cm}}
+Nazwa Uczelni & Politechnika Bydgoska im. Jana i Jędrzeja Śniadeckich\\
+Wydział & Telekomunikacji, Informatyki i Elektrotechniki \\
+Kierunek & informatyka stosowana\\
+Tryb studiów & stacjonarne\\
+Dane autora & Daniel Rogowski, nr albumu 118 843\\
+Dane promotora & dr inż. Piotr Grad\\
+\end{tabular}
+
+\subsubsection*{Dane dotyczące pracy dyplomowej}
+\begin{tabular}{p{3cm}p{12cm}}
+Język pracy & język polski [PL] \\
+Tytuł pracy  & Projekt i implementacja aplikacji webowej umożliwiającej tworzenie, edytowanie i konwertowanie e-booków\\
+Opis pracy & Należy przekopiować z systemu APD, jeżeli językiem oryginału jest język polski. Należy przetłumaczyć opis na język polski, jeżeli językiem oryginału jest język angielski.\\
+Typ pracy & inżynierska\\
+Streszczenie  & Tekst streszczenia w języku polskim. Streszczenie pracy dyplomowej (max. pół strony) powinno zawierać omówienie zagadnień poruszanych w pracy. W części tej należy pokrótce scharakteryzować cel oraz podstawowe założenia pracy.\\
+Słowa kluczowe & e-book, Java, TypeScript, Spring, Angular \\
+\end{tabular}
+
+
+%\subsubsection*{Egzamin dyplomowy}
+%\begin{tabular}{p{3cm}p{12cm}}
+%	Z³o¿y³ egzamin \newline dyplomowy w dniu &  ..................................................................................\\
+%	z wynikiem & ..................................................................................\\
+%	Ogólny wynik studiów &  ..................................................................................\\
+%	Dodatkowe wnioski \newline i uwagi Komisji &  ............................................................................................................................ ............................................................................................................................ ............................................................................................................................\\
+%\end{tabular}
+
+
+
+\newpage
+\section*{Diploma thesis record}
+\subsubsection*{General information}
+\begin{tabular}{p{3cm}p{12cm}}
+University name & Bydgoszcz University of Science and Technology\\
+Faculty &  Telecommunications, Computer  Science  
+and Electrical Engineering\\
+Field of study & applied computer science \\
+Mode of study & full-time \\
+Author's information & Daniel Rogowski, student ID 118843 \\
+Supervisor's information & dr inż. Piotr Grad \\
+\end{tabular}
+
+\subsubsection*{Data regarding the diploma thesis}
+\begin{tabular}{p{3cm}p{12cm}}
+Language of thesis & Polish [PL] \\
+Title of thesis & Design and implementation of a web application for e-books creation, editing and conversion \\
+Description  & Copy from the APD system if the original language is English. The description must be translated into English if the original language is Polish.\\
+Type of thesis & Engineer’s \\
+Abstract & The abstract should be written in English and provide a concise summary of the thesis (maximum half a page). It should briefly describe the purpose and basic assumptions of the thesis. \\
+Keywords & e-book, Java, TypeScript, Spring, Angular \\
+\end{tabular}
+
+
+%\subsubsection*{Diploma exam}
+%\begin{tabular}{p{3cm}p{12cm}}
+%	He passed \newline the diploma examination on &  ..................................................................................\\
+%	with result & ..................................................................................\\
+%	Overall result of studies &  ..................................................................................\\
+%	Additional requests \newline and Commission comments &  ............................................................................................................................ ............................................................................................................................ ............................................................................................................................\\
+%\end{tabular}
+
+
+
+
+
+
+
+\normalsize
+%\includepdf[pages={1}]{karta_pracy.pdf}
+
+\clearpage
+
+
+\renewcommand{\baselinestretch}{1.105}\normalsize
+\tableofcontents
+\renewcommand{\baselinestretch}{1.25}\normalsize
+
+%\addtocounter{page}{1}
+% *************** Koniec front matter ***************
